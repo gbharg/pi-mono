@@ -109,3 +109,11 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - PI-17 ✓ E2E smoke test (18/18 passing)
 - PI-19 ✓ Checkpoint before compaction
 - PI-20 ✓ Role-based permission profiles (worker-readonly, worker-full)
+
+### 2026-03-30 — Linear App User Configured (PI-11, PI-12)
+- Pi Agent registered as OAuth app user in Linear (ID: 8c57aa34-d7fd-458e-abd3-056bba630181)
+- Display name: piagent, email: @oauthapp.linear.app
+- App token saved to .pi/.env (gitignored)
+- Can post comments as "Pi Agent", has access to PI and AI teams
+- Webhook key saved for HMAC verification
+- Comment posted on PI-7 as Pi Agent to verify
