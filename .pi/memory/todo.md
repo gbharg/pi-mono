@@ -13,17 +13,18 @@
 - [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight (.pi/scripts/validate-structure.sh)
 - [x] Set up nightly EOD cron (PI-8) — done 2026-03-29 overnight (com.pi-agent.eod-check, 10 PM CT)
 - [x] Set up Linear webhooks (PI-1) — done 2026-03-29 overnight (webhook server + Caddy route + Linear registration)
-- [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight (.pi/scripts/validate-structure.sh)
+- [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight
+- [x] Research orchestration patterns (PI-4) — done 2026-03-29 overnight (~/research-orchestration-patterns.md)
+- [x] Research skill generation (PI-5) — done 2026-03-29 overnight (~/research-skill-generation.md)
+- [x] Built planning skills: /skill:shape and /skill:prd-review — done 2026-03-29 overnight
+- [x] Task reminder cron (every 4 hours) — done 2026-03-29 overnight
 
 ## Scheduled — 2026-03-30 or 2026-03-31
-- [ ] Research orchestration patterns (PI-4) — agent running, review when done
-- [ ] Research skill generation (PI-5) — agent running, review when done
 - [ ] Set up subagent extension properly (/reload) — ETA: 15 min
-- [ ] Review all three research reports and synthesize findings — ETA: 1 hour
-- [ ] Revisit gstack deeper — study structured question patterns for planning skills — ETA: 1 hour
+- [ ] Test /skill:shape and /skill:prd-review on the next project
+- [ ] Synthesize all three research reports into a single findings doc for Gautam
 
 ## Scheduled — this week
-- [ ] Build cron/scheduling system for automated task reminders — ETA: TBD, needs scoping
 - [ ] Weekly save review: full audit of memory files, summaries, and learnings quality (Friday)
 
 ## Daily recurring
