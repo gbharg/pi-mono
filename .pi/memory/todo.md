@@ -11,6 +11,9 @@
 - [x] Document subagent extension install — done 2026-03-29 (.pi/docs/subagent-extension.md)
 
 ## Scheduled — 2026-03-30 or 2026-03-31
+- [ ] Research orchestration patterns — how to effectively manage and coordinate sub-agents — ETA: 1-2 hours
+- [ ] Research skill generation — how to build Pi skills for structured planning workflows — ETA: 1-2 hours
+- [ ] Build memory system Pi extension (reads state on session_start, saves on session_shutdown, compaction nudges) — ETA: 2 hours
 - [ ] Set up subagent extension properly (/reload) — ETA: 15 min
 - [ ] Set up Linear webhooks (PI-1) — ETA: 1-2 hours
 - [ ] Review research report at ~/research-memory-structure.md and share findings — ETA: 30 min
