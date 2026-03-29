@@ -42,6 +42,11 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
 - Documentation at .pi/docs/mcp-bridge.md
 
+### 2026-03-30 — Compaction Extension Deployed
+- /reload executed to activate pi-memory extension (5 files: paths, bootstrap, monitor, checkpoint, index)
+- Auto-compaction disabled via .pi/settings.json
+- Extension now live: loads project state on startup, monitors context %, checkpoints before /compact, custom summaries, shutdown warnings
+
 ### 2026-03-30 — Compaction Extension Build (PI-25)
 - Refactored pi-memory extension from monolith into 5 files: paths.ts, bootstrap.ts, monitor.ts, checkpoint.ts, index.ts
 - Built by 6 parallel sub-agents (one per file), reviewed by 1 review agent
