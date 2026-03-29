@@ -42,6 +42,12 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
 - Documentation at .pi/docs/mcp-bridge.md
 
+### 2026-03-30 — Linear Agent Delegation
+- Pi Agent set as delegate on all 26 completed issues (PI-1 through PI-32)
+- Discovered delegation model: assigneeId = human, delegateId = agent, AgentSessionEvent = spawn trigger
+- Gautam added auto-delegate template — all new issues auto-assign Pi Agent as delegate
+- All assignments route through orchestrator session (no autonomous mode)
+
 ### 2026-03-30 — Compaction Extension Deployed
 - /reload executed to activate pi-memory extension (5 files: paths, bootstrap, monitor, checkpoint, index)
 - Auto-compaction disabled via .pi/settings.json
