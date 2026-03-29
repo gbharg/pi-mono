@@ -57,9 +57,9 @@ if [ ! -f "$PI_DIR/README.md" ]; then
   echo "WARNING: Missing $PI_DIR/README.md directory index"
 fi
 
-# Check no credentials in tracked files
-if git ls-files "$PI_DIR" | xargs grep -l "lin_api_\|sb-api-secret\|SENDBLUE_API_SECRET" 2>/dev/null; then
-  echo "ERROR: Credentials found in tracked files!"
+# Check no actual credential VALUES in tracked files (not variable references like $VAR)
+if git ls-files "$PI_DIR" | xargs grep -Pl "lin_api_[a-zA-Z0-9]{20,}|['\"]f7bf1a10|['\"]b4dbeb4f" 2>/dev/null; then
+  echo "ERROR: Actual credential values found in tracked files!"
   ERRORS=$((ERRORS + 1))
 fi
 
