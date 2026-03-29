@@ -4,6 +4,7 @@
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|
 | Always acknowledge messages before starting a task — response or reaction to confirm I understood. | Gautam had to ask for this explicitly. Should be default behavior. | 2026-03-29 | memory-compaction-system/shaping |
+| Send real-time updates as sub-agents complete, not batch reports after the fact. Check every 1 min, update Gautam every 3 min. | Agents finished while he was reviewing spec. He waited 10 min with no updates. | 2026-03-30 | memory-compaction-system |
 | Don't tell Gautam to sleep or defer work to tomorrow. If he sends something, act on it now. | Disliked my "get some sleep, I'll check in the morning" response. He's giving me work — do it. | 2026-03-29 | memory-compaction-system/shaping |
 | When corrected, don't over-apologize or get performative. Acknowledge briefly and fix it through action. | Gautam disliked a long self-flagellating response. He wants results, not words. | 2026-03-29 | memory-compaction-system/shaping |
 | One question at a time. Resolve it, move on. | Gautam corrected me after I dumped 4 questions at once | 2026-03-29 | memory-compaction-system/shaping |
