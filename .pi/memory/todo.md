@@ -1,8 +1,9 @@
 # Pi To-Do List
 
 ## Scheduled — 2026-03-30 (Sunday)
-- [ ] Study Pi's own codebase — extensions API, skills system, session management, compaction internals
-- [ ] Build memory system Pi extension (reads todo + project state on session_start, compaction nudges, saves on session_shutdown)
+- [ ] Study Pi's own codebase (PI-2) — extensions API, skills system, session management, compaction internals
+- [ ] Build memory system Pi extension (PI-3)
+- [ ] Set up nightly cron for EOD checklist (PI-8) — runs checklist, alerts via iMessage if items unchecked
 - [ ] Message Gautam to build out his profile (organic)
 - [ ] Finalize file structure after Gautam's input on sub-files (when he's ready)
 - [ ] End-of-session save review with Gautam
