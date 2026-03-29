@@ -4,11 +4,10 @@
 Always-on iMessage channel for Pi, using SendBlue API v2 for send/receive via webhook.
 
 ## Credentials
-- SendBlue API Key ID: `f7bf1a10e3f41bad4d4ef944bfc8da6a`
-- SendBlue API Secret: stored in ~/imessage-channel/.env
+- SendBlue credentials: stored in .pi/.env and ~/imessage-channel/.env
 - SendBlue Number: +16292925296
 - Allowed Numbers: +19723637754 (Gautam)
-- Linear API Key: stored in ~/imessage-channel/.env (needs to move to central location)
+- Linear API Key: stored in .pi/.env
 
 ## Architecture
 ```

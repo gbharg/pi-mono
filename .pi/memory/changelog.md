@@ -34,9 +34,16 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Created project index at .pi/projects/index.md
 - Saved Linear API key to ~/imessage-channel/.env
 
+### Overnight Work (while Gautam sleeps)
+- Built pi-memory extension at ~/.pi/agent/extensions/pi-memory/ (loads todo, project state, identity on session_start; compaction nudges on turn_end; EOD reminder on shutdown)
+- Created nightly EOD check cron (com.pi-agent.eod-check, runs 10 PM CT, alerts via iMessage if items unchecked)
+- Created .pi/scripts/validate-structure.sh (validates directory structure, catches credentials in tracked files)
+- Created .pi/scripts/eod-check.sh (nightly automated checklist)
+- Removed credentials from tracked documentation files
+
 ### Credentials
 - Created .pi/.env (gitignored) as central credential store
-- Contains: LINEAR_API_KEY, SENDBLUE_API_KEY_ID, SENDBLUE_API_SECRET_KEY, SENDBLUE_OWN_NUMBER
+- Contains: Linear, SendBlue, and GitHub credentials (see .pi/.env for details)
 - GitHub token managed by gh CLI at ~/.config/gh/hosts.yml
 
 ### Caddy Configuration
