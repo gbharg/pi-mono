@@ -6,9 +6,9 @@
 - [ ] Set and agree on goals for the day (first interaction)
 - [ ] End-of-session save review with Gautam
 
-## Scheduled — 2026-03-30 (priority)
-- [ ] Document SendBlue channel setup (ports, creds, Caddy routing, launchd, webhook URL, Pi extension) — ETA: 30 min
-- [ ] Document subagent extension install (symlinks, agent definitions, prompts, how to spawn research) — ETA: 15 min
+## Completed — 2026-03-29
+- [x] Document SendBlue channel setup — done 2026-03-29 (.pi/docs/sendblue-channel.md)
+- [x] Document subagent extension install — done 2026-03-29 (.pi/docs/subagent-extension.md)
 
 ## Scheduled — 2026-03-30 or 2026-03-31
 - [ ] Set up subagent extension properly (/reload) — ETA: 15 min
