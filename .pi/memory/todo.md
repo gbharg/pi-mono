@@ -8,4 +8,8 @@
 - [ ] Set up Linear webhooks (PI-1)
 - [ ] Review research report at ~/research-memory-structure.md and share relevant findings
 - [ ] Set and agree on tomorrow's goals
-- [ ] Rewrite session summary with three layers (status, narrative, commitments)
+- [x] Rewrite session summary with three layers (status, narrative, commitments) — done 2026-03-29
+
+## Daily recurring
+- [ ] End-of-session save review: walk through what gets saved, verify quality with Gautam (daily until nailed)
+- [ ] Weekly save review: full audit of memory files, summaries, and learnings quality
