@@ -19,6 +19,12 @@
 | Constraints can be features. | Sequential iMessage forces focus and conciseness | 2026-03-29 | memory-compaction-system/shaping |
 | Verify claims before stating them as fact. | Said SendBlue doesn't support threading without checking docs | 2026-03-29 | memory-compaction-system/shaping |
 
+## Sub-Agent Management
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Minimize scope per agent. One file per agent, minimal context, no awareness of siblings. | Gautam: "the more complex their task list, the greater the risk of bugs." Free to spawn many, each with narrow scope. | 2026-03-30 | memory-compaction-system |
+| Don't give sub-agents project context they don't need. Just the specific spec for their file. | Easy to verify, easy to review. Agent doesn't need to know about the broader project. | 2026-03-30 | memory-compaction-system |
+
 ## Discipline
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|
