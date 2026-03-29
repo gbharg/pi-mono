@@ -11,6 +11,6 @@ repo: gbharg/pi-mono
 # Memory & Compaction System
 
 ## Current Phase: Shaping
-## Progress: Core design decisions locked, file structure v1 drafted (needs simplification)
-## Blockers: Linear API access needed for sync setup
-## Next: Finalize file structure after Gautam reviews, then write PRD
+## Progress: 10 core decisions locked, file structure v1 drafted, Linear project created, research complete
+## Blockers: File structure needs simplification (Gautam sleeping on it)
+## Next: Finalize file structure → complete PRD → begin spec
