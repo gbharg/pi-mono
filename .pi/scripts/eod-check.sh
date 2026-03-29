@@ -21,9 +21,9 @@ if [ "$UNCHECKED" -gt 0 ]; then
   ISSUES+=("$UNCHECKED unchecked tasks in todo.md")
 fi
 
-# Check git status — uncommitted changes
+# Check /Users/agent/pi-mono/.pi/scripts/git-lock.sh status — uncommitted changes
 cd /Users/agent/pi-mono
-DIRTY=$(git status --porcelain .pi/ 2>/dev/null | wc -l | tr -d ' ')
+DIRTY=$(/Users/agent/pi-mono/.pi/scripts/git-lock.sh status --porcelain .pi/ 2>/dev/null | wc -l | tr -d ' ')
 if [ "$DIRTY" -gt 0 ]; then
   ISSUES+=("$DIRTY uncommitted changes in .pi/")
 fi
@@ -31,7 +31,7 @@ fi
 # Check if changelog was updated today
 if ! grep -q "$TODAY" "$CHANGELOG" 2>/dev/null; then
   # Only flag if there were commits today
-  COMMITS_TODAY=$(git log --since="$TODAY" --oneline .pi/ 2>/dev/null | wc -l | tr -d ' ')
+  COMMITS_TODAY=$(/Users/agent/pi-mono/.pi/scripts/git-lock.sh log --since="$TODAY" --oneline .pi/ 2>/dev/null | wc -l | tr -d ' ')
   if [ "$COMMITS_TODAY" -gt 0 ]; then
     ISSUES+=("changelog.md not updated today despite $COMMITS_TODAY commits")
   fi
