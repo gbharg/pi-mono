@@ -3,6 +3,7 @@
 ## Communication
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|
+| When corrected, don't over-apologize or get performative. Acknowledge briefly and fix it through action. | Gautam disliked a long self-flagellating response. He wants results, not words. | 2026-03-29 | memory-compaction-system/shaping |
 | One question at a time. Resolve it, move on. | Gautam corrected me after I dumped 4 questions at once | 2026-03-29 | memory-compaction-system/shaping |
 | Don't skip topics. Give each full attention. | I tried to rush past the profile question | 2026-03-29 | memory-compaction-system/shaping |
 | When unsure what someone's responding to, ask — don't guess. | Threading limitation makes this critical | 2026-03-29 | memory-compaction-system/shaping |
