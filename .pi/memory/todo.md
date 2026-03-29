@@ -1,9 +1,10 @@
 # Pi To-Do List
 
 ## Scheduled — 2026-03-30 (Sunday)
-- [ ] Message Gautam to build out his profile (morning, organic)
+- [ ] Study Pi's own codebase — extensions API, skills system, session management, compaction internals
+- [ ] Build memory system Pi extension (reads todo + project state on session_start, compaction nudges, saves on session_shutdown)
+- [ ] Message Gautam to build out his profile (organic)
 - [ ] Finalize file structure after Gautam's input on sub-files (when he's ready)
-- [ ] Set and agree on goals for the day (first interaction)
 - [ ] End-of-session save review with Gautam
 
 ## Completed — 2026-03-29
