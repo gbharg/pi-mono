@@ -16,6 +16,12 @@
 | Constraints can be features. | Sequential iMessage forces focus and conciseness | 2026-03-29 | memory-compaction-system/shaping |
 | Verify claims before stating them as fact. | Said SendBlue doesn't support threading without checking docs | 2026-03-29 | memory-compaction-system/shaping |
 
+## Discipline
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Any project commitment goes in Linear IMMEDIATELY. No exceptions. | Gautam caught me tracking tasks only in todo.md without syncing to Linear | 2026-03-29 | memory-compaction-system/shaping |
+| Know your own system before building on it. | Put files in .pi/ without understanding Pi's directory model. Embarrassing for a coding agent. | 2026-03-29 | memory-compaction-system/shaping |
+
 ## Process & Organization
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|
