@@ -1,9 +1,6 @@
 # Pi To-Do List
 
 ## Scheduled — 2026-03-30 (Sunday)
-- [ ] Study Pi's own codebase (PI-2) — extensions API, skills system, session management, compaction internals
-- [ ] Build memory system Pi extension (PI-3)
-- [ ] Set up nightly cron for EOD checklist (PI-8) — runs checklist, alerts via iMessage if items unchecked
 - [ ] Message Gautam to build out his profile (organic)
 - [ ] Finalize file structure after Gautam's input on sub-files (when he's ready)
 - [ ] End-of-session save review with Gautam
@@ -11,6 +8,10 @@
 ## Completed — 2026-03-29
 - [x] Document SendBlue channel setup — done 2026-03-29 (.pi/docs/sendblue-channel.md)
 - [x] Document subagent extension install — done 2026-03-29 (.pi/docs/subagent-extension.md)
+- [x] Study Pi codebase (PI-2) — done 2026-03-29 overnight (extensions, skills, compaction, sessions, settings)
+- [x] Build memory system Pi extension (PI-3) — done 2026-03-29 overnight (~/.pi/agent/extensions/pi-memory/)
+- [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight (.pi/scripts/validate-structure.sh)
+- [x] Set up nightly EOD cron (PI-8) — done 2026-03-29 overnight (com.pi-agent.eod-check, 10 PM CT)
 
 ## Scheduled — 2026-03-30 or 2026-03-31
 - [ ] Set up GitHub validation checks for .pi/ directory structure (PI-6) — ETA: 1 hour
