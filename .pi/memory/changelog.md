@@ -1,0 +1,39 @@
+# Pi Changelog
+
+All changes to Pi's configuration, extensions, memory system, and infrastructure.
+
+## 2026-03-29
+
+### iMessage Channel Setup
+- Installed SendBlue webhook server at ~/imessage-channel/ (Express on port 3001)
+- Configured Caddy reverse proxy: :8443/sendblue/* → localhost:3001
+- Configured Tailscale Funnel: gautams-imac.tail053faf.ts.net:8443 → Caddy
+- Created launchd plist: com.imessage-channel (KeepAlive, RunAtLoad)
+- Built Pi extension at ~/.pi/agent/extensions/imessage-channel/ (polls inbox, injects messages, registers imessage_reply/react/history tools)
+- SendBlue number: +16292925296, target: +19723637754
+
+### Subagent Extension
+- Symlinked subagent extension from pi-mono examples to ~/.pi/agent/extensions/subagent/
+- Symlinked agent definitions (scout, planner, reviewer, worker) to ~/.pi/agent/agents/
+- Symlinked workflow prompts (implement, scout-and-plan, implement-and-review) to ~/.pi/agent/prompts/
+- Created custom researcher.md agent (Opus 4.6, for background research tasks)
+
+### Memory System
+- Created ~/.pi/memory/gautam.md — Gautam's personality profile
+- Created ~/.pi/memory/pi.md — Pi's identity and personality
+- Created ~/.pi/memory/preferences.md — Gautam's working style and expectations
+- Created ~/.pi/memory/learnings.md — categorized learnings with session references
+- Created ~/.pi/memory/todo.md — scheduled commitments ledger
+- Created ~/.pi/memory/changelog.md — this file
+
+### Project Infrastructure
+- Created branch: project/memory-compaction-system on gbharg/pi-mono
+- Created Linear project: Memory & Compaction System (PI team)
+- Created Linear issue: PI-1 (Set up Pi as Linear app for webhooks)
+- Created project folder at .pi/projects/memory-compaction-system/ with state, context, prd, decisions, session summary
+- Created project index at .pi/projects/index.md
+- Saved Linear API key to ~/imessage-channel/.env
+
+### Caddy Configuration
+- Added /sendblue/* route to Caddyfile at ~/openclaw/tools/poke-mcp/Caddyfile (no auth, bypasses Bearer token requirement)
+- Added bind 127.0.0.1 to avoid conflict with Tailscale Funnel port binding
