@@ -1,45 +1,30 @@
 # Decisions Log — Memory & Compaction System
 
-## 2026-03-29 — Initial shaping session (iMessage)
+## Memory Architecture
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| One unified system for compaction + restart recovery | From Gautam's perspective, context loss is context loss regardless of cause. Hide the implementation detail. | 2026-03-29 | shaping |
+| Project-based organization (not days, not decisions) | Projects have natural lifecycles and map to Linear, branches, PRs. | 2026-03-29 | shaping |
+| Embedded project folders (all artifacts together) | One folder = complete picture. Separated structure fragments context. | 2026-03-29 | shaping |
+| Save both structured (what) and narrative (why) | A decision without rationale is useless after compaction — won't know if it still applies. | 2026-03-29 | shaping |
 
-### D1: Unified memory system
-- **Decision**: One system for both compaction and restart recovery
-- **Why**: From Gautam's perspective, context loss is context loss regardless of cause. Implementation detail should be hidden.
+## Compaction
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Pi owns compaction — hooks are nudges, not triggers | Mechanical triggers fire at wrong time. Agent judgment produces better summaries. | 2026-03-29 | shaping |
+| Target 30%, soft ceiling 50%, priority ceiling 60% | Compaction is about decision quality, not token savings. Bloated context degrades planning. | 2026-03-29 | shaping |
+| 60% is top priority, not forced | Even under pressure, a deliberate summary is better than an auto-generated one. | 2026-03-29 | shaping |
 
-### D2: Project-based organization
-- **Decision**: Memory organized around projects, not days or individual decisions
-- **Why**: Projects have natural lifecycles (plan → execute → ship → close) and map cleanly to Linear, branches, and PRs.
+## Planning & Workflow
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Planning stages build into output docs, not separate files | Brief → scope → design → eng requirements all accumulate into PRD. Separate files = duplication. | 2026-03-29 | shaping |
+| Structured interactive questions per stage (gstack pattern) | Ad-hoc planning leads to skipped topics. Structured questions ensure systematic coverage. | 2026-03-29 | shaping |
+| Living documentation maintained in real-time | "Document later" creates debt. Real-time docs are cheap when doing the work. | 2026-03-29 | shaping |
 
-### D3: Embedded project structure
-- **Decision**: All artifacts in one project folder, not separated by type
-- **Why**: Opening one folder should give the complete picture. Separated structure fragments context.
-
-### D4: Compaction ownership
-- **Decision**: Pi (me) owns compaction decisions. Hooks are nudges, not triggers.
-- **Why**: Mechanical triggers can fire at the wrong time. Agent judgment on what to keep/drop produces better summaries.
-- **Thresholds**: Target 30%, soft ceiling 50%, priority ceiling 60%
-- **At 60%**: Top priority to compact, but still my call on the summary
-
-### D5: Linear as Gautam's source of truth
-- **Decision**: Linear and local files mirror each other. Sync is the gate between planning and execution.
-- **Why**: Gautam can't ls the file system. Linear is his window. Neither system should have state the other doesn't.
-
-### D6: Stages build on each other
-- **Decision**: Planning stages accumulate into output docs (PRD grows through brief → scope → design → eng). Not one file per stage.
-- **Why**: Separate files per stage creates duplication and fragmentation.
-
-### D7: Living documentation
-- **Decision**: Stack, architecture, file structure, testing/deployment docs maintained in real-time during execution.
-- **Why**: "Document later" creates debt. Real-time docs are cheap when you're already doing the work.
-
-### D8: Review/retro closes the loop
-- **Decision**: Every project ends with a review doc. Learnings flow to cross-project memory.
-- **Why**: Without it, learnings die with the session or compaction.
-
-### D9: Compaction is about decision quality
-- **Decision**: Compaction exists to keep Pi sharp, not to save tokens.
-- **Why**: Bloated context degrades planning quality, which multiplies downstream into every agent Pi directs.
-
-### D10: Structured planning questions
-- **Decision**: Each planning stage should use 10-15 structured interactive questions with options, trade-offs, and recommendations (gstack pattern).
-- **Why**: Ad-hoc planning leads to skipped topics and jumping around. Structured questions ensure systematic coverage.
+## Orchestration & Sync
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Linear = Gautam's source of truth, files = agent team's | Gautam can't ls the file system. Linear is his window. Both must mirror. | 2026-03-29 | shaping |
+| Syncing to Linear is the gate between planning and execution | Plan isn't done until it's in both places. | 2026-03-29 | shaping |
+| Review/retro closes every project, learnings flow to cross-project memory | Without it, learnings die with the session or compaction. | 2026-03-29 | shaping |
