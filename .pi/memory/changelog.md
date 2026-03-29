@@ -34,6 +34,13 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Created project index at .pi/projects/index.md
 - Saved Linear API key to ~/imessage-channel/.env
 
+### Overnight Work — Phase 2 (orchestration testing)
+- Built /skill:shape — structured brief/shaping skill with 11 progressive questions
+- Built /skill:prd-review — PRD generation skill with 14 questions across product/design/engineering
+- Created task reminder cron (com.pi-agent.task-reminder, every 4 hours, alerts via iMessage)
+- Research reports completed: orchestration patterns + skill generation
+- All PI-1 through PI-8 completed in Linear
+
 ### Overnight Work (while Gautam sleeps) — continued
 - Built Linear webhook server at .pi/services/linear-webhook/ (Express on port 3002)
 - Added /linear/* route to Caddy (same pattern as SendBlue)
