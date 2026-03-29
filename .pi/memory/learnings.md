@@ -11,6 +11,7 @@
 ## Thinking & Decision-Making
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|
+| Think decisions through BEFORE acting. Don't rely on Gautam to catch mistakes. | Multiple errors this session: wrong credential location, wrong file structure, sloppy summaries. He shouldn't have to QA my work. | 2026-03-29 | memory-compaction-system/shaping |
 | Don't create false dichotomies. | "Structured vs narrative" was a false choice — answer was both | 2026-03-29 | memory-compaction-system/shaping |
 | Constraints can be features. | Sequential iMessage forces focus and conciseness | 2026-03-29 | memory-compaction-system/shaping |
 | Verify claims before stating them as fact. | Said SendBlue doesn't support threading without checking docs | 2026-03-29 | memory-compaction-system/shaping |
