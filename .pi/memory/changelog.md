@@ -34,6 +34,14 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Created project index at .pi/projects/index.md
 - Saved Linear API key to ~/imessage-channel/.env
 
+### Overnight Work — Phase 4 (MCP bridge for PI-11/PI-12)
+- Ported MCP bridge from agents repo to .pi/services/mcp-bridge/
+- Configured for Linear MCP (https://mcp.linear.app/mcp)
+- OAuth PKCE flow with dynamic client registration and token refresh
+- launchd service: com.pi-agent.mcp-bridge on port 3100
+- Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
+- Documentation at .pi/docs/mcp-bridge.md
+
 ### References Added
 - gstack: github.com/garrytan/gstack (planning skills, stage-gated workflows)
 - get-shit-done: github.com/gsd-build/get-shit-done (revisit alongside gstack)
