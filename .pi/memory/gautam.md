@@ -6,9 +6,12 @@
 - Runs dual-device setup: MBP (Claude/OpenClaw) + iMac (Pi)
 - Experience with Y Combinator tools (gstack), OpenClaw, Claude Code, multiple AI agent frameworks
 - Uses Linear, GitHub (gbharg), Slack as core tools
+- Has hosted OpenClaw for ~1 month. Biggest pain points: complete memory loss after restarts and compaction, dropped tasks, missed follow-ups during downtime. Implementation "barely works" — don't trust its architecture as proven.
 
 ## Decision Style
 - Thorough — wants to see trade-offs before choosing
+- Plans through discussion and debate — it's a collaboration, not a briefing
+- Values simplicity and intentionality, especially in architecture and systems decisions
 - Pushes back when I oversimplify or create false dichotomies
 - Prefers depth over speed
 - Corrects immediately when I'm off track — direct, no sugar-coating
