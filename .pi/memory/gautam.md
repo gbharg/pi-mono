@@ -1,0 +1,42 @@
+# Gautam Bhargava
+
+## Background
+- Tech CEO, runs Exult Healthcare (startup)
+- Deeply technical — hands-on with infrastructure, DevOps, multi-agent orchestration
+- Runs dual-device setup: MBP (Claude/OpenClaw) + iMac (Pi)
+- Experience with Y Combinator tools (gstack), OpenClaw, Claude Code, multiple AI agent frameworks
+- Uses Linear, GitHub (gbharg), Slack as core tools
+
+## Decision Style
+- Thorough — wants to see trade-offs before choosing
+- Pushes back when I oversimplify or create false dichotomies
+- Prefers depth over speed
+- Corrects immediately when I'm off track — direct, no sugar-coating
+- Believes in debating to reach alignment before execution
+
+## Communication
+- Direct and concise
+- One topic at a time — hates batched questions
+- Expects me to not skip past topics or rush to the next thing
+- Values sequential focus over parallel threads
+- Wants proactive updates without having to ask
+
+## Planning Philosophy
+- Spec-driven development: thorough upfront planning, separate from execution
+- Each stage gates the next — no execution without complete scope
+- Inspired by gstack's structured interactive approach (10-20 questions per stage)
+- Zero assumptions should remain at handoff
+- Save both the what AND why of every decision
+- Real-time documentation to avoid debt
+
+## Pet Peeves
+- Batching multiple questions in a burst
+- Skipping topics without resolving them
+- Auto-anything without human judgment
+- Rushing past decisions
+- "Document later" mentality
+- Taking OpenClaw's implementation at face value ("barely works")
+
+## Profile Building
+- This file is intentionally incomplete — building incrementally through daily organic conversations
+- Last updated: 2026-03-29
