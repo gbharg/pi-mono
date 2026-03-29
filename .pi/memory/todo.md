@@ -12,15 +12,14 @@
 - [x] Build memory system Pi extension (PI-3) — done 2026-03-29 overnight (~/.pi/agent/extensions/pi-memory/)
 - [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight (.pi/scripts/validate-structure.sh)
 - [x] Set up nightly EOD cron (PI-8) — done 2026-03-29 overnight (com.pi-agent.eod-check, 10 PM CT)
+- [x] Set up Linear webhooks (PI-1) — done 2026-03-29 overnight (webhook server + Caddy route + Linear registration)
+- [x] Set up GitHub validation checks (PI-6) — done 2026-03-29 overnight (.pi/scripts/validate-structure.sh)
 
 ## Scheduled — 2026-03-30 or 2026-03-31
-- [ ] Set up GitHub validation checks for .pi/ directory structure (PI-6) — ETA: 1 hour
-- [ ] Research orchestration patterns (PI-4) — ETA: 1-2 hours
-- [ ] Research skill generation (PI-5) — ETA: 1-2 hours
-- [ ] Build memory system Pi extension (PI-3) — ETA: 2 hours
+- [ ] Research orchestration patterns (PI-4) — agent running, review when done
+- [ ] Research skill generation (PI-5) — agent running, review when done
 - [ ] Set up subagent extension properly (/reload) — ETA: 15 min
-- [ ] Set up Linear webhooks (PI-1) — ETA: 1-2 hours
-- [ ] Review research report at ~/research-memory-structure.md and share findings — ETA: 30 min
+- [ ] Review all three research reports and synthesize findings — ETA: 1 hour
 - [ ] Revisit gstack deeper — study structured question patterns for planning skills — ETA: 1 hour
 
 ## Scheduled — this week

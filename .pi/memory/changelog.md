@@ -34,6 +34,16 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Created project index at .pi/projects/index.md
 - Saved Linear API key to ~/imessage-channel/.env
 
+### Overnight Work (while Gautam sleeps) — continued
+- Built Linear webhook server at .pi/services/linear-webhook/ (Express on port 3002)
+- Added /linear/* route to Caddy (same pattern as SendBlue)
+- Created launchd plist: com.pi-agent.linear-webhook (KeepAlive, RunAtLoad)
+- Registered Linear webhook: Issue, Comment, Project events → https://gautams-imac.tail053faf.ts.net:8443/linear/webhook
+- Webhook ID: 3032e329-a88c-488a-b81d-e6ad95229db3
+- Events write to ~/.pi/linear-inbox/ for Pi to process
+- Tested end-to-end: Linear state change → webhook fires → inbox file created
+- PI-1 completed
+
 ### Overnight Work (while Gautam sleeps)
 - Built pi-memory extension at ~/.pi/agent/extensions/pi-memory/ (loads todo, project state, identity on session_start; compaction nudges on turn_end; EOD reminder on shutdown)
 - Created nightly EOD check cron (com.pi-agent.eod-check, runs 10 PM CT, alerts via iMessage if items unchecked)
