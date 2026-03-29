@@ -86,3 +86,13 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 ### Caddy Configuration
 - Added /sendblue/* route to Caddyfile at ~/openclaw/tools/poke-mcp/Caddyfile (no auth, bypasses Bearer token requirement)
 - Added bind 127.0.0.1 to avoid conflict with Tailscale Funnel port binding
+
+### Overnight Work — Phase 5 (code standards implementation)
+- Created .pi/RULES.md from OpenClaw post-mortem (PI-13)
+- Created .pi/AGENT.md system overview
+- Scoped PI-13 into 7 sub-issues (PI-14 through PI-20)
+- PI-14 ✓ Pre-commit validation hook
+- PI-16 ✓ Serialized git access (mkdir-based locking)
+- PI-17 ✓ E2E smoke test (18/18 passing)
+- PI-19 ✓ Checkpoint before compaction
+- PI-20 ✓ Role-based permission profiles (worker-readonly, worker-full)
