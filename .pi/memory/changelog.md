@@ -34,6 +34,11 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Created project index at .pi/projects/index.md
 - Saved Linear API key to ~/imessage-channel/.env
 
+### Credentials
+- Created .pi/.env (gitignored) as central credential store
+- Contains: LINEAR_API_KEY, SENDBLUE_API_KEY_ID, SENDBLUE_API_SECRET_KEY, SENDBLUE_OWN_NUMBER
+- GitHub token managed by gh CLI at ~/.config/gh/hosts.yml
+
 ### Caddy Configuration
 - Added /sendblue/* route to Caddyfile at ~/openclaw/tools/poke-mcp/Caddyfile (no auth, bypasses Bearer token requirement)
 - Added bind 127.0.0.1 to avoid conflict with Tailscale Funnel port binding

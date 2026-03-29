@@ -10,6 +10,7 @@ This is the working directory for Pi, an orchestrator agent running on Gautam's 
 ```
 .pi/
 ├── README.md                    ← You are here
+├── .env                         # Credentials (gitignored) — Linear, SendBlue, etc.
 │
 ├── memory/                      # Cross-project persistent memory
 │   ├── gautam.md                # Gautam's profile (decision style, values, background)
