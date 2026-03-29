@@ -51,11 +51,15 @@ SendBlue Cloud ──webhook──▶ Tailscale Funnel :8443
 | `~/pi-mono/.pi/docs/` | Infrastructure documentation |
 | `~/pi-mono/.pi/skills/` | Planning skills (shape, prd-review) |
 | `~/pi-mono/.pi/services/` | Webhook servers, MCP bridge |
-| `~/pi-mono/.pi/scripts/` | Cron scripts, validation |
+| `~/pi-mono/.pi/scripts/` | Cron scripts, validation, smoke test |
+| `~/pi-mono/.pi/settings.json` | Project-level Pi settings (auto-compaction disabled) |
+| `~/pi-mono/.pi/RULES.md` | Project rules — hard rules, git discipline, process safety |
 | `~/.pi/agent/extensions/` | Pi extensions (imessage-channel, pi-memory, subagent) |
-| `~/.pi/agent/agents/` | Sub-agent definitions (scout, planner, worker, reviewer, researcher) |
+| `~/.pi/agent/extensions/pi-memory/` | Memory system: bootstrap, monitor, checkpoint (5 files) |
+| `~/.pi/agent/agents/` | Sub-agent definitions (scout, planner, worker, worker-full, worker-readonly, reviewer, researcher) |
 | `~/imessage-channel/` | SendBlue webhook server source |
 | `~/.imessage-channel/inbox/` | Inbound message queue (json files, consumed by extension) |
+| `~/.pi/linear-inbox/` | Linear webhook events (json files) |
 
 ## External Integrations
 

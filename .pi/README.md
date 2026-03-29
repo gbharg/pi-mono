@@ -11,6 +11,9 @@ This is the working directory for Pi, an orchestrator agent running on Gautam's 
 .pi/
 ├── README.md                    ← You are here
 ├── .env                         # Credentials (gitignored) — Linear, SendBlue, etc.
+├── settings.json                # Project-level Pi settings (compaction.enabled: false)
+├── RULES.md                     # Project rules — hard rules, git discipline, process safety
+├── AGENT.md                     # System overview — architecture, services, integrations
 │
 ├── memory/                      # Cross-project persistent memory
 │   ├── gautam.md                # Gautam's profile (decision style, values, background)
@@ -55,10 +58,17 @@ This is the working directory for Pi, an orchestrator agent running on Gautam's 
 ```
 ~/.pi/agent/extensions/
 ├── imessage-channel/            # SendBlue iMessage channel (polls inbox, registers tools)
+├── pi-memory/                   # Memory system (5 files: paths, bootstrap, monitor, checkpoint, index)
+│   ├── paths.ts                 # Shared constants + getActiveProject()
+│   ├── bootstrap.ts             # session_start: loads todo, project state, identity, rules
+│   ├── monitor.ts               # turn_end: context % in status bar, nudges at 50/60%
+│   ├── checkpoint.ts            # session_before_compact: checkpoint + custom summary. session_shutdown: dirty check
+│   └── index.ts                 # Entry point, wires modules
 └── subagent/                    # Subagent spawning (symlinked from pi-mono examples)
 
 ~/.pi/agent/agents/              # Subagent definitions
 ├── scout.md, planner.md, reviewer.md, worker.md (symlinked)
+├── worker-full.md, worker-readonly.md (role-based profiles)
 └── researcher.md (custom, Opus 4.6)
 
 ~/.pi/agent/prompts/             # Workflow prompts (symlinked)

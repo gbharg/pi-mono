@@ -42,6 +42,14 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
 - Documentation at .pi/docs/mcp-bridge.md
 
+### 2026-03-30 — Compaction Extension Build (PI-25)
+- Refactored pi-memory extension from monolith into 5 files: paths.ts, bootstrap.ts, monitor.ts, checkpoint.ts, index.ts
+- Built by 6 parallel sub-agents (one per file), reviewed by 1 review agent
+- Reviewer caught 2 high-severity regex bugs (double-escaped markdown/checkbox matchers) + 1 missing timeout — all fixed
+- Created .pi/settings.json with compaction.enabled: false (manual /compact only)
+- Added compaction-extension/ sub-project with plan.md, spec.md, review.md, review-results.md
+- Scoped PI-21 through PI-24 (atomic git, cross-platform CI, duplicate PR detection, regression tests) — not implemented, parked
+
 ### References Added
 - gstack: github.com/garrytan/gstack (planning skills, stage-gated workflows)
 - get-shit-done: github.com/gsd-build/get-shit-done (revisit alongside gstack)
