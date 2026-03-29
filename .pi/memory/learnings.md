@@ -22,3 +22,10 @@
 | Timestamp all file changes. | Enables versioning history and chronology | 2026-03-29 | memory-compaction-system/shaping |
 | Reference sessions in learnings and decisions. | Traceability back to the conversation that produced them | 2026-03-29 | memory-compaction-system/shaping |
 | Organize by category, not chronologically. | Gautam corrected decisions.md and learnings.md — chronological order loses connection | 2026-03-29 | memory-compaction-system/shaping |
+
+## Summaries & Compaction
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Session summaries should be narratives with topic bullets, not structured output lists. | First draft was mechanical. Gautam asked "is that how you'd tell a friend?" | 2026-03-29 | memory-compaction-system/shaping |
+| Optimize every summary for: "if Gautam asked what we did next week, how would I answer?" | This is THE test for summary quality. Not outputs, not pointers — the story. | 2026-03-29 | memory-compaction-system/shaping |
+| Don't strip summaries to just file pointers. | I overcorrected from verbose to useless. The summary must stand alone. | 2026-03-29 | memory-compaction-system/shaping |
