@@ -35,3 +35,5 @@ out.html
 packages/coding-agent/binaries/
 todo.md
 plans/
+.pi/.env
+.pi/services/*/node_modules/
