@@ -1,0 +1,21 @@
+{
+	"repo": "gbharg/pi-mono",
+	"minimumApprovals": 3,
+	"maxUsagePercent": 90,
+	"pollIntervalMs": 30000,
+	"requestReviewers": false,
+	"deployCheckPatterns": ["deploy", "deployment", "vercel"],
+	"ignorePathPrefixes": ["docs/", "plan/"],
+	"nonCodeExtensions": [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"],
+	"githubReviewers": ["gautam-codex", "gautam-claude", "gautam-gemini"],
+	"reviewerHandles": {
+		"codex": ["gautam-codex"],
+		"claude": ["gautam-claude"],
+		"gemini": ["gautam-gemini"]
+	},
+	"dispatchModes": {
+		"codex": "external",
+		"claude": "external",
+		"gemini": "external"
+	}
+}
