@@ -62,6 +62,22 @@
 | Optimize every summary for: "if Gautam asked what we did next week, how would I answer?" | This is THE test for summary quality. Not outputs, not pointers — the story. | 2026-03-29 | memory-compaction-system/shaping |
 | Don't strip summaries to just file pointers. | I overcorrected from verbose to useless. The summary must stand alone. | 2026-03-29 | memory-compaction-system/shaping |
 
+## Extension & Sub-Agent Architecture
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Sub-agents spawned via `pi -p --no-session` load ALL user extensions unless `--no-extensions` is passed. This caused the 30hr outage — iMessage extension's setInterval kept sub-agent processes alive forever, blocking Pi. | Claude (MBP) debugged this. PR #2465 upstream changed sub-agent spawning to reuse parent Pi invocation, which started loading extensions in sub-agents. Fix: add `--no-extensions` to spawn args. Both flags needed. | 2026-03-30 | claude-debugging-session |
+| Extensions with `setInterval` or other event-loop-keeping timers MUST call `timer.unref()`. | Defensive best practice. The iMessage extension's 500ms polling timer kept Node.js event loop alive indefinitely in sub-agents. | 2026-03-30 | claude-debugging-session |
+| When upstream merges bring behavioral changes (like how sub-agents spawn), test extension loading immediately. | PR #2465's `getPiInvocation` change was innocuous-looking but catastrophic — changed which extensions loaded in sub-agents. | 2026-03-30 | claude-debugging-session |
+| Don't modify upstream source files in packages/. Fork extensions to .pi/extensions/ or ~/.pi/agent/ instead. | Audit found 5 files in packages/coding-agent/examples/extensions/subagent/ that will conflict on every upstream update. Custom agent prompts already live in ~/.pi/agent/agents/. | 2026-03-30 | claude-debugging-session |
+
+## Memory Hygiene
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Session recovery files must be absorbed into proper memory files, then deleted. Don't let them linger. | session-recovery-20260330.md (142 lines) duplicated content across 5 files. Defragged by Claude (MBP). | 2026-03-30 | claude-mbp/memory-defrag |
+| Enforce memory file budgets. linear-issues-snapshot.md hit 653 lines (3x the 200-line budget) because full issue descriptions were dumped instead of using Linear API. | Compressed to 30-line crash-recovery cache. Linear is the source of truth — don't replicate it in files. | 2026-03-30 | claude-mbp/memory-defrag |
+| `git push` in pi-mono defaults to upstream (badlogic/pi-mono) because main tracks upstream/main. Always use `git push origin main` to push to gbharg's fork. | Push to upstream failed with 403. The tracking config is intentional for pulling upstream changes, but pushes must target origin explicitly. | 2026-03-30 | claude-mbp/memory-defrag |
+| Check .pi/settings.json after any session — compaction.enabled was silently flipped from false to true by an unknown source. | Caught during defrag audit. Restored via git checkout. Auto-compaction must stay disabled per architectural decision. | 2026-03-30 | claude-mbp/memory-defrag |
+
 ## Compaction Failures
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|

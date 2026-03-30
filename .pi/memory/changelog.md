@@ -162,6 +162,18 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Git discipline rules added to worker.md (5 rules) and reviewer.md (verification step + output section)
 - Sub-agents now enforce: conventional branches, conventional commits with Linear refs, no orphan commits
 
+### 2026-03-30 — Memory Defrag by Claude (MBP)
+- Audited all .pi/memory/ and .pi/projects/ files for redundancy and staleness
+- Deleted session-recovery-20260330.md (142 lines absorbed into changelog, decisions, learnings, state)
+- Compressed linear-issues-snapshot.md from 653→30 lines (crash-recovery cache only)
+- Trimmed todo.md from 35→14 lines (Linear-sourced items only, per decision)
+- Fixed stale state.md: corrected sub-agent template status, added guard.ts reference
+- Removed 2 duplicate learnings entries
+- Updated both project context files (linear-integration, memory-compaction-system)
+- Restored .pi/settings.json after compaction.enabled was silently flipped to true
+- Net result: 8 files changed, -783 lines of redundancy removed
+- Committed as ba857e98, pushed to origin/main
+
 ### 2026-03-30 — oh-my-pi (omp) Migration Started (PI-71)
 - Installed omp v13.16.5 via bun
 - 8 bundled agents unpacked (explore, plan, designer, reviewer, task, quick_task, librarian, oracle)

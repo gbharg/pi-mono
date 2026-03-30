@@ -37,16 +37,6 @@ If you're adding a new provider to `packages/ai`, see `AGENTS.md` for required t
 
 pi's core is minimal. If your feature doesn't belong in the core, it should be an extension. PRs that bloat the core will likely be rejected.
 
-## AI-Generated Code Tracking
-
-This project uses [Git AI](docs/GIT_AI.md) to track AI-generated code and conversations:
-
-- **Before reviewing**: `git-ai search --commit <sha>` to understand AI involvement
-- **Continue work**: `git-ai continue --commit <sha>` to restore AI context
-- **PR reviews**: Check AI context when reviewing AI-assisted code
-
-See the [Git AI guide](docs/GIT_AI.md) for detailed usage.
-
 ## Questions?
 
 Open an issue or ask on [Discord](https://discord.com/invite/nKXTsAcmbT).

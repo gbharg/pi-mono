@@ -36,6 +36,11 @@
 | Conventional commits (type(scope): description) | Standardized, parseable, links to Linear issues. | 2026-03-30 | orchestration shaping |
 | Git Notes for agent session logs | Full audit trail without polluting commits. Survives rebases with Git AI. | 2026-03-30 | orchestration shaping |
 
+## Git Operations
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Always use `git push origin main` — never bare `git push`. | main tracks upstream/main (badlogic/pi-mono) for pulling, so bare push targets upstream and fails with 403. Discovered by Claude (MBP) during memory defrag. | 2026-03-30 | claude-mbp/memory-defrag |
+
 ## Sub-Agent Lifecycle
 | Decision | Why | Date | Session |
 |----------|-----|------|---------|

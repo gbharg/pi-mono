@@ -1,7 +1,7 @@
 # Current State
 
 Last updated: 2026-03-30
-Session: post-defrag
+Session: post-defrag (by Claude on MBP)
 
 ## Active Focus
 Sub-agent architecture and orchestration for pi-mono.
