@@ -1,10 +1,10 @@
 # Pi Agent — System Overview
 
-> Last updated: 2026-03-29
+> Last updated: 2026-03-30
 
 ## What This Is
 
-Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks everything in Linear. It does not execute code itself — it manages those who do.
+Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks everything in Linear. Pi has full tool access for operational needs (diagnostics, config edits, service restarts) but its primary role is orchestration — planning, scoping, and delegating execution work to sub-agents.
 
 ## Architecture
 
@@ -78,12 +78,26 @@ SendBlue Cloud ──webhook──▶ Tailscale Funnel :8443
 | Claude | MBP, OpenClaw | Execution agent (+16452468277) |
 | Sub-agents | Spawned via pi -p | Scout, planner, worker, reviewer, researcher |
 
+## Sub-Agent Model
+
+Sub-agents are spawned with `--no-extensions` (no memory, no hooks) but sessions persist for history/restart. They are blank slates — Pi provides all context via the structured task format defined in RULES.md.
+
+| Agent | Model | Tools | Purpose |
+|-------|-------|-------|---------|
+| scout | haiku-4.5 | read, grep, find, ls, bash | Fast codebase recon, returns compressed context |
+| planner | sonnet-4.5 | read, grep, find, ls | Creates implementation plans (read-only) |
+| worker | sonnet-4.5 | all | General-purpose execution |
+| worker-full | sonnet-4 | all | Implementation with strict scope rules |
+| worker-readonly | sonnet-4 | read, grep, find, ls, bash | Analysis/audit (no writes) |
+| reviewer | sonnet-4.5 | read, grep, find, ls, bash | Code review (read-only bash) |
+| researcher | opus-4.6 | read, grep, find, ls, bash | Deep research and investigation |
+
 ## How It All Connects
 
 1. Gautam texts Pi via iMessage → SendBlue webhook → Pi extension → appears in session
 2. Pi plans work, creates specs, creates Linear issues
-3. Pi spawns sub-agents for execution (parallel pi -p processes)
-4. Sub-agents write results to files, Pi reviews and synthesizes
+3. Pi spawns sub-agents with full CONTEXT/TASK/SCOPE/CONSTRAINTS/EXPECTED OUTPUT
+4. Sub-agents return structured output; Pi reviews and synthesizes
 5. Pi updates Linear, commits to GitHub, texts Gautam with results
 6. Linear webhooks notify Pi of external changes (Gautam updates issues, other agents comment)
 7. EOD cron verifies everything is synced and nothing was dropped
