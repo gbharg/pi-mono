@@ -153,7 +153,7 @@ cleanup_test() {
     git checkout main 2>/dev/null || git checkout master 2>/dev/null || true
     
     # Find and delete branches matching pattern
-    local branches=$(git branch --list "${branch_pattern}" | sed 's/^[ *]*//')
+    local branches=$(git branch --no-color --list "${branch_pattern}" | sed 's/^[ *]*//')
     for branch in $branches; do
         if [[ -n "$branch" ]]; then
             log "Deleting local branch: $branch"
@@ -238,7 +238,7 @@ test_happy_path() {
     
     # Verification 2: Branch exists
     log "Checking branch creation..."
-    local branch=$(git branch --list "feat/${ISSUE_KEY_LOWER}-*" | head -1 | sed 's/^[ *]*//')
+    local branch=$(git branch --no-color --list "feat/${ISSUE_KEY_LOWER}-*" | head -1 | sed 's/^[ *]*//')
     if [[ -n "$branch" ]]; then
         pass "Branch created: $branch"
     else
