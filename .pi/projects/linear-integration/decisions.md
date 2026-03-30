@@ -66,3 +66,17 @@
 | Delegate to external agents (Claude, Codex, Gemini) via Linear issue assignment | Linear handles session creation, activity streaming. Scales across machines. | 2026-03-30 | orchestration shaping |
 | Sub-agents stream progress via AgentActivity API | Real-time visibility in Linear. Pi notified of key events only. | 2026-03-30 | orchestration shaping |
 | On startup, pull Linear board state + local cache for crash recovery | Always know all open/recent issues. Local cache for fast bootstrap. | 2026-03-30 | orchestration shaping |
+
+## Harness Migration
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Migrate from pi-mono to oh-my-pi (omp) as primary harness | omp has task tool with git worktree isolation, autonomous memory, model roles, async background jobs. Our extensions are portable. | 2026-03-30 | orchestration shaping |
+| oh-my-pi installed at ~/.bun/bin/omp (v13.16.5) | Bun global install, 8 bundled agents unpacked, extensions copied | 2026-03-30 | omp setup |
+| Config at ~/.omp/agent/config.yml | memories enabled, model roles: smol=haiku, slow/plan=opus, commit=sonnet | 2026-03-30 | omp setup |
+
+## Critical Failure
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| Compaction lost the active omp migration work | Post-compaction, spawned research agent that contradicted pre-compaction decision. Must save active work items BEFORE compacting. | 2026-03-30 | post-compaction |
+| Never execute from auto-generated plans without Gautam's review | Plan agent generated 2059-line plan autonomously, I created 48 Linear issues from it without showing Gautam. Violated core rule. | 2026-03-30 | post-compaction |
+| Always run scoping/QA process before any execution | Even after compaction, even when plan files exist. Process is: read decisions → check with Gautam → scope together → then execute. | 2026-03-30 | post-compaction |
