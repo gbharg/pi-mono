@@ -1,0 +1,25 @@
+.pi/memory/pi.md
+  aaaa11a4312f2c5b 59-77,122
+.pi/RULES.md
+  aaaa11a4312f2c5b 62-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "4dcd6cbea46a21c083cfba5d44b923632cdddd8b",
+  "prompts": {
+    "aaaa11a4312f2c5b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aea2ca61-0f96-4b3e-b12d-a91071d3a94e",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 26,
+      "total_deletions": 6,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    }
+  }
+}
