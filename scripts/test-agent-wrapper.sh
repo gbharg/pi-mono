@@ -20,6 +20,10 @@ STATE_IN_PROGRESS="529d5508-64a6-45ef-aad0-fcdcf66d68b1"
 STATE_IN_REVIEW="e85f987d-0cc9-45aa-a25e-6733c14840e1"
 STATE_PLAN="de4c2bec-7fd8-4785-a95f-178342078944"
 
+# Save original branch and wrapper script path
+ORIGINAL_BRANCH=$(git branch --show-current)
+WRAPPER_SCRIPT="${PWD}/scripts/agent-wrapper.sh"
+
 timestamp() {
     date -u +%Y-%m-%dT%H:%M:%S.000Z
 }
@@ -163,8 +167,8 @@ cleanup_test() {
     local branch_pattern="$1"
     log "Cleaning up test artifacts..."
     
-    # Return to main branch
-    git checkout main 2>/dev/null || git checkout master 2>/dev/null || true
+    # Return to original branch
+    git checkout "$ORIGINAL_BRANCH" 2>/dev/null || true
     
     # Find and delete branches matching pattern
     local branches=$(git branch --no-color --list "${branch_pattern}" | sed 's/^[ *]*//')
@@ -218,10 +222,10 @@ test_happy_path() {
     # Run wrapper
     log "Running agent wrapper..."
     local wrapper_output=$(mktemp)
-    if ./scripts/agent-wrapper.sh \
+    if "$WRAPPER_SCRIPT" \
         --issue "$ISSUE_KEY" \
         --agent worker \
-        --task "Create a file called test-output.txt containing 'hello world from agent test', then commit it with conventional format and Co-Authored-By trailer" \
+        --task "Create a file called test-output.txt containing 'hello world from agent test'. Then commit it with: git add test-output.txt && git commit -m 'chore: add test output file' -m '' -m 'Co-Authored-By: agent/worker <test@noreply>'" \
         --mode sequential > "$wrapper_output" 2>&1; then
         log "Wrapper completed successfully"
     else
@@ -363,7 +367,7 @@ test_error_path() {
     # Run wrapper (expecting failure)
     log "Running agent wrapper with failing task..."
     local wrapper_output=$(mktemp)
-    if ./scripts/agent-wrapper.sh \
+    if "$WRAPPER_SCRIPT" \
         --issue "$ISSUE_KEY" \
         --agent worker \
         --task "Run exit 1 immediately" \
