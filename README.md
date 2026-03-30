@@ -55,6 +55,21 @@ npm run check        # Lint, format, and type check
 ./pi-test.sh         # Run pi from sources (can be run from any directory)
 ```
 
+### AI Code Tracking
+
+This project uses [Git AI](docs/GIT_AI.md) to track AI-generated code and conversations. This helps with:
+- Understanding AI involvement in commits
+- Restoring context to continue previous work
+- Reviewing AI-assisted code changes
+
+Quick commands:
+```bash
+git-ai search --commit HEAD              # Check AI context in latest commit
+git-ai continue --commit <sha> --launch  # Continue previous AI session
+```
+
+See [docs/GIT_AI.md](docs/GIT_AI.md) for complete documentation.
+
 > **Note:** `npm run check` requires `npm run build` to be run first. The web-ui package uses `tsc` which needs compiled `.d.ts` files from dependencies.
 
 ## License

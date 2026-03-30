@@ -1,0 +1,73 @@
+#!/bin/sh
+
+# Get the current branch name
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Allow main branch to bypass validation
+if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ] || [ "$CURRENT_BRANCH" = "develop" ]; then
+  echo "✅ Main branch detected, skipping branch name validation."
+  exit 0
+fi
+
+echo "Validating branch name: $CURRENT_BRANCH"
+
+# Define the valid branch name pattern
+# Format: <type>/<description>
+# Types: feature|feat|bugfix|fix|hotfix|release|chore
+# Description: lowercase alphanumerics, hyphens, dots (for release versions)
+# No consecutive hyphens/dots, no leading/trailing hyphens/dots
+BRANCH_PATTERN="^(feature|feat|bugfix|fix|hotfix|release|chore)/[a-z0-9][a-z0-9.-]*$"
+
+# Check if branch name matches the pattern
+if echo "$CURRENT_BRANCH" | grep -qE "$BRANCH_PATTERN"; then
+  # Additional validation: no consecutive hyphens or dots
+  if echo "$CURRENT_BRANCH" | grep -qE "(--|\.\.|\-\.|\.\-)"; then
+    echo "❌ Branch name validation failed!"
+    echo "   Branch: $CURRENT_BRANCH"
+    echo "   Error: Branch name contains consecutive hyphens or dots"
+    echo ""
+    echo "Valid format: <type>/<description>"
+    echo "Valid types: feature, feat, bugfix, fix, hotfix, release, chore"
+    echo "Description rules:"
+    echo "  - Use lowercase letters, numbers, hyphens, and dots"
+    echo "  - No consecutive hyphens or dots"
+    echo "  - No leading or trailing hyphens or dots"
+    echo ""
+    echo "Examples:"
+    echo "  ✅ feature/user-authentication"
+    echo "  ✅ fix/memory-leak-parser"
+    echo "  ✅ release/v1.2.0"
+    echo "  ✅ chore/update-dependencies"
+    echo "  ❌ feature/User-Auth (uppercase)"
+    echo "  ❌ fix/memory--leak (consecutive hyphens)"
+    echo "  ❌ feature/-new-feature (leading hyphen)"
+    echo ""
+    echo "See .pi/RULES.md for complete specification."
+    exit 1
+  fi
+  
+  echo "✅ Branch name validation passed!"
+else
+  echo "❌ Branch name validation failed!"
+  echo "   Branch: $CURRENT_BRANCH"
+  echo "   Error: Branch name does not follow conventional branch format"
+  echo ""
+  echo "Valid format: <type>/<description>"
+  echo "Valid types: feature, feat, bugfix, fix, hotfix, release, chore"
+  echo "Description rules:"
+  echo "  - Use lowercase letters, numbers, hyphens, and dots"
+  echo "  - No consecutive hyphens or dots"
+  echo "  - No leading or trailing hyphens or dots"
+  echo ""
+  echo "Examples:"
+  echo "  ✅ feature/user-authentication"
+  echo "  ✅ fix/memory-leak-parser"
+  echo "  ✅ release/v1.2.0"
+  echo "  ✅ chore/update-dependencies"
+  echo "  ❌ feature/User-Auth (uppercase)"
+  echo "  ❌ fix/memory--leak (consecutive hyphens)"
+  echo "  ❌ feature/-new-feature (leading hyphen)"
+  echo ""
+  echo "See .pi/RULES.md for complete specification."
+  exit 1
+fi
