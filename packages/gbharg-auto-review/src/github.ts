@@ -176,6 +176,7 @@ function normalizeStatusContextState(state: string | undefined): PullRequestStat
 		case "SUCCESS":
 			return "SUCCESS";
 		case "EXPECTED":
+			return "PENDING";
 		case "ERROR":
 		case "FAILURE":
 			return "FAILURE";

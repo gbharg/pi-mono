@@ -29,12 +29,14 @@ describe("github normalization", () => {
 	it("normalizes status contexts and check runs", () => {
 		expect(
 			normalizeStatusChecks([
+				{ context: "Deploy Preview", state: "EXPECTED" },
 				{ context: "Vercel Preview", state: "SUCCESS" },
 				{ name: "deploy", workflowName: "CI", status: "COMPLETED", conclusion: "SUCCESS" },
 				{ name: "preview", status: "IN_PROGRESS" },
 				{ name: "broken", status: "COMPLETED", conclusion: "FAILURE" },
 			]),
 		).toEqual([
+			{ name: "Deploy Preview", state: "PENDING" },
 			{ name: "Vercel Preview", state: "SUCCESS" },
 			{ name: "CI / deploy", state: "SUCCESS" },
 			{ name: "preview", state: "PENDING" },
