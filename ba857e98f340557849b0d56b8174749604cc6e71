@@ -1,0 +1,48 @@
+.pi/memory/state.md
+  b52be8d027701995 3-4,7-9,15-23,26-31
+.pi/memory/todo.md
+  b52be8d027701995 3-14
+.pi/memory/linear-issues-snapshot.md
+  b52be8d027701995 3-4,6-30
+.pi/projects/memory-compaction-system/context.md
+  b52be8d027701995 7-8,24-28
+.pi/projects/linear-integration/context.md
+  b52be8d027701995 3-8,10-15
+.pi/memory/changelog.md
+  b52be8d027701995 158-164
+.pi/memory/learnings.md
+  b52be8d027701995 72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "ba857e98f340557849b0d56b8174749604cc6e71",
+  "prompts": {
+    "63451f5fc14781ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02ccfd8b-bae6-481a-8bba-66d3012c37b9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "b52be8d027701995": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f84e30e0-ef68-4713-86da-0a3e81d8adb4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 87,
+      "total_deletions": 729,
+      "accepted_lines": 86,
+      "overriden_lines": 0
+    }
+  }
+}
