@@ -29,10 +29,17 @@ export interface PullRequestFile {
 	path: string;
 }
 
+export interface PullRequestStatusCheck {
+	name: string;
+	state: "SUCCESS" | "FAILURE" | "PENDING";
+}
+
 export interface MergePolicyInput {
 	minimumApprovals: number;
 	planContext: PlanContext | null;
 	reviews: LatestReviewState[];
+	statusChecks?: PullRequestStatusCheck[];
+	deployCheckPatterns?: string[];
 }
 
 export interface MergePolicyResult {
@@ -53,6 +60,7 @@ export interface PullRequestMetadata {
 	reviews?: LatestReviewState[];
 	reviewRequests?: PullRequestReviewRequest[];
 	files?: PullRequestFile[];
+	statusChecks?: PullRequestStatusCheck[];
 }
 
 export interface RunnerCommandTemplate {
@@ -73,6 +81,7 @@ export interface ReviewCloudConfig {
 	githubReviewers?: string[];
 	ignorePathPrefixes?: string[];
 	nonCodeExtensions?: string[];
+	deployCheckPatterns?: string[];
 	reviewerHandles?: Partial<Record<ReviewModel, string[]>>;
 	dispatchModes?: Partial<Record<ReviewModel, ReviewDispatchMode>>;
 	usageCommands?: Partial<Record<ReviewModel, RunnerCommandTemplate>>;

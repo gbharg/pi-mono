@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizePullRequestFiles, normalizeReviewRequests } from "../src/github.js";
+import { normalizePullRequestFiles, normalizeReviewRequests, normalizeStatusChecks } from "../src/github.js";
 
 describe("github normalization", () => {
 	it("normalizes review requests across gh payload shapes", () => {
@@ -23,6 +23,22 @@ describe("github normalization", () => {
 		expect(normalizePullRequestFiles([{ path: "docs/guide.md" }, {}, { path: "src/index.ts" }])).toEqual([
 			{ path: "docs/guide.md" },
 			{ path: "src/index.ts" },
+		]);
+	});
+
+	it("normalizes status contexts and check runs", () => {
+		expect(
+			normalizeStatusChecks([
+				{ context: "Vercel Preview", state: "SUCCESS" },
+				{ name: "deploy", workflowName: "CI", status: "COMPLETED", conclusion: "SUCCESS" },
+				{ name: "preview", status: "IN_PROGRESS" },
+				{ name: "broken", status: "COMPLETED", conclusion: "FAILURE" },
+			]),
+		).toEqual([
+			{ name: "Vercel Preview", state: "SUCCESS" },
+			{ name: "CI / deploy", state: "SUCCESS" },
+			{ name: "preview", state: "PENDING" },
+			{ name: "broken", state: "FAILURE" },
 		]);
 	});
 });

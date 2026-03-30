@@ -3,18 +3,20 @@ import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import type { ReviewCloudConfig, WatchState } from "./types.js";
 
-export const DEFAULT_CONFIG_PATH = ".pi/gbharg-pr-review-cloud.json";
-export const DEFAULT_STATE_PATH = join(homedir(), ".pi", "gbharg-pr-review-cloud-state.json");
+export const DEFAULT_CONFIG_PATH = ".pi/auto-review.json";
+export const DEFAULT_STATE_PATH = join(homedir(), ".pi", "auto-review-state.json");
 
 export function loadConfig(cwd: string, explicitPath?: string): ReviewCloudConfig {
-	const path = explicitPath ?? process.env.PI_PR_REVIEW_CLOUD_CONFIG ?? join(cwd, DEFAULT_CONFIG_PATH);
+	const path = explicitPath ?? process.env.PI_AUTO_REVIEW_CONFIG ?? process.env.PI_PR_REVIEW_CLOUD_CONFIG ?? join(cwd, DEFAULT_CONFIG_PATH);
 	const raw = readFileSync(path, "utf-8");
 	const parsed = JSON.parse(raw) as unknown;
 	assertReviewCloudConfig(parsed);
 	parsed.commands ??= {};
 	parsed.dispatchModes ??= {};
+	parsed.deployCheckPatterns ??= ["deploy", "deployment", "vercel"];
 	parsed.ignorePathPrefixes ??= ["docs/", "plan/"];
 	parsed.nonCodeExtensions ??= [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"];
+	parsed.deployCheckPatterns ??= ["deploy", "deployment", "vercel"];
 	const hasCommands = Object.keys(parsed.commands).length > 0;
 	const hasReviewerConfig = Boolean(parsed.githubReviewers?.length || Object.keys(parsed.reviewerHandles ?? {}).length > 0);
 	if (!hasCommands && !hasReviewerConfig) {
@@ -41,8 +43,10 @@ function assertReviewCloudConfig(value: unknown): asserts value is ReviewCloudCo
 	assertOptionalFiniteNumber(value.pollIntervalMs, "pollIntervalMs");
 	assertOptionalBoolean(value.requestReviewers, "requestReviewers");
 	assertOptionalStringArray(value.githubReviewers, "githubReviewers");
+	assertOptionalStringArray(value.deployCheckPatterns, "deployCheckPatterns");
 	assertOptionalStringArray(value.ignorePathPrefixes, "ignorePathPrefixes");
 	assertOptionalStringArray(value.nonCodeExtensions, "nonCodeExtensions");
+	assertOptionalStringArray(value.deployCheckPatterns, "deployCheckPatterns");
 
 	if (value.reviewerHandles !== undefined) {
 		assertStringArrayRecord(value.reviewerHandles, "reviewerHandles");

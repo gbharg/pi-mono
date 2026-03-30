@@ -13,7 +13,7 @@ const ArgsSchema = Type.Object({
 	repo: Type.Optional(Type.String({ description: "Repository in owner/repo format" })),
 });
 
-export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
+export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 	pi.registerCommand("merge-gate", {
 		description: "Check whether the current PR satisfies the local merge policy",
 		handler: async (args, ctx) => {
@@ -43,8 +43,8 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 		},
 	});
 
-	pi.registerCommand("dispatch-pr-review", {
-		description: "Dispatch cloud PR reviews for the current PR",
+	pi.registerCommand("dispatch-auto-review", {
+		description: "Dispatch auto-review jobs for the current PR",
 		handler: async (args, ctx) => {
 			const parsed = parseArgs(args);
 			const repo = parsed.repo ?? (await inferGitHubRepo(ctx.cwd));
@@ -85,8 +85,8 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 	});
 
 	pi.registerTool({
-		name: "review_policy_status",
-		label: "Review Policy Status",
+		name: "auto_review_status",
+		label: "Auto Review Status",
 		description: "Return the current local merge-gate status for a pull request",
 		parameters: ArgsSchema,
 		execute: async (_toolCallId, params, _signal, _onUpdate, ctx) => {
@@ -173,15 +173,19 @@ async function evaluatePr(
 				minimumApprovals,
 				planContext: null,
 				reviews: [],
+				statusChecks: pr.statusChecks,
+				deployCheckPatterns: config.deployCheckPatterns,
 			}),
 		};
 	}
 	return {
 		scope,
 		policy: evaluateMergePolicy({
-		minimumApprovals,
-		planContext: parsePlanContext(pr.body),
-		reviews: collapseLatestReviews(pr.reviews ?? []),
+			minimumApprovals,
+			planContext: parsePlanContext(pr.body),
+			reviews: collapseLatestReviews(pr.reviews ?? []),
+			statusChecks: pr.statusChecks,
+			deployCheckPatterns: config.deployCheckPatterns,
 		}),
 	};
 }
@@ -196,5 +200,5 @@ function parsePositiveInteger(value: string, name: string): number {
 
 function formatConfigError(error: unknown): string {
 	const message = error instanceof Error ? error.message : String(error);
-	return `Could not load PR review config: ${message}`;
+	return `Could not load auto-review config: ${message}`;
 }

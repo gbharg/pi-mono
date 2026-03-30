@@ -1,10 +1,10 @@
 {
-	"name": "@gbharg/pi-pr-review-cloud",
+	"name": "@gbharg/pi-auto-review",
 	"version": "0.64.0",
-	"description": "Fork-scoped cloud PR review orchestration and local merge gating for pi",
+	"description": "Fork-scoped auto-review orchestration and local merge gating for pi",
 	"type": "module",
 	"bin": {
-		"gbharg-pr-review-cloud": "dist/cli.js"
+		"gbharg-auto-review": "dist/cli.js"
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
@@ -56,7 +56,7 @@
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gbharg/pi-mono.git",
-		"directory": "packages/gbharg-pr-review-cloud"
+		"directory": "packages/gbharg-auto-review"
 	},
 	"engines": {
 		"node": ">=20.0.0"

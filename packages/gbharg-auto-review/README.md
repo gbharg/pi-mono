@@ -1,6 +1,6 @@
-# gbharg-pr-review-cloud
+# gbharg-auto-review
 
-Cloud-hosted pull request review orchestration and local merge gating for `pi`.
+Cloud-hosted auto-review orchestration and local merge gating for `pi`.
 
 ## What it does
 
@@ -20,7 +20,7 @@ Cloud-hosted pull request review orchestration and local merge gating for `pi`.
 ## Package layout
 
 - `src/index.ts` — Pi extension entrypoint
-- `src/cli.ts` — `gbharg-pr-review-cloud` CLI
+- `src/cli.ts` — `gbharg-auto-review` CLI
 - `src/plan-context.ts` — PR body plan context parser/renderer
 - `src/policy.ts` — approval and merge gate evaluation
 - `src/github.ts` — `gh`-backed GitHub operations
@@ -46,8 +46,8 @@ Embed this in the PR body:
 
 ## Config
 
-The CLI and extension look for `.pi/gbharg-pr-review-cloud.json` in the current repo, or
-`PI_PR_REVIEW_CLOUD_CONFIG` if set.
+The CLI and extension look for `.pi/auto-review.json` in the current repo, or
+`PI_AUTO_REVIEW_CONFIG` if set.
 
 ```json
 {
@@ -56,6 +56,7 @@ The CLI and extension look for `.pi/gbharg-pr-review-cloud.json` in the current 
   "maxUsagePercent": 90,
   "pollIntervalMs": 30000,
   "requestReviewers": false,
+  "deployCheckPatterns": ["deploy", "deployment", "vercel"],
   "ignorePathPrefixes": ["docs/", "plan/"],
   "nonCodeExtensions": [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"],
   "githubReviewers": ["codex-reviewer", "gemini-reviewer", "claude-reviewer"],
@@ -105,6 +106,8 @@ PRs are ignored when every changed file is either:
 
 That means a docs-only PR, plan-only PR, or a PR that only updates Markdown/images will skip review dispatch and will not be blocked by the local merge gate.
 
+Deploy gating is also part of merge policy. Any status check whose name matches one of the configured `deployCheckPatterns` must exist and finish successfully before the local merge gate will allow the PR to merge.
+
 Supported placeholders:
 
 - `{repo}`
@@ -119,11 +122,11 @@ Supported placeholders:
 
 ```bash
 # Check whether a PR may be merged
-gbharg-pr-review-cloud check --pr 42 --repo owner/repo
+gbharg-auto-review check --pr 42 --repo owner/repo
 
 # Dispatch review jobs for a PR
-gbharg-pr-review-cloud dispatch --pr 42 --repo owner/repo
+gbharg-auto-review dispatch --pr 42 --repo owner/repo
 
 # Watch for reviewable PRs and dispatch automatically
-gbharg-pr-review-cloud watch --repo owner/repo
+gbharg-auto-review watch --repo owner/repo
 ```

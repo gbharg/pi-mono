@@ -15,7 +15,7 @@ async function main(): Promise<void> {
 	const options = parseFlags(flagArgs);
 	const config = loadConfig(cwd, options.configPath);
 	const repo = options.repo ?? config.repo;
-	if (!repo) throw new Error("Repository is required. Pass --repo or set repo in .pi/gbharg-pr-review-cloud.json");
+	if (!repo) throw new Error("Repository is required. Pass --repo or set repo in .pi/auto-review.json");
 
 	switch (command) {
 		case "check":
@@ -45,6 +45,8 @@ async function runCheck(repo: string, prNumber: number | undefined, config: Retu
 		minimumApprovals: config.minimumApprovals ?? 3,
 		planContext,
 		reviews: latestReviews,
+		statusChecks: pr.statusChecks,
+		deployCheckPatterns: config.deployCheckPatterns,
 	});
 
 	if (!result.ok) {

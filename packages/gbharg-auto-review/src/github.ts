@@ -1,5 +1,5 @@
 import { execFileText } from "./process.js";
-import type { LatestReviewState, PullRequestFile, PullRequestMetadata, PullRequestReviewRequest } from "./types.js";
+import type { LatestReviewState, PullRequestFile, PullRequestMetadata, PullRequestReviewRequest, PullRequestStatusCheck } from "./types.js";
 
 interface GhReview {
 	state: string;
@@ -28,7 +28,24 @@ interface GhPrView {
 	reviews?: GhReview[];
 	reviewRequests?: GhReviewRequest[];
 	files?: Array<{ path?: string }>;
+	statusCheckRollup?: GhStatusCheck[];
 }
+
+interface GhCheckRun {
+	__typename?: "CheckRun";
+	name?: string;
+	status?: string;
+	conclusion?: string;
+	workflowName?: string;
+}
+
+interface GhStatusContext {
+	__typename?: "StatusContext";
+	context?: string;
+	state?: string;
+}
+
+type GhStatusCheck = GhCheckRun | GhStatusContext;
 
 export async function getCurrentPrNumber(cwd: string, repo?: string): Promise<number> {
 	const args = ["pr", "view", "--json", "number"];
@@ -49,7 +66,7 @@ export async function fetchPullRequest(pr: number, repo: string, cwd?: string): 
 			"--repo",
 			repo,
 			"--json",
-			"number,title,url,body,headRefName,headRefOid,isDraft,reviews,reviewRequests,files",
+			"number,title,url,body,headRefName,headRefOid,isDraft,reviews,reviewRequests,files,statusCheckRollup",
 		],
 		cwd,
 	);
@@ -66,6 +83,7 @@ export async function fetchPullRequest(pr: number, repo: string, cwd?: string): 
 		reviews: normalizeLatestReviews(parsed.reviews),
 		reviewRequests: normalizeReviewRequests(parsed.reviewRequests),
 		files: normalizePullRequestFiles(parsed.files),
+		statusChecks: normalizeStatusChecks(parsed.statusCheckRollup),
 	};
 }
 
@@ -119,6 +137,25 @@ export function normalizePullRequestFiles(files: Array<{ path?: string }> | unde
 		.map((path) => ({ path }));
 }
 
+export function normalizeStatusChecks(statusChecks: GhStatusCheck[] | undefined): PullRequestStatusCheck[] {
+	if (!statusChecks) return [];
+	return statusChecks
+		.map((statusCheck) => {
+			if (isStatusContext(statusCheck)) {
+				const name = statusCheck.context?.trim();
+				const state = normalizeStatusContextState(statusCheck.state);
+				return name && state ? { name, state } : null;
+			}
+
+			const checkName = statusCheck.name?.trim();
+			const workflowName = statusCheck.workflowName?.trim();
+			const name = workflowName ? `${workflowName} / ${checkName ?? "check"}` : checkName;
+			const state = normalizeCheckRunState(statusCheck.status, statusCheck.conclusion);
+			return name && state ? { name, state } : null;
+		})
+		.filter((statusCheck): statusCheck is PullRequestStatusCheck => statusCheck !== null);
+}
+
 function normalizeReviewState(state: string): LatestReviewState["state"] {
 	switch (state) {
 		case "APPROVED":
@@ -132,6 +169,49 @@ function normalizeReviewState(state: string): LatestReviewState["state"] {
 		default:
 			return "PENDING";
 	}
+}
+
+function normalizeStatusContextState(state: string | undefined): PullRequestStatusCheck["state"] | null {
+	switch (state?.toUpperCase()) {
+		case "SUCCESS":
+			return "SUCCESS";
+		case "EXPECTED":
+		case "ERROR":
+		case "FAILURE":
+			return "FAILURE";
+		case "PENDING":
+			return "PENDING";
+		default:
+			return null;
+	}
+}
+
+function normalizeCheckRunState(
+	status: string | undefined,
+	conclusion: string | undefined,
+): PullRequestStatusCheck["state"] | null {
+	if (status && status.toUpperCase() !== "COMPLETED") return "PENDING";
+	switch (conclusion?.toUpperCase()) {
+		case "SUCCESS":
+		case "NEUTRAL":
+		case "SKIPPED":
+			return "SUCCESS";
+		case "ACTION_REQUIRED":
+		case "CANCELLED":
+		case "FAILURE":
+		case "STALE":
+		case "STARTUP_FAILURE":
+		case "TIMED_OUT":
+			return "FAILURE";
+		case undefined:
+			return status ? "PENDING" : null;
+		default:
+			return "PENDING";
+	}
+}
+
+function isStatusContext(statusCheck: GhStatusCheck): statusCheck is GhStatusContext {
+	return "context" in statusCheck;
 }
 
 export async function addReviewers(pr: number, repo: string, reviewers: string[], cwd?: string): Promise<void> {

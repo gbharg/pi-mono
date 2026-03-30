@@ -62,4 +62,58 @@ describe("policy", () => {
 		expect(result.ok).toBe(true);
 		expect(result.reasons).toEqual([]);
 	});
+
+	it("blocks merges when deploy checks are missing", () => {
+		const result = evaluateMergePolicy({
+			minimumApprovals: 3,
+			planContext,
+			reviews: [
+				{ reviewer: "codex", state: "APPROVED" },
+				{ reviewer: "claude", state: "APPROVED" },
+				{ reviewer: "gemini", state: "APPROVED" },
+			],
+			statusChecks: [],
+			deployCheckPatterns: ["deploy", "vercel"],
+		});
+		expect(result.ok).toBe(false);
+		expect(result.reasons).toContain("missing successful deploy check matching: deploy, vercel");
+	});
+
+	it("blocks merges when deploy checks are pending or failing", () => {
+		const result = evaluateMergePolicy({
+			minimumApprovals: 3,
+			planContext,
+			reviews: [
+				{ reviewer: "codex", state: "APPROVED" },
+				{ reviewer: "claude", state: "APPROVED" },
+				{ reviewer: "gemini", state: "APPROVED" },
+			],
+			statusChecks: [
+				{ name: "Vercel Preview", state: "PENDING" },
+				{ name: "deploy-prod", state: "FAILURE" },
+			],
+			deployCheckPatterns: ["deploy", "vercel"],
+		});
+		expect(result.ok).toBe(false);
+		expect(result.reasons).toContain("failing deploy checks: deploy-prod");
+		expect(result.reasons).toContain("pending deploy checks: Vercel Preview");
+	});
+
+	it("allows merges when a matching deploy check succeeds", () => {
+		const result = evaluateMergePolicy({
+			minimumApprovals: 3,
+			planContext,
+			reviews: [
+				{ reviewer: "codex", state: "APPROVED" },
+				{ reviewer: "claude", state: "APPROVED" },
+				{ reviewer: "gemini", state: "APPROVED" },
+			],
+			statusChecks: [
+				{ name: "lint", state: "SUCCESS" },
+				{ name: "Vercel Preview", state: "SUCCESS" },
+			],
+			deployCheckPatterns: ["deploy", "vercel"],
+		});
+		expect(result.ok).toBe(true);
+	});
 });
