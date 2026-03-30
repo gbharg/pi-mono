@@ -1,0 +1,14 @@
+{
+  "name": "pi-sendblue",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Add iMessage/SMS to any Pi fork via Sendblue API",
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@sinclair/typebox": "*"
+  }
+}
