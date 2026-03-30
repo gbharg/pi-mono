@@ -220,6 +220,17 @@ async function writePromptToTempFile(agentName: string, prompt: string): Promise
 function getPiInvocation(args: string[]): { command: string; args: string[] } {
 	const currentScript = process.argv[1];
 	if (currentScript && fs.existsSync(currentScript)) {
+		// When running from source via tsx (e.g. node tsx src/cli.ts),
+		// process.argv[1] is a .ts file. Plain node cannot handle it --
+		// we need tsx as the loader.
+		if (currentScript.endsWith(".ts")) {
+			const tsxBin = path.resolve(path.dirname(currentScript), "../../../node_modules/.bin/tsx");
+			if (fs.existsSync(tsxBin)) {
+				return { command: tsxBin, args: [currentScript, ...args] };
+			}
+			// Fallback: try tsx from PATH
+			return { command: "tsx", args: [currentScript, ...args] };
+		}
 		return { command: process.execPath, args: [currentScript, ...args] };
 	}
 
