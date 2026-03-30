@@ -40,6 +40,12 @@
 | Decision | Why | Date | Session |
 |----------|-----|------|---------|
 | Always use `git push origin main` — never bare `git push`. | main tracks upstream/main (badlogic/pi-mono) for pulling, so bare push targets upstream and fails with 403. Discovered by Claude (MBP) during memory defrag. | 2026-03-30 | claude-mbp/memory-defrag |
+| Wrapper script (Pi) creates all branches, not agents | Option A: agents focus on code, wrapper handles git scaffolding. Less room for error. | 2026-03-30 | completion-protocol-scoping |
+| Worktrees only for parallel agents. Sequential agents work on branch directly. | Worktree overhead unnecessary for single-agent work. Only needed when multiple agents touch same repo simultaneously. | 2026-03-30 | completion-protocol-scoping |
+| Conventional branch naming for all branches | Keep it simple. feat/PI-XXX for sequential, feat/PI-XXX with agent sub-branches for parallel. task/agent prefix replaced. | 2026-03-30 | completion-protocol-scoping |
+| Co-Authored-By trailer on all agent commits | Identifies which agent session produced each commit. Format: Co-Authored-By: agent/<role> <session-id@noreply> | 2026-03-30 | completion-protocol-scoping |
+| Conventional commits stay, [role] format replaced | type(scope): description + Co-Authored-By trailer. One convention, not two. | 2026-03-30 | completion-protocol-scoping |
+| Wrapper creates PR after agent signals READY. One system for both modes. | Sequential: PR to main. Parallel: merge agent branches into task branch, one PR to main. | 2026-03-30 | completion-protocol-scoping |
 
 ## Sub-Agent Lifecycle
 | Decision | Why | Date | Session |
@@ -71,6 +77,8 @@
 | Delegate to external agents (Claude, Codex, Gemini) via Linear issue assignment | Linear handles session creation, activity streaming. Scales across machines. | 2026-03-30 | orchestration shaping |
 | Sub-agents stream progress via AgentActivity API | Real-time visibility in Linear. Pi notified of key events only. | 2026-03-30 | orchestration shaping |
 | On startup, pull Linear board state + local cache for crash recovery | Always know all open/recent issues. Local cache for fast bootstrap. | 2026-03-30 | orchestration shaping |
+| Option C: Pi gets webhooks for board awareness, agents only use AgentActivity API | Clean separation. Pi needs full board picture. Agents just work and report through their session. Never read board state. | 2026-03-30 | completion-protocol-scoping |
+| Pi maintains local board cache updated by Linear webhooks | Lightweight in-memory: issue ID, status, assignee, delegate, due date. Rebuilt from Linear API on startup. | 2026-03-30 | completion-protocol-scoping |
 
 ## Harness Migration
 | Decision | Why | Date | Session |
