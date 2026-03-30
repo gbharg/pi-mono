@@ -311,7 +311,7 @@ parse_agent_definition() {
   
   # Parse tools (comma-separated format)
   local tools
-  tools=$(echo "$frontmatter" | grep '^tools:' | sed 's/^tools:[[:space:]]*//' || echo "")
+  tools=$(echo "$frontmatter" | grep '^tools:' | sed 's/^tools:[[:space:]]*//' | tr -d ' ' || echo "")
   
   echo "$model|$tools"
 }
@@ -335,12 +335,12 @@ phase_setup() {
   slug=$(generate_branch_slug "$ISSUE_ID")
   
   if [[ "$MODE" == "sequential" ]]; then
-    AGENT_BRANCH="feat/${ISSUE_ID}-${slug}"
+    AGENT_BRANCH="feat/$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")-${slug}"
     log "Creating sequential branch: $AGENT_BRANCH"
     git checkout -b "$AGENT_BRANCH" main
   else
     # Parallel mode
-    AGENT_BRANCH="feat/${ISSUE_ID}/agent-${AGENT_NAME}"
+    AGENT_BRANCH="feat/$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")/agent-${AGENT_NAME}"
     log "Creating parallel branch: $AGENT_BRANCH from $TASK_BRANCH"
     git branch "$AGENT_BRANCH" "$TASK_BRANCH"
     git worktree add "$WORKTREE_PATH" "$AGENT_BRANCH"

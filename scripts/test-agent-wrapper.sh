@@ -15,6 +15,7 @@ PASSED_CHECKS=0
 # Test issue details
 ISSUE_ID="1a106115-3d8b-421d-896b-fdcb15524fc7"
 ISSUE_KEY="PI-61"
+ISSUE_KEY_LOWER="pi-61"
 STATE_IN_PROGRESS="529d5508-64a6-45ef-aad0-fcdcf66d68b1"
 STATE_IN_REVIEW="e85f987d-0cc9-45aa-a25e-6733c14840e1"
 STATE_PLAN="de4c2bec-7fd8-4785-a95f-178342078944"
@@ -62,8 +63,14 @@ fi
 linear_query() {
     local query="$1"
     local token="${2:-$LINEAR_API_KEY}"
+    local auth_header
+    if [[ "$token" == "$LINEAR_APP_TOKEN" ]]; then
+        auth_header="Bearer ${token}"
+    else
+        auth_header="${token}"
+    fi
     curl -s https://api.linear.app/graphql \
-        -H "Authorization: ${token}" \
+        -H "Authorization: ${auth_header}" \
         -H "Content-Type: application/json" \
         -d "{\"query\": $(jq -Rs . <<< "$query")}"
 }
@@ -94,19 +101,20 @@ move_issue_to_state() {
 # Get AgentSessions for issue
 get_agent_sessions() {
     local query="query {
-        issue(id: \"${ISSUE_ID}\") {
-            agentSessions {
-                nodes {
-                    id
-                    status
-                    createdAt
+        agentSessions(first: 50, orderBy: createdAt) {
+            nodes {
+                id
+                status
+                createdAt
+                issue {
+                    identifier
                 }
             }
         }
     }"
     
-    # Use app token for agent sessions
-    linear_query "$query" "$LINEAR_APP_TOKEN" | jq -r '.data.issue.agentSessions.nodes // []'
+    # Use app token for agent sessions, filter client-side for our issue
+    linear_query "$query" "$LINEAR_APP_TOKEN" | jq --arg issue "$ISSUE_KEY" '.data.agentSessions.nodes // [] | map(select(.issue.identifier == $issue))'
 }
 
 # Get issue state
@@ -207,7 +215,7 @@ test_happy_path() {
         cat "$wrapper_output"
         fail "Wrapper execution"
         test_failed=1
-        cleanup_test "feat/${ISSUE_KEY}-*"
+        cleanup_test "feat/${ISSUE_KEY_LOWER}-*"
         rm -f "$wrapper_output"
         return 1
     fi
@@ -230,13 +238,13 @@ test_happy_path() {
     
     # Verification 2: Branch exists
     log "Checking branch creation..."
-    local branch=$(git branch --list "feat/${ISSUE_KEY}-*" | head -1 | sed 's/^[ *]*//')
+    local branch=$(git branch --list "feat/${ISSUE_KEY_LOWER}-*" | head -1 | sed 's/^[ *]*//')
     if [[ -n "$branch" ]]; then
         pass "Branch created: $branch"
     else
-        fail "No branch matching feat/${ISSUE_KEY}-*"
+        fail "No branch matching feat/${ISSUE_KEY_LOWER}-*"
         test_failed=1
-        cleanup_test "feat/${ISSUE_KEY}-*"
+        cleanup_test "feat/${ISSUE_KEY_LOWER}-*"
         return 1
     fi
     
@@ -310,7 +318,7 @@ test_happy_path() {
     fi
     
     # Cleanup
-    cleanup_test "feat/${ISSUE_KEY}-*"
+    cleanup_test "feat/${ISSUE_KEY_LOWER}-*"
     log "Test 1 complete"
     
     return $test_failed
@@ -362,13 +370,14 @@ test_error_path() {
     # Verification 1: Session created and has error status
     log "Checking AgentSession status..."
     local sessions=$(get_agent_sessions)
-    local sessions_after=$(echo "$sessions" | jq 'length')
+    local new_sessions=$(echo "$sessions" | jq --arg start "$test_start" '[.[] | select(.createdAt >= $start)]')
+    local new_session_count=$(echo "$new_sessions" | jq 'length')
     
-    if [[ $sessions_after -gt $sessions_before ]]; then
-        pass "AgentSession created (count: $sessions_before → $sessions_after)"
+    if [[ $new_session_count -gt 0 ]]; then
+        pass "AgentSession created (new sessions: $new_session_count)"
         
         # Check latest session status
-        local latest_session_status=$(echo "$sessions" | jq -r 'sort_by(.createdAt) | reverse | .[0].status // "unknown"')
+        local latest_session_status=$(echo "$new_sessions" | jq -r 'sort_by(.createdAt) | reverse | .[0].status // "unknown"')
         if [[ "$latest_session_status" == "error" ]]; then
             pass "Session status is 'error'"
         else
@@ -404,7 +413,7 @@ test_error_path() {
     
     # Verification 4: No PR created
     log "Checking for PRs..."
-    local prs=$(gh pr list --head "feat/${ISSUE_KEY}-" --json number 2>/dev/null || echo "[]")
+    local prs=$(gh pr list --head "feat/${ISSUE_KEY_LOWER}-" --json number 2>/dev/null || echo "[]")
     local pr_count=$(echo "$prs" | jq 'length')
     if [[ $pr_count -eq 0 ]]; then
         pass "No PR created"
@@ -414,7 +423,7 @@ test_error_path() {
     fi
     
     # Cleanup
-    cleanup_test "feat/${ISSUE_KEY}-*"
+    cleanup_test "feat/${ISSUE_KEY_LOWER}-*"
     log "Test 2 complete"
     
     return $test_failed
