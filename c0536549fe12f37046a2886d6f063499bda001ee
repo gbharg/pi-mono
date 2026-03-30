@@ -1,0 +1,38 @@
+packages/coding-agent/examples/extensions/subagent/agents/reviewer.md
+  b52be8d027701995 19,38-42
+packages/coding-agent/examples/extensions/subagent/agents/worker.md
+  b52be8d027701995 17-23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "c0536549fe12f37046a2886d6f063499bda001ee",
+  "prompts": {
+    "63451f5fc14781ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02ccfd8b-bae6-481a-8bba-66d3012c37b9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "b52be8d027701995": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f84e30e0-ef68-4713-86da-0a3e81d8adb4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 0,
+      "accepted_lines": 13,
+      "overriden_lines": 0
+    }
+  }
+}
