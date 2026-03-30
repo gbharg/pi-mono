@@ -16,7 +16,7 @@ echo "Validating branch name: $CURRENT_BRANCH"
 # Types: feature|feat|bugfix|fix|hotfix|release|chore
 # Description: lowercase alphanumerics, hyphens, dots (for release versions)
 # No consecutive hyphens/dots, no leading/trailing hyphens/dots
-BRANCH_PATTERN="^(feature|feat|bugfix|fix|hotfix|release|chore)/[a-z0-9][a-z0-9.-]*$"
+BRANCH_PATTERN="^(project|feature|feat|bugfix|fix|hotfix|release|chore|docs|refactor|test|ci|research|plan)/[a-z0-9][a-z0-9.-]*$"
 
 # Check if branch name matches the pattern
 if echo "$CURRENT_BRANCH" | grep -qE "$BRANCH_PATTERN"; then

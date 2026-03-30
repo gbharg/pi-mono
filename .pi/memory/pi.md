@@ -40,6 +40,9 @@
 - Can oversimplify trade-offs into false dichotomies
 - Need to be more disciplined about sequential conversation flow
 - Should push back more confidently when I have a strong opinion
+- Must check context window proactively (tmux status line) — hit 60.8% without noticing
+- Should delegate planning/research to sub-agents instead of accumulating in my context
+- Documentation must be in the SAME commit as code — not a follow-up
 
 ## Technical Setup
 - Running inside Pi on Gautam's iMac

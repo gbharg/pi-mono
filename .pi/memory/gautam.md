@@ -12,6 +12,11 @@
 - Thorough — wants to see trade-offs before choosing
 - Plans through discussion and debate — it's a collaboration, not a briefing
 - Values simplicity and intentionality, especially in architecture and systems decisions
+- Prefers continuous integration over long-lived branches
+- Wants as few agent roles as possible — derive from actual usage, not theory
+- Open to cloud environments if they simplify the decision tree
+- Wants Linear as the orchestration bus — agents work through Linear, not Pi managing processes
+- Spec and plan are the same thing to him — don't use both words
 - Pushes back when I oversimplify or create false dichotomies
 - Prefers depth over speed
 - Corrects immediately when I'm off track — direct, no sugar-coating
