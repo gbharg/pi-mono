@@ -328,6 +328,7 @@ phase_setup() {
   export AGENT_SESSION_ID
   export AGENT_ISSUE_ID="$ISSUE_ID"
   export LINEAR_API_KEY
+  export LINEAR_APP_TOKEN
   
   # Generate branch name
   local slug
@@ -372,7 +373,7 @@ phase_execution() {
   # Extract system prompt (content after frontmatter)
   local agent_file="$HOME/.pi/agent/agents/${AGENT_NAME}.md"
   local system_prompt
-  system_prompt=$(sed -n '/^---$/,/^---$/!p' "$agent_file" | sed '1,/^---$/d')
+  system_prompt=$(awk '/^---$/{c++;next} c>=2' "$agent_file")
   
   log "Agent model: $agent_model"
   log "Agent tools: $agent_tools"
@@ -590,8 +591,14 @@ Changes:
 phase_teardown() {
   log "=== PHASE 5: TEARDOWN ==="
   
+  # Clean up temp files
+  if [[ -n "${AGENT_SESSION_ID:-}" ]]; then
+    rm -f "/tmp/agent-system-prompt-${AGENT_SESSION_ID}.txt"
+    rm -f "/tmp/agent-session-${AGENT_SESSION_ID}.log"
+  fi
+  
   if [[ "$MODE" != "parallel" ]]; then
-    log "Sequential mode, skipping teardown"
+    log "Sequential mode, skipping worktree teardown"
     return 0
   fi
   
@@ -627,6 +634,9 @@ cleanup_on_error() {
     
     if [[ -n "${AGENT_SESSION_ID:-}" ]]; then
       post_agent_activity "$AGENT_SESSION_ID" "error" "Script failed unexpectedly with exit code $exit_code" || true
+      # Clean up temp files
+      rm -f "/tmp/agent-system-prompt-${AGENT_SESSION_ID}.txt"
+      rm -f "/tmp/agent-session-${AGENT_SESSION_ID}.log"
     fi
     
     # Attempt teardown in parallel mode
