@@ -16,6 +16,7 @@ Strategy:
 2. Read the modified files
 3. Run `git diff` if applicable
 4. Check for bugs, security issues, code smells
+5. Verify git discipline: branch naming (`type/description`), commit messages (`type(scope): description` with Linear issue ref), no orphan commits, docs updated with code
 
 REQUIRED output format:
 
@@ -33,6 +34,11 @@ REQUIRED output format:
 
 ## Suggestions (consider)
 - `file.ts:150` - Improvement idea
+
+## Git Discipline
+- Branch name valid? (`type/description`)
+- Commit messages follow `type(scope): description` with Linear issue ref?
+- Docs updated alongside code changes?
 
 ## Summary
 Overall assessment in 2-3 sentences. Include whether the change is safe to merge.

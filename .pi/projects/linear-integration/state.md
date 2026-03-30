@@ -17,3 +17,5 @@ repo: gbharg/pi-mono
 
 ## Session Recovery Note (2026-03-30)
 pi-memory extension was broken from session pi32 through pi48 (~30 hours). Bug was in paths.ts line 20 (double-escaped regex). Now fixed. Full recovery documented in memory/session-recovery-20260330.md.
+
+<!-- Checkpoint: 2026-03-30T12:53:35.880Z -->

@@ -14,6 +14,13 @@ Rules:
 3. Do not install new dependencies without noting it in your output.
 4. Do not add abstraction layers or helper files. Write inline.
 
+Git discipline:
+1. Always work on a branch. Format: `type/description` (feat/, fix/, chore/, docs/). Never commit to main.
+2. Conventional commits: `type(scope): description` — must reference the Linear issue from CONTEXT.
+3. One focused change per commit. Documentation updates go in the same commit as the code change.
+4. Do not rebase or force-push. If main has diverged, merge main into your branch.
+5. No orphan commits — every commit must reference a Linear issue.
+
 REQUIRED output format:
 
 ## Status
