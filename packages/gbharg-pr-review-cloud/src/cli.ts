@@ -4,7 +4,7 @@ import { loadConfig, loadWatchState, saveWatchState } from "./config.js";
 import { addReviewers, fetchPullRequest, listOpenReviewablePullRequests } from "./github.js";
 import { parsePlanContext } from "./plan-context.js";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
-import { dispatchCloudReviews } from "./runner.js";
+import { dispatchCloudReviews, resolveDispatchMode } from "./runner.js";
 
 type Command = "check" | "dispatch" | "watch";
 
@@ -57,12 +57,17 @@ async function runDispatch(repo: string, prNumber: number, config: ReturnType<ty
 	const planContext = parsePlanContext(pr.body);
 	if (!planContext) throw new Error(`PR #${pr.number} is missing plan context`);
 
-	if (config.githubReviewers?.length) {
+	if (config.requestReviewers === true && config.githubReviewers?.length) {
+		const requestableReviewers = config.githubReviewers.filter((reviewer) => {
+			const model = resolveModelForReviewer(reviewer, config);
+			if (!model) return false;
+			return resolveDispatchMode(model, config) === "command";
+		});
 		const existingActors = new Set([
 			...(pr.reviewRequests ?? []).map((request) => request.login.toLowerCase()),
 			...(pr.reviews ?? []).map((review) => review.reviewer.toLowerCase()),
 		]);
-		const missingReviewers = config.githubReviewers.filter((reviewer) => !existingActors.has(reviewer.toLowerCase()));
+		const missingReviewers = requestableReviewers.filter((reviewer) => !existingActors.has(reviewer.toLowerCase()));
 		if (missingReviewers.length > 0) {
 			await addReviewers(pr.number, repo, missingReviewers, cwd);
 		}
@@ -112,6 +117,21 @@ function NumberRequired(value: string | number | undefined, name: string): numbe
 	if (typeof value === "number" && Number.isFinite(value)) return value;
 	if (typeof value === "string" && value.length > 0) return Number(value);
 	throw new Error(`${name} is required`);
+}
+
+function resolveModelForReviewer(
+	reviewer: string,
+	config: ReturnType<typeof loadConfig>,
+): "codex" | "claude" | "gemini" | undefined {
+	const normalized = reviewer.toLowerCase();
+	for (const model of ["codex", "claude", "gemini"] as const) {
+		const handles = config.reviewerHandles?.[model] ?? [];
+		if (handles.some((handle) => handle.toLowerCase() === normalized)) return model;
+	}
+	for (const model of ["codex", "claude", "gemini"] as const) {
+		if (normalized.includes(model)) return model;
+	}
+	return undefined;
 }
 
 void main().catch((error) => {

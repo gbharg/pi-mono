@@ -3,6 +3,7 @@
 	"minimumApprovals": 3,
 	"maxUsagePercent": 90,
 	"pollIntervalMs": 30000,
+	"requestReviewers": false,
 	"githubReviewers": ["gautam-codex", "gautam-claude", "gautam-gemini"],
 	"reviewerHandles": {
 		"codex": ["gautam-codex"],

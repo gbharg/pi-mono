@@ -48,7 +48,7 @@ export async function fetchPullRequest(pr: number, repo: string, cwd?: string): 
 			"--repo",
 			repo,
 			"--json",
-			"number,title,url,body,headRefName,headRefOid,isDraft,reviews",
+			"number,title,url,body,headRefName,headRefOid,isDraft,reviews,reviewRequests",
 		],
 		cwd,
 	);

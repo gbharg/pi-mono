@@ -221,7 +221,7 @@ export function findDuplicateReviewReason(
 	return null;
 }
 
-function resolveDispatchMode(model: ReviewModel, config: ReviewCloudConfig): ReviewDispatchMode {
+export function resolveDispatchMode(model: ReviewModel, config: ReviewCloudConfig): ReviewDispatchMode {
 	const explicit = config.dispatchModes?.[model];
 	if (explicit) return explicit;
 	if (config.commands?.[model]) return "command";

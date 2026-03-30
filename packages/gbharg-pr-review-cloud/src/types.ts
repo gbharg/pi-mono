@@ -64,6 +64,7 @@ export interface ReviewCloudConfig {
 	minimumApprovals?: number;
 	maxUsagePercent?: number;
 	pollIntervalMs?: number;
+	requestReviewers?: boolean;
 	githubReviewers?: string[];
 	reviewerHandles?: Partial<Record<ReviewModel, string[]>>;
 	dispatchModes?: Partial<Record<ReviewModel, ReviewDispatchMode>>;

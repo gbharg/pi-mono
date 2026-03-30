@@ -54,6 +54,7 @@ The CLI and extension look for `.pi/gbharg-pr-review-cloud.json` in the current 
   "minimumApprovals": 3,
   "maxUsagePercent": 90,
   "pollIntervalMs": 30000,
+  "requestReviewers": false,
   "githubReviewers": ["codex-reviewer", "gemini-reviewer", "claude-reviewer"],
   "reviewerHandles": {
     "codex": ["codex-reviewer"],
@@ -91,6 +92,8 @@ codexbar usage --provider <codex|claude|gemini> --source cli --format json
 The dispatcher runs that check every time a review is triggered. If CodexBar reports a usage window at or above `maxUsagePercent`, or if the reviewer already has a review or review request on the current PR head, that reviewer is skipped for the current dispatch.
 
 If `dispatchModes.<model>` is set to `external`, the extension does not launch that model's command at all. It only requests/tracks the reviewer and enforces merge policy, which is the right mode when GitHub Apps or other cloud agents already self-trigger on PR events.
+
+Set `requestReviewers` to `true` only if you want Pi to call GitHub's reviewer-assignment API. Leave it `false` when `githubReviewers` is only being used as an identity map for external reviewer apps.
 
 Supported placeholders:
 
