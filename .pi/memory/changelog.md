@@ -154,3 +154,11 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Configured GitHub webhook on gbharg/pi-mono for Linear integration
 - Webhook ID: 603412513, events: push, pull_request, issues, issue_comment
 - Linear will auto-link commits, PRs, and issues between GitHub and Linear
+
+### 2026-03-30 — oh-my-pi (omp) Migration Started (PI-71)
+- Installed omp v13.16.5 via bun
+- 8 bundled agents unpacked (explore, plan, designer, reviewer, task, quick_task, librarian, oracle)
+- Extensions copied: imessage-channel, pi-memory
+- Config: autonomous memory enabled, model roles configured (smol=haiku, slow/plan=opus, commit=sonnet)
+- Basic test passed, task tool available
+- omp binary at /Users/agent/.bun/bin/omp
