@@ -26,6 +26,16 @@
 | Minimize scope per agent. One file per agent, minimal context, no awareness of siblings. | Gautam: "the more complex their task list, the greater the risk of bugs." Free to spawn many, each with narrow scope. | 2026-03-30 | memory-compaction-system |
 | Don't give sub-agents project context they don't need. Just the specific spec for their file. | Easy to verify, easy to review. Agent doesn't need to know about the broader project. | 2026-03-30 | memory-compaction-system |
 
+## Context Management
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Monitor context usage proactively. Check tmux status line for percentage. | Hit 60.8% without realizing. Should have been tracking since 30%. | 2026-03-30 | orchestration shaping |
+| Sub-agent roles should come from actual usage data, not theory. | Scout and planner never spawned. Researcher, worker, reviewer are the real roles. | 2026-03-30 | orchestration shaping |
+| Spec and plan are the same thing. Don't create false distinctions. | Gautam pointed out they're identical in practice. | 2026-03-30 | orchestration shaping |
+| Cloud envs simplify everything by eliminating the decision tree. | Instead of "should I isolate?" the answer is always yes for code changes. | 2026-03-30 | orchestration shaping |
+| No project branches. Projects are for planning/grouping in Linear, not git. | Long-lived branches diverge. Every change goes to main independently. | 2026-03-30 | orchestration shaping |
+| Sub-agent sessions persist in git notes + Linear, not in memory. Kill after In Review. | No idle resources. New agent reconstructs full context from external state. | 2026-03-30 | orchestration shaping |
+
 ## Documentation
 | Learning | Context | Date | Session |
 |----------|---------|------|---------|

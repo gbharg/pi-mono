@@ -19,11 +19,21 @@ Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because vio
 
 ## Git Discipline
 
+<<<<<<< HEAD
 1. **Commit every time something works.** Not at session end — the moment a change is verified.
 2. **Never commit directly to main.** Feature branches only. Named by what they change: `feat/retry-logic`, `fix/message-parsing`.
 3. **Keep branches short-lived.** One focused change per branch, merged within 1-2 sessions.
 4. **Do not rebase or force-push shared branches.** Merge main into your branch if needed.
 5. **One PR = one project. One commit = one task.** PRs include PRD, MRD, and session files.
+=======
+1. **Always branch. No exceptions.** Even one-line fixes. Branch off main, PR to merge.
+2. **No project branches.** Linear projects are grouping only. Every change goes to main independently.
+3. **Conventional branch naming.** Format: `type/description` (feat/, fix/, chore/, docs/, etc.)
+4. **Conventional commits.** Format: `type(scope): description` referencing Linear issue.
+5. **Every commit links to a Linear issue.** No orphan commits. The commit message is the enforcement.
+6. **Keep branches short-lived.** One focused change per branch, merged within 1-2 sessions.
+7. **Do not rebase or force-push shared branches.** Merge main into your branch if needed.
+>>>>>>> project/linear-integration
 
 ---
 

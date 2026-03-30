@@ -42,6 +42,32 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
 - Documentation at .pi/docs/mcp-bridge.md
 
+### 2026-03-30 — Orchestration System Shaping Session
+- Shaped full orchestration system with Gautam over iMessage (~7 hours)
+- 35 Linear issues created (PI-34 through PI-68)
+- Key decisions locked: task management, git model, sub-agent lifecycle, review workflow, cloud envs
+
+### 2026-03-30 — Infrastructure Built
+- piagent@agentmail.to email created via AgentMail API
+- Pi Agent invited and accepted as Linear workspace member
+- Plan workflow state added to PI team issue workflow
+- 9 Linear labels created: feat, fix, chore, docs, refactor, test, ci, research, plan
+- Conventional branch pre-push hook installed (.husky/pre-push)
+- Conventional commit commit-msg hook installed (.husky/commit-msg)
+- Git Notes tested on repo (session log attached to commit)
+- Pi Agent set as delegate on all 26 completed issues (bulk update)
+- Linear delegation model discovered: delegateId field + AgentSessionEvent webhook
+- Linear GitHub webhook configured on gbharg/pi-mono (PI-33)
+- Compaction extension deployed via /reload (PI-25)
+- Linear app user authenticated via OAuth (PI-11, PI-12)
+
+### 2026-03-30 — Research Reports Generated
+- Git Notes evaluation: Git AI recommended (~/research-git-notes-evaluation.md)
+- Branching patterns (Fowler): mapped to multi-agent workflows (~/research-branching-patterns.md)
+- Linear docs: YES, first-class documents with full API (~/research-linear-docs.md)
+- Proof SDK alternatives: investigating Linear/Notion (~/research-proof-sdk-alternatives.md)
+- Sub-agent roles: investigating Intent, Droid, OpenClaw patterns (~/research-subagent-roles.md)
+
 ### 2026-03-30 — Linear Agent Delegation
 - Pi Agent set as delegate on all 26 completed issues (PI-1 through PI-32)
 - Discovered delegation model: assigneeId = human, delegateId = agent, AgentSessionEvent = spawn trigger
@@ -128,3 +154,11 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Configured GitHub webhook on gbharg/pi-mono for Linear integration
 - Webhook ID: 603412513, events: push, pull_request, issues, issue_comment
 - Linear will auto-link commits, PRs, and issues between GitHub and Linear
+
+### 2026-03-30 — oh-my-pi (omp) Migration Started (PI-71)
+- Installed omp v13.16.5 via bun
+- 8 bundled agents unpacked (explore, plan, designer, reviewer, task, quick_task, librarian, oracle)
+- Extensions copied: imessage-channel, pi-memory
+- Config: autonomous memory enabled, model roles configured (smol=haiku, slow/plan=opus, commit=sonnet)
+- Basic test passed, task tool available
+- omp binary at /Users/agent/.bun/bin/omp
