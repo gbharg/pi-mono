@@ -1,22 +1,29 @@
-# Context — Linear Integration
+# Context — Linear Integration / Orchestration System
 
 ## What This Project Is
-Build automated two-way sync between Pi's local files and Linear, real-time sub-agent tracking reflected in Linear, and a git workflow that prevents conflicts when multiple agents work in parallel.
+Design and build the orchestration system that connects Pi, Linear, GitHub, and sub-agents into a unified workflow. Linear is the task system, GitHub is the code system, sub-agents are the execution layer, Pi is the orchestrator.
 
-## What Already Exists
-- Linear webhook server on port 3002 (receives Issue, Comment, Project, AgentSessionEvent events)
-- MCP bridge on port 3100 (authenticated, valid through 4/5)
-- Pi Agent app user in Linear (can post comments, set delegate)
-- GitHub webhook sending push/PR/issue events to Linear
-- Manual task creation and status updates via API
+## Current State
+Phase: Shaping complete. Ready to write specs and implement.
 
-## Three Gaps to Fill
-1. Automated task sync: tasks.md ↔ Linear issues (bidirectional, with IDs)
-2. Sub-agent tracking: real-time visibility, status reflected in Linear comments
-3. Git workflow: worktree-per-agent for parallel work, conflict-free merges
+## Core Decisions (see decisions.md for full list with rationale)
+- Everything = Linear issue. iMessage = sync. Linear = async.
+- Always branch off main. No project branches. PR to merge.
+- Sub-agents: kill after In Review. Sessions in git notes + Linear.
+- Two review gates: Reviewer agent + 4-agent PR review (Gemini/Codex/Claude/Copilot)
+- Cloud envs for code changes. Research/planning = local.
+- Three roles: researcher (persistent), worker (disposable), reviewer (persistent)
+- Conventional branch naming + conventional commits
+- todo.md = auto-generated cache from Linear
 
-## Key Decisions from Previous Project
-- All assignments route through me (orchestrator), no autonomous mode
-- Linear = Gautam's source of truth, files = my team's. Always in sync.
-- One file per agent, minimal context, no awareness of siblings
-- Docs updated in same commit as code
+## Implementation Queue (Linear issues)
+- PI-56: Sub-agent completion protocol (wrapper, git notes, Linear updates)
+- PI-65: Multi-agent PR review gate (branch protection, 4 approvals)
+- PI-41: Naming conventions (Linear, GitHub, files)
+- PI-34: Scheduled reminder system
+- PI-38: Cloud agent environments (separate project)
+- PI-62-64: Reviewer as persistent Linear agent
+
+## Open Research (agents running)
+- Proof SDK alternatives (Linear docs vs Notion)
+- Sub-agent roles (Intent, Droid patterns)

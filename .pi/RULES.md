@@ -1,139 +1,76 @@
-# Project Rules
+# Pi Agent — Project Rules
 
-## Branch Naming
+This file is the single source of truth for how all agents operate in this repository. Read it in full before every session. Follow it without exception.
 
-This project follows the [Conventional Branch](https://conventional-branch.github.io/) specification for consistent and meaningful branch naming.
+Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because violating it has caused real failures.
 
-### Format
+---
 
-```
-<type>/<description>
-```
+## Hard Rules
 
-### Supported Types
+1. **Do not install new dependencies without explicit approval.** If a task requires a new package, stop and ask.
+2. **Do not refactor, rename, or restructure files outside the current task scope.** If something works, leave it alone.
+3. **Do not add abstraction layers, wrapper classes, or helper files.** Write inline. Extract only when the same block has been copy-pasted 3+ times.
+4. **Do not move files between directories.** The file tree is intentional. Reorganization requires explicit approval.
+5. **Do not make changes beyond what was asked.** Fix what was scoped, nothing more.
+6. **Do not generate tests unless explicitly asked.** When asked, write integration smoke tests, not unit tests for internals.
 
-- **`main`** - The main development branch (e.g., `main`, `master`, or `develop`)
-- **`feature/`** or **`feat/`** - For new features (e.g., `feature/add-login-page`, `feat/add-login-page`)
-- **`bugfix/`** or **`fix/`** - For bug fixes (e.g., `bugfix/fix-header-bug`, `fix/header-bug`)
-- **`hotfix/`** - For urgent fixes (e.g., `hotfix/security-patch`)
-- **`release/`** - For branches preparing a release (e.g., `release/v1.2.0`)
-- **`chore/`** - For non-code tasks like dependency, docs updates (e.g., `chore/update-dependencies`)
+---
 
-### Basic Rules
+## Git Discipline
 
-1. **Use Lowercase Alphanumerics, Hyphens, and Dots**: Always use lowercase letters (`a-z`), numbers (`0-9`), and hyphens (`-`) to separate words. Avoid special characters, underscores, or spaces. For release branches, dots (`.`) may be used in the description to represent version numbers (e.g., `release/v1.2.0`).
+1. **Commit every time something works.** Not at session end — the moment a change is verified.
+2. **Never commit directly to main.** Feature branches only. Named by what they change: `feat/retry-logic`, `fix/message-parsing`.
+3. **Keep branches short-lived.** One focused change per branch, merged within 1-2 sessions.
+4. **Do not rebase or force-push shared branches.** Merge main into your branch if needed.
+5. **One PR = one project. One commit = one task.** PRs include PRD, MRD, and session files.
 
-2. **No Consecutive, Leading, or Trailing Hyphens or Dots**: Ensure that hyphens and dots do not appear consecutively (e.g., `feature/new--login`, `release/v1.-2.0`), nor at the start or end of the description (e.g., `feature/-new-login`, `release/v1.2.0.`).
+---
 
-3. **Keep It Clear and Concise**: The branch name should be descriptive yet concise, clearly indicating the purpose of the work.
+## Multi-Agent Boundaries
 
-4. **Include Ticket Numbers**: If applicable, include the ticket number from your project management tool to make tracking easier. For example, for a ticket `issue-123`, the branch name could be `feature/issue-123-new-login`.
+1. Each agent operates in its own Git worktree on its own branch.
+2. No two agents may work in the same directory or on the same files simultaneously.
+3. Before spawning a parallel agent, describe in one sentence the boundary between what each agent touches. If you can't draw that line, serialize the work.
 
-### Examples
+---
 
-#### Good Examples
-- `feature/user-authentication`
-- `feat/add-dashboard-widgets`
-- `fix/memory-leak-in-parser`
-- `bugfix/button-alignment-issue`
-- `hotfix/critical-security-patch`
-- `release/v2.1.0`
-- `chore/update-dependencies`
-- `feature/issue-456-payment-integration`
+## Process Safety (from post-mortem)
 
-#### Bad Examples
-- `feature/User_Authentication` (uppercase, underscores)
-- `fix/Memory--Leak` (consecutive hyphens, uppercase)
-- `feature/-new-feature` (leading hyphen)
-- `bugfix/fix-bug-` (trailing hyphen)
-- `my-random-branch` (no type prefix)
-- `feature/new..feature` (consecutive dots outside release context)
+1. **No destructive git primitives in automation.** Every sync script uses dry-run first. Snapshots before destructive ops are mandatory.
+2. **Serialized git access.** flock-based single-writer. No concurrent git operations.
+3. **Process supervisor from day one.** launchd, not bash loops. Health check endpoint required before any service goes live.
+4. **Deploy verification after merge.** Never call `gh pr merge` directly — verify local deployment after merge.
+5. **Growth budgets enforced.** Pre-commit hooks reject oversized files. Memory files have line limits. Curation is automated.
+6. **Single source of truth per concern.** One config file, one truth, version-controlled. No layered settings with complex merge semantics.
 
-### Integration
+---
 
-This naming convention integrates with:
-- **CI/CD Pipelines**: Automated systems can trigger specific actions based on branch type
-- **Team Collaboration**: Clear purpose indication improves team coordination
-- **Git Hooks**: Pre-push hooks validate branch names against this specification
+## Memory & Compaction
 
-### Validation
+1. **Compaction threshold: target 30%, soft 50%, priority 60%.** I own the decision — hooks nudge, don't trigger.
+2. **Checkpoint before compaction.** Write state.md + context.md before any context loss event.
+3. **Everything in Linear.** Any commitment goes in Linear immediately. No exceptions.
+4. **Living documentation.** Update docs in real-time during execution, not after.
 
-The pre-push hook at `.husky/pre-push` validates all branch names against this convention before allowing pushes to the remote repository. Only the `main` branch is exempt from this validation.
+---
 
-## Commit Messages
+## Communication
 
-This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification for consistent and meaningful commit messages.
+1. **Acknowledge every message** before starting work — response or reaction.
+2. **One topic at a time.** Resolve before moving on.
+3. **Sequential conversation flow.** No batching questions.
+4. **Proactive updates.** Don't wait to be asked.
+5. **When corrected, fix through action, not words.**
 
-### Format
+---
 
-```
-<type>(scope): <description>
+## Decision Log
 
-[optional body]
+Record every meaningful decision in the project's `decisions.md` before implementing. Date, category, decision, rationale. This forces articulation before action and gives future sessions the context to understand why.
 
-[optional footer(s)]
-```
+---
 
-### Supported Types
+## Guiding Principle
 
-- **`feat`** - Commits that add, adjust or remove a new feature to the API or UI
-- **`fix`** - Commits that fix an API or UI bug of a preceded `feat` commit
-- **`refactor`** - Commits that rewrite or restructure code without altering API or UI behavior
-- **`perf`** - Commits are special type of `refactor` commits that specifically improve performance
-- **`style`** - Commits that address code style (e.g., white-space, formatting, missing semi-colons) and do not affect application behavior
-- **`test`** - Commits that add missing tests or correct existing ones
-- **`docs`** - Commits that exclusively affect documentation
-- **`build`** - Commits that affect build-related components such as build tools, dependencies, project version, etc.
-- **`ops`** - Commits that affect operational aspects like infrastructure, deployment scripts, CI/CD pipelines, monitoring, etc.
-- **`ci`** - Commits that affect continuous integration configuration or scripts
-- **`chore`** - Commits that represent tasks like initial commit, modifying `.gitignore`, etc.
-- **`revert`** - Commits that revert a previous commit
-
-### Scope
-
-The `scope` provides additional contextual information about the affected area:
-- **Optional** part of the commit message
-- Should be lowercase and concise (e.g., `memory`, `linear`, `imessage`, `deps`)
-- **Do not** use issue identifiers as scopes
-
-### Description
-
-The `description` contains a concise description of the change:
-- **Mandatory** part of the commit message
-- Use imperative, present tense: "change" not "changed" nor "changes"
-- Think of "This commit will..." when writing the description
-- Use lowercase (no capitalization of the first letter)
-- **Do not** end with a period (`.`)
-
-### Breaking Changes
-
-Breaking changes **must** be indicated by an `!` before the `:` in the subject line:
-```
-feat(api)!: remove status endpoint
-```
-
-### Examples
-
-#### Good Examples
-```
-feat(linear): add webhook handler for issue events
-fix(memory): correct regex in getActiveProject
-docs(agent): update AGENT.md with new services
-chore(deps): bump express to v5
-perf(parser): decrease memory footprint using HyperLogLog
-feat(imessage)!: remove deprecated send method
-refactor: implement fibonacci calculation as recursion
-test(utils): add unit tests for string helpers
-```
-
-#### Bad Examples
-```
-Add new feature                    (missing type and scope)
-feat(Linear): Add webhook handler  (scope capitalized, description capitalized)
-fix(memory): Fixed regex bug.      (past tense, ends with period)
-Feature: new login page            (wrong type, capitalized)
-```
-
-### Validation
-
-The commit-msg hook at `.husky/commit-msg` validates all commit messages against this convention before allowing commits. Special cases like merge commits and reverts are automatically handled.
+Simplicity is not a phase you grow out of. It is a discipline you maintain. Every file, every abstraction, and every dependency is a liability until proven otherwise. When in doubt, do less.

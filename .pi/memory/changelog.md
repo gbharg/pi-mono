@@ -1,0 +1,156 @@
+# Pi Changelog
+
+All changes to Pi's configuration, extensions, memory system, and infrastructure.
+
+## 2026-03-29
+
+### iMessage Channel Setup
+- Installed SendBlue webhook server at ~/imessage-channel/ (Express on port 3001)
+- Configured Caddy reverse proxy: :8443/sendblue/* → localhost:3001
+- Configured Tailscale Funnel: gautams-imac.tail053faf.ts.net:8443 → Caddy
+- Created launchd plist: com.imessage-channel (KeepAlive, RunAtLoad)
+- Built Pi extension at ~/.pi/agent/extensions/imessage-channel/ (polls inbox, injects messages, registers imessage_reply/react/history tools)
+- SendBlue number: +16292925296, target: +19723637754
+
+### Subagent Extension
+- Symlinked subagent extension from pi-mono examples to ~/.pi/agent/extensions/subagent/
+- Symlinked agent definitions (scout, planner, reviewer, worker) to ~/.pi/agent/agents/
+- Symlinked workflow prompts (implement, scout-and-plan, implement-and-review) to ~/.pi/agent/prompts/
+- Created custom researcher.md agent (Opus 4.6, for background research tasks)
+
+### Memory System
+- Created ~/.pi/memory/gautam.md — Gautam's personality profile
+- Created ~/.pi/memory/pi.md — Pi's identity and personality
+- Created ~/.pi/memory/preferences.md — Gautam's working style and expectations
+- Created ~/.pi/memory/learnings.md — categorized learnings with session references
+- Created ~/.pi/memory/todo.md — scheduled commitments ledger
+- Created ~/.pi/memory/changelog.md — this file
+
+### Project Infrastructure
+- Created branch: project/memory-compaction-system on gbharg/pi-mono
+- Created Linear project: Memory & Compaction System (PI team)
+- Created Linear issue: PI-1 (Set up Pi as Linear app for webhooks)
+- Created project folder at .pi/projects/memory-compaction-system/ with state, context, prd, decisions, session summary
+- Created project index at .pi/projects/index.md
+- Saved Linear API key to ~/imessage-channel/.env
+
+### Overnight Work — Phase 4 (MCP bridge for PI-11/PI-12)
+- Ported MCP bridge from agents repo to .pi/services/mcp-bridge/
+- Configured for Linear MCP (https://mcp.linear.app/mcp)
+- OAuth PKCE flow with dynamic client registration and token refresh
+- launchd service: com.pi-agent.mcp-bridge on port 3100
+- Health check working, Linear shows as unauthenticated (needs Gautam's browser for OAuth)
+- Documentation at .pi/docs/mcp-bridge.md
+
+### 2026-03-30 — Orchestration System Shaping Session
+- Shaped full orchestration system with Gautam over iMessage (~7 hours)
+- 35 Linear issues created (PI-34 through PI-68)
+- Key decisions locked: task management, git model, sub-agent lifecycle, review workflow, cloud envs
+
+### 2026-03-30 — Infrastructure Built
+- piagent@agentmail.to email created via AgentMail API
+- Pi Agent invited and accepted as Linear workspace member
+- Plan workflow state added to PI team issue workflow
+- 9 Linear labels created: feat, fix, chore, docs, refactor, test, ci, research, plan
+- Conventional branch pre-push hook installed (.husky/pre-push)
+- Conventional commit commit-msg hook installed (.husky/commit-msg)
+- Git Notes tested on repo (session log attached to commit)
+- Pi Agent set as delegate on all 26 completed issues (bulk update)
+- Linear delegation model discovered: delegateId field + AgentSessionEvent webhook
+- Linear GitHub webhook configured on gbharg/pi-mono (PI-33)
+- Compaction extension deployed via /reload (PI-25)
+- Linear app user authenticated via OAuth (PI-11, PI-12)
+
+### 2026-03-30 — Research Reports Generated
+- Git Notes evaluation: Git AI recommended (~/research-git-notes-evaluation.md)
+- Branching patterns (Fowler): mapped to multi-agent workflows (~/research-branching-patterns.md)
+- Linear docs: YES, first-class documents with full API (~/research-linear-docs.md)
+- Proof SDK alternatives: investigating Linear/Notion (~/research-proof-sdk-alternatives.md)
+- Sub-agent roles: investigating Intent, Droid, OpenClaw patterns (~/research-subagent-roles.md)
+
+### 2026-03-30 — Linear Agent Delegation
+- Pi Agent set as delegate on all 26 completed issues (PI-1 through PI-32)
+- Discovered delegation model: assigneeId = human, delegateId = agent, AgentSessionEvent = spawn trigger
+- Gautam added auto-delegate template — all new issues auto-assign Pi Agent as delegate
+- All assignments route through orchestrator session (no autonomous mode)
+
+### 2026-03-30 — Compaction Extension Deployed
+- /reload executed to activate pi-memory extension (5 files: paths, bootstrap, monitor, checkpoint, index)
+- Auto-compaction disabled via .pi/settings.json
+- Extension now live: loads project state on startup, monitors context %, checkpoints before /compact, custom summaries, shutdown warnings
+
+### 2026-03-30 — Compaction Extension Build (PI-25)
+- Refactored pi-memory extension from monolith into 5 files: paths.ts, bootstrap.ts, monitor.ts, checkpoint.ts, index.ts
+- Built by 6 parallel sub-agents (one per file), reviewed by 1 review agent
+- Reviewer caught 2 high-severity regex bugs (double-escaped markdown/checkbox matchers) + 1 missing timeout — all fixed
+- Created .pi/settings.json with compaction.enabled: false (manual /compact only)
+- Added compaction-extension/ sub-project with plan.md, spec.md, review.md, review-results.md
+- Scoped PI-21 through PI-24 (atomic git, cross-platform CI, duplicate PR detection, regression tests) — not implemented, parked
+
+### References Added
+- gstack: github.com/garrytan/gstack (planning skills, stage-gated workflows)
+- get-shit-done: github.com/gsd-build/get-shit-done (revisit alongside gstack)
+
+### Overnight Work — Phase 3 (orchestration + audit)
+- Evaluated 3 orchestration packages: pi-teams, pi-messenger-swarm, taskplane
+- Added pi-teams to settings.json (pi-messenger-swarm install broken, taskplane for later)
+- Ran 4 parallel Sonnet agents to audit gbharg/agents repo (agents/, infra/, harness/, apps+memory)
+- Synthesized with Opus into FINAL-AUDIT.md (20KB, top 10 features ranked)
+- Posted full report to Linear PI-10
+- PI-9 and PI-10 completed with proof of work
+
+### Overnight Work — Phase 2 (orchestration testing)
+- Built /skill:shape — structured brief/shaping skill with 11 progressive questions
+- Built /skill:prd-review — PRD generation skill with 14 questions across product/design/engineering
+- Created task reminder cron (com.pi-agent.task-reminder, every 4 hours, alerts via iMessage)
+- Research reports completed: orchestration patterns + skill generation
+- All PI-1 through PI-8 completed in Linear
+
+### Overnight Work (while Gautam sleeps) — continued
+- Built Linear webhook server at .pi/services/linear-webhook/ (Express on port 3002)
+- Added /linear/* route to Caddy (same pattern as SendBlue)
+- Created launchd plist: com.pi-agent.linear-webhook (KeepAlive, RunAtLoad)
+- Registered Linear webhook: Issue, Comment, Project events → https://gautams-imac.tail053faf.ts.net:8443/linear/webhook
+- Webhook ID: 3032e329-a88c-488a-b81d-e6ad95229db3
+- Events write to ~/.pi/linear-inbox/ for Pi to process
+- Tested end-to-end: Linear state change → webhook fires → inbox file created
+- PI-1 completed
+
+### Overnight Work (while Gautam sleeps)
+- Built pi-memory extension at ~/.pi/agent/extensions/pi-memory/ (loads todo, project state, identity on session_start; compaction nudges on turn_end; EOD reminder on shutdown)
+- Created nightly EOD check cron (com.pi-agent.eod-check, runs 10 PM CT, alerts via iMessage if items unchecked)
+- Created .pi/scripts/validate-structure.sh (validates directory structure, catches credentials in tracked files)
+- Created .pi/scripts/eod-check.sh (nightly automated checklist)
+- Removed credentials from tracked documentation files
+
+### Credentials
+- Created .pi/.env (gitignored) as central credential store
+- Contains: Linear, SendBlue, and GitHub credentials (see .pi/.env for details)
+- GitHub token managed by gh CLI at ~/.config/gh/hosts.yml
+
+### Caddy Configuration
+- Added /sendblue/* route to Caddyfile at ~/openclaw/tools/poke-mcp/Caddyfile (no auth, bypasses Bearer token requirement)
+- Added bind 127.0.0.1 to avoid conflict with Tailscale Funnel port binding
+
+### Overnight Work — Phase 5 (code standards implementation)
+- Created .pi/RULES.md from OpenClaw post-mortem (PI-13)
+- Created .pi/AGENT.md system overview
+- Scoped PI-13 into 7 sub-issues (PI-14 through PI-20)
+- PI-14 ✓ Pre-commit validation hook
+- PI-16 ✓ Serialized git access (mkdir-based locking)
+- PI-17 ✓ E2E smoke test (18/18 passing)
+- PI-19 ✓ Checkpoint before compaction
+- PI-20 ✓ Role-based permission profiles (worker-readonly, worker-full)
+
+### 2026-03-30 — Linear App User Configured (PI-11, PI-12)
+- Pi Agent registered as OAuth app user in Linear (ID: 8c57aa34-d7fd-458e-abd3-056bba630181)
+- Display name: piagent, email: @oauthapp.linear.app
+- App token saved to .pi/.env (gitignored)
+- Can post comments as "Pi Agent", has access to PI and AI teams
+- Webhook key saved for HMAC verification
+- Comment posted on PI-7 as Pi Agent to verify
+
+### 2026-03-30 — Linear GitHub Integration (PI-33)
+- Configured GitHub webhook on gbharg/pi-mono for Linear integration
+- Webhook ID: 603412513, events: push, pull_request, issues, issue_comment
+- Linear will auto-link commits, PRs, and issues between GitHub and Linear

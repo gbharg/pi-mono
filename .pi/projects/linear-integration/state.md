@@ -10,7 +10,7 @@ repo: gbharg/pi-mono
 
 # Linear Integration
 
-## Current Phase: Shaping
-## Progress: Infrastructure built (webhook, MCP bridge, app user). Need automated sync, agent tracking, and git workflow.
+## Current Phase: Shaping → Planned
+## Progress: Full orchestration system shaped. 35 issues created. Core decisions locked. Ready to spec and implement.
 ## Blockers: None
-## Next: Scope the three gaps (task sync, agent tracking, git workflow) and create Linear project
+## Next: Write specs for PI-56 (completion protocol) and PI-65 (review gate), then delegate to sub-agents
