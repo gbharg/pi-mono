@@ -1,0 +1,79 @@
+export interface PlanContextSource {
+	kind: "file" | "url" | "inline";
+	value: string;
+}
+
+export interface PlanContext {
+	version: 1;
+	source: PlanContextSource;
+	issue?: string;
+	summary?: string;
+	acceptanceCriteria: string[];
+	functionalChecks: string[];
+	codeQualityChecks: string[];
+	outOfScope?: string[];
+}
+
+export interface LatestReviewState {
+	reviewer: string;
+	state: "APPROVED" | "CHANGES_REQUESTED" | "COMMENTED" | "DISMISSED" | "PENDING";
+	submittedAt?: string;
+	commitOid?: string;
+}
+
+export interface PullRequestReviewRequest {
+	login: string;
+}
+
+export interface MergePolicyInput {
+	minimumApprovals: number;
+	planContext: PlanContext | null;
+	reviews: LatestReviewState[];
+}
+
+export interface MergePolicyResult {
+	ok: boolean;
+	approvals: number;
+	blockingReviewers: string[];
+	reasons: string[];
+}
+
+export interface PullRequestMetadata {
+	number: number;
+	title: string;
+	url: string;
+	body: string;
+	headRefName: string;
+	headRefOid: string;
+	isDraft?: boolean;
+	reviews?: LatestReviewState[];
+	reviewRequests?: PullRequestReviewRequest[];
+}
+
+export interface RunnerCommandTemplate {
+	command: string;
+	args?: string[];
+	env?: Record<string, string>;
+}
+
+export interface ReviewCloudConfig {
+	repo?: string;
+	minimumApprovals?: number;
+	maxUsagePercent?: number;
+	pollIntervalMs?: number;
+	githubReviewers?: string[];
+	reviewerHandles?: Partial<Record<"codex" | "claude" | "gemini", string[]>>;
+	usageCommands?: Partial<Record<"codex" | "claude" | "gemini", RunnerCommandTemplate>>;
+	commands: Partial<Record<"codex" | "claude" | "gemini", RunnerCommandTemplate>>;
+}
+
+export interface WatchState {
+	pullRequests: Record<string, string>;
+}
+
+export interface UsageCheckResult {
+	model: "codex" | "claude" | "gemini";
+	usagePercent: number | null;
+	skipped: boolean;
+	reason?: string;
+}

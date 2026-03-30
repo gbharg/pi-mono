@@ -1,0 +1,64 @@
+{
+	"name": "@gbharg/pi-pr-review-cloud",
+	"version": "0.64.0",
+	"description": "Fork-scoped cloud PR review orchestration and local merge gating for pi",
+	"type": "module",
+	"bin": {
+		"gbharg-pr-review-cloud": "dist/cli.js"
+	},
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./cli": {
+			"types": "./dist/cli.d.ts",
+			"import": "./dist/cli.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"clean": "shx rm -rf dist",
+		"build": "tsgo -p tsconfig.build.json",
+		"test": "vitest --run",
+		"prepublishOnly": "npm run clean && npm run build"
+	},
+	"pi": {
+		"extensions": [
+			"./dist/index.js"
+		]
+	},
+	"dependencies": {
+		"@mariozechner/pi-coding-agent": "^0.64.0",
+		"@sinclair/typebox": "^0.34.41"
+	},
+	"devDependencies": {
+		"@types/node": "^24.3.0",
+		"shx": "^0.4.0",
+		"typescript": "^5.7.3",
+		"vitest": "^3.2.4"
+	},
+	"keywords": [
+		"pi",
+		"pull-request",
+		"review",
+		"github",
+		"merge-gate",
+		"cloud"
+	],
+	"author": "Mario Zechner",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gbharg/pi-mono.git",
+		"directory": "packages/gbharg-pr-review-cloud"
+	},
+	"engines": {
+		"node": ">=20.0.0"
+	}
+}
