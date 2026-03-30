@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { delimiter, join } from "node:path";
-import type { PlanContext, PullRequestMetadata, ReviewCloudConfig, RunnerCommandTemplate, UsageCheckResult } from "./types.js";
+import type { PlanContext, PullRequestMetadata, ReviewCloudConfig, ReviewDispatchMode, ReviewModel, RunnerCommandTemplate, UsageCheckResult } from "./types.js";
 import { execFileText, spawnAndWait } from "./process.js";
 
 const MODELS = ["codex", "claude", "gemini"] as const;
@@ -67,8 +67,29 @@ export async function dispatchCloudReviews(
 	try {
 		const summaries: DispatchSummary[] = [];
 		for (const model of MODELS) {
-			const template = config.commands[model];
-			if (!template) continue;
+			const mode = resolveDispatchMode(model, config);
+			if (mode === "disabled") continue;
+			if (mode === "external") {
+				summaries.push({
+					model,
+					exitCode: 0,
+					skipped: true,
+					reason: `${model} reviews are managed by an external reviewer app`,
+					usagePercent: null,
+				});
+				continue;
+			}
+			const template = config.commands?.[model];
+			if (!template) {
+				summaries.push({
+					model,
+					exitCode: 0,
+					skipped: true,
+					reason: `no command configured for ${model}`,
+					usagePercent: null,
+				});
+				continue;
+			}
 			const duplicateReason = findDuplicateReviewReason(model, config, pr);
 			if (duplicateReason) {
 				summaries.push({
@@ -198,6 +219,14 @@ export function findDuplicateReviewReason(
 	}
 
 	return null;
+}
+
+function resolveDispatchMode(model: ReviewModel, config: ReviewCloudConfig): ReviewDispatchMode {
+	const explicit = config.dispatchModes?.[model];
+	if (explicit) return explicit;
+	if (config.commands?.[model]) return "command";
+	if (resolveReviewerIdentities(model, config).length > 0) return "external";
+	return "disabled";
 }
 
 function resolveReviewerIdentities(model: ModelName, config: ReviewCloudConfig): string[] {

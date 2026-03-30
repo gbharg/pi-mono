@@ -1,0 +1,17 @@
+{
+	"repo": "gbharg/pi-mono",
+	"minimumApprovals": 3,
+	"maxUsagePercent": 90,
+	"pollIntervalMs": 30000,
+	"githubReviewers": ["gautam-codex", "gautam-claude", "gautam-gemini"],
+	"reviewerHandles": {
+		"codex": ["gautam-codex"],
+		"claude": ["gautam-claude"],
+		"gemini": ["gautam-gemini"]
+	},
+	"dispatchModes": {
+		"codex": "external",
+		"claude": "external",
+		"gemini": "external"
+	}
+}

@@ -10,6 +10,7 @@ Cloud-hosted pull request review orchestration and local merge gating for `pi`.
 - Adds reviewer accounts to the PR.
 - Skips duplicate reviewer requests and duplicate same-head reviews from existing automation.
 - Checks CodexBar usage before every dispatch and stops a reviewer once it reaches the configured usage ceiling.
+- Supports externally managed reviewer apps so the extension can gate and track reviews without launching duplicate review runs.
 - Enforces a local merge gate requiring:
   - plan context present
   - at least 3 approvals
@@ -59,6 +60,11 @@ The CLI and extension look for `.pi/gbharg-pr-review-cloud.json` in the current 
     "claude": ["claude-reviewer"],
     "gemini": ["gemini-reviewer"]
   },
+  "dispatchModes": {
+    "codex": "external",
+    "claude": "external",
+    "gemini": "external"
+  },
   "commands": {
     "codex": {
       "command": "ssh",
@@ -83,6 +89,8 @@ codexbar usage --provider <codex|claude|gemini> --source cli --format json
 ```
 
 The dispatcher runs that check every time a review is triggered. If CodexBar reports a usage window at or above `maxUsagePercent`, or if the reviewer already has a review or review request on the current PR head, that reviewer is skipped for the current dispatch.
+
+If `dispatchModes.<model>` is set to `external`, the extension does not launch that model's command at all. It only requests/tracks the reviewer and enforces merge policy, which is the right mode when GitHub Apps or other cloud agents already self-trigger on PR events.
 
 Supported placeholders:
 

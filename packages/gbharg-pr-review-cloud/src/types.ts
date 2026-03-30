@@ -56,15 +56,19 @@ export interface RunnerCommandTemplate {
 	env?: Record<string, string>;
 }
 
+export type ReviewModel = "codex" | "claude" | "gemini";
+export type ReviewDispatchMode = "command" | "external" | "disabled";
+
 export interface ReviewCloudConfig {
 	repo?: string;
 	minimumApprovals?: number;
 	maxUsagePercent?: number;
 	pollIntervalMs?: number;
 	githubReviewers?: string[];
-	reviewerHandles?: Partial<Record<"codex" | "claude" | "gemini", string[]>>;
-	usageCommands?: Partial<Record<"codex" | "claude" | "gemini", RunnerCommandTemplate>>;
-	commands: Partial<Record<"codex" | "claude" | "gemini", RunnerCommandTemplate>>;
+	reviewerHandles?: Partial<Record<ReviewModel, string[]>>;
+	dispatchModes?: Partial<Record<ReviewModel, ReviewDispatchMode>>;
+	usageCommands?: Partial<Record<ReviewModel, RunnerCommandTemplate>>;
+	commands?: Partial<Record<ReviewModel, RunnerCommandTemplate>>;
 }
 
 export interface WatchState {

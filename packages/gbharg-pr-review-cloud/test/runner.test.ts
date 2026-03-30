@@ -110,4 +110,22 @@ describe("runner de-duplication", () => {
 		});
 		expect(reason).toBeNull();
 	});
+
+	it("treats external reviewers as non-command-managed in config", async () => {
+		const externalOnlyConfig: ReviewCloudConfig = {
+			reviewerHandles: {
+				codex: ["gautam-codex"],
+			},
+			dispatchModes: {
+				codex: "external",
+			},
+		};
+		expect(
+			findDuplicateReviewReason("codex", externalOnlyConfig, {
+				headRefOid: "sha",
+				reviews: [],
+				reviewRequests: [],
+			}),
+		).toBeNull();
+	});
 });
