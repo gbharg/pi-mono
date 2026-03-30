@@ -467,7 +467,9 @@ stall_monitor() {
 stream_to_linear() {
   local session_id="$1"
   
-  python3 - "$session_id" "$LINEAR_APP_TOKEN" <<'PYTHON_SCRIPT'
+  # Write Python script to temp file so stdin remains free for pipe data
+  local py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
+  cat > "$py_script" <<'PYTHON_SCRIPT'
 import sys
 import json
 import time
@@ -549,6 +551,10 @@ for line in sys.stdin:
         # Ignore malformed lines
         pass
 PYTHON_SCRIPT
+  
+  # Execute Python with temp file, then clean up
+  python3 "$py_script" "$session_id" "$LINEAR_APP_TOKEN"
+  rm -f "$py_script"
 }
 
 # ============================================================================
