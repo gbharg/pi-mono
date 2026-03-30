@@ -203,7 +203,7 @@ export default function (pi: ExtensionAPI) {
             return;
           }
 
-          const sender = (body.from_number as string) ?? "";
+          const sender = (body.from_number as string) ?? (body.number as string) ?? "";
           const content = (body.content as string) ?? "";
           const mediaUrl = (body.media_url as string) ?? null;
           const messageHandle = (body.message_handle as string) ?? "";
