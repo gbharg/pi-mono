@@ -460,6 +460,98 @@ stall_monitor() {
 }
 
 # ============================================================================
+# Stream to Linear (PI-136)
+# ============================================================================
+
+# Stream JSON events from pi to Linear activities in real-time
+stream_to_linear() {
+  local session_id="$1"
+  
+  python3 - "$session_id" "$LINEAR_APP_TOKEN" <<'PYTHON_SCRIPT'
+import sys
+import json
+import time
+import subprocess
+
+session_id = sys.argv[1]
+linear_app_token = sys.argv[2]
+last_post_time = 0
+rate_limit_seconds = 3
+
+def post_activity(activity_type, body):
+    global last_post_time
+    
+    # Rate limit check
+    now = time.time()
+    if now - last_post_time < rate_limit_seconds:
+        return
+    
+    last_post_time = now
+    
+    # Truncate body for thoughts
+    if activity_type == 'thought' and len(body) > 500:
+        body = body[:497] + '...'
+    
+    # Build GraphQL mutation
+    query = json.dumps({
+        "query": """mutation AgentActivityCreate($sessionId: String!, $content: JSONObject!) {
+            agentActivityCreate(input: {agentSessionId: $sessionId, content: $content}) {
+                success
+            }
+        }""",
+        "variables": {
+            "sessionId": session_id,
+            "content": {
+                "type": activity_type,
+                "body": body
+            }
+        }
+    })
+    
+    # Post via curl in background
+    subprocess.Popen([
+        'curl', '-s', '-X', 'POST',
+        'https://api.linear.app/graphql',
+        '-H', f'Authorization: Bearer {linear_app_token}',
+        '-H', 'Content-Type: application/json',
+        '-d', query
+    ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+# Process each line from stdin
+for line in sys.stdin:
+    # Passthrough immediately
+    print(line, end='', flush=True)
+    
+    # Parse and handle events
+    try:
+        event = json.loads(line.strip())
+        event_type = event.get('type')
+        
+        if event_type == 'tool_execution_start':
+            tool_name = event.get('toolName', 'unknown')
+            post_activity('action', f'Executing tool: {tool_name}')
+        
+        elif event_type == 'message_end':
+            # Extract assistant text from message
+            message = event.get('message', {})
+            if message.get('role') == 'assistant':
+                content = message.get('content', [])
+                text_parts = [block.get('text', '') for block in content if block.get('type') == 'text']
+                if text_parts:
+                    full_text = ''.join(text_parts)
+                    post_activity('thought', full_text)
+        
+        elif event_type == 'agent_end':
+            summary = event.get('summary', 'Agent completed')
+            post_activity('response', summary)
+    
+    except (json.JSONDecodeError, Exception):
+        # Ignore malformed lines
+        pass
+PYTHON_SCRIPT
+}
+
+# ============================================================================
 # PHASE 2: EXECUTION
 # ============================================================================
 
@@ -489,7 +581,7 @@ phase_execution() {
   echo "$system_prompt" > "$system_prompt_file"
   
   # Build Pi command as array
-  local pi_cmd=(./node_modules/.bin/tsx packages/coding-agent/src/cli.ts -p --no-session --no-extensions)
+  local pi_cmd=(./node_modules/.bin/tsx packages/coding-agent/src/cli.ts -p --mode json --no-session --no-extensions)
   
   if [[ -n "$agent_model" ]]; then
     pi_cmd+=(--model "$agent_model")
@@ -511,7 +603,7 @@ phase_execution() {
   
   # Execute agent and capture exit code
   set +e
-  "${pi_cmd[@]}" 2>&1 | tee "$log_file" &
+  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file" &
   local AGENT_PID=$!
   
   # PI-134: Start stall monitor in background
