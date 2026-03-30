@@ -21,7 +21,7 @@ STATE_IN_REVIEW="e85f987d-0cc9-45aa-a25e-6733c14840e1"
 STATE_PLAN="de4c2bec-7fd8-4785-a95f-178342078944"
 
 timestamp() {
-    date '+%Y-%m-%d %H:%M:%S'
+    date -u +%Y-%m-%dT%H:%M:%S.000Z
 }
 
 log() {
@@ -69,10 +69,14 @@ linear_query() {
     else
         auth_header="${token}"
     fi
+    
+    local payload
+    payload=$(jq -n --arg q "$query" '{query: $q}')
+    
     curl -s https://api.linear.app/graphql \
         -H "Authorization: ${auth_header}" \
         -H "Content-Type: application/json" \
-        -d "{\"query\": $(jq -Rs . <<< "$query")}"
+        -d "$payload"
 }
 
 # Move issue to state
@@ -81,14 +85,24 @@ move_issue_to_state() {
     local state_name="$2"
     log "Moving ${ISSUE_KEY} to ${state_name}..."
     
-    local mutation="mutation {
-        issueUpdate(id: \"${ISSUE_ID}\", input: {stateId: \"${state_id}\"}) {
-            success
-            issue { id state { name } }
-        }
-    }"
+    local payload
+    payload=$(jq -n \
+        --arg issueId "$ISSUE_ID" \
+        --arg stateId "$state_id" \
+        '{
+            query: "mutation IssueUpdate($issueId: String!, $stateId: String!) { issueUpdate(id: $issueId, input: {stateId: $stateId}) { success issue { id state { name } } } }",
+            variables: {
+                issueId: $issueId,
+                stateId: $stateId
+            }
+        }')
     
-    local result=$(linear_query "$mutation")
+    local result
+    result=$(curl -s https://api.linear.app/graphql \
+        -H "Authorization: $LINEAR_API_KEY" \
+        -H "Content-Type: application/json" \
+        -d "$payload")
+    
     if echo "$result" | jq -e '.data.issueUpdate.success' > /dev/null 2>&1; then
         log "Issue moved to ${state_name}"
         return 0
@@ -413,8 +427,9 @@ test_error_path() {
     
     # Verification 4: No PR created
     log "Checking for PRs..."
-    local prs=$(gh pr list --head "feat/${ISSUE_KEY_LOWER}-" --json number 2>/dev/null || echo "[]")
-    local pr_count=$(echo "$prs" | jq 'length')
+    local all_prs=$(gh pr list --json headRefName,number 2>/dev/null || echo "[]")
+    local matching_prs=$(echo "$all_prs" | jq --arg prefix "feat/${ISSUE_KEY_LOWER}-" '[.[] | select(.headRefName | startswith($prefix))]')
+    local pr_count=$(echo "$matching_prs" | jq 'length')
     if [[ $pr_count -eq 0 ]]; then
         pass "No PR created"
     else
