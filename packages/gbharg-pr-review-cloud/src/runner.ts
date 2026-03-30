@@ -36,15 +36,21 @@ export function interpolateRunnerArgs(
 	planContextFile: string,
 	repo: string,
 ): { command: string; args: string[]; env: NodeJS.ProcessEnv } {
+	const replacements = {
+		repo,
+		pr: String(pr.number),
+		url: pr.url,
+		title: sanitizeTemplateTitle(pr.title),
+		headRef: pr.headRefName,
+		headSha: pr.headRefOid,
+		planContextFile,
+	} satisfies Record<string, string>;
+
 	const replace = (value: string): string =>
-		value
-			.replaceAll("{repo}", repo)
-			.replaceAll("{pr}", String(pr.number))
-			.replaceAll("{url}", pr.url)
-			.replaceAll("{title}", pr.title)
-			.replaceAll("{headRef}", pr.headRefName)
-			.replaceAll("{headSha}", pr.headRefOid)
-			.replaceAll("{planContextFile}", planContextFile);
+		Object.entries(replacements).reduce(
+			(current, [key, replacement]) => current.replaceAll(`{${key}}`, replacement),
+			value,
+		);
 
 	return {
 		command: replace(template.command),
@@ -189,7 +195,7 @@ export function parseUsagePercent(stdout: string): number | null {
 	if (containsJsonPayload(stdout)) return null;
 
 	const trimmed = stdout.trim();
-	const numeric = trimmed.match(/(\d+(?:\.\d+)?)/);
+	const numeric = trimmed.match(/^(?:usage\s*[=:]\s*)?(\d+(?:\.\d+)?)%?$/i);
 	if (!numeric) return null;
 	const value = Number(numeric[1]);
 	if (!Number.isFinite(value)) return null;
@@ -245,6 +251,7 @@ function buildUsageCheckEnv(
 	env: NodeJS.ProcessEnv,
 ): NodeJS.ProcessEnv {
 	if (command.command !== "codexbar") return env;
+	// Prefer the canonical codexbar binary over local shell shims so quota checks stay stable across runner environments.
 	return {
 		...env,
 		PATH: removePathSegment(env.PATH, HOME_LOCAL_BIN),
@@ -258,6 +265,14 @@ function removePathSegment(pathValue: string | undefined, segment: string): stri
 		.split(delimiter)
 		.filter((entry) => entry.replace(/\/+$/, "") !== normalizedSegment)
 		.join(delimiter);
+}
+
+function sanitizeTemplateTitle(title: string): string {
+	return title
+		.replace(/[\r\n\t\0]+/g, " ")
+		.replace(/[^a-zA-Z0-9 .,:/#@+_\-\[\]\(\)]/g, " ")
+		.replace(/\s+/g, " ")
+		.trim();
 }
 
 function parseCodexBarUsagePercent(stdout: string): number | null {

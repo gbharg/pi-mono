@@ -4,6 +4,8 @@
 	"maxUsagePercent": 90,
 	"pollIntervalMs": 30000,
 	"requestReviewers": false,
+	"ignorePathPrefixes": ["docs/", "plan/"],
+	"nonCodeExtensions": [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"],
 	"githubReviewers": ["gautam-codex", "gautam-claude", "gautam-gemini"],
 	"reviewerHandles": {
 		"codex": ["gautam-codex"],

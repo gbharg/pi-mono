@@ -51,7 +51,7 @@
 		"merge-gate",
 		"cloud"
 	],
-	"author": "Mario Zechner",
+	"author": "Gautam Bhargava",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

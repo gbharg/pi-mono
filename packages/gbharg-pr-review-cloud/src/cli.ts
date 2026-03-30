@@ -5,24 +5,24 @@ import { addReviewers, fetchPullRequest, listOpenReviewablePullRequests } from "
 import { parsePlanContext } from "./plan-context.js";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
 import { dispatchCloudReviews, resolveDispatchMode } from "./runner.js";
+import { evaluateReviewScope } from "./scope.js";
 
 type Command = "check" | "dispatch" | "watch";
 
 async function main(): Promise<void> {
-	const args = process.argv.slice(2);
-	const command = (args[0] ?? "check") as Command;
+	const { command, flagArgs } = parseCommandArgs(process.argv.slice(2));
 	const cwd = process.cwd();
-	const options = parseFlags(args.slice(1));
+	const options = parseFlags(flagArgs);
 	const config = loadConfig(cwd, options.configPath);
 	const repo = options.repo ?? config.repo;
 	if (!repo) throw new Error("Repository is required. Pass --repo or set repo in .pi/gbharg-pr-review-cloud.json");
 
 	switch (command) {
 		case "check":
-			await runCheck(repo, options.pr ? Number(options.pr) : undefined, config.minimumApprovals ?? 3, cwd);
+			await runCheck(repo, options.pr ? parseRequiredInteger(options.pr, "--pr") : undefined, config, cwd);
 			return;
 		case "dispatch":
-			await runDispatch(repo, NumberRequired(options.pr, "--pr"), config, cwd);
+			await runDispatch(repo, parseRequiredInteger(options.pr, "--pr"), config, cwd);
 			return;
 		case "watch":
 			await runWatch(repo, config, cwd);
@@ -32,12 +32,17 @@ async function main(): Promise<void> {
 	}
 }
 
-async function runCheck(repo: string, prNumber: number | undefined, minimumApprovals: number, cwd: string): Promise<void> {
-	const pr = await fetchPullRequest(NumberRequired(prNumber, "--pr"), repo, cwd);
+async function runCheck(repo: string, prNumber: number | undefined, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
+	const pr = await fetchPullRequest(parseRequiredInteger(prNumber, "--pr"), repo, cwd);
+	const scope = evaluateReviewScope(pr, config);
+	if (scope.ignored) {
+		console.log(`ALLOW merge for PR #${pr.number} (review automation ignored: ${scope.reason})`);
+		return;
+	}
 	const planContext = parsePlanContext(pr.body);
 	const latestReviews = collapseLatestReviews(pr.reviews ?? []);
 	const result = evaluateMergePolicy({
-		minimumApprovals,
+		minimumApprovals: config.minimumApprovals ?? 3,
 		planContext,
 		reviews: latestReviews,
 	});
@@ -54,6 +59,11 @@ async function runCheck(repo: string, prNumber: number | undefined, minimumAppro
 
 async function runDispatch(repo: string, prNumber: number, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
 	const pr = await fetchPullRequest(prNumber, repo, cwd);
+	const scope = evaluateReviewScope(pr, config);
+	if (scope.ignored) {
+		console.log(`skip dispatch for PR #${pr.number}: ${scope.reason}`);
+		return;
+	}
 	const planContext = parsePlanContext(pr.body);
 	if (!planContext) throw new Error(`PR #${pr.number} is missing plan context`);
 
@@ -88,15 +98,45 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 	for (;;) {
 		const state = loadWatchState();
 		const prs = await listOpenReviewablePullRequests(repo, cwd);
+		const activePrNumbers = new Set(prs.map((pr) => String(pr.number)));
+		const nextSeenHeads = Object.fromEntries(
+			Object.entries(state.pullRequests).filter(([prNumber]) => activePrNumbers.has(prNumber)),
+		);
+		let changed = Object.keys(nextSeenHeads).length !== Object.keys(state.pullRequests).length;
+		state.pullRequests = nextSeenHeads;
 		for (const pr of prs) {
 			const previousHead = state.pullRequests[String(pr.number)];
 			if (previousHead === pr.headRefOid) continue;
-			await runDispatch(repo, pr.number, config, cwd);
+			try {
+				await runDispatch(repo, pr.number, config, cwd);
+			} catch (error) {
+				const message = error instanceof Error ? error.message : String(error);
+				console.error(`watch: failed to dispatch PR #${pr.number}: ${message}`);
+				// Mark the failing head as seen so one malformed PR body does not trigger endless re-review attempts.
+				state.pullRequests[String(pr.number)] = pr.headRefOid;
+				changed = true;
+				continue;
+			}
 			state.pullRequests[String(pr.number)] = pr.headRefOid;
-			saveWatchState(state);
+			changed = true;
 		}
+		if (changed) saveWatchState(state);
 		await new Promise((resolve) => setTimeout(resolve, intervalMs));
 	}
+}
+
+function parseCommandArgs(args: string[]): { command: Command; flagArgs: string[] } {
+	const first = args[0];
+	if (!first || first.startsWith("--")) {
+		return {
+			command: "check",
+			flagArgs: args,
+		};
+	}
+	return {
+		command: first as Command,
+		flagArgs: args.slice(1),
+	};
 }
 
 function parseFlags(args: string[]): Record<string, string> {
@@ -113,9 +153,13 @@ function parseFlags(args: string[]): Record<string, string> {
 	return flags;
 }
 
-function NumberRequired(value: string | number | undefined, name: string): number {
-	if (typeof value === "number" && Number.isFinite(value)) return value;
-	if (typeof value === "string" && value.length > 0) return Number(value);
+function parseRequiredInteger(value: string | number | undefined, name: string): number {
+	if (typeof value === "number" && Number.isInteger(value) && value > 0) return value;
+	if (typeof value === "string" && value.length > 0) {
+		const parsed = Number(value);
+		if (Number.isInteger(parsed) && parsed > 0) return parsed;
+		throw new Error(`${name} must be a positive integer`);
+	}
 	throw new Error(`${name} is required`);
 }
 

@@ -25,6 +25,10 @@ export interface PullRequestReviewRequest {
 	login: string;
 }
 
+export interface PullRequestFile {
+	path: string;
+}
+
 export interface MergePolicyInput {
 	minimumApprovals: number;
 	planContext: PlanContext | null;
@@ -48,6 +52,7 @@ export interface PullRequestMetadata {
 	isDraft?: boolean;
 	reviews?: LatestReviewState[];
 	reviewRequests?: PullRequestReviewRequest[];
+	files?: PullRequestFile[];
 }
 
 export interface RunnerCommandTemplate {
@@ -66,6 +71,8 @@ export interface ReviewCloudConfig {
 	pollIntervalMs?: number;
 	requestReviewers?: boolean;
 	githubReviewers?: string[];
+	ignorePathPrefixes?: string[];
+	nonCodeExtensions?: string[];
 	reviewerHandles?: Partial<Record<ReviewModel, string[]>>;
 	dispatchModes?: Partial<Record<ReviewModel, ReviewDispatchMode>>;
 	usageCommands?: Partial<Record<ReviewModel, RunnerCommandTemplate>>;

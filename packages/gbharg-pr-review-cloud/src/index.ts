@@ -6,6 +6,7 @@ import { parsePlanContext } from "./plan-context.js";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
 import { inferGitHubRepo } from "./repo.js";
 import { dispatchCloudReviews } from "./runner.js";
+import { evaluateReviewScope } from "./scope.js";
 
 const ArgsSchema = Type.Object({
 	pr: Type.Optional(Type.Number({ description: "Pull request number" })),
@@ -23,12 +24,22 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const pr = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			const config = loadConfig(ctx.cwd);
-			const result = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, ctx.cwd);
-			const summary = result.ok
-				? `Merge allowed: ${result.approvals} approvals`
-				: `Merge blocked: ${result.reasons.join("; ")}`;
-			ctx.ui.notify(summary, result.ok ? "info" : "error");
+			let config;
+			try {
+				config = loadConfig(ctx.cwd);
+			} catch (error) {
+				ctx.ui.notify(formatConfigError(error), "error");
+				return;
+			}
+			const evaluation = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, config, ctx.cwd);
+			if (evaluation.scope.ignored) {
+				ctx.ui.notify(`Merge allowed: review automation ignored this PR (${evaluation.scope.reason})`, "info");
+				return;
+			}
+			const summary = evaluation.policy.ok
+				? `Merge allowed: ${evaluation.policy.approvals} approvals`
+				: `Merge blocked: ${evaluation.policy.reasons.join("; ")}`;
+			ctx.ui.notify(summary, evaluation.policy.ok ? "info" : "error");
 		},
 	});
 
@@ -42,8 +53,19 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const prNumber = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			const config = loadConfig(ctx.cwd);
+			let config;
+			try {
+				config = loadConfig(ctx.cwd);
+			} catch (error) {
+				ctx.ui.notify(formatConfigError(error), "error");
+				return;
+			}
 			const pr = await fetchPullRequest(prNumber, repo, ctx.cwd);
+			const scope = evaluateReviewScope(pr, config);
+			if (scope.ignored) {
+				ctx.ui.notify(`Skipped PR #${prNumber}: ${scope.reason}`, "info");
+				return;
+			}
 			const planContext = parsePlanContext(pr.body);
 			if (!planContext) {
 				ctx.ui.notify(`PR #${prNumber} is missing plan context`, "error");
@@ -72,17 +94,19 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 			if (!repo) throw new Error("Repository not found. Pass repo explicitly.");
 			const pr = params.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
 			const config = loadConfig(ctx.cwd);
-			const result = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, ctx.cwd);
+			const evaluation = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, config, ctx.cwd);
 			return {
 				content: [
 					{
 						type: "text",
-						text: result.ok
-							? `ALLOW merge for PR #${pr} (${result.approvals} approvals)`
-							: `BLOCK merge for PR #${pr}: ${result.reasons.join("; ")}`,
+						text: evaluation.scope.ignored
+							? `ALLOW merge for PR #${pr} (review automation ignored: ${evaluation.scope.reason})`
+							: evaluation.policy.ok
+								? `ALLOW merge for PR #${pr} (${evaluation.policy.approvals} approvals)`
+								: `BLOCK merge for PR #${pr}: ${evaluation.policy.reasons.join("; ")}`,
 					},
 				],
-				details: result,
+				details: evaluation,
 			};
 		},
 	});
@@ -96,12 +120,21 @@ export default function registerPrReviewCloudExtension(pi: ExtensionAPI) {
 
 		const prMatch = event.input.command.match(/\bgh\s+pr\s+merge\s+(\d+)\b/);
 		const pr = prMatch ? Number(prMatch[1]) : await getCurrentPrNumber(ctx.cwd, repo);
-		const config = loadConfig(ctx.cwd);
-		const result = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, ctx.cwd);
-		if (!result.ok) {
+		let config;
+		try {
+			config = loadConfig(ctx.cwd);
+		} catch (error) {
 			return {
 				block: true,
-				reason: `Local merge gate blocked PR #${pr}: ${result.reasons.join("; ")}`,
+				reason: formatConfigError(error),
+			};
+		}
+		const evaluation = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, config, ctx.cwd);
+		if (evaluation.scope.ignored || evaluation.policy.ok) return;
+		if (!evaluation.policy.ok) {
+			return {
+				block: true,
+				reason: `Local merge gate blocked PR #${pr}: ${evaluation.policy.reasons.join("; ")}`,
 			};
 		}
 	});
@@ -112,7 +145,7 @@ function parseArgs(raw: string): { pr?: number; repo?: string } {
 	const parsed: { pr?: number; repo?: string } = {};
 	for (let i = 0; i < parts.length; i += 1) {
 		if (parts[i] === "--pr" && parts[i + 1]) {
-			parsed.pr = Number(parts[i + 1]);
+			parsed.pr = parsePositiveInteger(parts[i + 1], "--pr");
 			i += 1;
 			continue;
 		}
@@ -124,11 +157,44 @@ function parseArgs(raw: string): { pr?: number; repo?: string } {
 	return parsed;
 }
 
-async function evaluatePr(repo: string, prNumber: number, minimumApprovals: number, cwd: string) {
+async function evaluatePr(
+	repo: string,
+	prNumber: number,
+	minimumApprovals: number,
+	config: ReturnType<typeof loadConfig>,
+	cwd: string,
+) {
 	const pr = await fetchPullRequest(prNumber, repo, cwd);
-	return evaluateMergePolicy({
+	const scope = evaluateReviewScope(pr, config);
+	if (scope.ignored) {
+		return {
+			scope,
+			policy: evaluateMergePolicy({
+				minimumApprovals,
+				planContext: null,
+				reviews: [],
+			}),
+		};
+	}
+	return {
+		scope,
+		policy: evaluateMergePolicy({
 		minimumApprovals,
 		planContext: parsePlanContext(pr.body),
 		reviews: collapseLatestReviews(pr.reviews ?? []),
-	});
+		}),
+	};
+}
+
+function parsePositiveInteger(value: string, name: string): number {
+	const parsed = Number(value);
+	if (!Number.isInteger(parsed) || parsed <= 0) {
+		throw new Error(`${name} must be a positive integer`);
+	}
+	return parsed;
+}
+
+function formatConfigError(error: unknown): string {
+	const message = error instanceof Error ? error.message : String(error);
+	return `Could not load PR review config: ${message}`;
 }

@@ -12,7 +12,13 @@ export function parsePlanContext(body: string): PlanContext | null {
 	const raw = body.slice(afterStart, end).trim();
 	if (!raw) return null;
 
-	const parsed = JSON.parse(raw) as Partial<PlanContext>;
+	let parsed: Partial<PlanContext>;
+	try {
+		parsed = JSON.parse(raw) as Partial<PlanContext>;
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		throw new Error(`Malformed plan context JSON: ${message}`);
+	}
 	if (parsed.version !== 1) throw new Error("Unsupported plan context version");
 	if (!parsed.source?.kind || !parsed.source.value) throw new Error("Plan context source is required");
 	if (!Array.isArray(parsed.acceptanceCriteria)) throw new Error("Plan context acceptanceCriteria must be an array");

@@ -11,6 +11,7 @@ Cloud-hosted pull request review orchestration and local merge gating for `pi`.
 - Skips duplicate reviewer requests and duplicate same-head reviews from existing automation.
 - Checks CodexBar usage before every dispatch and stops a reviewer once it reaches the configured usage ceiling.
 - Supports externally managed reviewer apps so the extension can gate and track reviews without launching duplicate review runs.
+- Ignores `docs/`, `plan/`, and other non-code-only PRs so documentation updates do not trigger redundant agent reviews.
 - Enforces a local merge gate requiring:
   - plan context present
   - at least 3 approvals
@@ -55,6 +56,8 @@ The CLI and extension look for `.pi/gbharg-pr-review-cloud.json` in the current 
   "maxUsagePercent": 90,
   "pollIntervalMs": 30000,
   "requestReviewers": false,
+  "ignorePathPrefixes": ["docs/", "plan/"],
+  "nonCodeExtensions": [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"],
   "githubReviewers": ["codex-reviewer", "gemini-reviewer", "claude-reviewer"],
   "reviewerHandles": {
     "codex": ["codex-reviewer"],
@@ -94,6 +97,13 @@ The dispatcher runs that check every time a review is triggered. If CodexBar rep
 If `dispatchModes.<model>` is set to `external`, the extension does not launch that model's command at all. It only requests/tracks the reviewer and enforces merge policy, which is the right mode when GitHub Apps or other cloud agents already self-trigger on PR events.
 
 Set `requestReviewers` to `true` only if you want Pi to call GitHub's reviewer-assignment API. Leave it `false` when `githubReviewers` is only being used as an identity map for external reviewer apps.
+
+PRs are ignored when every changed file is either:
+
+- under one of the configured `ignorePathPrefixes`
+- or matched by one of the configured `nonCodeExtensions`
+
+That means a docs-only PR, plan-only PR, or a PR that only updates Markdown/images will skip review dispatch and will not be blocked by the local merge gate.
 
 Supported placeholders:
 

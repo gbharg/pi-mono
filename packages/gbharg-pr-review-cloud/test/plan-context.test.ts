@@ -34,4 +34,9 @@ describe("plan-context", () => {
 		});
 		expect(parsePlanContext(updated)?.summary).toBe("Updated summary");
 	});
+
+	it("throws a descriptive error for malformed JSON", () => {
+		const malformed = "<!-- pi-review:plan-context\n{not json}\n-->";
+		expect(() => parsePlanContext(malformed)).toThrow("Malformed plan context JSON");
+	});
 });

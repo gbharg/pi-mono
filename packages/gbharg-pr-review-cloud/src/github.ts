@@ -1,5 +1,5 @@
 import { execFileText } from "./process.js";
-import type { LatestReviewState, PullRequestMetadata, PullRequestReviewRequest } from "./types.js";
+import type { LatestReviewState, PullRequestFile, PullRequestMetadata, PullRequestReviewRequest } from "./types.js";
 
 interface GhReview {
 	state: string;
@@ -27,6 +27,7 @@ interface GhPrView {
 	isDraft?: boolean;
 	reviews?: GhReview[];
 	reviewRequests?: GhReviewRequest[];
+	files?: Array<{ path?: string }>;
 }
 
 export async function getCurrentPrNumber(cwd: string, repo?: string): Promise<number> {
@@ -48,7 +49,7 @@ export async function fetchPullRequest(pr: number, repo: string, cwd?: string): 
 			"--repo",
 			repo,
 			"--json",
-			"number,title,url,body,headRefName,headRefOid,isDraft,reviews,reviewRequests",
+			"number,title,url,body,headRefName,headRefOid,isDraft,reviews,reviewRequests,files",
 		],
 		cwd,
 	);
@@ -64,6 +65,7 @@ export async function fetchPullRequest(pr: number, repo: string, cwd?: string): 
 		isDraft: parsed.isDraft,
 		reviews: normalizeLatestReviews(parsed.reviews),
 		reviewRequests: normalizeReviewRequests(parsed.reviewRequests),
+		files: normalizePullRequestFiles(parsed.files),
 	};
 }
 
@@ -107,6 +109,14 @@ export function normalizeReviewRequests(reviewRequests: GhReviewRequest[] | unde
 		.map((request) => request.login ?? request.slug ?? request.requestedReviewer?.login ?? request.requestedReviewer?.slug)
 		.filter((login): login is string => Boolean(login))
 		.map((login) => ({ login }));
+}
+
+export function normalizePullRequestFiles(files: Array<{ path?: string }> | undefined): PullRequestFile[] {
+	if (!files) return [];
+	return files
+		.map((file) => file.path)
+		.filter((path): path is string => Boolean(path))
+		.map((path) => ({ path }));
 }
 
 function normalizeReviewState(state: string): LatestReviewState["state"] {

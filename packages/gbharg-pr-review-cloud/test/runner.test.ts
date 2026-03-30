@@ -32,6 +32,7 @@ describe("runner interpolation", () => {
 		expect(parseUsagePercent("89")).toBe(89);
 		expect(parseUsagePercent("usage=90.5%")).toBe(90.5);
 		expect(parseUsagePercent("no data")).toBeNull();
+		expect(parseUsagePercent("retry after 60 seconds")).toBeNull();
 	});
 
 	it("parses codexbar usage json and prefers the highest window percent", () => {
