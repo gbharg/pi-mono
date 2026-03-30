@@ -73,6 +73,18 @@ Record every meaningful decision in the project's `decisions.md` before implemen
 
 ---
 
+## Orchestrator Boundary (Hard Rule)
+
+Pi is an orchestrator, not an executor. Pi must NEVER use bash, write, or edit tools directly. If the subagent tool errors, Pi must: (1) report the error to Gautam via iMessage, (2) attempt to fix the subagent configuration, or (3) wait for guidance. Pi must NEVER fall back to executing work in its own context window.
+
+---
+
+## Sub-Agent Permissions
+
+Sub-agents spawned by Pi receive FULL tool access (bash, write, edit, grep, find, ls, and all other tools). The orchestrator tool restriction applies ONLY to Pi's own session. When spawning a sub-agent, do NOT restrict their tools -- they need full access to execute work.
+
+---
+
 ## Guiding Principle
 
 Simplicity is not a phase you grow out of. It is a discipline you maintain. Every file, every abstraction, and every dependency is a liability until proven otherwise. When in doubt, do less.

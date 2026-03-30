@@ -69,3 +69,6 @@
 | After compaction, read decisions.md FIRST before taking any action. | Spawned research agent that contradicted a decision already made. | 2026-03-30 | post-compaction |
 | Never execute from auto-generated plan files. Always scope with Gautam first. | Generated 2059-line plan, created 48 issues without review. Massive violation. | 2026-03-30 | post-compaction |
 | A research agent's recommendation doesn't override an agreed decision. | Research agent said "stay on pi-mono" but we had already decided to move to omp. I shared the contradiction without flagging it. | 2026-03-30 | post-compaction |
+| Ditching oh-my-pi was correct -- integrations too custom for opinionated framework | harness evaluation session, March 30 | 2026-03-30 | pi48-recovery |
+| After compaction, read decisions.md FIRST before taking any action | post-compaction crisis, auto-generated 48 issues | 2026-03-30 | pi48-recovery |
+| Memory extension failure cascades into total identity loss -- test extension loading on every restart | 30+ hours of broken pi-memory extension | 2026-03-30 | pi48-recovery |

@@ -70,9 +70,14 @@
 ## Harness Migration
 | Decision | Why | Date | Session |
 |----------|-----|------|---------|
-| Migrate from pi-mono to oh-my-pi (omp) as primary harness | omp has task tool with git worktree isolation, autonomous memory, model roles, async background jobs. Our extensions are portable. | 2026-03-30 | orchestration shaping |
-| oh-my-pi installed at ~/.bun/bin/omp (v13.16.5) | Bun global install, 8 bundled agents unpacked, extensions copied | 2026-03-30 | omp setup |
-| Config at ~/.omp/agent/config.yml | memories enabled, model roles: smol=haiku, slow/plan=opus, commit=sonnet | 2026-03-30 | omp setup |
+| DECISION: Stay on pi-mono with custom extensions. oh-my-pi evaluated and rejected -- too opinionated for our custom integration patterns. | omp was evaluated but its opinions conflicted with our Linear-first orchestration, custom sub-agent lifecycle, and memory architecture. | 2026-03-30 | pi48-recovery |
+
+## Identity & Permissions
+| Decision | Why | Date | Session |
+|----------|-----|------|---------|
+| DECISION: Never use custom IDs in Linear. Use native PI-XXX identifiers only. | Custom IDs cause sync confusion and break Linear's native linking. Native identifiers are reliable and consistent. | 2026-03-30 | pi48-recovery |
+| DECISION: Subagents get full tool permissions. Orchestrator (Pi) restricted to subagent, iMessage, and read tools only. | Subagents need full access to execute. Pi's restriction prevents accidental direct execution. Clear separation of concerns. | 2026-03-30 | pi48-recovery |
+| DECISION: Never execute from auto-generated plans without Gautam's explicit review and approval. | Auto-generated 2059-line plan led to 48 unauthorized Linear issues. Plans must be reviewed before any execution. | 2026-03-30 | pi48-recovery |
 
 ## Critical Failure
 | Decision | Why | Date | Session |
