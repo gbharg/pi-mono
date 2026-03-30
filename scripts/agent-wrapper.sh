@@ -270,6 +270,67 @@ post_issue_comment() {
 # Git Helper Functions
 # ============================================================================
 
+# Check for existing PRs (both open and closed)
+check_existing_prs() {
+  local branch="$1"
+  local base="$2"
+  
+  log "Checking for existing PRs for branch $branch"
+  
+  # Check for open PRs
+  local open_prs
+  open_prs=$(gh pr list \
+    --repo "$GH_REPO" \
+    --head "$branch" \
+    --state open \
+    --json number,url \
+    --jq '.' 2>/dev/null || echo "[]")
+  
+  local open_count
+  open_count=$(echo "$open_prs" | jq 'length')
+  
+  if [[ "$open_count" -gt 0 ]]; then
+    local pr_url
+    pr_url=$(echo "$open_prs" | jq -r '.[0].url')
+    log "Found existing open PR: $pr_url"
+    echo "SKIP|$pr_url"
+    return 0
+  fi
+  
+  # Check for closed PRs
+  local closed_prs
+  closed_prs=$(gh pr list \
+    --repo "$GH_REPO" \
+    --head "$branch" \
+    --state closed \
+    --json number,url,closedAt \
+    --jq '.' 2>/dev/null || echo "[]")
+  
+  local closed_count
+  closed_count=$(echo "$closed_prs" | jq 'length')
+  
+  if [[ "$closed_count" -gt 0 ]]; then
+    log "Found $closed_count closed PR(s) for this branch"
+    local closed_note=""
+    local pr_number pr_url
+    
+    # Build note about closed PRs
+    for i in $(seq 0 $((closed_count - 1))); do
+      pr_number=$(echo "$closed_prs" | jq -r ".[$i].number")
+      pr_url=$(echo "$closed_prs" | jq -r ".[$i].url")
+      closed_note="${closed_note}- #${pr_number}: $pr_url
+"
+    done
+    
+    echo "CLOSED|$closed_note"
+    return 0
+  fi
+  
+  # No existing PRs
+  echo "CREATE|"
+  return 0
+}
+
 # Generate branch slug from issue title
 generate_branch_slug() {
   local issue_id="$1"
@@ -480,7 +541,10 @@ linear_app_token = sys.argv[2]
 last_post_time = 0
 rate_limit_seconds = 3
 
-def post_activity(activity_type, body):
+# Track tool calls to correlate with execution events
+last_tool_calls = {}
+
+def post_activity(activity_type, body, body_data=None):
     global last_post_time
     
     # Rate limit check
@@ -490,9 +554,13 @@ def post_activity(activity_type, body):
     
     last_post_time = now
     
-    # Truncate body for thoughts
-    if activity_type == 'thought' and len(body) > 500:
-        body = body[:497] + '...'
+    # Build content
+    content = {
+        "type": activity_type,
+        "body": body
+    }
+    if body_data:
+        content["bodyData"] = body_data
     
     # Build GraphQL mutation
     query = json.dumps({
@@ -503,10 +571,7 @@ def post_activity(activity_type, body):
         }""",
         "variables": {
             "sessionId": session_id,
-            "content": {
-                "type": activity_type,
-                "body": body
-            }
+            "content": content
         }
     })
     
@@ -519,6 +584,32 @@ def post_activity(activity_type, body):
         '-d', query
     ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+def format_tool_args(tool_name, tool_input):
+    """Extract key info from tool input for display"""
+    if not tool_input:
+        return ""
+    
+    if tool_name == 'bash':
+        cmd = tool_input.get('command', '')
+        # Truncate long commands
+        if len(cmd) > 60:
+            cmd = cmd[:57] + '...'
+        return f"`{cmd}`"
+    
+    elif tool_name == 'read':
+        path = tool_input.get('path', '')
+        return f"`{path}`"
+    
+    elif tool_name == 'edit':
+        path = tool_input.get('path', '')
+        return f"`{path}`"
+    
+    elif tool_name == 'write':
+        path = tool_input.get('path', '')
+        return f"`{path}`"
+    
+    return ""
+
 # Process each line from stdin
 for line in sys.stdin:
     # Passthrough immediately
@@ -529,22 +620,63 @@ for line in sys.stdin:
         event = json.loads(line.strip())
         event_type = event.get('type')
         
-        if event_type == 'tool_execution_start':
-            tool_name = event.get('toolName', 'unknown')
-            post_activity('action', f'Executing tool: {tool_name}')
-        
-        elif event_type == 'message_end':
-            # Extract assistant text from message
+        if event_type == 'message_end':
+            # Track tool calls for later correlation
             message = event.get('message', {})
             if message.get('role') == 'assistant':
                 content = message.get('content', [])
+                
+                # Save tool calls for upcoming tool_execution_start events
+                for block in content:
+                    if block.get('type') == 'tool_use':
+                        tool_call_id = block.get('id')
+                        tool_name = block.get('name')
+                        tool_input = block.get('input', {})
+                        if tool_call_id:
+                            last_tool_calls[tool_call_id] = {
+                                'name': tool_name,
+                                'input': tool_input
+                            }
+                
+                # Extract text content (skip tool calls)
                 text_parts = [block.get('text', '') for block in content if block.get('type') == 'text']
                 if text_parts:
-                    full_text = ''.join(text_parts)
-                    post_activity('thought', full_text)
+                    full_text = ''.join(text_parts).strip()
+                    # Only post if meaningful (> 20 chars)
+                    if len(full_text) > 20:
+                        # Truncate to 200 chars
+                        if len(full_text) > 200:
+                            full_text = full_text[:197] + '...'
+                        post_activity('thought', full_text)
+        
+        elif event_type == 'tool_execution_start':
+            tool_call_id = event.get('toolCallId')
+            tool_name = event.get('toolName', 'unknown')
+            
+            # Try to find saved tool call args
+            tool_info = last_tool_calls.get(tool_call_id, {})
+            tool_input = tool_info.get('input')
+            
+            # Format with args if available
+            args_display = format_tool_args(tool_name, tool_input)
+            if args_display:
+                body = f"**{tool_name}** {args_display}"
+            else:
+                body = f"**{tool_name}**"
+            
+            post_activity('action', body)
         
         elif event_type == 'agent_end':
-            summary = event.get('summary', 'Agent completed')
+            # Extract final assistant message if available
+            summary = event.get('summary', '')
+            if not summary:
+                # Try to extract from last message
+                summary = 'Task completed'
+            
+            # Clean up and post as handoff
+            if len(summary) > 200:
+                summary = summary[:197] + '...'
+            
             post_activity('response', summary)
     
     except (json.JSONDecodeError, Exception):
@@ -813,20 +945,6 @@ $log_content"
   log "Pushing git notes"
   git push origin refs/notes/commits || log "Warning: failed to push notes (may not exist)"
   
-  # Create PR
-  log "Creating pull request"
-  
-  local pr_title
-  pr_title=$(git log -1 --format=%s "$last_commit")
-  
-  local pr_body="Resolves $ISSUE_ID
-
-Agent: \`$AGENT_NAME\`
-Session: $AGENT_SESSION_ID
-
----
-Auto-generated by agent wrapper"
-  
   # Determine PR base based on mode
   local PR_BASE
   if [[ "$MODE" == "parallel" ]]; then
@@ -835,44 +953,95 @@ Auto-generated by agent wrapper"
     PR_BASE="main"
   fi
   
-  local pr_url
-  pr_url=$(gh pr create \
-    --repo "$GH_REPO" \
-    --base "$PR_BASE" \
-    --head "$AGENT_BRANCH" \
-    --title "$pr_title" \
-    --body "$pr_body" 2>&1 | grep -o 'https://github.com[^ ]*' || echo "")
+  # Check for existing PRs
+  log "Checking for duplicate PRs"
+  local pr_check_result
+  pr_check_result=$(check_existing_prs "$AGENT_BRANCH" "$PR_BASE")
   
-  if [[ -z "$pr_url" ]]; then
-    log "Warning: failed to extract PR URL, attempting to find PR"
-    pr_url=$(gh pr list --repo "$GH_REPO" --head "$AGENT_BRANCH" --json url --jq '.[0].url' 2>/dev/null || echo "")
-  fi
+  local pr_action
+  pr_action=$(echo "$pr_check_result" | cut -d'|' -f1)
+  local pr_data
+  pr_data=$(echo "$pr_check_result" | cut -d'|' -f2-)
   
-  # Verify PR was created successfully
-  if [[ -z "$pr_url" ]] || [[ "$pr_url" != https://github.com/* ]]; then
-    local err_msg="Failed to create pull request for branch $AGENT_BRANCH"
-    error "$err_msg"
-    post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
-    return 1
-  fi
+  local pr_url=""
   
-  log "Pull request created: $pr_url"
-  
-  # Post handoff activity
-  local handoff_msg="Agent completed successfully. Pull request created: $pr_url
+  if [[ "$pr_action" == "SKIP" ]]; then
+    # Open PR already exists, skip creation
+    pr_url="$pr_data"
+    log "Skipping PR creation: open PR already exists at $pr_url"
+    
+    # Post activity noting that PR already exists
+    post_agent_activity "$AGENT_SESSION_ID" "response" "Branch pushed successfully. Existing pull request: $pr_url"
+    
+    # Update issue comment to note existing PR
+    post_issue_comment "$ISSUE_ID" "✅ Agent \`$AGENT_NAME\` completed successfully. Existing pull request: $pr_url"
+    
+  else
+    # Create PR (either no PRs exist or only closed ones)
+    log "Creating pull request"
+    
+    local pr_title
+    pr_title=$(git log -1 --format=%s "$last_commit")
+    
+    local pr_body="Resolves $ISSUE_ID
+
+Agent: \`$AGENT_NAME\`
+Session: $AGENT_SESSION_ID"
+    
+    # If closed PRs exist, add them to the body
+    if [[ "$pr_action" == "CLOSED" ]]; then
+      pr_body="$pr_body
+
+---
+
+### Previous PRs
+This branch had previous pull requests that were closed:
+$pr_data"
+    fi
+    
+    pr_body="$pr_body
+
+---
+Auto-generated by agent wrapper"
+    
+    pr_url=$(gh pr create \
+      --repo "$GH_REPO" \
+      --base "$PR_BASE" \
+      --head "$AGENT_BRANCH" \
+      --title "$pr_title" \
+      --body "$pr_body" 2>&1 | grep -o 'https://github.com[^ ]*' || echo "")
+    
+    if [[ -z "$pr_url" ]]; then
+      log "Warning: failed to extract PR URL, attempting to find PR"
+      pr_url=$(gh pr list --repo "$GH_REPO" --head "$AGENT_BRANCH" --json url --jq '.[0].url' 2>/dev/null || echo "")
+    fi
+    
+    # Verify PR was created successfully
+    if [[ -z "$pr_url" ]] || [[ "$pr_url" != https://github.com/* ]]; then
+      local err_msg="Failed to create pull request for branch $AGENT_BRANCH"
+      error "$err_msg"
+      post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
+      return 1
+    fi
+    
+    log "Pull request created: $pr_url"
+    
+    # Post handoff activity
+    local handoff_msg="Agent completed successfully. Pull request created: $pr_url
 
 Changes:
 - $(git rev-list --count "$PR_BASE..$AGENT_BRANCH") commit(s)
 - $(git diff --shortstat "$PR_BASE..$AGENT_BRANCH")"
-  
-  post_agent_activity "$AGENT_SESSION_ID" "response" "$handoff_msg"
+    
+    post_agent_activity "$AGENT_SESSION_ID" "response" "$handoff_msg"
+    
+    # Post completion comment
+    post_issue_comment "$ISSUE_ID" "✅ Agent \`$AGENT_NAME\` completed successfully. Pull request: $pr_url"
+  fi
   
   # Move issue to In Review
   log "Moving issue to In Review state"
   update_issue_state "$ISSUE_ID" "$LINEAR_STATE_IN_REVIEW"
-  
-  # Post completion comment
-  post_issue_comment "$ISSUE_ID" "✅ Agent \`$AGENT_NAME\` completed successfully. Pull request: $pr_url"
   
   log "Finalization complete"
 }
