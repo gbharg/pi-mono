@@ -26,6 +26,7 @@ LINEAR_TEAM_ID="${LINEAR_TEAM_ID:-e368d033-a883-4c2c-a02a-932a2a518beb}"
 LINEAR_STATE_IN_REVIEW="${LINEAR_STATE_IN_REVIEW:-e85f987d-0cc9-45aa-a25e-6733c14840e1}"
 MAX_LOG_SIZE=$((500 * 1024)) # 500KB
 GH_REPO="${GH_REPO:-gbharg/pi-mono}"
+AGENT_STALL_TIMEOUT_SECONDS="${AGENT_STALL_TIMEOUT_SECONDS:-300}"
 
 # ============================================================================
 # Logging
@@ -343,6 +344,9 @@ phase_setup() {
   export LINEAR_API_KEY
   export LINEAR_APP_TOKEN
   
+  # PI-135: Post initial thought activity
+  post_agent_activity "$AGENT_SESSION_ID" "thought" "Setting up workspace for $ISSUE_ID"
+  
   # Generate branch name
   local slug
   slug=$(generate_branch_slug "$ISSUE_ID")
@@ -371,6 +375,88 @@ phase_setup() {
   
   log "Branch created: $AGENT_BRANCH"
   log "Session ID: $AGENT_SESSION_ID"
+}
+
+# ============================================================================
+# Stall Monitor (PI-134)
+# ============================================================================
+
+# Background process that monitors for stalled agents
+stall_monitor() {
+  local agent_pid="$1"
+  local session_id="$2"
+  local timeout="$AGENT_STALL_TIMEOUT_SECONDS"
+  
+  log "Stall monitor started for PID $agent_pid (timeout: ${timeout}s)"
+  
+  while true; do
+    sleep 60
+    
+    # Check if agent process still exists
+    if ! kill -0 "$agent_pid" 2>/dev/null; then
+      log "Stall monitor: agent process no longer running"
+      break
+    fi
+    
+    # Query latest activity from session
+    local query
+    query=$(jq -n \
+      --arg sessionId "$session_id" \
+      '{
+        query: "query GetLatestActivity($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 1) { nodes { createdAt } } } }",
+        variables: {
+          sessionId: $sessionId
+        }
+      }')
+    
+    local result
+    result=$(linear_api_call "$query" "app_token" 2>/dev/null || echo "{}")
+    
+    local last_activity_time
+    last_activity_time=$(echo "$result" | jq -r '.data.agentSession.activities.nodes[0].createdAt // ""' 2>/dev/null || echo "")
+    
+    if [[ -n "$last_activity_time" ]] && [[ "$last_activity_time" != "null" ]]; then
+      # Calculate time since last activity (approximation using date)
+      local now
+      now=$(date -u +%s)
+      
+      # Parse ISO timestamp to epoch (works on macOS and Linux)
+      local activity_epoch
+      if date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s >/dev/null 2>&1; then
+        # macOS date
+        activity_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s)
+      else
+        # GNU date
+        activity_epoch=$(date -d "${last_activity_time:0:19}" +%s 2>/dev/null || echo "$now")
+      fi
+      
+      local elapsed=$((now - activity_epoch))
+      
+      if [[ $elapsed -gt $timeout ]]; then
+        log "Stall detected: no activity for ${elapsed}s (threshold: ${timeout}s)"
+        
+        # Kill agent with SIGTERM
+        log "Sending SIGTERM to agent PID $agent_pid"
+        kill -TERM "$agent_pid" 2>/dev/null || true
+        
+        # Wait 60s for graceful shutdown
+        sleep 60
+        
+        # Check if still alive
+        if kill -0 "$agent_pid" 2>/dev/null; then
+          log "Agent did not respond to SIGTERM, sending SIGKILL"
+          kill -KILL "$agent_pid" 2>/dev/null || true
+        fi
+        
+        # Post error activity
+        post_agent_activity "$session_id" "error" "Agent stalled: no activity for ${elapsed} seconds. Process terminated." 2>/dev/null || true
+        
+        break
+      fi
+    fi
+  done
+  
+  log "Stall monitor exiting"
 }
 
 # ============================================================================
@@ -425,8 +511,21 @@ phase_execution() {
   
   # Execute agent and capture exit code
   set +e
-  "${pi_cmd[@]}" 2>&1 | tee "$log_file"
-  AGENT_EXIT_CODE=${PIPESTATUS[0]}
+  "${pi_cmd[@]}" 2>&1 | tee "$log_file" &
+  local AGENT_PID=$!
+  
+  # PI-134: Start stall monitor in background
+  stall_monitor "$AGENT_PID" "$AGENT_SESSION_ID" &
+  local STALL_MONITOR_PID=$!
+  
+  # Wait for agent to complete
+  wait "$AGENT_PID"
+  AGENT_EXIT_CODE=$?
+  
+  # Kill stall monitor
+  kill "$STALL_MONITOR_PID" 2>/dev/null || true
+  wait "$STALL_MONITOR_PID" 2>/dev/null || true
+  
   set -e
   
   log "Agent exited with code: $AGENT_EXIT_CODE"
@@ -487,6 +586,60 @@ $error_log
   fi
   
   log "Found $commit_count new commit(s)"
+  
+  # PI-132: Verify response activity was posted
+  log "Verifying response activity exists"
+  local query
+  query=$(jq -n \
+    --arg sessionId "$AGENT_SESSION_ID" \
+    '{
+      query: "query GetActivities($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 5) { nodes { content } } } }",
+      variables: {
+        sessionId: $sessionId
+      }
+    }')
+  
+  local result
+  result=$(linear_api_call "$query" "app_token")
+  
+  local has_response
+  has_response=$(echo "$result" | jq -r '[.data.agentSession.activities.nodes[].content | select(.type == "response")] | length > 0')
+  
+  if [[ "$has_response" != "true" ]]; then
+    local err_msg="Agent did not post required response activity (READY signal)"
+    error "$err_msg"
+    post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
+    post_issue_comment "$ISSUE_ID" "❌ Agent \`$AGENT_NAME\` did not complete handoff protocol."
+    return 1
+  fi
+  
+  log "Response activity verified"
+  
+  # PI-133: Verify plan was posted
+  log "Verifying plan exists"
+  query=$(jq -n \
+    --arg sessionId "$AGENT_SESSION_ID" \
+    '{
+      query: "query GetPlan($sessionId: String!) { agentSession(id: $sessionId) { plan } }",
+      variables: {
+        sessionId: $sessionId
+      }
+    }')
+  
+  result=$(linear_api_call "$query" "app_token")
+  
+  local plan
+  plan=$(echo "$result" | jq -r '.data.agentSession.plan // "null"')
+  
+  if [[ -z "$plan" ]] || [[ "$plan" == "null" ]]; then
+    local err_msg="Agent did not post required plan"
+    error "$err_msg"
+    post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
+    post_issue_comment "$ISSUE_ID" "❌ Agent \`$AGENT_NAME\` did not post work plan."
+    return 1
+  fi
+  
+  log "Plan verified"
   
   # Verify conventional commit format and Co-Authored-By trailer
   local commits
