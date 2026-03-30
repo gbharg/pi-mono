@@ -1,33 +1,31 @@
 # Current State
 
-Last updated: 2026-03-30T11:00:00Z
-Session: pi49 (post-recovery)
+Last updated: 2026-03-30
+Session: post-defrag
 
 ## Active Focus
-Sub-agent architecture and configuration for pi-mono. Specifically:
-- Three confirmed agent roles: researcher, worker, reviewer (scout and planner REMOVED)
+Sub-agent architecture and orchestration for pi-mono.
+- Five agent roles active: researcher, worker, worker-full, worker-readonly, reviewer (scout and planner templates exist as symlinks but were never spawned in practice)
+- Delegation guard enforced: Pi orchestrator blocked from edit/write via guard.ts hook — must spawn sub-agents
 - Minimize scope per agent: one file per agent, no sibling awareness
-- Cloud environments default for code changes; research/planning = local
 - Linear as orchestration bus (delegateId + AgentSessionEvent webhook)
-- Sub-agents stream progress to Linear via API; Pi notified of key events only
 - Completion protocol: commit, git note, push, Linear update, comment, exit
 
 ## Key Decisions (active)
-- Stay on pi-mono with custom extensions. oh-my-pi abandoned -- too opinionated for our custom system.
-- Everything goes in Linear immediately. No exceptions.
-- Always branch. No project branches. Every change goes to main independently.
-- Conventional branch naming + conventional commits.
-- iMessage = synchronous (always respond instantly). Linear = async.
-- Never execute from auto-generated plans without Gautam's review.
-- Never use custom IDs in Linear -- use native PI-XXX identifiers only.
-- Subagents get full tool permissions (bash, write, edit, grep). Pi orchestrator restricted to: subagent, imessage tools, read only.
+See `.pi/projects/linear-integration/decisions.md` for full decision log with rationale.
+- Stay on pi-mono with custom extensions (oh-my-pi rejected)
+- Everything goes in Linear immediately
+- Always branch off main, no project branches
+- Conventional branch naming + conventional commits
+- iMessage = synchronous, Linear = async
+- Never execute from auto-generated plans without Gautam's review
+- Native PI-XXX identifiers only in Linear
+- Pi orchestrator restricted to subagent + imessage + read tools (enforced by guard.ts)
 
 ## Pending Items
-- Build reminder system (cron checking Linear due dates, sends iMessage reminders) -- HIGH PRIORITY
-- Build update cadence system (check sub-agent status every 1 min, update Gautam every 3 min)
-- Clean up unauthorized Linear issues (48 created from auto-generated plan without approval)
-- Update gautam.md profile (stale since March 29)
-- Implement daily end-of-session save review
-
-## Context
-Pi's memory extension was broken for 30+ hours (sessions pi32-pi48) due to regex bug in paths.ts. Fixed. All memory files have been audited and corrected by Claude Code on 2026-03-30.
+See Linear for authoritative task list. Key items:
+- PI-34: Scheduled reminder system (HIGH PRIORITY)
+- PI-56: Sub-agent completion protocol
+- PI-65: Multi-agent PR review gate
+- Clean up 48 unauthorized Linear issues (PI-72 through PI-126)
+- PI-41: Naming conventions

@@ -4,8 +4,8 @@
 Building a memory, compaction, and project management system for Pi (orchestrator agent on iMac) that enables persistent memory, project-based organization, stage-gated planning, and bidirectional Linear sync.
 
 ## Current State
-- Phase: Shaping (core design locked, file structure v1 needs simplification)
-- Branch: project/memory-compaction-system on gbharg/pi-mono
+- Phase: Done (extension deployed, regex bugs fixed, /reload executed)
+- Branch: project/memory-compaction-system on gbharg/pi-mono (merged to main)
 - Linear project: https://linear.app/gautambh/project/memory-and-compaction-system-632e9b2b15db
 - PI-1 created: "Set up Pi as a Linear app for webhooks and events"
 
@@ -21,11 +21,11 @@ Building a memory, compaction, and project management system for Pi (orchestrato
 9. Compaction is about decision quality, not token savings
 10. Structured interactive questions per planning stage (gstack pattern)
 
-## Open Questions for Next Session
-1. File structure simplification — Gautam wants sub-files like prd:design. Sleep on it.
-2. Spec vs roster distinction — may merge
-3. Linear webhook/app setup (PI-1)
-4. Profile building — start organically, no fixed time
+## Completed
+- Extension built by 6 parallel sub-agents, reviewed, bugs fixed, deployed via /reload
+- Auto-compaction disabled via .pi/settings.json
+- guard.ts added to enforce delegation (Pi can't edit/write directly)
+- Files: paths.ts, bootstrap.ts, monitor.ts, checkpoint.ts, guard.ts, index.ts
 
 ## Tools Available
 - GitHub: authenticated as gbharg, can push/PR

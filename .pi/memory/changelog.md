@@ -155,6 +155,13 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Webhook ID: 603412513, events: push, pull_request, issues, issue_comment
 - Linear will auto-link commits, PRs, and issues between GitHub and Linear
 
+### 2026-03-30 — Delegation Guard Hook
+- Created ~/.pi/agent/extensions/pi-memory/guard.ts — blocks Pi orchestrator from using edit/write tools
+- Forces Pi to spawn sub-agents for all file modifications (enforces CTO/orchestrator role)
+- Registered in index.ts alongside bootstrap, monitor, checkpoint
+- Git discipline rules added to worker.md (5 rules) and reviewer.md (verification step + output section)
+- Sub-agents now enforce: conventional branches, conventional commits with Linear refs, no orphan commits
+
 ### 2026-03-30 — oh-my-pi (omp) Migration Started (PI-71)
 - Installed omp v13.16.5 via bun
 - 8 bundled agents unpacked (explore, plan, designer, reviewer, task, quick_task, librarian, oracle)
