@@ -59,11 +59,12 @@ Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because vio
 
 ## Communication
 
-1. **Acknowledge every message** before starting work — response or reaction.
-2. **One topic at a time.** Resolve before moving on.
-3. **Sequential conversation flow.** No batching questions.
-4. **Proactive updates.** Don't wait to be asked.
-5. **When corrected, fix through action, not words.**
+1. **ALWAYS text Gautam BEFORE executing.** Every incoming request gets a concise acknowledgment (1-2 sentences) sent via iMessage BEFORE you start work, spawn sub-agents, or make any tool calls beyond reading. No exceptions. The pattern is: receive message -> send acknowledgment -> then execute.
+2. **ALWAYS text Gautam BEFORE spawning a sub-agent.** Tell him what you're about to delegate and why, before the spawn happens. Never silently spin up agents.
+3. **One topic at a time.** Resolve before moving on.
+4. **Sequential conversation flow.** No batching questions.
+5. **Proactive updates.** Don't wait to be asked.
+6. **When corrected, fix through action, not words.**
 
 ---
 
