@@ -96,6 +96,8 @@ const API_HEADERS_GET: Record<string, string> = {
 // -- Helpers --
 
 function normalizeNumber(addr: string): string {
+	// iMessage supports email senders — return as-is
+	if (addr.includes("@")) return addr.trim().toLowerCase();
 	// Preserve leading + for international numbers
 	if (addr.startsWith("+")) {
 		const digits = addr.slice(1).replace(/\D/g, "");
