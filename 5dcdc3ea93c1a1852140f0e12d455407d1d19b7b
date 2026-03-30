@@ -1,0 +1,43 @@
+.pi/memory/state.md
+  b52be8d027701995 4
+.pi/memory/changelog.md
+  b52be8d027701995 165-176
+.pi/memory/learnings.md
+  b52be8d027701995 73-80
+  63451f5fc14781ac 65-72
+.pi/projects/linear-integration/decisions.md
+  b52be8d027701995 39-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "5dcdc3ea93c1a1852140f0e12d455407d1d19b7b",
+  "prompts": {
+    "63451f5fc14781ac": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "02ccfd8b-bae6-481a-8bba-66d3012c37b9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 0,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    },
+    "b52be8d027701995": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f84e30e0-ef68-4713-86da-0a3e81d8adb4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 26,
+      "total_deletions": 1,
+      "accepted_lines": 26,
+      "overriden_lines": 0
+    }
+  }
+}
