@@ -8,7 +8,15 @@ export const DEFAULT_STATE_PATH = join(homedir(), ".pi", "auto-review-state.json
 
 export function loadConfig(cwd: string, explicitPath?: string): ReviewCloudConfig {
 	const path = explicitPath ?? process.env.PI_AUTO_REVIEW_CONFIG ?? process.env.PI_PR_REVIEW_CLOUD_CONFIG ?? join(cwd, DEFAULT_CONFIG_PATH);
-	const raw = readFileSync(path, "utf-8");
+	let raw: string;
+	try {
+		raw = readFileSync(path, "utf-8");
+	} catch (error) {
+		if (isErrnoException(error) && error.code === "ENOENT") {
+			throw new Error(`Auto-review config not found at ${path}`);
+		}
+		throw error;
+	}
 	const parsed = JSON.parse(raw) as unknown;
 	assertReviewCloudConfig(parsed);
 	parsed.commands ??= {};
@@ -16,7 +24,6 @@ export function loadConfig(cwd: string, explicitPath?: string): ReviewCloudConfi
 	parsed.deployCheckPatterns ??= ["deploy", "deployment", "vercel"];
 	parsed.ignorePathPrefixes ??= ["docs/", "plan/"];
 	parsed.nonCodeExtensions ??= [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"];
-	parsed.deployCheckPatterns ??= ["deploy", "deployment", "vercel"];
 	const hasCommands = Object.keys(parsed.commands).length > 0;
 	const hasReviewerConfig = Boolean(parsed.githubReviewers?.length || Object.keys(parsed.reviewerHandles ?? {}).length > 0);
 	if (!hasCommands && !hasReviewerConfig) {
@@ -46,7 +53,6 @@ function assertReviewCloudConfig(value: unknown): asserts value is ReviewCloudCo
 	assertOptionalStringArray(value.deployCheckPatterns, "deployCheckPatterns");
 	assertOptionalStringArray(value.ignorePathPrefixes, "ignorePathPrefixes");
 	assertOptionalStringArray(value.nonCodeExtensions, "nonCodeExtensions");
-	assertOptionalStringArray(value.deployCheckPatterns, "deployCheckPatterns");
 
 	if (value.reviewerHandles !== undefined) {
 		assertStringArrayRecord(value.reviewerHandles, "reviewerHandles");
@@ -115,9 +121,13 @@ function assertCommandRecord(value: unknown, name: string): void {
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
-	return typeof value === "object" && value !== null;
+	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 function isStringRecord(value: unknown): value is Record<string, string> {
 	return isRecord(value) && Object.values(value).every((entry) => typeof entry === "string");
+}
+
+function isErrnoException(error: unknown): error is NodeJS.ErrnoException {
+	return typeof error === "object" && error !== null && "code" in error;
 }

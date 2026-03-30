@@ -131,12 +131,10 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 		}
 		const evaluation = await evaluatePr(repo, pr, config.minimumApprovals ?? 3, config, ctx.cwd);
 		if (evaluation.scope.ignored || evaluation.policy.ok) return;
-		if (!evaluation.policy.ok) {
-			return {
-				block: true,
-				reason: `Local merge gate blocked PR #${pr}: ${evaluation.policy.reasons.join("; ")}`,
-			};
-		}
+		return {
+			block: true,
+			reason: `Local merge gate blocked PR #${pr}: ${evaluation.policy.reasons.join("; ")}`,
+		};
 	});
 }
 
@@ -163,7 +161,10 @@ async function evaluatePr(
 	minimumApprovals: number,
 	config: ReturnType<typeof loadConfig>,
 	cwd: string,
-) {
+): Promise<{
+	scope: ReturnType<typeof evaluateReviewScope>;
+	policy: ReturnType<typeof evaluateMergePolicy>;
+}> {
 	const pr = await fetchPullRequest(prNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
 	if (scope.ignored) {

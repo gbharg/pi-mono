@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { loadConfig, loadWatchState, saveWatchState } from "./config.js";
-import { addReviewers, fetchPullRequest, listOpenReviewablePullRequests } from "./github.js";
+import { addReviewers, fetchPullRequest, getCurrentPrNumber, listOpenReviewablePullRequests } from "./github.js";
 import { parsePlanContext } from "./plan-context.js";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
 import { dispatchCloudReviews, resolveDispatchMode } from "./runner.js";
@@ -33,7 +33,8 @@ async function main(): Promise<void> {
 }
 
 async function runCheck(repo: string, prNumber: number | undefined, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
-	const pr = await fetchPullRequest(parseRequiredInteger(prNumber, "--pr"), repo, cwd);
+	const resolvedPrNumber = prNumber ?? (await getCurrentPrNumber(cwd, repo));
+	const pr = await fetchPullRequest(resolvedPrNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
 	if (scope.ignored) {
 		console.log(`ALLOW merge for PR #${pr.number} (review automation ignored: ${scope.reason})`);
@@ -99,7 +100,15 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 	const intervalMs = config.pollIntervalMs ?? 30_000;
 	for (;;) {
 		const state = loadWatchState();
-		const prs = await listOpenReviewablePullRequests(repo, cwd);
+		let prs;
+		try {
+			prs = await listOpenReviewablePullRequests(repo, cwd);
+		} catch (error) {
+			const message = error instanceof Error ? error.message : String(error);
+			console.error(`watch: failed to list PRs: ${message}`);
+			await new Promise((resolve) => setTimeout(resolve, intervalMs));
+			continue;
+		}
 		const activePrNumbers = new Set(prs.map((pr) => String(pr.number)));
 		const nextSeenHeads = Object.fromEntries(
 			Object.entries(state.pullRequests).filter(([prNumber]) => activePrNumbers.has(prNumber)),
@@ -135,8 +144,11 @@ function parseCommandArgs(args: string[]): { command: Command; flagArgs: string[
 			flagArgs: args,
 		};
 	}
+	if (!isCommand(first)) {
+		throw new Error(`Unknown command: ${first}`);
+	}
 	return {
-		command: first as Command,
+		command: first,
 		flagArgs: args.slice(1),
 	};
 }
@@ -178,6 +190,10 @@ function resolveModelForReviewer(
 		if (normalized.includes(model)) return model;
 	}
 	return undefined;
+}
+
+function isCommand(value: string): value is Command {
+	return value === "check" || value === "dispatch" || value === "watch";
 }
 
 void main().catch((error) => {
