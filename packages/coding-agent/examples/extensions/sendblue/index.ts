@@ -14,11 +14,13 @@ import * as http from "node:http";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { StringEnum } from "@mariozechner/pi-ai";
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 import { Type } from "@sinclair/typebox";
 
 const EXTENSION_DIR = typeof __dirname !== "undefined" ? __dirname : dirname(fileURLToPath(import.meta.url));
 const LOG = "[sendblue]";
+const MAX_BODY_SIZE = 1_048_576; // 1 MB — prevents memory exhaustion on malicious POST
 
 // -- Configuration --
 
@@ -38,7 +40,14 @@ function loadEnv(): Record<string, string> {
 				const eq = trimmed.indexOf("=");
 				if (eq > 0) {
 					const key = trimmed.slice(0, eq);
-					if (!(key in env)) env[key] = trimmed.slice(eq + 1);
+					if (!(key in env)) {
+						let val = trimmed.slice(eq + 1);
+						// Strip surrounding quotes (single or double)
+						if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+							val = val.slice(1, -1);
+						}
+						env[key] = val;
+					}
 				}
 			}
 			console.log(`${LOG} Loaded config from ${envPath}`);
@@ -55,7 +64,8 @@ const API_KEY_ID = process.env.SENDBLUE_API_KEY_ID ?? env.SENDBLUE_API_KEY_ID ??
 const API_SECRET = process.env.SENDBLUE_API_SECRET_KEY ?? env.SENDBLUE_API_SECRET_KEY ?? "";
 const OWN_NUMBER = process.env.SENDBLUE_OWN_NUMBER ?? env.SENDBLUE_OWN_NUMBER ?? "";
 const WEBHOOK_PORT = parseInt(process.env.WEBHOOK_PORT ?? env.WEBHOOK_PORT ?? "3001", 10);
-const WEBHOOK_HOST = "0.0.0.0";
+const WEBHOOK_HOST = process.env.WEBHOOK_HOST ?? env.WEBHOOK_HOST ?? "0.0.0.0";
+const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET ?? env.WEBHOOK_SECRET ?? "";
 
 const ALLOWED_NUMBERS = new Set(
 	(process.env.ALLOWED_NUMBERS ?? env.ALLOWED_NUMBERS ?? "")
@@ -77,9 +87,20 @@ const API_HEADERS: Record<string, string> = {
 	"sb-api-secret-key": API_SECRET,
 };
 
+// Headers for GET requests (no Content-Type needed)
+const API_HEADERS_GET: Record<string, string> = {
+	"sb-api-key-id": API_KEY_ID,
+	"sb-api-secret-key": API_SECRET,
+};
+
 // -- Helpers --
 
 function normalizeNumber(addr: string): string {
+	// Preserve leading + for international numbers
+	if (addr.startsWith("+")) {
+		const digits = addr.slice(1).replace(/\D/g, "");
+		return `+${digits}`;
+	}
 	const digits = addr.replace(/\D/g, "");
 	if (digits.length === 10) return `+1${digits}`;
 	if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
@@ -108,7 +129,7 @@ async function fetchRecentHistory(limit = 50): Promise<string> {
 	try {
 		const url = new URL("https://api.sendblue.co/api/v2/messages");
 		url.searchParams.set("limit", String(limit));
-		const res = await fetch(url.toString(), { headers: API_HEADERS });
+		const res = await fetch(url.toString(), { headers: API_HEADERS_GET });
 		if (!res.ok) return "";
 		const data = (await res.json()) as { data: Array<Record<string, unknown>> };
 		return (data.data ?? [])
@@ -139,9 +160,23 @@ function logMessage(entry: Record<string, unknown>): void {
 function readBody(req: http.IncomingMessage): Promise<string> {
 	return new Promise((resolve, reject) => {
 		const chunks: Buffer[] = [];
-		req.on("data", (chunk: Buffer) => chunks.push(chunk));
+		let total = 0;
+		req.on("data", (chunk: Buffer) => {
+			total += chunk.length;
+			if (total > MAX_BODY_SIZE) {
+				req.destroy();
+				reject(new Error("Body too large"));
+				return;
+			}
+			chunks.push(chunk);
+		});
 		req.on("end", () => resolve(Buffer.concat(chunks).toString("utf-8")));
 		req.on("error", reject);
+		// Timeout: abort if body not received within 10s
+		req.setTimeout(10_000, () => {
+			req.destroy();
+			reject(new Error("Body read timeout"));
+		});
 	});
 }
 
@@ -149,13 +184,13 @@ function readBody(req: http.IncomingMessage): Promise<string> {
 // Extension entry point
 // ============================================================================
 
-export default function (pi: ExtensionAPI) {
-	if (!API_KEY_ID || !API_SECRET) return; // silently skip if not configured
+export default function sendblueExtension(pi: ExtensionAPI) {
+	if (!API_KEY_ID || !API_SECRET) return;
 
 	let server: http.Server | null = null;
 
 	pi.on("session_start", async (_event, ctx) => {
-		if (server) return; // guard against double-start
+		if (server) return;
 
 		// Inject recent history as hidden context
 		fetchRecentHistory(50)
@@ -182,13 +217,33 @@ export default function (pi: ExtensionAPI) {
 			}
 
 			if (req.method === "POST" && req.url === "/webhook") {
+				// Authenticate if WEBHOOK_SECRET is configured
+				if (WEBHOOK_SECRET) {
+					const provided = req.headers["x-webhook-secret"] ?? req.headers["authorization"];
+					if (provided !== WEBHOOK_SECRET && provided !== `Bearer ${WEBHOOK_SECRET}`) {
+						res.writeHead(401);
+						res.end(JSON.stringify({ error: "Unauthorized" }));
+						return;
+					}
+				}
+
+				let raw: string;
+				let body: Record<string, unknown>;
+				try {
+					raw = await readBody(req);
+					body = JSON.parse(raw) as Record<string, unknown>;
+				} catch (err) {
+					console.error(`${LOG} Webhook body error:`, err);
+					res.writeHead(400);
+					res.end(JSON.stringify({ error: "Bad request" }));
+					return;
+				}
+
+				// Respond 200 after successful parse
 				res.writeHead(200, { "Content-Type": "application/json" });
 				res.end(JSON.stringify({ received: true }));
 
 				try {
-					const raw = await readBody(req);
-					const body = JSON.parse(raw) as Record<string, unknown>;
-
 					if (body.is_outbound === true) {
 						console.log(`${LOG} Status: ${String(body.status)} for ${String(body.number ?? body.to_number)}`);
 						return;
@@ -227,7 +282,7 @@ export default function (pi: ExtensionAPI) {
 					const text = `[iMessage from ${sender} | handle: ${messageHandle} | service: ${service}]\n\n${content}${mediaUrl && mediaUrl !== "null" ? `\n\n[Attachment: ${mediaUrl}]` : ""}`;
 					pi.sendUserMessage(text, { deliverAs: "steer" });
 				} catch (err) {
-					console.error(`${LOG} Webhook error:`, err);
+					console.error(`${LOG} Webhook processing error:`, err);
 				}
 				return;
 			}
@@ -244,7 +299,9 @@ export default function (pi: ExtensionAPI) {
 
 		server.unref();
 		server.listen(WEBHOOK_PORT, WEBHOOK_HOST, () => {
-			console.log(`${LOG} Webhook listening on ${WEBHOOK_HOST}:${WEBHOOK_PORT}`);
+			console.log(
+				`${LOG} Webhook listening on ${WEBHOOK_HOST}:${WEBHOOK_PORT}${WEBHOOK_SECRET ? " (authenticated)" : " (WARNING: no WEBHOOK_SECRET set)"}`,
+			);
 		});
 		server.on("error", (err: NodeJS.ErrnoException) => {
 			if (err.code === "EADDRINUSE") {
@@ -284,13 +341,8 @@ export default function (pi: ExtensionAPI) {
 			reply_to: Type.Optional(Type.String({ description: "message_handle to reply to (for threading)" })),
 		}),
 		async execute(_toolCallId, params) {
-			// Typing indicator for natural feel
-			try {
-				await sendbluePost("/api/send-typing-indicator", { from_number: OWN_NUMBER, number: params.number });
-				await new Promise((r) => setTimeout(r, 600));
-			} catch {
-				/* best effort */
-			}
+			// Typing indicator (fire and forget — no blocking delay)
+			sendbluePost("/api/send-typing-indicator", { from_number: OWN_NUMBER, number: params.number }).catch(() => {});
 
 			const body: Record<string, unknown> = {
 				number: params.number,
@@ -326,7 +378,9 @@ export default function (pi: ExtensionAPI) {
 		parameters: Type.Object({
 			number: Type.String({ description: "Recipient phone number" }),
 			message_handle: Type.String({ description: "message_handle of message to react to" }),
-			reaction: Type.String({ description: "love, like, dislike, laugh, emphasize, question" }),
+			reaction: StringEnum(["love", "like", "dislike", "laugh", "emphasize", "question"], {
+				description: "Reaction type",
+			}),
 		}),
 		async execute(_toolCallId, params) {
 			await sendbluePost("/api/send-reaction", {
@@ -350,10 +404,10 @@ export default function (pi: ExtensionAPI) {
 		}),
 		async execute(_toolCallId, params) {
 			const url = new URL("https://api.sendblue.co/api/v2/messages");
-			if (params.limit) url.searchParams.set("limit", String(params.limit));
+			if (params.limit != null) url.searchParams.set("limit", String(params.limit));
 			if (params.number) url.searchParams.set("number", params.number);
 
-			const res = await fetch(url.toString(), { headers: API_HEADERS });
+			const res = await fetch(url.toString(), { headers: API_HEADERS_GET });
 			if (!res.ok) throw new Error(`Sendblue API error ${res.status}`);
 			const data = (await res.json()) as { data: Array<Record<string, unknown>> };
 
