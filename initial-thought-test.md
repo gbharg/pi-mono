@@ -1,0 +1,1 @@
+The initial thought activity is posted by the wrapper at session creation.
