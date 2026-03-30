@@ -123,3 +123,8 @@ All changes to Pi's configuration, extensions, memory system, and infrastructure
 - Can post comments as "Pi Agent", has access to PI and AI teams
 - Webhook key saved for HMAC verification
 - Comment posted on PI-7 as Pi Agent to verify
+
+### 2026-03-30 — Linear GitHub Integration (PI-33)
+- Configured GitHub webhook on gbharg/pi-mono for Linear integration
+- Webhook ID: 603412513, events: push, pull_request, issues, issue_comment
+- Linear will auto-link commits, PRs, and issues between GitHub and Linear
