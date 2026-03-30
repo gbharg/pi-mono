@@ -4,14 +4,13 @@
 # Validates commit messages against conventional commit format
 
 # Define allowed commit message patterns
-commit_msg_type_regex='feat|fix|refactor|perf|style|test|docs|build|ops|chore|ci|revert'
+commit_msg_type_regex='feat|fix|chore|docs|refactor|test|ci|perf'
 commit_msg_scope_regex='[a-z0-9-]+'
 commit_msg_description_regex='[a-z].{0,99}'
 commit_msg_regex="^(${commit_msg_type_regex})(\(${commit_msg_scope_regex}\))?!?: (${commit_msg_description_regex})$"
 
 # Special cases for git operations
-merge_msg_regex="^Merge branch '.+'$"
-revert_msg_regex="^Revert \".*\"$"
+merge_msg_regex="^Merge"
 initial_commit_regex="^chore: init$"
 
 # Read the commit message
@@ -20,7 +19,6 @@ commit_msg_header=$(head -n1 "$1")
 # Check if commit message matches conventional commit format
 if [[ "$commit_msg_header" =~ $commit_msg_regex ]] || \
    [[ "$commit_msg_header" =~ $merge_msg_regex ]] || \
-   [[ "$commit_msg_header" =~ $revert_msg_regex ]] || \
    [[ "$commit_msg_header" =~ $initial_commit_regex ]]; then
   exit 0
 fi
@@ -34,14 +32,14 @@ echo ""
 echo "Conventional commit format:"
 echo "  type(scope): description"
 echo ""
-echo "Types: feat, fix, docs, style, refactor, test, chore, build, ci, perf, revert, ops"
-echo "Scope: optional, describes the area (e.g. memory, linear, imessage)"
+echo "Types: feat, fix, chore, docs, refactor, test, ci, perf"
+echo "Scope: optional, describes the area (e.g. ai, coding-agent, memory)"
 echo "Description: imperative mood, lowercase, no period"
 echo ""
 echo "Examples:"
-echo "  feat(linear): add webhook handler for issue events"
-echo "  fix(memory): correct regex in getActiveProject"
-echo "  docs(agent): update AGENT.md with new services"
+echo "  feat(ai): add bedrock provider"
+echo "  fix(coding-agent): prevent subagent hang"
+echo "  docs: update changelog"
 echo "  chore(deps): bump express to v5"
 echo ""
 echo "For breaking changes, add '!' before the colon:"
