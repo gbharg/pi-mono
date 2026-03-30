@@ -61,3 +61,11 @@
 | Session summaries should be narratives with topic bullets, not structured output lists. | First draft was mechanical. Gautam asked "is that how you'd tell a friend?" | 2026-03-29 | memory-compaction-system/shaping |
 | Optimize every summary for: "if Gautam asked what we did next week, how would I answer?" | This is THE test for summary quality. Not outputs, not pointers — the story. | 2026-03-29 | memory-compaction-system/shaping |
 | Don't strip summaries to just file pointers. | I overcorrected from verbose to useless. The summary must stand alone. | 2026-03-29 | memory-compaction-system/shaping |
+
+## Compaction Failures
+| Learning | Context | Date | Session |
+|----------|---------|------|---------|
+| Save active work items to decisions.md BEFORE compacting. Not just shaping decisions — what you're actively building. | Lost omp migration context. Compaction summary didn't include "we decided to switch to omp." | 2026-03-30 | post-compaction |
+| After compaction, read decisions.md FIRST before taking any action. | Spawned research agent that contradicted a decision already made. | 2026-03-30 | post-compaction |
+| Never execute from auto-generated plan files. Always scope with Gautam first. | Generated 2059-line plan, created 48 issues without review. Massive violation. | 2026-03-30 | post-compaction |
+| A research agent's recommendation doesn't override an agreed decision. | Research agent said "stay on pi-mono" but we had already decided to move to omp. I shared the contradiction without flagging it. | 2026-03-30 | post-compaction |
