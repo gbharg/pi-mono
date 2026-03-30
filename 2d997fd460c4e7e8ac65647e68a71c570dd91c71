@@ -1,0 +1,23 @@
+.pi/extensions/imessage-channel/index.ts
+  aaaa11a4312f2c5b 206
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "2d997fd460c4e7e8ac65647e68a71c570dd91c71",
+  "prompts": {
+    "aaaa11a4312f2c5b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aea2ca61-0f96-4b3e-b12d-a91071d3a94e",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
