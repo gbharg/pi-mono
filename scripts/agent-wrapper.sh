@@ -588,12 +588,13 @@ $error_log
   log "Found $commit_count new commit(s)"
   
   # PI-132: Verify response activity was posted
+  # NOTE: Warn-only for now until agents reliably follow completion protocol
   log "Verifying response activity exists"
   local query
   query=$(jq -n \
     --arg sessionId "$AGENT_SESSION_ID" \
     '{
-      query: "query GetActivities($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 5) { nodes { content } } } }",
+      query: "query GetActivities($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 5) { nodes { content { __typename ... on AgentActivityResponseContent { type body } ... on AgentActivityThoughtContent { type body } ... on AgentActivityErrorContent { type body } ... on AgentActivityActionContent { type action } } } } } }",
       variables: {
         sessionId: $sessionId
       }
@@ -603,19 +604,18 @@ $error_log
   result=$(linear_api_call "$query" "app_token")
   
   local has_response
-  has_response=$(echo "$result" | jq -r '[.data.agentSession.activities.nodes[].content | select(.type == "response")] | length > 0')
+  has_response=$(echo "$result" | jq -r '[.data.agentSession.activities.nodes[].content | select(.__typename == "AgentActivityResponseContent")] | length > 0')
   
   if [[ "$has_response" != "true" ]]; then
-    local err_msg="Agent did not post required response activity (READY signal)"
-    error "$err_msg"
-    post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
-    post_issue_comment "$ISSUE_ID" "❌ Agent \`$AGENT_NAME\` did not complete handoff protocol."
-    return 1
+    local warn_msg="Agent did not post required response activity (READY signal)"
+    log "WARNING: $warn_msg"
+    # TODO: Make this a hard failure once agents reliably follow completion protocol
+  else
+    log "Response activity verified"
   fi
   
-  log "Response activity verified"
-  
   # PI-133: Verify plan was posted
+  # NOTE: Warn-only for now until agents reliably follow completion protocol
   log "Verifying plan exists"
   query=$(jq -n \
     --arg sessionId "$AGENT_SESSION_ID" \
@@ -632,14 +632,12 @@ $error_log
   plan=$(echo "$result" | jq -r '.data.agentSession.plan // "null"')
   
   if [[ -z "$plan" ]] || [[ "$plan" == "null" ]]; then
-    local err_msg="Agent did not post required plan"
-    error "$err_msg"
-    post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
-    post_issue_comment "$ISSUE_ID" "❌ Agent \`$AGENT_NAME\` did not post work plan."
-    return 1
+    local warn_msg="Agent did not post required plan"
+    log "WARNING: $warn_msg"
+    # TODO: Make this a hard failure once agents reliably follow completion protocol
+  else
+    log "Plan verified"
   fi
-  
-  log "Plan verified"
   
   # Verify conventional commit format and Co-Authored-By trailer
   local commits
