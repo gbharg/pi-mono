@@ -444,18 +444,18 @@ phase_setup() {
 
 # Background process that monitors for stalled agents
 stall_monitor() {
-  local agent_pid="$1"
+  local wrapper_pid="$1"
   local session_id="$2"
   local timeout="$AGENT_STALL_TIMEOUT_SECONDS"
   
-  log "Stall monitor started for PID $agent_pid (timeout: ${timeout}s)"
+  log "Stall monitor started for wrapper PID $wrapper_pid (timeout: ${timeout}s)"
   
   while true; do
     sleep 60
     
-    # Check if agent process still exists
-    if ! kill -0 "$agent_pid" 2>/dev/null; then
-      log "Stall monitor: agent process no longer running"
+    # Check if wrapper process still exists
+    if ! kill -0 "$wrapper_pid" 2>/dev/null; then
+      log "Stall monitor: wrapper process no longer running"
       break
     fi
     
@@ -496,17 +496,17 @@ stall_monitor() {
       if [[ $elapsed -gt $timeout ]]; then
         log "Stall detected: no activity for ${elapsed}s (threshold: ${timeout}s)"
         
-        # Kill agent with SIGTERM
-        log "Sending SIGTERM to agent PID $agent_pid"
-        kill -TERM "$agent_pid" 2>/dev/null || true
+        # Kill all children of the wrapper (agent pipeline) with SIGTERM
+        log "Sending SIGTERM to all children of wrapper PID $wrapper_pid"
+        pkill -TERM -P "$wrapper_pid" 2>/dev/null || true
         
         # Wait 60s for graceful shutdown
         sleep 60
         
-        # Check if still alive
-        if kill -0 "$agent_pid" 2>/dev/null; then
-          log "Agent did not respond to SIGTERM, sending SIGKILL"
-          kill -KILL "$agent_pid" 2>/dev/null || true
+        # Check if any children still alive and force kill
+        if pgrep -P "$wrapper_pid" >/dev/null 2>&1; then
+          log "Children did not respond to SIGTERM, sending SIGKILL"
+          pkill -KILL -P "$wrapper_pid" 2>/dev/null || true
         fi
         
         # Post error activity
@@ -739,24 +739,19 @@ phase_execution() {
   log "Spawning agent: ${pi_cmd[*]}"
   log "Output tee'd to: $log_file"
   
-  # Execute agent and capture exit code
-  set +e
-  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file" &
-  local AGENT_PID=$!
-  
-  # PI-134: Start stall monitor in background
-  stall_monitor "$AGENT_PID" "$AGENT_SESSION_ID" &
+  # PI-134: Start stall monitor in background BEFORE pipeline
+  stall_monitor "$$" "$AGENT_SESSION_ID" &
   local STALL_MONITOR_PID=$!
   
-  # Wait for agent to complete
-  wait "$AGENT_PID"
-  AGENT_EXIT_CODE=$?
+  # Execute agent pipeline in foreground and capture exit code
+  set +e
+  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
+  AGENT_EXIT_CODE=${PIPESTATUS[0]}
+  set -e
   
   # Kill stall monitor
   kill "$STALL_MONITOR_PID" 2>/dev/null || true
   wait "$STALL_MONITOR_PID" 2>/dev/null || true
-  
-  set -e
   
   log "Agent exited with code: $AGENT_EXIT_CODE"
   
