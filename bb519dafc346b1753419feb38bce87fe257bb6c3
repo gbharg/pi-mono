@@ -1,0 +1,23 @@
+.pi/services/FRONT_OFFICE_DAILY_SUMMARY.md
+  2c72d2da08c1e786 1-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "bb519dafc346b1753419feb38bce87fe257bb6c3",
+  "prompts": {
+    "2c72d2da08c1e786": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f142ba49-711a-42ea-ad8c-7c124ef55c03",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 149,
+      "total_deletions": 0,
+      "accepted_lines": 149,
+      "overriden_lines": 0
+    }
+  }
+}
