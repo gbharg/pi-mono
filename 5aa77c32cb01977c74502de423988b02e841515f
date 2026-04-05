@@ -1,0 +1,34 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "5aa77c32cb01977c74502de423988b02e841515f",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 207,
+      "overriden_lines": 0
+    },
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 246,
+      "overriden_lines": 0
+    }
+  }
+}
