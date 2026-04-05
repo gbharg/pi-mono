@@ -1,0 +1,25 @@
+.pi/services/amd/API_REFERENCE.md
+  57f3a0f3d8478c72 1-113
+.pi/services/amd/api_reference.json
+  57f3a0f3d8478c72 1-235
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "00667c3fc73962e3dc0656a54050aea7691528be",
+  "prompts": {
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 542,
+      "overriden_lines": 0
+    }
+  }
+}
