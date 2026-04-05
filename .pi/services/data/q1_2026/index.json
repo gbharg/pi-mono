@@ -1,0 +1,81 @@
+{
+  "window": "2026-01-01 to 2026-03-31",
+  "business_days": 65,
+  "generated_at": "2026-04-05",
+  "phi_classification": "HIPAA-covered PHI — local only, gitignored",
+  "top_level_report": "/Users/agent/pi-mono/.pi/services/Q1_2026_FULL_REPORT.md",
+  "sources": {
+    "amd": {
+      "auth": "GAUTAM session cookies (token={officekey}{64hex}), 24h TTL",
+      "endpoints_used": [
+        "GET /api/scheduler/appointments",
+        "GET /api/scheduler/columns",
+        "POST /practicemanager/xmlrpc/processrequest.aspx action=getreminderappts",
+        "POST /practicemanager/xmlrpc/processrequest.aspx action=getupdatedvisits (via ARC022825 — one-shot only)",
+        "POST /practicemanager/xmlrpc/processrequest.aspx action=getupdatedpatients (via ARC022825 — one-shot only)"
+      ],
+      "files": {
+        "rest_scheduler_appointments_full.json": "2,955 unique visit IDs, status-filtered REST",
+        "xmlrpc_getupdatedvisits_q1_raw.xml": "6,023 unique visit IDs, unfiltered via XMLRPC",
+        "xmlrpc_getupdatedvisits_q1_ids.txt": "flat list of 6,023 visit IDs",
+        "xmlrpc_hidden_visit_ids_q1.json": "3,089 IDs hidden from REST (delta set)",
+        "xmlrpc_hidden_visit_sample300.json": "300-record classified sample with status distribution",
+        "xmlrpc_getupdatedpatients_q1_raw.xml": "new+updated patient records (raw XML)",
+        "xmlrpc_new_patient_ids.txt": "extracted patient IDs from getupdatedpatients",
+        "xmlrpc_getvisitinfobydate_q1_detail.xml": "visit detail bulk pull"
+      }
+    },
+    "ringcentral": {
+      "auth": "JWT via Remote Admin app, ReadCallLog scope",
+      "endpoint": "GET /restapi/v1.0/account/~/call-log?view=Detailed",
+      "files": {
+        "rc_q1_calls_raw.ndjson": "per-call records inbound+outbound, 13 weekly windows",
+        "rc-call-log-2026-q1.csv": "per-day aggregated CSV (committed upstream)"
+      }
+    },
+    "m365": {
+      "auth": "app-only client_credentials, tenant exulthealthcare.com",
+      "endpoint": "GET /v1.0/users/{upn}/messages?$filter=receivedDateTime ge ... and lt ...",
+      "mailboxes": [
+        "office@exulthealthcare.com",
+        "fax@exulthealthcare.com",
+        "exult-info@exulthealthcare.com",
+        "tms@exulthealthcare.com",
+        "prescriptions.rx@exulthealthcare.com",
+        "billing@exulthealthcare.com",
+        "referrals@exulthealthcare.com",
+        "c308.konica@exulthealthcare.com",
+        "kendra.geller@exulthealthcare.com",
+        "raj.bhargava@exulthealthcare.com"
+      ],
+      "fields_saved": ["id","subject","from","toRecipients","receivedDateTime","bodyPreview","hasAttachments","isDraft","isRead","importance"],
+      "excluded": "doctorb@exulthealthcare.com (physician personal, not front-desk workload)"
+    }
+  },
+  "headline_q1_metrics": {
+    "inbound_calls": 5672,
+    "missed_inbound": 2072,
+    "miss_rate_pct": 36.5,
+    "outbound_calls": 2004,
+    "total_touched_appointments": 6023,
+    "completed_visits_revised": 2853,
+    "cancellations": 465,
+    "no_shows": 286,
+    "reschedules_moved": 762,
+    "deleted_voided": 1256,
+    "appointments_confirmed": 1152,
+    "new_patients": 170,
+    "incoming_faxes": 804,
+    "patient_inquiry_emails": 121,
+    "insurance_emails": 53,
+    "pharmacy_emails": 45,
+    "active_providers": 9,
+    "locations": 2,
+    "telehealth_share_pct": 73
+  },
+  "fte_load_estimate": {
+    "direct_workflow_minutes_per_day": 628,
+    "plus_overhead_minutes_per_day": 880,
+    "fte_equivalents": 1.83
+  }
+}
