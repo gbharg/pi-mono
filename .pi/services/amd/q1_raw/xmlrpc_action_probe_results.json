@@ -1,0 +1,51 @@
+{
+  "getdatevisits": {
+    "status": "fail",
+    "err": "view visit information for a date"
+  },
+  "getupdatedpatients": {
+    "status": "fail",
+    "err": "view updated patients"
+  },
+  "getappttypes": {
+    "status": "fail",
+    "err": "Action getappttypes not found."
+  },
+  "getreminderappts": {
+    "status": "fail",
+    "err": "- Missing apptstatus attribute"
+  },
+  "getupdatedvisitstemplate": {
+    "status": "fail",
+    "err": "view updated visit template"
+  },
+  "gettxhistory": {
+    "status": "fail",
+    "err": "Action gettxhistory not found."
+  },
+  "getehrupdatednotes": {
+    "status": "fail",
+    "err": "view new and updated patient notes for a template"
+  },
+  "getfieldsets": {
+    "status": "fail",
+    "err": "view fieldset information"
+  },
+  "getupdatedproviders": {
+    "status": "fail",
+    "err": "Provider element is missing."
+  },
+  "getupdatedreferringproviders": {
+    "status": "ok",
+    "size": 422,
+    "results_size": 254
+  },
+  "getpatient": {
+    "status": "fail",
+    "err": "Action getpatient not found."
+  },
+  "getappointmenthistory": {
+    "status": "fail",
+    "err": "Action getappointmenthistory not found."
+  }
+}
