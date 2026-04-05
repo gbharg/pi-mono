@@ -1,0 +1,37 @@
+.pi/services/MORNING_REPORT_2026-04-05.md
+  2c72d2da08c1e786 371,575-640
+  57f3a0f3d8478c72 4,7-15,23-27,30-33,233-264,266,268,270-278,280-287,316-370,379,381-392,399-401,403,405-407,411,413,419,421-428,430,432,434,436,438,440,442,444,446-454,464,519,521-533,536-537,542-574
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "4d2747218c70b6c01d7d5fa5a4338e3795a907fe",
+  "prompts": {
+    "2c72d2da08c1e786": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f142ba49-711a-42ea-ad8c-7c124ef55c03",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 66,
+      "total_deletions": 0,
+      "accepted_lines": 67,
+      "overriden_lines": 0
+    },
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 227,
+      "overriden_lines": 0
+    }
+  }
+}
