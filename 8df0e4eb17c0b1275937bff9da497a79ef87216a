@@ -1,0 +1,38 @@
+.pi/services/amd/endpoints.json
+  57f3a0f3d8478c72 1-260
+.pi/services/amd/API_REFERENCE.md
+  57f3a0f3d8478c72 1-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "8df0e4eb17c0b1275937bff9da497a79ef87216a",
+  "prompts": {
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 426,
+      "total_deletions": 0,
+      "accepted_lines": 426,
+      "overriden_lines": 0
+    },
+    "e75339e09a33c583": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e447f7e-e0ae-4d08-813b-5ea23c9bca53",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 270,
+      "total_deletions": 0,
+      "accepted_lines": 271,
+      "overriden_lines": 0
+    }
+  }
+}
