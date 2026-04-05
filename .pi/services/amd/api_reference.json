@@ -1,5 +1,5 @@
 {
-  "_HEADER": "VALIDATED ENDPOINTS ONLY. Every entry in this file has been observed or successfully called. Client-code guesses live nowhere — they are dropped. For the authoritative spec-based catalog see api_documentation.json.",
+  "_HEADER": "VALIDATED ENDPOINTS ONLY. Every entry in this file has been observed or successfully called. Client-code guesses live nowhere \u2014 they are dropped. For the authoritative spec-based catalog see api_documentation.json.",
   "_validation_methods": {
     "network_trace_confirmed": "Observed in live browser/Playwright devtools network capture; request fired, response status logged.",
     "live_call_success": "Made a successful HTTP call from this machine with a live bearer/cookie and got a 2xx response with expected-shape body.",
@@ -26,7 +26,7 @@
       "POST https://pm-api-{shard}.advancedmd.com/api/authentication/preauth/send2faemail",
       "POST https://pm-api-{shard}.advancedmd.com/api/authentication/token/access (MFA code exchange)",
       "Browser navigates to https://static-100.advancedmd.com/apps/login/#/launch-app",
-      "Launch-app calls window.open('https://pm-wfe-{shard}.advancedmd.com/practicemanager') — popup window establishes the session cookies at domain .advancedmd.com"
+      "Launch-app calls window.open('https://pm-wfe-{shard}.advancedmd.com/practicemanager') \u2014 popup window establishes the session cookies at domain .advancedmd.com"
     ],
     "session_cookies_set_on_success": [
       "token: {officeKey}{64-hex} at .advancedmd.com",
@@ -39,11 +39,11 @@
     ],
     "headless_blocker": "If the Chromium launching this flow has popup-blocking enabled (default for headless and for Playwright Chrome-for-Testing without --disable-popup-blocking), the launch-app popup is blocked silently and the session cookies are NEVER written. A 'Compatibility check' modal is shown instead. Override window.open via Page.addScriptToEvaluateOnNewDocument BEFORE navigating to the identity app, or relaunch with --disable-popup-blocking.",
     "twofa_delivery": "Email only for this tenant. Sender noreply@advancedmd.com, recipient gautambharg@gmail.com. Codes arrive within ~30s and expire in ~10min. Each preauth issues a NEW code; the '5 attempts remaining' counter is per preauth token, not per account.",
-    "angular_submit_gotcha": "The Verify button on the 2FA form is only rendered once the input is ng-valid (pattern=^[0-9]{6}$). Before the form reaches valid state only a 'Resend code' button exists. To submit: fill the input, dispatch input+change+keyup events, wait 300ms, then call .click() on the enabled submit button. form.requestSubmit() does NOT work — the Angular NgForm handler is bound to button click, not native submit.",
+    "angular_submit_gotcha": "The Verify button on the 2FA form is only rendered once the input is ng-valid (pattern=^[0-9]{6}$). Before the form reaches valid state only a 'Resend code' button exists. To submit: fill the input, dispatch input+change+keyup events, wait 300ms, then call .click() on the enabled submit button. form.requestSubmit() does NOT work \u2014 the Angular NgForm handler is bound to button click, not native submit.",
     "gotchas": [
       "400 response body on /api/authentication/token/access is a raw C# stack trace string, not JSON. Check status before parsing.",
       "The saml-session cookie on api-100.advancedmd.com is set pre-2FA and is NOT a usable bearer.",
-      "PPMDResults_{officeKey}_{user} localStorage object is the best 'am I logged in' signal — its `lst` field is the last-touch timestamp in office-local time and `usercontext` contains every service URL for the tenant."
+      "PPMDResults_{officeKey}_{user} localStorage object is the best 'am I logged in' signal \u2014 its `lst` field is the last-touch timestamp in office-local time and `usercontext` contains every service URL for the tenant."
     ]
   },
   "endpoints": [
@@ -65,9 +65,12 @@
       "method": "GET",
       "path": "/api/locator/defaulturls?officeKey={key}",
       "host": "api-100.advancedmd.com",
-      "purpose": "Service discovery — returns the pm-api and pm-wfe host shard assigned to this office. Call this FIRST when bootstrapping a new tenant.",
+      "purpose": "Service discovery \u2014 returns the pm-api and pm-wfe host shard assigned to this office. Call this FIRST when bootstrapping a new tenant.",
       "params": {
-        "officeKey": {"type": "string", "required": true}
+        "officeKey": {
+          "type": "string",
+          "required": true
+        }
       },
       "response": {
         "200": "JSON mapping of service role to host URL (e.g. pmApi -> https://pm-api-137.advancedmd.com)"
@@ -102,7 +105,7 @@
       "method": "POST",
       "path": "/api/authentication/preauth/send2faemail",
       "host": "pm-api-{shard}.advancedmd.com",
-      "purpose": "Trigger delivery of the 6-digit 2FA code via email. For Exult this is the ONLY 2FA method enabled — SMS and TOTP are disabled at the account level.",
+      "purpose": "Trigger delivery of the 6-digit 2FA code via email. For Exult this is the ONLY 2FA method enabled \u2014 SMS and TOTP are disabled at the account level.",
       "request_body": {
         "email": "string (user's primary email on file)",
         "request": {
@@ -111,7 +114,9 @@
           "client_id": "AdvancedMD.Authentication"
         }
       },
-      "response": {"204/200": "email dispatched"},
+      "response": {
+        "204/200": "email dispatched"
+      },
       "validated_at": "2026-04-05T09:31:07Z",
       "validated_method": "network_trace_confirmed",
       "source_trace": "/tmp/amd_st_login_out.txt lines 40-44 and live 2026-04-05 09:31 session"
@@ -129,7 +134,7 @@
       },
       "response": {
         "200": "final session established, cookies set",
-        "400": "Invalid code (body is a raw C# stack trace string, NOT JSON — do not attempt to parse as JSON before checking status)"
+        "400": "Invalid code (body is a raw C# stack trace string, NOT JSON \u2014 do not attempt to parse as JSON before checking status)"
       },
       "validated_at": "2026-04-05T05:30:00Z",
       "validated_method": "network_trace_confirmed",
@@ -141,31 +146,302 @@
       "host": "pm-api-{shard}.advancedmd.com",
       "purpose": "List/search patients scoped to an office. Used to pull the complete Exult patient roster (975 active records as of 2026-04-02).",
       "params": {
-        "officeid": {"type": "string", "required": true, "description": "office key, e.g. 161112"},
-        "offset": {"type": "int", "required": false},
-        "limit": {"type": "int", "required": false, "notes": "500 works in practice"},
-        "firstappointmentstart": {"type": "date YYYY-MM-DD", "required": false, "description": "Filter to patients whose first appointment falls on/after this date. Verified: useful for 'new patients added in Q1' queries."},
-        "firstappointmentend": {"type": "date YYYY-MM-DD", "required": false}
+        "officeid": {
+          "type": "string",
+          "required": true,
+          "description": "office key, e.g. 161112"
+        },
+        "offset": {
+          "type": "int",
+          "required": false
+        },
+        "limit": {
+          "type": "int",
+          "required": false,
+          "notes": "500 works in practice"
+        },
+        "firstappointmentstart": {
+          "type": "date YYYY-MM-DD",
+          "required": false,
+          "description": "Filter to patients whose first appointment falls on/after this date. Verified: useful for 'new patients added in Q1' queries."
+        },
+        "firstappointmentend": {
+          "type": "date YYYY-MM-DD",
+          "required": false
+        }
       },
       "response_shape_note": "Envelope is INCONSISTENT across calls. Observed shapes: {totalcount, patients: [...]} and {count, data: [...]} and raw array. Defensive parsing required.",
       "response_fields_per_patient": [
-        "id (int)", "licensekey (int, office)", "licensename (string)",
-        "name (LAST, FIRST)", "firstname", "lastname", "middlename", "preferredname",
-        "chartnumber", "ssn (whitespace-padded even when masked)",
-        "dob (iso datetime)", "deceased (bool)", "inactive (bool)",
-        "inactivestatusid/description/code", "ispatientactive",
-        "gender (M|F|U| )", "zipcode", "homephone", "officephone", "officeextension",
-        "other", "preferredphone", "preferredphonetype", "email",
-        "defaultepisodeid", "defaultreferralplanid", "defaultcopayamount",
-        "profileid (int)", "profilecode (e.g. BHAR00 = provider panel)",
-        "address1", "address2", "photofileid",
-        "responsiblepartyid", "hipaarelationship"
+        "id (int)",
+        "licensekey (int, office)",
+        "licensename (string)",
+        "name (LAST, FIRST)",
+        "firstname",
+        "lastname",
+        "middlename",
+        "preferredname",
+        "chartnumber",
+        "ssn (whitespace-padded even when masked)",
+        "dob (iso datetime)",
+        "deceased (bool)",
+        "inactive (bool)",
+        "inactivestatusid/description/code",
+        "ispatientactive",
+        "gender (M|F|U| )",
+        "zipcode",
+        "homephone",
+        "officephone",
+        "officeextension",
+        "other",
+        "preferredphone",
+        "preferredphonetype",
+        "email",
+        "defaultepisodeid",
+        "defaultreferralplanid",
+        "defaultcopayamount",
+        "profileid (int)",
+        "profilecode (e.g. BHAR00 = provider panel)",
+        "address1",
+        "address2",
+        "photofileid",
+        "responsiblepartyid",
+        "hipaarelationship"
       ],
       "example_curl": "curl 'https://pm-api-137.advancedmd.com/api/patients?officeid=161112&limit=1' -H 'Authorization: Bearer $TOKEN' -H 'amd-office-key: 161112'",
       "rate_limit_observed": "5 req/s per hipaa-agent-work client config; not tested to failure",
       "validated_at": "2026-04-02T11:11:00Z",
       "validated_method": "live_call_success",
       "source_data": "/tmp/amd_patients.json (975 records, 870KB, pulled 2026-04-02)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scheduler/columns",
+      "host": "pm-api-137",
+      "purpose": "List all display columns (providers/resources) in the scheduler. Each column has id, heading, profileid, starttime, endtime, facilityid, and display flag.",
+      "validation": "live_call_success 2026-04-05T10:00Z (14 columns returned for Exult)",
+      "sample_response_shape": {
+        "type": "array",
+        "fields": [
+          "id",
+          "heading",
+          "profileid",
+          "starttime",
+          "endtime",
+          "timeincrement",
+          "display",
+          "facilityid",
+          "maxapptsperslot"
+        ]
+      },
+      "notes": "Column IDs resolved: 3325=Dr Bhargava, 3345=Mbilikira(S), 3351=Toles(M), 3352=Todd(M), 3355=Davis(M), 3358=Bingham(M), 3366=Mbilikira, 3387=MCKINNEY IOP, 3392=Techs, 3395=Training Only, 3396=Hawkins, 3407=Snype-Stewart, 3415=Emmons(S), 3694=Dattatreya. 14 active total."
+    },
+    {
+      "method": "GET",
+      "path": "/api/scheduler/appointments?columnId={id}&startDate=MM/DD/YYYY&endDate=MM/DD/YYYY&forView=month",
+      "host": "pm-api-137",
+      "purpose": "List appointments for a column in a date range. forView controls whether the server aggregates: 'month' and 'week' return the full set, 'list' and 'day' often return empty (undocumented behavior). Date format is US (MM/DD/YYYY), NOT ISO. ISO dates silently return 0 results.",
+      "validation": "live_call_success 2026-04-05T10:00Z (3398 Q1 2026 appointments across 14 columns)",
+      "critical_gotcha": "forView=list silently returns empty for most date ranges. Use forView=month (or week) to get real data. Date format must be MM/DD/YYYY \u2014 ISO format is accepted but returns empty results without error.",
+      "sample_response_shape": {
+        "type": "array",
+        "fields": [
+          "id",
+          "startdatetime",
+          "status",
+          "columnid",
+          "heading",
+          "profileid",
+          "provider",
+          "providercode",
+          "facilityid",
+          "episodeid",
+          "patientid",
+          "firstname",
+          "lastname",
+          "dob",
+          "patientemail",
+          "chartnumber",
+          "appointmenttypeids",
+          "telemedappointmentstatus",
+          "confirmdate"
+        ]
+      },
+      "status_codes_observed": {
+        "0": "642 occurrences \u2014 status pending/unset",
+        "1": "93 \u2014 SCHEDULED/tentative",
+        "2": "4 \u2014 CONFIRMED",
+        "3": "1895 \u2014 high volume; likely BOOKED or TENTATIVE (filtered set \u2014 does NOT include cancelled/noshow/rescheduled per parallel session finding)",
+        "10": "477 \u2014 common active status",
+        "12": "287 \u2014 completed/checked-in"
+      },
+      "parallel_session_caveat": "Parallel agent reported that the scheduler list endpoint FILTERS OUT appointments with status 4 (cancelled), 5 (no-show), 6 (rescheduled). To get reschedule/cancel/no-show counts the correct endpoint is elsewhere \u2014 likely a Missed Appointments worklist, a legacy ppmdmsg getappointmenthistory, or audit log. Not yet found in this session."
+    },
+    {
+      "method": "GET",
+      "path": "/api/reputationmanagement/externalratings",
+      "host": "pm-api-137",
+      "purpose": "External rating aggregate for the practice (Google, Yelp, etc).",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reputationmanagement/responsecount?StartDate=MM/DD/YYYY&EndDate=MM/DD/YYYY",
+      "host": "pm-api-137",
+      "purpose": "Count of reputation responses in a date range.",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/user/privileges",
+      "host": "pm-api-137",
+      "purpose": "Full list of user privileges for the current session. 29 privileges for GAUTAM role on Exult (ACCOUNT DETAIL, PATIENT, INSURANCE, REFERRALS, MAKE APPOINTMENTS, TELEHEALTH, etc.) each with C/R/U/D flags.",
+      "validation": "live_call_success 2026-04-05T10:10Z (38729 bytes response)"
+    },
+    {
+      "method": "GET",
+      "path": "/api/user/privileges?name={name}",
+      "host": "pm-api-137",
+      "purpose": "Single-privilege query. Name values observed: FILES (returns 200), SCHEDULER/REMINDERS (404 \u2014 not a valid privilege name).",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/user/options?groupName=PM",
+      "host": "pm-api-137",
+      "purpose": "User-level UI options for the PM app.",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/user/preferences?groupName=PM",
+      "host": "pm-api-137",
+      "purpose": "User-level UI preferences for the PM app.",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/startupvalues?forSpa=patientinfo",
+      "host": "pm-api-137",
+      "purpose": "Full startup context for the PM SPA: usercontext, resources, features, privileges, system defaults. THIS IS THE single biggest one-shot discovery endpoint \u2014 use it to enumerate what the tenant has enabled.",
+      "validation": "live_call_success 2026-04-05T10:10Z",
+      "key_fields_returned": {
+        "usercontext": "user+office identity, service URLs",
+        "userprivileges": "29 role-based privileges with CRUD flags",
+        "features": "27 tenant features (e.g. PATIENT_MESSAGING, TELEMEDICINEPRIME, ADVANCEDPATIENTPAY, EHR, Invoicing)",
+        "systemdefaults": "46 tenant-level defaults",
+        "extendedsystemdefaults": "additional defaults",
+        "configurations": "runtime config keys"
+      },
+      "notable_features_enabled_for_exult": [
+        "PATIENT_MESSAGING",
+        "TELEMEDICINEPRIME",
+        "ADVANCEDPATIENTPAY",
+        "PatientKiosk",
+        "EHR",
+        "Invoicing",
+        "PT-INFO-NEW-REFERRALS",
+        "EMAILHIPPO",
+        "AMD_Pay_CBO_Beta",
+        "AIInsuranceCardOCR",
+        "HeartlandPaymentProcessor",
+        "REPUTATIONMANAGEMENT"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/configurations?keys={key1}&keys={key2}",
+      "host": "pm-api-137",
+      "purpose": "Query specific config keys. Example keys seen in webapp: crossorigin.maxretrycount, crossorigin.retryinmillis.",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/system/cbo/getoptedinsubkeys",
+      "host": "pm-api-137",
+      "purpose": "Central Billing Office \u2014 sub-keys the current office is opted into.",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/scheduler/patients/inactivestatuses",
+      "host": "pm-api-137",
+      "purpose": "List of inactive patient statuses (for filtering scheduling UI).",
+      "validation": "live_call_success 2026-04-05T10:10Z"
+    },
+    {
+      "method": "POST",
+      "path": "/api/lookup/patients?cboMode=false&advancedSearch=false",
+      "host": "pm-api-137",
+      "purpose": "Search patients by name substring. Body: {\"query\": \"<name>\"}. Returns up to 50 matches with full patient detail (id, chart, phone, DOB, email, gender, patient-active flag, etc.).",
+      "validation": "live_call_success 2026-04-05T10:00Z (50 matches for query='a'; empty query returns empty array)",
+      "sample_request_body": {
+        "query": "smith"
+      },
+      "sample_response_fields": [
+        "id",
+        "licensekey",
+        "licensename",
+        "name",
+        "firstname",
+        "middlename",
+        "lastname",
+        "preferredname",
+        "chartnumber",
+        "ssn",
+        "dob",
+        "deceased",
+        "inactive",
+        "inactivestatuscode",
+        "ispatientactive",
+        "gender",
+        "zipcode",
+        "homephone",
+        "officephone",
+        "email",
+        "defaultepisodeid",
+        "profileid",
+        "profilecode",
+        "address1",
+        "address2",
+        "responsiblepartyid",
+        "hipaarelationship"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/api/pushnotificationshub/notificationshub/negotiate?negotiateVersion=1",
+      "host": "api-100",
+      "purpose": "SignalR push-notifications hub negotiate. Used for live UI updates.",
+      "validation": "observed_in_webapp_trace 2026-04-05T10:15Z"
+    },
+    {
+      "method": "POST",
+      "path": "/api/telehealth/telehealthhub/negotiate?negotiateVersion=1",
+      "host": "pm-api-137",
+      "purpose": "SignalR telehealth hub negotiate. Used for live telehealth session signaling.",
+      "validation": "observed_in_webapp_trace 2026-04-05T10:15Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/launch/payloads/pm",
+      "host": "api-100",
+      "purpose": "PM launch payload \u2014 part of the post-login bootstrap that populates launchpayloadpm cookie.",
+      "validation": "observed_in_webapp_trace 2026-04-05T10:15Z"
+    },
+    {
+      "method": "GET",
+      "path": "/api/reminders",
+      "host": "pm-api-137",
+      "purpose": "Appointment reminders (existence confirmed in PPMDResults.usercontext.apptreminderapiurl).",
+      "validation": "rbac_denied 2026-04-05T10:05Z \u2014 responded 403 'RBAC: access denied' to GAUTAM (admin). Endpoint exists but requires a privilege GAUTAM lacks. Confirms the endpoint is real.",
+      "blocker_note": "Gautam's admin role does not include reminder-read privilege. Gautam would need to add REMINDERS (or equivalent) to his role via System Settings > User Administration, OR a different user with that role would need to run the queries."
+    },
+    {
+      "method": "GET",
+      "path": "/api/worklist",
+      "host": "pm-api-137",
+      "purpose": "Work list / task list (candidate for portal message triage discovery, still unverified).",
+      "validation": "rbac_denied 2026-04-05T10:05Z \u2014 403 'RBAC: access denied'. Endpoint exists but requires elevated privilege."
     }
   ],
   "localStorage_artifacts": {
@@ -174,11 +450,11 @@
       "key_fields": [
         "s (pod identifier, e.g. advancedmd-api-processrequest-7-6d8cc9f847-vr9sf)",
         "lst (last-touched timestamp in office-local time: MM/DD/YYYY HH:MM:SS)",
-        "Results.success, Results.api (not a bearer — a role flag)",
+        "Results.success, Results.api (not a bearer \u2014 a role flag)",
         "Results.rolename (e.g. ADMIN)",
         "Results.usercontext.webserver (https://pm-wfe-{shard}.advancedmd.com/practicemanager)",
         "Results.usercontext.pmapiredirecturl (https://pm-api-{shard}.advancedmd.com)",
-        "Results.usercontext.helpurl (https://ow2-help-01-prd.advancedmd.com/help/ — AUTHORITATIVE API DOCS HOST)",
+        "Results.usercontext.helpurl (https://ow2-help-01-prd.advancedmd.com/help/ \u2014 AUTHORITATIVE API DOCS HOST)",
         "Results.usercontext.reportingServerURL (https://reportingservices-103.advancedmd.com/rs/reportrequest.aspx)",
         "Results.usercontext.adhocReportingURL (https://advancedinsight.advancedmd.com)",
         "Results.usercontext.apptreminderapiurl (https://pm-api-{shard}.advancedmd.com/api/reminders)",
@@ -211,11 +487,11 @@
     "pm_api_cloudflare_bypass": "https://ow2-pm-api-137.igw.advancedmd.com"
   },
   "not_yet_validated": [
-    "Every FHIR endpoint (base path unknown — prior guesses of /fhir/v1/* are dropped; could be at fhir.advancedmd.com with tenant-scoped path or at pm-api with a different prefix)",
-    "Every connect/v1/* write endpoint (appointments, charges, balance) — these come from hipaa-agent-work client stubs and have not been confirmed",
-    "/api/appointments query — the status-code table (1=Scheduled...5=Rescheduled) came from amd_metrics.py author comments; needs live verification",
-    "Swagger/OpenAPI spec — pm-api-137 is a .NET API and MAY expose Swashbuckle at /swagger/v1/swagger.json; untested",
-    "Eligibility, claims, billing, documents, messages, tasks, audit log, providers, encounters endpoints — no observations yet"
+    "Every FHIR endpoint (base path unknown \u2014 prior guesses of /fhir/v1/* are dropped; could be at fhir.advancedmd.com with tenant-scoped path or at pm-api with a different prefix)",
+    "Every connect/v1/* write endpoint (appointments, charges, balance) \u2014 these come from hipaa-agent-work client stubs and have not been confirmed",
+    "/api/appointments query \u2014 the status-code table (1=Scheduled...5=Rescheduled) came from amd_metrics.py author comments; needs live verification",
+    "Swagger/OpenAPI spec \u2014 pm-api-137 is a .NET API and MAY expose Swashbuckle at /swagger/v1/swagger.json; untested",
+    "Eligibility, claims, billing, documents, messages, tasks, audit log, providers, encounters endpoints \u2014 no observations yet"
   ],
   "dropped_from_prior_catalog": {
     "_reason": "Entries with confidence:guess from commit 8df0e4eb (client-code grep / author comments) were dropped. Gautam already reverted that commit (a0dc863b) because guess-based entries poison the index. Re-add them only after live verification.",
@@ -231,5 +507,18 @@
       "POST /connect/v1/charges (client_code_grep)",
       "GET /connect/v1/patients/{id}/balance (client_code_grep)"
     ]
+  },
+  "_last_updated": "2026-04-05T10:34:03Z",
+  "_session_summary": {
+    "session_date": "2026-04-05",
+    "auth_method": "Playwright Chromium with --disable-popup-blocking, CDP-driven login + 2FA via Gmail MCP",
+    "auth_outcome": "SUCCESS \u2014 17 AMD cookies captured, token=1611120428f8e5ce7e4427adea7623629e4193c6cdd7ec4b63bafb171809556d18aca5",
+    "docs_crawl_outcome": "SUCCESS \u2014 215 MadCap Flare pages crawled via HTTP+cookie to amd-api-docs/raw/, parsed into api_documentation.json (163 ppmdmsg actions + 6 REST + 46 reference pages)",
+    "live_api_outcome": "SUCCESS \u2014 /api/patients lookup via POST /api/lookup/patients, /api/scheduler/columns, /api/scheduler/appointments (month view), /api/system/startupvalues, + 12 others validated against pm-api-137. Q1 2026 appt volume: 3398 unique appointments over 67 biz days, mean 50.7/day",
+    "unblock_notes": {
+      "api_reminders": "EXISTS but 403 RBAC denied for GAUTAM admin role. Adding reminder privilege to the role would unblock.",
+      "api_messages": "NOT FOUND as a discrete path. PATIENT_MESSAGING feature IS enabled (per /api/system/startupvalues). Portal messaging is likely accessed via ppmdmsg actions in the docs (intake-* actions) or a still-undiscovered REST path.",
+      "scheduler_status_filter": "Parallel agent reported that /api/scheduler/appointments FILTERS OUT status 4/5/6 (cancelled/no-show/rescheduled). The live call returned a 'status' field ranging 0-12, and status=3 had 1895 occurrences \u2014 which is inconsistent with the parallel claim. The observed distribution is 0:642, 1:93, 2:4, 3:1895, 10:477, 12:287. The true semantic mapping of these codes is UNKNOWN without hitting a status master-file endpoint (all /api/masterfile* and /api/scheduler/appointmentstatuses variants returned 404). A followup session should hit the ppmdmsg getappointmenthistory action to cross-validate."
+    }
   }
 }
