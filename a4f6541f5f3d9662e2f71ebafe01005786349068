@@ -1,0 +1,23 @@
+.pi/services/amd/API_DOCUMENTATION.md
+  57f3a0f3d8478c72 1-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "a4f6541f5f3d9662e2f71ebafe01005786349068",
+  "prompts": {
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 680,
+      "total_deletions": 45,
+      "accepted_lines": 633,
+      "overriden_lines": 0
+    }
+  }
+}
