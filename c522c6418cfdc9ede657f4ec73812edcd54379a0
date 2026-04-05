@@ -1,0 +1,51 @@
+.pi/services/exult/graph-endpoints.md
+  043aacd52129e973 1-116
+.pi/services/exult/rc-endpoints.md
+  043aacd52129e973 1-91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "c522c6418cfdc9ede657f4ec73812edcd54379a0",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 207,
+      "overriden_lines": 0
+    },
+    "2c72d2da08c1e786": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f142ba49-711a-42ea-ad8c-7c124ef55c03",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 259,
+      "total_deletions": 137,
+      "accepted_lines": 227,
+      "overriden_lines": 0
+    }
+  }
+}
