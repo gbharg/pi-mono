@@ -1,0 +1,36 @@
+.pi/services/amd/q1_hidden_visits_analysis.json
+  2c72d2da08c1e786 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "00c6f87a88a70335a57fdd840b3503fd5cab6d84",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 175,
+      "total_deletions": 0,
+      "accepted_lines": 175,
+      "overriden_lines": 0
+    },
+    "2c72d2da08c1e786": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f142ba49-711a-42ea-ad8c-7c124ef55c03",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 65,
+      "total_deletions": 0,
+      "accepted_lines": 65,
+      "overriden_lines": 0
+    }
+  }
+}
