@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation|Patient Actions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Update a Patient</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1>Update a Patient</h1>
+                                            <h2><span class="span_28">Action:</span><span class="span_6"> updatepatient</span>
+                                            </h2>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="updatepatient" class="api" msgtime="5/22/2015 2:48:08 PM" force="1"&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient id="198655" o_employer="IBM, INC." employer="IBM, INC"&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;address/&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;contactinfo/&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/patient&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/patientlist&gt;&#160;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "updatepatient",&#160;<br />&#160;&#160;&#160;&#160;"@class": "api",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "5/22/2015 2:48:08 PM",&#160;<br />&#160;&#160;&#160;&#160;"@force": "1",&#160;<br />&#160;&#160;&#160;&#160;"patientlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "198655",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@o_employer": "IBM, INC.",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@employer": "IBM, INC",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address": null,<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@additionalmrn": "SomeMrn",<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@contactinfo": null&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Results:</h3>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Results success="1"&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient dob="12/04/1965" deceased="" name="AMI,MON" respparty="resp148880" profile="prov31" insorder="" sex="M" chart="44" maritalstatus="2" employerid="" employer="IBM, INC." ssn="" finclasscode="CC" id="pat198655" title="MR" relationship="1" hipaarelationship=""&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;address zip="38834" city="CORINTH" state="MS" address1="APT B-5" address2="6923 N MOUNTAINSIDE DR" areacode="662" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;contactinfo name="" homephone="(662) 555-1343" officephone="(662) 555-9238" officeext="213" otherphone="(662) 555-3823" othertype="C" email="MONAMI@IBM.COM" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucketlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucket buckettype="p" current="0.00" past30="0.00" past60="0.00" past90="0.00" past120="0.00" unapplied="0.00" total="0.00" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucket buckettype="pi" current="0.00" past30="0.00" past60="0.00" past90="0.00" past120="0.00" unapplied="0.00" total="0.00" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/arbucketlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/patient&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;resppartylist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;respparty id="resp148880" name="AMI,MON" accttype="ac_type12" acctnum="148880" dob="12/04/1965" sex="M" title="MR" employer="IBM, INC." employstatus="1" ssn="" sendstmt="1" stmtrestart="" billcycle="27" fincharge="1" stmtformat="" balancefwd="1" lastpmtdate="" lastpmtamount="" laststmtdate="" laststmtamount=""&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;address zip="38834" city="CORINTH" state="MS" address1="APT B-5" address2="6923 N MOUNTAINSIDE DR" areacode="662" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;contactinfo name="" homephone="(662) 555-1343" officephone="(662) 555-9238" officeext="213" otherphone="(662) 555-3823" othertype="C" email="MONAMI@IBM.COM" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucketlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucket buckettype="r" current="0.00" past30="0.00" past60="0.00" past90="0.00" past120="0.00" unapplied="0.00" total="0.00" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;arbucket buckettype="ri" current="0.00" past30="0.00" past60="0.00" past90="0.00" past120="0.00" unapplied="0.00" total="0.00" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/arbucketlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;familymemberlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;familymember id="family198655" name="AMI,MON" chart="44" isrp="1"&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;contactinfo homephone="(662) 555-1343" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;address zip="38834" city="CORINTH" state="MS" address1="APT B-5" address2="6923 N MOUNTAINSIDE DR" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/familymember&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/familymemberlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/respparty&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/resppartylist&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/Results&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Error /&gt;&#160;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"PPMDResults": {&#160;<br />&#160;&#160;&#160;&#160;"Results": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@success": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"patientlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@dob": "12/04/1965",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@deceased": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "AMI,MON",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@respparty": "resp148880",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@profile": "prov31",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@insorder": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@sex": "M",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@chart": "44",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@maritalstatus": "2",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@employerid": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@employer": "IBM, INC.",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@finclasscode": "CC",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "pat198655",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@title": "MR",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@relationship": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@hipaarelationship": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"address": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@zip": "38834",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@city": "CORINTH",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@state": "MS",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address1": "APT B-5",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address2": "6923 N MOUNTAINSIDE DR",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@areacode": "662"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"contactinfo": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@homephone": "(662) 555-1343",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@officephone": "(662) 555-9238",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@officeext": "213",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@otherphone": "(662) 555-3823",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@othertype": "C",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@email": "MONAMI@IBM.COM"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"arbucketlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"arbucket": [&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@buckettype": "p",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@current": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past30": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past60": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past90": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past120": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@unapplied": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@total": "0.00"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@buckettype": "pi",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@current": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past30": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past60": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past90": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past120": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@unapplied": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@total": "0.00"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;]&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"resppartylist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"respparty": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "resp148880",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "AMI,MON",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@accttype": "ac_type12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@acctnum": "148880",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@dob": "12/04/1965",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@sex": "M",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@title": "MR",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@employer": "IBM, INC.",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@employstatus": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@sendstmt": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@stmtrestart": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@billcycle": "27",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fincharge": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@stmtformat": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@balancefwd": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@lastpmtdate": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@lastpmtamount": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@laststmtdate": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@laststmtamount": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"address": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@zip": "38834",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@city": "CORINTH",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@state": "MS",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address1": "APT B-5",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address2": "6923 N MOUNTAINSIDE DR",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@areacode": "662"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"contactinfo": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@homephone": "(662) 555-1343",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@officephone": "(662) 555-9238",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@officeext": "213",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@otherphone": "(662) 555-3823",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@othertype": "C",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@email": "MONAMI@IBM.COM"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"arbucketlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"arbucket": [&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@buckettype": "r",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@current": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past30": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past60": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past90": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past120": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@unapplied": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@total": "0.00"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@buckettype": "ri",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@current": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past30": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past60": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past90": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@past120": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@unapplied": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@total": "0.00"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;]&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"familymemberlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"familymember": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "family198655",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "AMI,MON",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@chart": "44",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@isrp": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"contactinfo": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@homephone": "(662) 555-1343"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"address": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@zip": "38834",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@city": "CORINTH",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@state": "MS",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address1": "APT B-5",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@address2": "6923 N MOUNTAINSIDE DR"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"Error": null&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="Note" style="font-weight: normal;"><b>Notes</b><span class="span_6">: When updating a patient, only modified fields (old and new values) are submitted. The old value is placed in </span><span class="span_27">o_attributename</span><span class="span_6"> and the new value is placed in </span><span class="span_27">attributename</span><span class="span_6">. In the above example, the </span><span class="span_27">o_employer</span><span class="span_6"> contains the old value and the </span><span class="span_27">employer</span><span class="span_6"> contains the new value. The old value is included so that the system can determine if another user has modified the value since the data was retrieved. </span>
+                                            </p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="NoteSpan" style="font-weight: normal;">If another user has modified, the following error message will be returned:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Results/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217398&lt;/code&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Another user has changed this patient record.&lt;/description&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;class&gt;PPMD_Demographics.DemographicsTrans&lt;/class&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;method&gt;UpdatePatient&lt;/method&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;linenum&gt;0&lt;/linenum&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;source&gt;&lt;/source&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;extrainfo&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;requestinfo&gt;...&lt;/requestinfo&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/extrainfo&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;&#160;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="p_25"><span class="span_6">Resubmitting the same action with the </span><span class="span_27">force="1"</span><span class="span_6"> attribute and removing all </span><span class="span_27">o_attributename</span><span class="span_6"> from the XML will cause the other user's changes to be overwritten.</span>
+                                            </p>
+                                            <p class="p_26">Here is the list of fields that can be updated with updatepatient.</p>
+                                            <table class="table_2">
+                                                <col class="col_3" />
+                                                <col class="col_4" />
+                                                <tr class="tr_1">
+                                                    <td class="td_2" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_81">Element</p>
+                                                    </td>
+                                                    <td class="td_2" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_81">Field</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td rowspan="17" class="td_3">
+                                                        <p class="p_77">patient</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_77">name</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">dob</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">deceased</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">sex</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">title</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">ssn</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">respparty</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">profile</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">insorder</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">relationship</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">hipaarelationship</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">chart</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">maritalstatus</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">employerid</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">employer</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">finclass</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">additionalmrn</td>
+                                                </tr>
+                                                <tr>
+                                                    <td rowspan="5" class="td_3">
+                                                        <p class="p_77">address</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_77">address1</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">address2</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">zip</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">city</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">state</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td rowspan="7" class="td_3">
+                                                        <p class="p_77">contactinfo</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_77">homephone</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">officephone</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">fax</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">officeext</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">otherphone</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">othertype</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_77">email</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p>&#160;</p>
+                                            <h3>SMS&#160;Consent Handling</h3>
+                                            <p>AdvancedMD APIs support SMS&#160;consent handling for add and update operations and involve adding attributes under the patient and responsible party &lt;contactinfo&gt; node. In order for SMS messages to be sent to the Patient or Responsible Party from AdvancedMD their consent must be set to 1 (Yes). Please refer to the <a href="SMS Consent.htm" style="font-weight: bold;">SMS Consent help file</a> to read more about SMS consent handling.</p>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

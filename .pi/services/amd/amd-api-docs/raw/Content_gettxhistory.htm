@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation|Patient Actions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Get Patient Financial History</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1>Get Patient Financial History</h1>
+                                            <h2><span class="span_28">Action:</span><span class="span_6">gettxhistory</span>
+                                            </h2>
+                                            <p class="p_26">The gettxhistory retrieves the financial history for a specific patient.</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="gettxhistory" class="demographics" msgtime="5/21/2006&#160;<br />1:28:12 PM" patientid="12345" filterhistory="0" pagenumber="1"&#160;<br />typefilter="1" sortbypayment="0" groupbyvisit="0" sortdescending="1"&#160;<br />profileid="" getmemo="0" /&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code> {&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "gettxhistory",&#160;<br />&#160;&#160;&#160;&#160;"@class": "demographics",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "5/21/2006 1:28:12 PM",&#160;<br />&#160;&#160;&#160;&#160;"@patientid": "12345",&#160;<br />&#160;&#160;&#160;&#160;"@filterhistory": "0",&#160;<br />&#160;&#160;&#160;&#160;"@pagenumber": "1",&#160;<br />&#160;&#160;&#160;&#160;"@typefilter": "1",&#160;<br />&#160;&#160;&#160;&#160;"@sortbypayment": "0",&#160;<br />&#160;&#160;&#160;&#160;"@groupbyvisit": "0",&#160;<br />&#160;&#160;&#160;&#160;"@sortdescending": "1",&#160;<br />&#160;&#160;&#160;&#160;"@profileid": "",&#160;<br />&#160;&#160;&#160;&#160;"@getmemo": "0"&#160;<br />&#160;&#160;}&#160;<br />}&#160;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Attributes:</h3>
+                                            <p class="p_25"><span class="span_7">filterhistory</span><span class="span_6">: set it to 0.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">pagenumber</span><span class="span_6">: This is the page number. The attribute pagecount lets the user know how many pages are present for the data requested. To get all the data, make a request for each page till the pagecount with pagenumber starting at 1.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">typefilter</span><span class="span_6">: 0 is All Items; 1 is Open Items; 2 is Voided Items; 3 is Unbilled Items. Voids are not returned if 1 or 3 is selected.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">sortbypayment</span><span class="span_6">: 0 is for service type; -1 is for payment type. When set to -1, the charges are not returned with the result.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">groupbyvisit</span><span class="span_6">: 0 when not to group data by visit; 1 when data is to be grouped by visit.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">sortdescending</span><span class="span_6">: 1 to sort descending and 0 to sort ascending. The records are sorted by service date.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">profileid</span><span class="span_6">: Filter by the provider profile. This is the profile ID you want to the filter data by. Leave it empty to show data for all provider profiles.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">getmemo</span><span class="span_6">: 0 to not get any memo associated with the patient; 1 to get memos associated with the patient. This only gets memos that&#160;have not expired.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">fromdate</span><span class="span_6">: Optional attributes. Example 01/15/2006. Filters the data starting from the fromdate (service date).</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_7">todate</span><span class="span_6">: Optional attributes. Example 04/15/2006. Filters the data ending with the todate (service date).</span>
+                                            </p>
+                                            <h3>Results:</h3>
+                                            <p class="p_26">The result set will have a list of charges, payments, and/or write-offs. If sort payment is set to -1 then the charges are not retuned. It also provides some summary data in the &lt;Results&gt; element. </p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Sample XML:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;?xml version="1.0"?&gt;&lt; PPMDResults s="servername"&gt;<br />&#160;&#160;&#160;&lt;Results itemcount="5" pagecount="1" page="1" itemsfrom="1" itemsto="5" maxunfiltereddate="2006-01-21T00:00:00" oldestcharge="2006-01-21T00:00:00" newestcharge="2006-02-21T00:00:00" sumpatcharges="20.00" suminscharges="1081.88" sumpatpayments="0.00" suminspayments="444.44" sumpatwriteoffs="0.00" suminswriteoffs="255.56"&gt;<br />&#160;&#160;&#160;&#160;&#160;&lt;chargelist&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&lt; charge id="102095" patientid="12345" patient="KHAN,TEA199" proccode="00104" b="0" i="1" createtime="2006-01-31T13:00:39" provcode="LARSE" provname="LARSEN,KAREN" faccode="RAD1" facname="RAD1" visit="101629" fee="39.12" paid="0.00" patbal="0.00" insbal="39.12" totbal="39.12" carrier="" resppartyid="64392" resppartyname="KHAN,TEA199" dos="01/21/2006" agingdate="01/31/2006" totalvisitcharge="39.12" paymentplan="0" void="0" protected="0" seq="20060121101629" chargeseq="20060121" approvedat="" approvedby="" isinstitutional="0"&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; paymentlist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; writeofflist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&lt; /charge&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&lt; charge id="102098" patientid="12345" patient="KHAN,TEA199" proccode="0010T" b="0" i="1" createtime="2006-02-21T16:03:46" provcode="HARRIS" provname="HARRIS,JAMES" faccode="RAD1" facname="RAD1" visit="101631" fee="10.68" paid="0.00" patbal="0.00" insbal="10.68" totbal="10.68" carrier="" resppartyid="64392" resppartyname="KHAN,TEA199" dos="02/02/2006" agingdate="02/21/2006" totalvisitcharge="206.28" paymentplan="0" void="0" protected="0" seq="20060202101631" chargeseq="20060202" approvedat="" approvedby="" isinstitutional="0"&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; paymentlist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; writeofflist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&lt; /charge&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&lt; charge id="102101" patientid="12345" patient="KHAN,TEA199" proccode="00104" b="0" i="1" createtime="2006-02-21T16:08:54" provcode="HARRIS" provname="HARRIS,JAMES" faccode="RAD1" facname="RAD1" visit="101633" fee="117.36" paid="0.00" patbal="10.00" insbal="107.36" totbal="117.36" carrier="" resppartyid="64392" resppartyname="KHAN,TEA199" dos="02/21/2006" agingdate="02/21/2006" totalvisitcharge="117.36" paymentplan="0" void="0" protected="0" seq="20060221101633" chargeseq="20060221" approvedat="" approvedby="" isinstitutional="0"&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; paymentlist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; writeofflist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt; /charge&gt;<br />&#160;&#160;&#160;&#160;&#160;&lt; /chargelist&gt;<br />&#160;&#160;&#160;&#160;&#160;&lt; unappliedpaymentlist/&gt;<br />&#160;&#160;&#160;&#160;&#160;&lt; unappliedwriteofflist/&gt;<br />&#160;&#160;&#160;&#160;&lt;/Results&gt;<br />&#160;&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"?xml": {&#160;<br />&#160;&#160;&#160;&#160;"@version": "1.0"&#160;<br />&#160;&#160;},&#160;<br />&#160;&#160;"PPMDResults": {&#160;<br />&#160;&#160;&#160;&#160;"@s": "servername",&#160;<br />&#160;&#160;&#160;&#160;"Results": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@itemcount": "5",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@pagecount": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@page": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@itemsfrom": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@itemsto": "5",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@maxunfiltereddate": "2006-01-21T00:00:00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@oldestcharge": "2006-01-21T00:00:00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@newestcharge": "2006-02-21T00:00:00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@sumpatcharges": "20.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@suminscharges": "1081.88",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@sumpatpayments": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@suminspayments": "444.44",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@sumpatwriteoffs": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@suminswriteoffs": "255.56",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"chargelist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"charge": [&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "102095",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patientid": "12345",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patient": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@proccode": "00104",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@b": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@i": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@createtime": "2006-01-31T13:00:39",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provcode": "LARSE",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provname": "LARSEN,KAREN",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@faccode": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@facname": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@visit": "101629",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fee": "39.12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paid": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patbal": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@insbal": "39.12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totbal": "39.12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carrier": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyid": "64392",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyname": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@dos": "01/21/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@agingdate": "01/31/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totalvisitcharge": "39.12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paymentplan": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@void": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@protected": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@seq": "20060121101629",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@chargeseq": "20060121",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedat": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedby": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@isinstitutional": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"paymentlist": null,&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"writeofflist": null&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "102098",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patientid": "12345",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patient": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@proccode": "0010T",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@b": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@i": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@createtime": "2006-02-21T16:03:46",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provcode": "HARRIS",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provname": "HARRIS,JAMES",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@faccode": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@facname": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@visit": "101631",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fee": "10.68",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paid": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patbal": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@insbal": "10.68",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totbal": "10.68",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carrier": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyid": "64392",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyname": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@dos": "02/02/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@agingdate": "02/21/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totalvisitcharge": "206.28",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paymentplan": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@void": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@protected": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@seq": "20060202101631",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@chargeseq": "20060202",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedat": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedby": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@isinstitutional": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"paymentlist": null,&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"writeofflist": null&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "102101",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patientid": "12345",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patient": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@proccode": "00104",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@b": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@i": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@createtime": "2006-02-21T16:08:54",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provcode": "HARRIS",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@provname": "HARRIS,JAMES",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@faccode": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@facname": "RAD1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@visit": "101633",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fee": "117.36",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paid": "0.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@patbal": "10.00",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@insbal": "107.36",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totbal": "117.36",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carrier": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyid": "64392",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@resppartyname": "KHAN,TEA199",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@dos": "02/21/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@agingdate": "02/21/2006",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@totalvisitcharge": "117.36",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@paymentplan": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@void": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@protected": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@seq": "20060221101633",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@chargeseq": "20060221",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedat": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@approvedby": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@isinstitutional": "0",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"paymentlist": null,&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"writeofflist": null&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;]&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"unappliedpaymentlist": null,&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"unappliedwriteofflist": null&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

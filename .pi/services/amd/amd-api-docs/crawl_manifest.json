@@ -1,0 +1,1514 @@
+{
+  "source_base_url": "https://ow2-help-01-prd.advancedmd.com/help/APIDocumentation/",
+  "crawled_at": "2026-04-05T10:10:34Z",
+  "total_entries": 215,
+  "success_count": 214,
+  "failed_count": 1,
+  "pages": [
+    {
+      "path": "Content/Introduction.htm",
+      "idx": 0,
+      "title": "API Documentation",
+      "size": 13285,
+      "raw_file": "raw/Content_Introduction.htm"
+    },
+    {
+      "path": "Content/XML Format.htm",
+      "idx": 1,
+      "title": "XML Format",
+      "size": 15125,
+      "raw_file": "raw/Content_XML_Format.htm"
+    },
+    {
+      "path": "Content/JSON Format.htm",
+      "idx": 2,
+      "title": "JSON Format",
+      "size": 19261,
+      "raw_file": "raw/Content_JSON_Format.htm"
+    },
+    {
+      "path": "Content/Documentation Notes.htm",
+      "idx": 3,
+      "title": "Documentation Notes",
+      "size": 18174,
+      "raw_file": "raw/Content_Documentation_Notes.htm"
+    },
+    {
+      "path": "Content/Requirements and Usage Restrictions.htm",
+      "idx": 4,
+      "title": "Requirements and Usage Restrictions",
+      "size": 22308,
+      "raw_file": "raw/Content_Requirements_and_Usage_Restrictions.htm"
+    },
+    {
+      "path": "Content/Streamed vs. Non-Streamed Requests.htm",
+      "idx": 5,
+      "title": "Streamed vs. Non-Streamed Requests",
+      "size": 19619,
+      "raw_file": "raw/Content_Streamed_vs._Non-Streamed_Requests.htm"
+    },
+    {
+      "path": "Content/Posting Messages.htm",
+      "idx": 6,
+      "title": "Post Messages",
+      "size": 18203,
+      "raw_file": "raw/Content_Posting_Messages.htm"
+    },
+    {
+      "path": "Content/Login and Re-Direct Process.htm",
+      "idx": 7,
+      "title": "Login and Re-Direct Process",
+      "size": 27709,
+      "raw_file": "raw/Content_Login_and_Re-Direct_Process.htm"
+    },
+    {
+      "path": "Content/URL Construction.htm",
+      "idx": 8,
+      "title": "URL Construction",
+      "size": 19437,
+      "raw_file": "raw/Content_URL_Construction.htm"
+    },
+    {
+      "path": "Content/Algorithms.htm",
+      "idx": 9,
+      "title": "Algorithms",
+      "size": 21016,
+      "raw_file": "raw/Content_Algorithms.htm"
+    },
+    {
+      "path": "Content/addvisit.htm",
+      "idx": 11,
+      "title": "Add Visit for a Patient",
+      "size": 22423,
+      "raw_file": "raw/Content_addvisit.htm"
+    },
+    {
+      "path": "Content/getupdatedvisits.htm",
+      "idx": 12,
+      "title": "Get New and Modified Visits",
+      "size": 44656,
+      "raw_file": "raw/Content_getupdatedvisits.htm"
+    },
+    {
+      "path": "Content/getupdatedvisitstemplate.htm",
+      "idx": 13,
+      "title": "Get a List of Fields Available to \\\"getupdatedvisits\\\"",
+      "size": 22973,
+      "raw_file": "raw/Content_getupdatedvisitstemplate.htm"
+    },
+    {
+      "path": "Content/getpatientvisits.htm",
+      "idx": 14,
+      "title": "Get Visits for a Specific Patient",
+      "size": 41290,
+      "raw_file": "raw/Content_getpatientvisits.htm"
+    },
+    {
+      "path": "Content/getdatevisits.htm",
+      "idx": 15,
+      "title": "Get Visits for a Specific Date",
+      "size": 26986,
+      "raw_file": "raw/Content_getdatevisits.htm"
+    },
+    {
+      "path": "Content/getreminderrecallvisits.htm",
+      "idx": 16,
+      "title": "Get Recall Visits",
+      "size": 23178,
+      "raw_file": "raw/Content_getreminderrecallvisits.htm"
+    },
+    {
+      "path": "Content/getreminderappts.htm",
+      "idx": 17,
+      "title": "Get Reminder Appointments",
+      "size": 26108,
+      "raw_file": "raw/Content_getreminderappts.htm"
+    },
+    {
+      "path": "Content/getappttypes.htm",
+      "idx": 18,
+      "title": "Get Appointment Types",
+      "size": 25471,
+      "raw_file": "raw/Content_getappttypes.htm"
+    },
+    {
+      "path": "Content/Get Visit ID by Reference ID.htm",
+      "idx": 19,
+      "title": "Get Visit ID by Reference ID",
+      "size": 25991,
+      "raw_file": "raw/Content_Get_Visit_ID_by_Reference_ID.htm"
+    },
+    {
+      "path": "Content/Get Visits By ID.htm",
+      "idx": 20,
+      "title": "Get Visits By ID",
+      "size": 39916,
+      "raw_file": "raw/Content_Get_Visits_By_ID.htm"
+    },
+    {
+      "path": "Content/Cancel Appointment.htm",
+      "idx": 21,
+      "title": "Cancel Appointment",
+      "size": 19728,
+      "raw_file": "raw/Content_Cancel_Appointment.htm"
+    },
+    {
+      "path": "Content/addreferringprovider.htm",
+      "idx": 23,
+      "title": "Add New Referring Provider",
+      "size": 24046,
+      "raw_file": "raw/Content_addreferringprovider.htm"
+    },
+    {
+      "path": "Content/updaterefprovider.htm",
+      "idx": 24,
+      "title": "Update Referring Provider",
+      "size": 79566,
+      "raw_file": "raw/Content_updaterefprovider.htm"
+    },
+    {
+      "path": "Content/Save Referring Providers.htm",
+      "idx": 25,
+      "title": "Save Referring Providers",
+      "size": 20928,
+      "raw_file": "raw/Content_Save_Referring_Providers.htm"
+    },
+    {
+      "path": "Content/getupdatedproviders.htm",
+      "idx": 26,
+      "title": "Get New and Modified Providers",
+      "size": 26613,
+      "raw_file": "raw/Content_getupdatedproviders.htm"
+    },
+    {
+      "path": "Content/getupdatedreferringproviders.htm",
+      "idx": 27,
+      "title": "Get New and Modified Referring Providers",
+      "size": 20573,
+      "raw_file": "raw/Content_getupdatedreferringproviders.htm"
+    },
+    {
+      "path": "Content/getupdatedproviderstemplate.htm",
+      "idx": 28,
+      "title": "Get a List of Fields Available to \\\"getupdatedproviders\\\"",
+      "size": 22472,
+      "raw_file": "raw/Content_getupdatedproviderstemplate.htm"
+    },
+    {
+      "path": "Content/Get Clinician Profile Picture.htm",
+      "idx": 29,
+      "title": "Get Clinician Profile Picture",
+      "size": 35187,
+      "raw_file": "raw/Content_Get_Clinician_Profile_Picture.htm"
+    },
+    {
+      "path": "Content/getupdatedpatients.htm",
+      "idx": 31,
+      "title": "Get New and Modified Patients",
+      "size": 45169,
+      "raw_file": "raw/Content_getupdatedpatients.htm"
+    },
+    {
+      "path": "Content/getupdatedpatientstemplate.htm",
+      "idx": 32,
+      "title": "Get a List of Fields Available to \\\"getupdatedpatients\\\"",
+      "size": 23262,
+      "raw_file": "raw/Content_getupdatedpatientstemplate.htm"
+    },
+    {
+      "path": "Content/getfieldsets.htm",
+      "idx": 33,
+      "title": "Get the List of Filters Available to \\\"getupdatedpatients\\\"",
+      "size": 22173,
+      "raw_file": "raw/Content_getfieldsets.htm"
+    },
+    {
+      "path": "Content/addpatient.htm",
+      "idx": 34,
+      "title": "Add a Patient",
+      "size": 96214,
+      "raw_file": "raw/Content_addpatient.htm"
+    },
+    {
+      "path": "Content/updatepatient.htm",
+      "idx": 35,
+      "title": "Update a Patient",
+      "size": 56283,
+      "raw_file": "raw/Content_updatepatient.htm"
+    },
+    {
+      "path": "Content/getdemographic-api.htm",
+      "idx": 36,
+      "title": "getdemographic-api.htm",
+      "size": 24429,
+      "raw_file": "raw/Content_getdemographic-api.htm"
+    },
+    {
+      "path": "Content/getdemographic-demographics.htm",
+      "idx": 37,
+      "title": "Get Patient Demographic Info - class=\\\"demographics\\\"",
+      "size": 66612,
+      "raw_file": "raw/Content_getdemographic-demographics.htm"
+    },
+    {
+      "path": "Content/Get Patient Transaction History Details.htm",
+      "idx": 38,
+      "title": "Get Patient Transaction History Details",
+      "size": 16607,
+      "raw_file": "raw/Content_Get_Patient_Transaction_History_Details.htm"
+    },
+    {
+      "path": "Content/Adding and Updating Insurance Coverages.htm",
+      "idx": 39,
+      "title": "Add and Update Insurance Coverages",
+      "size": 36969,
+      "raw_file": "raw/Content_Adding_and_Updating_Insurance_Coverages.htm"
+    },
+    {
+      "path": "Content/savepatientnotes.htm",
+      "idx": 40,
+      "title": "Add Patient Notes",
+      "size": 24523,
+      "raw_file": "raw/Content_savepatientnotes.htm"
+    },
+    {
+      "path": "Content/selectpatientnotes.htm",
+      "idx": 41,
+      "title": "Select Patient Notes",
+      "size": 26382,
+      "raw_file": "raw/Content_selectpatientnotes.htm"
+    },
+    {
+      "path": "Content/savememo.htm",
+      "idx": 42,
+      "title": "Save Memo",
+      "size": 17395,
+      "raw_file": "raw/Content_savememo.htm"
+    },
+    {
+      "path": "Content/updatememo.htm",
+      "idx": 43,
+      "title": "Update Memo",
+      "size": 16933,
+      "raw_file": "raw/Content_updatememo.htm"
+    },
+    {
+      "path": "Content/getcustomdata.htm",
+      "idx": 44,
+      "title": "Get Custom Patient Data",
+      "size": 38493,
+      "raw_file": "raw/Content_getcustomdata.htm"
+    },
+    {
+      "path": "Content/Update Custom Tab.htm",
+      "idx": 45,
+      "title": "Update Custom Tab",
+      "size": 28711,
+      "raw_file": "raw/Content_Update_Custom_Tab.htm"
+    },
+    {
+      "path": "Content/gettxhistory.htm",
+      "idx": 46,
+      "title": "Get Patient Financial History",
+      "size": 38876,
+      "raw_file": "raw/Content_gettxhistory.htm"
+    },
+    {
+      "path": "Content/getreminderpatientbirthdays.htm",
+      "idx": 47,
+      "title": "Get Patient Birthday Reminders",
+      "size": 23067,
+      "raw_file": "raw/Content_getreminderpatientbirthdays.htm"
+    },
+    {
+      "path": "Content/addrespparty.htm",
+      "idx": 48,
+      "title": "Add a Responsible Party",
+      "size": 18165,
+      "raw_file": "raw/Content_addrespparty.htm"
+    },
+    {
+      "path": "Content/Update Responsible Party.htm",
+      "idx": 49,
+      "title": "Update Responsible Party",
+      "size": 20818,
+      "raw_file": "raw/Content_Update_Responsible_Party.htm"
+    },
+    {
+      "path": "Content/Uploading Files to the Patient Chart Files.htm",
+      "idx": 50,
+      "title": "Uploading Files to the Patient Chart Files",
+      "size": 36228,
+      "raw_file": "raw/Content_Uploading_Files_to_the_Patient_Chart_Files.htm"
+    },
+    {
+      "path": "Content/Add Insurance Image.htm",
+      "idx": 51,
+      "title": "Add Insurance Image",
+      "size": 38013,
+      "raw_file": "raw/Content_Add_Insurance_Image.htm"
+    },
+    {
+      "path": "Content/getepisodes.htm",
+      "idx": 52,
+      "title": "Get Episodes",
+      "size": 15842,
+      "raw_file": "raw/Content_getepisodes.htm"
+    },
+    {
+      "path": "Content/Update and Get Patient Consent Status.htm",
+      "idx": 53,
+      "title": "Update and Get Patient Consent Status",
+      "size": 15280,
+      "raw_file": "raw/Content_Update_and_Get_Patient_Consent_Status.htm"
+    },
+    {
+      "path": "Content/Get Patient Preferences.htm",
+      "idx": 54,
+      "title": "Get Patient Preferences",
+      "size": 23517,
+      "raw_file": "raw/Content_Get_Patient_Preferences.htm"
+    },
+    {
+      "path": "Content/Update Patient Preferences.htm",
+      "idx": 55,
+      "title": "Update Patient Preferences",
+      "size": 23770,
+      "raw_file": "raw/Content_Update_Patient_Preferences.htm"
+    },
+    {
+      "path": "Content/getraceethnicitylists.htm",
+      "idx": 56,
+      "title": "Get Race and Ethnicity Lists",
+      "size": 18063,
+      "raw_file": "raw/Content_getraceethnicitylists.htm"
+    },
+    {
+      "path": "Content/getrespparty.htm",
+      "idx": 57,
+      "title": "Get Responsible Party\u00a0Details",
+      "size": 22251,
+      "raw_file": "raw/Content_getrespparty.htm"
+    },
+    {
+      "path": "Content/SMS Consent.htm",
+      "idx": 58,
+      "title": "SMS Consent Handling",
+      "size": 47309,
+      "raw_file": "raw/Content_SMS_Consent.htm"
+    },
+    {
+      "path": "Content/Patient Portal Account.htm",
+      "idx": 60,
+      "title": "Patient Portal Account",
+      "size": 25730,
+      "raw_file": "raw/Content_Patient_Portal_Account.htm"
+    },
+    {
+      "path": "Content/Get List of Patient Portal Accounts.htm",
+      "idx": 61,
+      "title": "Get List of Patient Portal Accounts",
+      "size": 21469,
+      "raw_file": "raw/Content_Get_List_of_Patient_Portal_Accounts.htm"
+    },
+    {
+      "path": "Content/Send Patient Portal Account Invite.htm",
+      "idx": 62,
+      "title": "Send Patient Portal Account Invite",
+      "size": 21714,
+      "raw_file": "raw/Content_Send_Patient_Portal_Account_Invite.htm"
+    },
+    {
+      "path": "Content/Get Patient Portal Account.htm",
+      "idx": 63,
+      "title": "Get Patient Portal Account",
+      "size": 26556,
+      "raw_file": "raw/Content_Get_Patient_Portal_Account.htm"
+    },
+    {
+      "path": "Content/Save Patient Portal Account.htm",
+      "idx": 64,
+      "title": "Save Patient Portal Account",
+      "size": 31465,
+      "raw_file": "raw/Content_Save_Patient_Portal_Account.htm"
+    },
+    {
+      "path": "Content/Get Responsible Party Self.htm",
+      "idx": 65,
+      "title": "Get Responsible Party Self",
+      "size": 23296,
+      "raw_file": "raw/Content_Get_Responsible_Party_Self.htm"
+    },
+    {
+      "path": "Content/newappointment.htm",
+      "idx": 67,
+      "title": "Book Appointment",
+      "size": 36526,
+      "raw_file": "raw/Content_newappointment.htm"
+    },
+    {
+      "path": "Content/Auto Assign Forms.htm",
+      "idx": 68,
+      "title": "Auto Assign Forms to Appointment",
+      "size": 15616,
+      "raw_file": "raw/Content_Auto_Assign_Forms.htm"
+    },
+    {
+      "path": "Content/Confirm Appointment Not Booked.htm",
+      "idx": 69,
+      "title": "Confirm Appointment Not Booked",
+      "size": 32952,
+      "raw_file": "raw/Content_Confirm_Appointment_Not_Booked.htm"
+    },
+    {
+      "path": "Content/Columns Openings.htm",
+      "idx": 70,
+      "title": "Columns Openings",
+      "size": 15909,
+      "raw_file": "raw/Content_Columns_Openings.htm"
+    },
+    {
+      "path": "Content/Scheduler Block and Hold Actions.htm",
+      "idx": 71,
+      "title": "Scheduler Block and Hold Actions",
+      "size": 21547,
+      "raw_file": "raw/Content_Scheduler_Block_and_Hold_Actions.htm"
+    },
+    {
+      "path": "Content/Get Invitation URL.htm",
+      "idx": 73,
+      "title": "Get Invitation URL",
+      "size": 18667,
+      "raw_file": "raw/Content_Get_Invitation_URL.htm"
+    },
+    {
+      "path": "Content/Create External Block.htm",
+      "idx": 74,
+      "title": "Create Telehealth Block/Hold",
+      "size": 17752,
+      "raw_file": "raw/Content_Create_External_Block.htm"
+    },
+    {
+      "path": "Content/Get External Block.htm",
+      "idx": 75,
+      "title": "Get Telehealth Block/Hold",
+      "size": 15841,
+      "raw_file": "raw/Content_Get_External_Block.htm"
+    },
+    {
+      "path": "Content/Delete External Block.htm",
+      "idx": 76,
+      "title": "Delete Telehealth Block/Hold",
+      "size": 14755,
+      "raw_file": "raw/Content_Delete_External_Block.htm"
+    },
+    {
+      "path": "Content/Add Marketing Referral (Save).htm",
+      "idx": 78,
+      "title": "Add Marketing Referral (Save).htm",
+      "size": 19703,
+      "raw_file": "raw/Content_Add_Marketing_Referral_(Save).htm"
+    },
+    {
+      "path": "Content/Update Marketing Referral (Save).htm",
+      "idx": 79,
+      "title": "Update Marketing Referral (Save)",
+      "size": 20516,
+      "raw_file": "raw/Content_Update_Marketing_Referral_(Save).htm"
+    },
+    {
+      "path": "Content/Add Inbound Referral.htm",
+      "idx": 80,
+      "title": "Add Inbound Referral",
+      "size": 18890,
+      "raw_file": "raw/Content_Add_Inbound_Referral.htm"
+    },
+    {
+      "path": "Content/Get Provider Types for Intake Provider Setup.htm",
+      "idx": 82,
+      "title": "Get Provider Types for Intake Provider Setup",
+      "size": 16480,
+      "raw_file": "raw/Content_Get_Provider_Types_for_Intake_Provider_Setup.htm"
+    },
+    {
+      "path": "Content/Get All Appointment Reasons by Provider ID.htm",
+      "idx": 83,
+      "title": "Get All Appointment Reasons by Provider ID",
+      "size": 17206,
+      "raw_file": "raw/Content_Get_All_Appointment_Reasons_by_Provider_ID.htm"
+    },
+    {
+      "path": "Content/Save Appointment Reason.htm",
+      "idx": 84,
+      "title": "Save Appointment Reason",
+      "size": 18797,
+      "raw_file": "raw/Content_Save_Appointment_Reason.htm"
+    },
+    {
+      "path": "Content/Update Appointment Reasons For Provider Type.htm",
+      "idx": 85,
+      "title": "Update Appointment Reasons For Provider Type",
+      "size": 20018,
+      "raw_file": "raw/Content_Update_Appointment_Reasons_For_Provider_Type.htm"
+    },
+    {
+      "path": "Content/Update Appointment Reason.htm",
+      "idx": 86,
+      "title": "Update Appointment Reason",
+      "size": 20495,
+      "raw_file": "raw/Content_Update_Appointment_Reason.htm"
+    },
+    {
+      "path": "Content/Delete Appointment Reason.htm",
+      "idx": 87,
+      "title": "Delete Appointment Reason",
+      "size": 15961,
+      "raw_file": "raw/Content_Delete_Appointment_Reason.htm"
+    },
+    {
+      "path": "Content/Get Scheduler Setup.htm",
+      "idx": 88,
+      "title": "Get Scheduler Setup",
+      "size": 19168,
+      "raw_file": "raw/Content_Get_Scheduler_Setup.htm"
+    },
+    {
+      "path": "Content/Get Appointments.htm",
+      "idx": 89,
+      "title": "Get Appointments",
+      "size": 41039,
+      "raw_file": "raw/Content_Get_Appointments.htm"
+    },
+    {
+      "path": "Content/getehrallergies.htm",
+      "idx": 91,
+      "title": "Get an Allergies List",
+      "size": 29926,
+      "raw_file": "raw/Content_getehrallergies.htm"
+    },
+    {
+      "path": "Content/Add Patient Allergy.htm",
+      "idx": 92,
+      "title": "Add Patient Allergy",
+      "size": 18452,
+      "raw_file": "raw/Content_Add_Patient_Allergy.htm"
+    },
+    {
+      "path": "Content/Get Allergy Severity List.htm",
+      "idx": 93,
+      "title": "Get Allergy Severity List",
+      "size": 15483,
+      "raw_file": "raw/Content_Get_Allergy_Severity_List.htm"
+    },
+    {
+      "path": "Content/Get Allergy Reaction List.htm",
+      "idx": 94,
+      "title": "Get Allergy Reaction List",
+      "size": 15554,
+      "raw_file": "raw/Content_Get_Allergy_Reaction_List.htm"
+    },
+    {
+      "path": "Content/Get Allergy Category.htm",
+      "idx": 95,
+      "title": "Get Allergy Category",
+      "size": 15545,
+      "raw_file": "raw/Content_Get_Allergy_Category.htm"
+    },
+    {
+      "path": "Content/getehrproblems.htm",
+      "idx": 96,
+      "title": "Get a Problem List",
+      "size": 22462,
+      "raw_file": "raw/Content_getehrproblems.htm"
+    },
+    {
+      "path": "Content/getehrproblemstemplate.htm",
+      "idx": 97,
+      "title": "Get a List of Fields Available to \\\"getehrproblems\\\"",
+      "size": 22030,
+      "raw_file": "raw/Content_getehrproblemstemplate.htm"
+    },
+    {
+      "path": "Content/addehrproblem.htm",
+      "idx": 98,
+      "title": "Add a Problem",
+      "size": 24769,
+      "raw_file": "raw/Content_addehrproblem.htm"
+    },
+    {
+      "path": "Content/updateehrproblem.htm",
+      "idx": 99,
+      "title": "Update a Problem",
+      "size": 25151,
+      "raw_file": "raw/Content_updateehrproblem.htm"
+    },
+    {
+      "path": "Content/getehrprofiles.htm",
+      "idx": 100,
+      "title": "Get Profiles",
+      "size": 20604,
+      "raw_file": "raw/Content_getehrprofiles.htm"
+    },
+    {
+      "path": "Content/getehrmedications.htm",
+      "idx": 101,
+      "title": "Get Medications",
+      "size": 21916,
+      "raw_file": "raw/Content_getehrmedications.htm"
+    },
+    {
+      "path": "Content/getehrmedicationstemplate.htm",
+      "idx": 102,
+      "title": "Get a List of Fields Available to \\\"getehrmedications\\\"",
+      "size": 20899,
+      "raw_file": "raw/Content_getehrmedicationstemplate.htm"
+    },
+    {
+      "path": "Content/getehrnotestemplate.htm",
+      "idx": 103,
+      "title": "Get EHR Note Templates",
+      "size": 22086,
+      "raw_file": "raw/Content_getehrnotestemplate.htm"
+    },
+    {
+      "path": "Content/getehrtemplates.htm",
+      "idx": 104,
+      "title": "Get EHR Templates",
+      "size": 26595,
+      "raw_file": "raw/Content_getehrtemplates.htm"
+    },
+    {
+      "path": "Content/getehrtemplatestemplates.htm",
+      "idx": 105,
+      "title": "Get a List of Fields Available to \\\"getehrtemplates\\\"",
+      "size": 21486,
+      "raw_file": "raw/Content_getehrtemplatestemplates.htm"
+    },
+    {
+      "path": "Content/addehrnote.htm",
+      "idx": 106,
+      "title": "Add a Patient Note",
+      "size": 60127,
+      "raw_file": "raw/Content_addehrnote.htm"
+    },
+    {
+      "path": "Content/addehrnotebyvisit.htm",
+      "idx": 107,
+      "title": "Add Patient Notes by Visit",
+      "size": 22119,
+      "raw_file": "raw/Content_addehrnotebyvisit.htm"
+    },
+    {
+      "path": "Content/getehrnotesbyvisit.htm",
+      "idx": 108,
+      "title": "Get Patient Notes by Visit",
+      "size": 25300,
+      "raw_file": "raw/Content_getehrnotesbyvisit.htm"
+    },
+    {
+      "path": "Content/getehrupdatednotes.htm",
+      "idx": 109,
+      "title": "Get New and Modified Patient Notes",
+      "size": 26366,
+      "raw_file": "raw/Content_getehrupdatednotes.htm"
+    },
+    {
+      "path": "Content/updateehrnotes.htm",
+      "idx": 110,
+      "title": "Update a Patient Note",
+      "size": 29905,
+      "raw_file": "raw/Content_updateehrnotes.htm"
+    },
+    {
+      "path": "Content/getehrnotestemplate02.htm",
+      "idx": 111,
+      "title": "Get a List of Fields Available to \\\"getehrnotes\\\"",
+      "size": 24109,
+      "raw_file": "raw/Content_getehrnotestemplate02.htm"
+    },
+    {
+      "path": "Content/getehrimmunizations.htm",
+      "idx": 112,
+      "title": "Get Immunizations",
+      "size": 22710,
+      "raw_file": "raw/Content_getehrimmunizations.htm"
+    },
+    {
+      "path": "Content/getehrimmunizationstemplate.htm",
+      "idx": 113,
+      "title": "Get a List of Fields Available to \\\"getehrimmunizations\\\"",
+      "size": 21149,
+      "raw_file": "raw/Content_getehrimmunizationstemplate.htm"
+    },
+    {
+      "path": "Content/getehrlabresults.htm",
+      "idx": 114,
+      "title": "Get Lab Results",
+      "size": 23184,
+      "raw_file": "raw/Content_getehrlabresults.htm"
+    },
+    {
+      "path": "Content/Get Updated EHR Lab Results.htm",
+      "idx": 115,
+      "title": "Get Updated EHR Lab Results",
+      "size": 23423,
+      "raw_file": "raw/Content_Get_Updated_EHR_Lab_Results.htm"
+    },
+    {
+      "path": "Content/getehrlabresultstemplate.htm",
+      "idx": 116,
+      "title": "Get a List of Fields Available to \\\"getehrlabresults\\\"",
+      "size": 21153,
+      "raw_file": "raw/Content_getehrlabresultstemplate.htm"
+    },
+    {
+      "path": "Content/addehrhwplans.htm",
+      "idx": 117,
+      "title": "Add Health Watcher Plans",
+      "size": 23057,
+      "raw_file": "raw/Content_addehrhwplans.htm"
+    },
+    {
+      "path": "Content/getehrhwplans.htm",
+      "idx": 118,
+      "title": "Get Health Watcher Plans",
+      "size": 23379,
+      "raw_file": "raw/Content_getehrhwplans.htm"
+    },
+    {
+      "path": "Content/updateehrhwplans.htm",
+      "idx": 119,
+      "title": "Update Health Watcher Plans",
+      "size": 22801,
+      "raw_file": "raw/Content_updateehrhwplans.htm"
+    },
+    {
+      "path": "Content/getehrhwplanstemplate.htm",
+      "idx": 120,
+      "title": "Get Health Watcher Plans Template",
+      "size": 25536,
+      "raw_file": "raw/Content_getehrhwplanstemplate.htm"
+    },
+    {
+      "path": "Content/Uploading Files to Chart.htm",
+      "idx": 121,
+      "title": "Upload Files to the Patient Chart Files",
+      "size": 37291,
+      "raw_file": "raw/Content_Uploading_Files_to_Chart.htm"
+    },
+    {
+      "path": "Content/Upload Files EHR.htm",
+      "idx": 122,
+      "title": "Upload Files EHR",
+      "size": 16752,
+      "raw_file": "raw/Content_Upload_Files_EHR.htm"
+    },
+    {
+      "path": "Content/savepatientpharmacy.htm",
+      "idx": 123,
+      "title": "Save Patient\\u0027s Preferred Pharmacy",
+      "size": 21567,
+      "raw_file": "raw/Content_savepatientpharmacy.htm"
+    },
+    {
+      "path": "Content/getpatientpharmacy.htm",
+      "idx": 124,
+      "title": "Get Patient Pharmacy",
+      "size": 17124,
+      "raw_file": "raw/Content_getpatientpharmacy.htm"
+    },
+    {
+      "path": "Content/C-CDA EHR Actions.htm",
+      "idx": 126,
+      "title": "C-CDA EHR Actions",
+      "size": 33962,
+      "raw_file": "raw/Content_C-CDA_EHR_Actions.htm"
+    },
+    {
+      "path": "Content/getehrccdadata.htm",
+      "idx": 127,
+      "title": "C-CDA getehrccdadata",
+      "size": 18724,
+      "raw_file": "raw/Content_getehrccdadata.htm"
+    },
+    {
+      "path": "Content/getehrccdadocument.htm",
+      "idx": 128,
+      "title": "C-CDA getehrccdadocument",
+      "size": 18251,
+      "raw_file": "raw/Content_getehrccdadocument.htm"
+    },
+    {
+      "path": "Content/saveehrccdadata.htm",
+      "idx": 129,
+      "title": "C-CDA saveehrccdadata",
+      "size": 18496,
+      "raw_file": "raw/Content_saveehrccdadata.htm"
+    },
+    {
+      "path": "Content/saveehrccdadocument.htm",
+      "idx": 130,
+      "title": "C-CDA saveehrccdadocument",
+      "size": 18824,
+      "raw_file": "raw/Content_saveehrccdadocument.htm"
+    },
+    {
+      "path": "Content/addpayments.htm",
+      "idx": 132,
+      "title": "Add a Payment",
+      "size": 21883,
+      "raw_file": "raw/Content_addpayments.htm"
+    },
+    {
+      "path": "Content/Add Write Offs.htm",
+      "idx": 133,
+      "title": "Add Write Offs",
+      "size": 18690,
+      "raw_file": "raw/Content_Add_Write_Offs.htm"
+    },
+    {
+      "path": "Content/getchargedetaildata.htm",
+      "idx": 134,
+      "title": "Charge Detail",
+      "size": 44491,
+      "raw_file": "raw/Content_getchargedetaildata.htm"
+    },
+    {
+      "path": "Content/Get Account Detail.htm",
+      "idx": 135,
+      "title": "Get Account Detail",
+      "size": 15976,
+      "raw_file": "raw/Content_Get_Account_Detail.htm"
+    },
+    {
+      "path": "Content/Get Accounts for the Collector.htm",
+      "idx": 136,
+      "title": "Get Accounts for the Collector",
+      "size": 15999,
+      "raw_file": "raw/Content_Get_Accounts_for_the_Collector.htm"
+    },
+    {
+      "path": "Content/getworklist.htm",
+      "idx": 137,
+      "title": "Get Worklist",
+      "size": 15782,
+      "raw_file": "raw/Content_getworklist.htm"
+    },
+    {
+      "path": "Content/getworklisttotals.htm",
+      "idx": 138,
+      "title": "Get Worklist Totals",
+      "size": 15822,
+      "raw_file": "raw/Content_getworklisttotals.htm"
+    },
+    {
+      "path": "Content/Insert Action History.htm",
+      "idx": 139,
+      "title": "Insert Action History",
+      "size": 16325,
+      "raw_file": "raw/Content_Insert_Action_History.htm"
+    },
+    {
+      "path": "Content/updvisitwithnewcharges.htm",
+      "idx": 140,
+      "title": "Update Visit With New Charges",
+      "size": 28027,
+      "raw_file": "raw/Content_updvisitwithnewcharges.htm"
+    },
+    {
+      "path": "Content/savecharges.htm",
+      "idx": 141,
+      "title": "Save a Charge",
+      "size": 49259,
+      "raw_file": "raw/Content_savecharges.htm"
+    },
+    {
+      "path": "Content/Batching.htm",
+      "idx": 142,
+      "title": "Batching",
+      "size": 15014,
+      "raw_file": "raw/Content_Batching.htm"
+    },
+    {
+      "path": "Content/Payment Checks.htm",
+      "idx": 143,
+      "title": "Payment Checks",
+      "size": 32867,
+      "raw_file": "raw/Content_Payment_Checks.htm"
+    },
+    {
+      "path": "Content/Payment Codes.htm",
+      "idx": 144,
+      "title": "Payment Codes",
+      "size": 27612,
+      "raw_file": "raw/Content_Payment_Codes.htm"
+    },
+    {
+      "path": "Content/Payment Notes.htm",
+      "idx": 145,
+      "title": "Payment Notes",
+      "size": 34772,
+      "raw_file": "raw/Content_Payment_Notes.htm"
+    },
+    {
+      "path": "Content/Payment Processing Accounts.htm",
+      "idx": 146,
+      "title": "Payment Processing Accounts",
+      "size": 37122,
+      "raw_file": "raw/Content_Payment_Processing_Accounts.htm"
+    },
+    {
+      "path": "Content/Payment Reasons.htm",
+      "idx": 147,
+      "title": "Payment Reasons",
+      "size": 27499,
+      "raw_file": "raw/Content_Payment_Reasons.htm"
+    },
+    {
+      "path": "Content/Payments.htm",
+      "idx": 148,
+      "title": "Payments",
+      "size": 44218,
+      "raw_file": "raw/Content_Payments.htm"
+    },
+    {
+      "path": "Content/Add Payment Plan.htm",
+      "idx": 149,
+      "title": "Add Payment Plan",
+      "size": 26849,
+      "raw_file": "raw/Content_Add_Payment_Plan.htm"
+    },
+    {
+      "path": "Content/Get Responsible Party Payment Plan.htm",
+      "idx": 150,
+      "title": "Get Responsible Party Payment Plan",
+      "size": 21660,
+      "raw_file": "raw/Content_Get_Responsible_Party_Payment_Plan.htm"
+    },
+    {
+      "path": "Content/Create and Update Responsible Party Payment Plan.htm",
+      "idx": 151,
+      "title": "Create or Update Responsible Party Payment Plan",
+      "size": 20723,
+      "raw_file": "raw/Content_Create_and_Update_Responsible_Party_Payment_Plan.htm"
+    },
+    {
+      "path": "Content/Get Claim Status.htm",
+      "idx": 152,
+      "title": "Get Claim Status",
+      "size": 19492,
+      "raw_file": "raw/Content_Get_Claim_Status.htm"
+    },
+    {
+      "path": "Content/Eligibilty.htm",
+      "idx": 153,
+      "title": "Eligibilty",
+      "size": 39278,
+      "raw_file": "raw/Content_Eligibilty.htm"
+    },
+    {
+      "path": "Content/Upload Bank File.htm",
+      "idx": 154,
+      "title": "Upload Bank File",
+      "size": 15418,
+      "raw_file": "raw/Content_Upload_Bank_File.htm"
+    },
+    {
+      "path": "Content/Get Auto Match Details.htm",
+      "idx": 155,
+      "title": "Get Auto Match Details",
+      "size": 15343,
+      "raw_file": "raw/Content_Get_Auto_Match_Details.htm"
+    },
+    {
+      "path": "Content/Save Reconciliation.htm",
+      "idx": 156,
+      "title": "Save Reconciliation",
+      "size": 15645,
+      "raw_file": "raw/Content_Save_Reconciliation.htm"
+    },
+    {
+      "path": "Content/Charge Rebill.htm",
+      "idx": 157,
+      "title": "Charge Rebill",
+      "size": 28661,
+      "raw_file": "raw/Content_Charge_Rebill.htm"
+    },
+    {
+      "path": "Content/Mass Rebill.htm",
+      "idx": 158,
+      "title": "Mass Rebill",
+      "size": 41121,
+      "raw_file": "raw/Content_Mass_Rebill.htm"
+    },
+    {
+      "path": "Content/getclaimsreport.htm",
+      "idx": 159,
+      "title": "Get Claims Report",
+      "size": 21480,
+      "raw_file": "raw/Content_getclaimsreport.htm"
+    },
+    {
+      "path": "Content/Post Received Reports.htm",
+      "idx": 160,
+      "title": "Post Received Reports",
+      "size": 48875,
+      "raw_file": "raw/Content_Post_Received_Reports.htm"
+    },
+    {
+      "path": "Content/Lookup Actions.htm",
+      "idx": 161,
+      "title": "Lookup Actions",
+      "size": 68288,
+      "raw_file": "raw/Content_Lookup_Actions.htm"
+    },
+    {
+      "path": "Content/Search Patient Resp Party or Master File.htm",
+      "idx": 162,
+      "title": "Searching for a Patient, Responsible Party, or Master File",
+      "size": 61566,
+      "raw_file": "raw/Content_Search_Patient_Resp_Party_or_Master_File.htm"
+    },
+    {
+      "path": "Content/lookupcarrier.htm",
+      "idx": 163,
+      "title": "Look Up Carrier",
+      "size": 23157,
+      "raw_file": "raw/Content_lookupcarrier.htm"
+    },
+    {
+      "path": "Content/Look Up Collector.htm",
+      "idx": 164,
+      "title": "Look Up Collector",
+      "size": 16145,
+      "raw_file": "raw/Content_Look_Up_Collector.htm"
+    },
+    {
+      "path": "Content/lookupdiagcode.htm",
+      "idx": 165,
+      "title": "Look Up Diag Code",
+      "size": 20607,
+      "raw_file": "raw/Content_lookupdiagcode.htm"
+    },
+    {
+      "path": "Content/lookupfacility.htm",
+      "idx": 166,
+      "title": "Look Up Facilities",
+      "size": 44573,
+      "raw_file": "raw/Content_lookupfacility.htm"
+    },
+    {
+      "path": "Content/lookupfinclass.htm",
+      "idx": 167,
+      "title": "Look Up Financial class",
+      "size": 15408,
+      "raw_file": "raw/Content_lookupfinclass.htm"
+    },
+    {
+      "path": "Content/Look Up Management Services Office Class.htm",
+      "idx": 168,
+      "title": "Look Up Management Services Office Class",
+      "size": 36325,
+      "raw_file": "raw/Content_Look_Up_Management_Services_Office_Class.htm"
+    },
+    {
+      "path": "Content/lookupmarsource.htm",
+      "idx": 169,
+      "title": "Look Up Referral Source",
+      "size": 26030,
+      "raw_file": "raw/Content_lookupmarsource.htm"
+    },
+    {
+      "path": "Content/lookupmarstatus.htm",
+      "idx": 170,
+      "title": "Look Up Referral Status",
+      "size": 22096,
+      "raw_file": "raw/Content_lookupmarstatus.htm"
+    },
+    {
+      "path": "Content/lookupmodcode.htm",
+      "idx": 171,
+      "title": "Look Up Mod Code",
+      "size": 15390,
+      "raw_file": "raw/Content_lookupmodcode.htm"
+    },
+    {
+      "path": "Content/lookupproccode.htm",
+      "idx": 172,
+      "title": "Look Up Proc Code",
+      "size": 15741,
+      "raw_file": "raw/Content_lookupproccode.htm"
+    },
+    {
+      "path": "Content/lookupprofile.htm",
+      "idx": 173,
+      "title": "Look Up Profile",
+      "size": 16966,
+      "raw_file": "raw/Content_lookupprofile.htm"
+    },
+    {
+      "path": "Content/lookupprovider.htm",
+      "idx": 174,
+      "title": "Look Up Provider",
+      "size": 42983,
+      "raw_file": "raw/Content_lookupprovider.htm"
+    },
+    {
+      "path": "Content/Look Up Patient.htm",
+      "idx": 175,
+      "title": "Look Up Patient",
+      "size": 25750,
+      "raw_file": "raw/Content_Look_Up_Patient.htm"
+    },
+    {
+      "path": "Content/lookuprefprovider.htm",
+      "idx": 176,
+      "title": "Look Up Referring Provider",
+      "size": 23713,
+      "raw_file": "raw/Content_lookuprefprovider.htm"
+    },
+    {
+      "path": "Content/lookuprespparty.htm",
+      "idx": 177,
+      "title": "Look Up Responsible Party",
+      "size": 15370,
+      "raw_file": "raw/Content_lookuprespparty.htm"
+    },
+    {
+      "path": "Content/Lookup Patient Portal Account.htm",
+      "idx": 178,
+      "title": "Lookup Patient Portal Account",
+      "size": 22679,
+      "raw_file": "raw/Content_Lookup_Patient_Portal_Account.htm"
+    },
+    {
+      "path": "Content/Get Additional Demographics.htm",
+      "idx": 179,
+      "title": "Get Additional Demographics",
+      "size": 19403,
+      "raw_file": "raw/Content_Get_Additional_Demographics.htm"
+    },
+    {
+      "path": "Content/lookupaccttype.htm",
+      "idx": 180,
+      "title": "Look Up Account Type",
+      "size": 17794,
+      "raw_file": "raw/Content_lookupaccttype.htm"
+    },
+    {
+      "path": "Content/lookupgroup.htm",
+      "idx": 181,
+      "title": "Look Up Group",
+      "size": 19305,
+      "raw_file": "raw/Content_lookupgroup.htm"
+    },
+    {
+      "path": "Content/savenotetypes.htm",
+      "idx": 183,
+      "title": "Add Notes Type",
+      "size": 27853,
+      "raw_file": "raw/Content_savenotetypes.htm"
+    },
+    {
+      "path": "Content/selectdiagnosiscodes.htm",
+      "idx": 184,
+      "title": "Select Diagnosis Codes",
+      "size": 33883,
+      "raw_file": "raw/Content_selectdiagnosiscodes.htm"
+    },
+    {
+      "path": "Content/selectuserfiletemplates.htm",
+      "idx": 185,
+      "title": "Select User File Templates",
+      "size": 26279,
+      "raw_file": "raw/Content_selectuserfiletemplates.htm"
+    },
+    {
+      "path": "Content/selectcustomclaimfields.htm",
+      "idx": 186,
+      "title": "Select Custom Claim Fields",
+      "size": 27803,
+      "raw_file": "raw/Content_selectcustomclaimfields.htm"
+    },
+    {
+      "path": "Content/intake-createrecord-post.htm",
+      "idx": 188,
+      "title": "Create Intake Record",
+      "size": 21595,
+      "raw_file": "raw/Content_intake-createrecord-post.htm"
+    },
+    {
+      "path": "Content/intake-createrecord-put.htm",
+      "idx": 189,
+      "title": "Create Intake Record",
+      "size": 18576,
+      "raw_file": "raw/Content_intake-createrecord-put.htm"
+    },
+    {
+      "path": "Content/intake-declineallbyid.htm",
+      "idx": 190,
+      "title": "Decline All Intake Records by Patient ID",
+      "size": 19061,
+      "raw_file": "raw/Content_intake-declineallbyid.htm"
+    },
+    {
+      "path": "Content/intake-getpaged.htm",
+      "idx": 191,
+      "title": "Get Paged Intake Records",
+      "size": 24540,
+      "raw_file": "raw/Content_intake-getpaged.htm"
+    },
+    {
+      "path": "Content/intake-setup.htm",
+      "idx": 192,
+      "title": "Settings for Online Intake Requests",
+      "size": 21093,
+      "raw_file": "raw/Content_intake-setup.htm"
+    },
+    {
+      "path": "Content/intake-updaterecord.htm",
+      "idx": 193,
+      "title": "Update Intake Record",
+      "size": 17967,
+      "raw_file": "raw/Content_intake-updaterecord.htm"
+    },
+    {
+      "path": "Content/Update Status of Intake Record.htm",
+      "idx": 194,
+      "title": "Update Status of Intake Record",
+      "size": 18334,
+      "raw_file": "raw/Content_Update_Status_of_Intake_Record.htm"
+    },
+    {
+      "path": "Content/System Defaults Requests.htm",
+      "idx": 195,
+      "title": "System Defaults Requests",
+      "size": 50865,
+      "raw_file": "raw/Content_System_Defaults_Requests.htm"
+    },
+    {
+      "path": "Content/Custom Tab Request.htm",
+      "idx": 196,
+      "title": "Custom Tab Request",
+      "size": 30885,
+      "raw_file": "raw/Content_Custom_Tab_Request.htm"
+    },
+    {
+      "path": "Content/Complete Field Lists.htm",
+      "idx": 197,
+      "title": "Complete Field Lists",
+      "size": 100992,
+      "raw_file": "raw/Content_Complete_Field_Lists.htm"
+    },
+    {
+      "path": "Content/AdvancedMD Error Codes.htm",
+      "idx": 198,
+      "title": "AdvancedMDError Codes",
+      "size": 168068,
+      "raw_file": "raw/Content_AdvancedMD_Error_Codes.htm"
+    },
+    {
+      "path": "Content/Hard Coded Values.htm",
+      "idx": 199,
+      "title": "Hard-Coded Values",
+      "size": 548084,
+      "raw_file": "raw/Content_Hard_Coded_Values.htm"
+    },
+    {
+      "path": "Content/file chart introduction.htm",
+      "idx": 200,
+      "title": "File Chart XML Message Specification",
+      "size": 17903,
+      "raw_file": "raw/Content_file_chart_introduction.htm"
+    },
+    {
+      "path": "Content/copyfile.htm",
+      "idx": 201,
+      "title": "Copyfile Message Specification",
+      "size": 28720,
+      "raw_file": "raw/Content_copyfile.htm"
+    },
+    {
+      "path": "Content/deletefile.htm",
+      "idx": 202,
+      "title": "Deletefile Message Specification",
+      "size": 36825,
+      "raw_file": "raw/Content_deletefile.htm"
+    },
+    {
+      "path": "Content/getdiskusage.htm",
+      "idx": 203,
+      "title": "Getdiskusage Message Specification",
+      "size": 59136,
+      "raw_file": "raw/Content_getdiskusage.htm"
+    },
+    {
+      "path": "Content/getfile.htm",
+      "idx": 204,
+      "title": "Getfile Message Specification",
+      "size": 38884,
+      "raw_file": "raw/Content_getfile.htm"
+    },
+    {
+      "path": "Content/getfilelist.htm",
+      "idx": 205,
+      "title": "Getfilelist Message Specification",
+      "size": 70162,
+      "raw_file": "raw/Content_getfilelist.htm"
+    },
+    {
+      "path": "Content/getrevision.htm",
+      "idx": 206,
+      "title": "Getrevision Message Specification",
+      "size": 36719,
+      "raw_file": "raw/Content_getrevision.htm"
+    },
+    {
+      "path": "Content/getrevisionlist.htm",
+      "idx": 207,
+      "title": "Getrevisionlist Message Specification",
+      "size": 68587,
+      "raw_file": "raw/Content_getrevisionlist.htm"
+    },
+    {
+      "path": "Content/revisefile.htm",
+      "idx": 208,
+      "title": "Revisefile Message Specification",
+      "size": 69670,
+      "raw_file": "raw/Content_revisefile.htm"
+    },
+    {
+      "path": "Content/rollbackrevision.htm",
+      "idx": 209,
+      "title": "Rollbackrevision Message Specification",
+      "size": 23896,
+      "raw_file": "raw/Content_rollbackrevision.htm"
+    },
+    {
+      "path": "Content/updatefile.htm",
+      "idx": 210,
+      "title": "Updatefile Message Specification",
+      "size": 85771,
+      "raw_file": "raw/Content_updatefile.htm"
+    },
+    {
+      "path": "Content/updatefilestatus.htm",
+      "idx": 211,
+      "title": "Updatefilestatus Message Specification",
+      "size": 39968,
+      "raw_file": "raw/Content_updatefilestatus.htm"
+    },
+    {
+      "path": "Content/uploadfile.htm",
+      "idx": 212,
+      "title": "uploadfile.htm",
+      "size": 275913,
+      "raw_file": "raw/Content_uploadfile.htm"
+    },
+    {
+      "path": "Content/updatedownloadstatus.htm",
+      "idx": 213,
+      "title": "updatedownloadstatus.htm",
+      "size": 50775,
+      "raw_file": "raw/Content_updatedownloadstatus.htm"
+    },
+    {
+      "path": "Content/EHR APIs.htm",
+      "idx": 214,
+      "title": "AdvancedMD EHR APIs",
+      "size": 18949,
+      "raw_file": "raw/Content_EHR_APIs.htm"
+    },
+    {
+      "path": "Content/POST Paths.htm",
+      "idx": 215,
+      "title": "POST /files/documents",
+      "size": 29137,
+      "raw_file": "raw/Content_POST_Paths.htm"
+    },
+    {
+      "path": "Content/Audit.htm",
+      "idx": 216,
+      "title": "Audit",
+      "size": 15527,
+      "raw_file": "raw/Content_Audit.htm"
+    },
+    {
+      "path": "Content/DocumentPostRequest.htm",
+      "idx": 217,
+      "title": "DocumentPostRequest",
+      "size": 24753,
+      "raw_file": "raw/Content_DocumentPostRequest.htm"
+    },
+    {
+      "path": "Content/DocumentPostResponse.htm",
+      "idx": 218,
+      "title": "DocumentPostResponse",
+      "size": 15972,
+      "raw_file": "raw/Content_DocumentPostResponse.htm"
+    },
+    {
+      "path": "Content/Get List of Clinical Notes.htm",
+      "idx": 219,
+      "title": "Get List of Clinical Notes (clinicalnotes/notes)",
+      "size": 19082,
+      "raw_file": "raw/Content_Get_List_of_Clinical_Notes.htm"
+    },
+    {
+      "path": "Content/Get Clinical Note by ID.htm",
+      "idx": 220,
+      "title": "Get Clinical Note by Id (clinicalnotes/notes/{id})",
+      "size": 24152,
+      "raw_file": "raw/Content_Get_Clinical_Note_by_ID.htm"
+    },
+    {
+      "path": "Content/Get Clinical Note Header by Id.htm",
+      "idx": 221,
+      "title": "Get Clinical Note Header by Id (clinicalnotes/noteheaders?noteid={id})",
+      "size": 23165,
+      "raw_file": "raw/Content_Get_Clinical_Note_Header_by_Id.htm"
+    },
+    {
+      "path": "Content/Get List of Documents.htm",
+      "idx": 222,
+      "title": "Get List of Documents (files/documents?PatientId={id})",
+      "size": 21994,
+      "raw_file": "raw/Content_Get_List_of_Documents.htm"
+    },
+    {
+      "path": "Content/Get Document by Id.htm",
+      "idx": 223,
+      "title": "Get Document by Id (files/documents/{id})",
+      "size": 18411,
+      "raw_file": "raw/Content_Get_Document_by_Id.htm"
+    },
+    {
+      "path": "Content/Upload Document.htm",
+      "idx": 224,
+      "title": "Upload Document (files/documents)",
+      "size": 21179,
+      "raw_file": "raw/Content_Upload_Document.htm"
+    },
+    {
+      "path": "Content/Get Encounters.htm",
+      "idx": 225,
+      "title": "Get Encounters (/encounters/Encounters?PatientId={id})",
+      "size": 21010,
+      "raw_file": "raw/Content_Get_Encounters.htm"
+    },
+    {
+      "path": "Content/Labs API.htm",
+      "idx": 227,
+      "title": "AdvancedMD Labs API",
+      "size": 233416,
+      "raw_file": "raw/Content_Labs_API.htm"
+    }
+  ],
+  "failed": [
+    {
+      "path": "Content/What\\u0027s New.htm",
+      "idx": 228,
+      "title": "What\\u0027s New"
+    }
+  ]
+}

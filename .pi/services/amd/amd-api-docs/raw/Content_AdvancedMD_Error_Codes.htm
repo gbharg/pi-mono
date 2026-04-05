@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>AdvancedMDError Codes</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1><span class="span_43">AdvancedMD</span><span class="span_43">Error Codes</span>
+                                            </h1>
+                                            <table class="table_2">
+                                                <col class="col_13" />
+                                                <col class="col_26" />
+                                                <col class="col_18" />
+                                                <col class="col_26" />
+                                                <col class="col_6" />
+                                                <col class="col_26" />
+                                                <col class="col_22" />
+                                                <col class="col_26" />
+                                                <col class="col_27" />
+                                                <col class="col_28" />
+                                                <col class="col_27" />
+                                                <col class="col_29" />
+                                                <col class="col_30" />
+                                                <tr class="tr_1">
+                                                    <td colspan="13" class="td_6" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_139">Login/Security Errors (vbObjectError + 1024-2047)</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_1">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_140">Code</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_141">Description</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_141">Type</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_141">ExtraInfo</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_141">Notes</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_141">Added&#160;By</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">1024</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Invalid username or password</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This occurs if the user enters a username/password/licensekey combination that doesn't match any in the Enterprise database.<br />(&amp;H80040400 /&#160; -2147220480)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">1025</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Session has timed out</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The client needs to be forced to log back in to the application before continuing.<br />(&amp;H80040401 /&#160; -2147220479)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">1026</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Invalid host IP address</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user is attempting to log in from an IP address that is unauthorized for the given license key.<br />(&amp;H80040402 /&#160; -2147220478)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">1027</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Version mismatch</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The database version does not match the web application version. (Can be overridden.)<br />(&amp;H80040403 /&#160; -2147220477)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_1">
+                                                    <td colspan="13" class="td_6" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_139">XML Errors (2048-3071)</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2048</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Missing attribute</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An element is missing a required attribute.<br />(&amp;H80040800 / -2147219456)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2049</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Missing element</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A required element is missing.<br />(&amp;H80040801 / -2147219455)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2050</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Invalid element</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An element passed in as part of a request is of an incorrect type, or the element name is missing.<br />(&amp;H80040802 / -2147219454)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2051</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Invalid attribute</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An attribute passed in as part of a request is invalid.<br />(&amp;H80040803 / -2147219453)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2052</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">Parsing error</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">The XML that caused the error.</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An error occurred while attempting to parse XML. The description will contain .parseError.reason.<br />(&amp;H80040804 / -2147219452)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">2053</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">XML too large</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">In order to defend against DOS attacks, XMLRPC requests are limited in size. If this error comes up in production, then the maximum size is probably to small.<br />(&amp;H80040805 / -2147219451)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_1">
+                                                    <td colspan="13" class="td_6" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_139">General Errors (3072-4095)</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3072</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Maximum quantity exceeded</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Some maximum quantity has been exceeded.<br />(&amp;H80040C00 / -2147218432)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3073</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Missing registry value</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A required value is missing from the registry.<br />(&amp;H80040C01 / -2147218431)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3074</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Could not read COM+ constructor string</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A COM+ constructor string is required (for the component that reported the error), but is missing or invalid.<br />(&amp;H80040C02 / -2147218430)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3075</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Could not get list of statement formats from MDB</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An error occurred that prevented a list of statement formats from being returned.<br />(&amp;H80040C03 / -2147218429)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3076</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Failed to write off small balances</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An error occurred that prevented small write-offs from being written off. Check the event log for more information.<br />(&amp;H80040C04 / -2147218428)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3077</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Obsolete action</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The client made an XMLRPC call with an "action" that is obsolete. The client code should be changed to use a newer version of the action.<br />(&amp;H80040C05 / -2147218427)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3078</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">No unique ID included with the update</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The front-end attempted to update a record without providing the unique ID of that record<br />(&amp;H80040C06 / -2147218426)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3079</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid property setting</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A property of the current object ("Me") is invalid. The current operation cannot be performed until the property is set to a valid value or object.<br />(&amp;H80040C07 / -2147218425)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3080</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Wrong number of optional or ParamArray parameters.&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The method that is being called requires a certain number of optional parameters, or it has a ParamArray that requires complete sets of 2, 3, 4, etc., parameters in order to be valid.<br />(&amp;H80040C08 / -2147218424)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3081</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Could not create object.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An attempt was made to create an object, but the attempt failed.<br />(&amp;H80040C09 / -2147218423)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3082</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Missing parameter.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A required parameter is missing or empty.<br />(&amp;H80040C0A / -2147218422)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3083</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid path.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The path is invalid.<br />(&amp;H80040C0B / -2147218421)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3084</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Too many rows affected by update</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Too many rows were affected by a SQL update command.<br />(&amp;H80040C0C / -2147218420)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3085</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Permission denied</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Details of the denied permission</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Permission has been denied to the requested operation.<br />(&amp;H80040C0D / -2147218419)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3086</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">This application version is obsolete.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This occurs if the user is running a version of an embedded app on the pocket pc that is not supported..&#160; Applies to Handheld Charge Slips and EMR, specifically.<br />(&amp;H80040C0E / -2147218418)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3087</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Gateway returned empty string</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The Gateway function has returned an empty string, rather than a results or error string as would be expected.<br />(&amp;H80040C0F / -2147218417)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3088</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Action not found in action-SP map</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The action that is being requested was not found in the action-SP map, and so the stored procedure that is needed to complete the request cannot be accessed.<br />(&amp;H80040C10 / -2147218416)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3089</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">The masterfile was not saved, but no error was caught</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The stored procedure that saved the masterfile did not return a valid UID for the new record, but did not throw an error.<br />(&amp;H80040C11 / -2147218415)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_5">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3090</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Cannot redirect login twice</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">When a user logs in to a PPMD server, he can be redirected to another server (for example, redirected from </span><a href="http://www.perfectpractice.md/"><span class="span_45">http://www.perfectpractice.md/</span></a><span class="span_44"> to beta.perfectpractice.md). But the user CANNOT be redirected again from the redirected server. This exception is raised if redirection is indicated on the redirected server (in the ent_SecurityGroup table).<br />(&amp;H80040C12 / -2147218414)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3091</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">GUID could not be generated</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A unique identifier (GUID) is generated each time a user logs in to the application, using the Win32 CoCreateGuid API. If that function returns a non-zero value, then the call failed for an unknown reason.<br />(&amp;H80040C13 / -2147218413)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3092</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Constructor string missing</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This occurs if no constructor string is found for component, and the component requires it.&#160; The error is posted in the gateway method (if it exists), before any other methods are invoked.<br />(&amp;H80040C14 / -2147218412)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_5">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3093</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Unhandled ADO error(s) caught when closing the connection.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Occasionally, errors can occur in a SQL stored procedure or query without the exception(s) being raised by ADO to VB. In these cases, a function called CheckConnectionErrors() will find errors in the ADO Errors collection, log those errors, and raise this error back to the caller. The ADO errors that caused the problem will be included in the error message.<br />(&amp;H80040C15 / -2147218411)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3094</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Only self-expanding executables are supported at this time.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The CPGP class in PPMDReportServer.exe only supports PGP encryption of self-expanding executables. (This error message will become obsolete as soon as more support is added.)<br />(&amp;H80040C16 / -2147218410)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3095</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Pass phrase must be at least </span><span class="span_46">n</span><span class="span_44"> characters long.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The pass phrase for a PGP self-expanding executable must be at least </span><span class="span_46">n</span><span class="span_44"> characters long.<br />(&amp;H80040C17 / -2147218409)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3096</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Pass phrase can not be longer than </span><span class="span_46">n</span><span class="span_44"> characters.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The pass phrase for a PGP self-expanding executable must be no longer than </span><span class="span_46">n</span><span class="span_44"> characters.<br />(&amp;H80040C18 / -2147218408)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3097</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Operation timed out.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The attempted operation timed out.<br />(&amp;H80040C19 / -2147218407)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3098</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">A public key or passphrase must be supplied.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">In order to encrypt a file with PGP, you must provide either a public key username or a passphrase.<br />(&amp;H80040C1A / -2147218406)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3099</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid statement grouping.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The selected statement format does not support the grouping options set up in System Defaults or selected by the user.<br />(&amp;H80040C1B / -2147218405)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3100</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid identity.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The process that the server is trying to instantiate must run under an account in the Administrators security group, or it can't perform its function.<br />(&amp;H80040C1C / -2147218404)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3101</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Enterprise Database not responding.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The enterprise database is not responding, due to an invalid server name or database name.<br />(&amp;H80040C1D / -2147218403)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">DCO</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3102</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Empty strings cannot be saved to file.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">An empty string was passed to the WriteBinFile() procedure. Zero-length strings cannot be saved as binary files.<br />(&amp;H80040C1E / -2147218402)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_5">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3103</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Another family member already has a "self" relationship when the user tries to add a patient</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user is trying to save a patient with the relationship of "self" and a different responsible party.&#160; The responsible party has another patient tied to it (usually itself) that already has a relationship of "self".&#160; The user will not be able to save the new patient in this state, and must change the relationship from "self" to some other type (i.e. "spouse", "other")<br />(&amp;H80040C20 / -2147218401)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3104</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid query location</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_142">The user is attempting to run a report, but no query file or query sql was specified for the report.(&amp;H80040C21 / -2147218400)</p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3105</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Data Extract To Access DB Failed</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The DTS package Failed to eport data to an Access DB. This would most likely be caused by a bad path or because the blank access db is missing,<br />It is possible that bad data or data that could not be transformed was encountered. <br />(&amp;H80040C21 / -2147218399)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTK</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3106</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">McKesson submitter id invalid</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Electronic statements require a 6-digit submitter identifier for customers using McKesson.&#160; This identifier must reside in the edi_submitters database table, FormatCode of CYNSF.&#160; This submitter identifier is shared with the claim processing. <br />(&amp;H80040C22 / -2147218398)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">E.D</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">3107</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Sales tax procedure charge code (#ST) does not exist in this key.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Server</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="4" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user is attempting to add a sales tax charge, but can't because the #ST charge code doesn't exist.<br />(&amp;H80040c23 / -2147218397)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_1">
+                                                    <td colspan="13" class="td_8" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_139">User Warnings (3072-4095)</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4096</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Circular reference in macro.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The macro code that has the circular reference in it.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This indicates an error on the part of the user. A macro should never include circular references (e.g., Macro1 includes Macro2, which includes Macro1).<br />(&amp;H80041000 / -2147217408)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_6">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4097</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Charge could not be rebilled.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">-2: Insurance has $0 balance.<br />-1: Unknown reason.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This error may occur when the user clicks the Claim Billed button on the Charge Detail screen. It allows the UI to indicate to the user why rebill failed.<br />Negative values in ExtraInfo indicate that the InsBilled flag could not be flipped. Positive values indicate that the flag WAS flipped, but there was no effect (for example, there was no billing history, so the next carrier to be billed didn't change).<br />(&amp;H80041001 / -2147217407)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_6">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4098</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Duplicate code: Item cannot be added.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24"><span class="span_44">-1: The duplicate item is active.<br />-2: The duplicate item is deleted, and can be undeleted (Display = 1)&#160; if desired.</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The item that is being added has a code (or other field that must be unique) that already exists in the database.<br />If the existing item has been deleted (Display = 0), then the user should be allowed to undelete it and use it.<br />If the existing item is active (Display = 1), the user cannot save the new item with the same code, and must choose a new code or delete the existing item.<br />(&amp;H80041002 / -2147217406)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4099</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">There were no patients for the visit number entered.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The visit number entered by the user was not found in the database so no patient information could be returned.<br />(&amp;H80041003 / -2147217405)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">SLS</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4100</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">An error occurred while updating statement history.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">Statement data was returned successfully, but the statement history could not be updated. Examine the Windows NT Event Log for more information about the cause of the error.<br />(&amp;H80041004 / -2147217404)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4101</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Can't add appointment: Overlaps existing appointment.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user tried to add an appointment that overlaps with an existing appointment. The front end should ask the user if that's OK, and, if it is, resubmit the request with the "force" attribute set to "yes".<br />(&amp;H80041005 / -2147217403)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4102</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">No open appointment slots were found.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The number of days that were searched.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user tried to use the Find Appointment screen to find an open slot, but none were found that match the criteria given.<br />(&amp;H80041006 / -2147217402)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4103</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Duplicate SSN found</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user attempted to add a patient whose Social Security Number already exists in the database. The patient was not added to the database.&#160;<br />(&amp;H80041007 / -2147217401)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4104</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Duplicate name/DOB found</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user attempted to add a patient whose name and date of birth already exist in the database. The patient was not added to the database.<br />(&amp;H80041008 / -2147217400)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4105</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Duplicate chart number found</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user attempted to add a patient whose Chart Number already exists in the database. The patient was not added to the database.<br />(&amp;H80041009 / -2147217399)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4106</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Another user has changed this record</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user attempted to update a field in a record that has already been changed by another user.<br />(&amp;H8004100A / -2147217398)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4107</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">No file was uploaded</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user attempted to upload a file, but no valid file was chosen.<br />(&amp;H8004100B / -2147217397)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4108</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Invalid search criteria</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The criteria entered by the user are invalid, or there is no way that the search can be performed with the given criteria.<br />(&amp;H8004100C / -2147217396)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4109</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Patient photo already exists</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The current patient already has a "Patient Photo", and each patient can have only one.<br />(&amp;H8004100D / -2147217395)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4110</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The patient could not be checked out for this visit.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The appointment status for the visit could not be changed to 3 ('checked out'). This may be because the status code for the visit is already 3 or higher.<br />(&amp;H8004100E / -2147217394)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_5">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4111</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The specified user has no privileges loaded</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A user attempted to expire (and thereby force a reload) of another user's permissions, but the second user had no permissions loaded. No permissions were expired, but the second user's permissions will be loaded fresh from the database anyway the next time they attempt to access the system.<br />(&amp;H8004100F / -2147217393)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4112</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The new record conflicted with a previously deleted record</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">A new record that the user has attempted to save has violated a unique key constraint in the database, but the record that it conflicts with has had its display bit set to zero, and so is not currently visible to the user.<br />(&amp;H80041010 / -2147217392)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_7">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4113</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Duplicate charge found</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The procedure code(s) that the attempted posted charge conflicts with</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">After saving one or more charge entries, the user posts the charges.&#160; The attempted charges are compared (by procedure code, date of service, provider, and patient) with those that exist in the database.&#160; If any conflicts occur, the user is notified and can decide whether to post the charges anyway.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4114</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The record cannot be deleted because of child dependencies</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The record that the user attempted to delete has child records that refer to it, and have not themselves been deleted. This record cannot be deleted as long as the child records remain.<br />(&amp;H80041012 / -2147217390)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4115</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">This insert cannot be completed because of conflicts in other license keys</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">The record that is being inserted is being propagated to other license keys within the CBO by a trigger. However, one of these license keys is causing a unique key constraint error, and hence the entire transaction is failing.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4116</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">This record cannot be deleted, as it is the last remaining record</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">This is the last remaining undeleted record in this table for this licensekey, and business rules require that there be at least one undeleted record in this table.<br />(&amp;H80041014 / -2147217388)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">ACB</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4117</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Appointment is outside of column.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">You cannot create an appointment that starts outside the working hours for the column.<br />(&amp;H80041015 / -2147217387)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4118</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Procedure already running</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">A single use stored procedure was already running when the user tried to run it again.&#160; Used for the collections worklist recalc procedure.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">SSH</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_7">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4119</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Takeback will be voided with the payment</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Log 7786.&#160; If the payment detail is the last remaining (or only) payment detail associated with the payment and there is a takeback amount AND the day closed bit is NOT set, then the user should be informed that there is a takeback that will be voided with the payment, and the takeback amount should be included in the offset payment record.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_7">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4120</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The form cannot be batched because another user has already put the form in a batch. </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">If a form is already associated with a batch for another license key, the user cannot put the form into the print queue (via the batch button).&#160; A form can only be associated with a single licensekey for batch purposes.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_4">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4121</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Too many blocks/holds would be returned. </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Count of rules that would have been returned.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">There are too many block/hold rules that match the current criteria (Block/Hold Setup screen). The user needs to use the filter fields to narrow the selection and reduce the number of returned rules.<br />(&amp;H80041019 / -2147217383)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_3">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4122</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Visit not found in the system.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">This occurs if a visit number is entered in the quick charge entry screen and the visit is not found in the system.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_8">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4123</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Appointment already has charges posted to it</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">You can't change the provider or facility associated with a visit from the appointment scheduler if the visit already has charges posted to it.<br />(&amp;H8004101B / -2147217381)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_9">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4124</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">No active patient consent.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_24">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">The system requires consent, and this patient has no active consent memo.&#160; Occurs when the user attempts to check the patient in through the appointment scheduler.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4125</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Deceased patient appointments exist</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Lets the user know that the patient which is now deceased has appointments and recall visits scheduled in the future.&#160; The user can then decide whether to delete the appts/recall visits</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4126</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">The provider specified is inactive</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Lets the user know that the provider specified when creating an appointment is set to inactive</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">SLS</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4127</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Deceased patient</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Lets the user know that the patient is deceased</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4128</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Conflict with existing appointment</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">The requested column change cannot be made due to a conflict with existing appointments.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">AMK</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4129</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Invalid mode</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid mode is send by the client. No such mode exists.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">AMK</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4130</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Invalid Visit ID</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Invalid Visit ID passed to the API method.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">AMK</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4131</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Statements cannot be rolled back</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The user has attempted to rollback a statement batch, but the system was unable to ensure that it could be rolled back safely. The user will need to call AdvancedMD Support to perform the rollback.<br />(&amp;H80041024 / -2147217373)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4132</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Can't reset a visit with payments attached to it</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">You cannot reset a visit with charges that have payments (voided or not) attached to them.<br />(&amp;H80041025 / -2147217372)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4133</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Too many charges would be returned</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">More than X charges would be returned (to Payment Entry screen). Allow the user to post payments without bringing all charges back.<br />(&amp;H80041026 / -2147217371)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">JTY</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4134</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">Access denied to API feature</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_24"><span class="span_44">The license key does not have access to the API feature.<br />(&amp;H80041027 / -2147217370)</span>
+                                                        </p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">AMK</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tr_2">
+                                                    <td class="td_7">
+                                                        <p class="p_142">4200</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">A new version of the application is available.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">Client</p>
+                                                    </td>
+                                                    <td colspan="3" class="td_7">
+                                                        <p class="p_142">&#160;</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">This occurs if the user is running a version of an embedded app on the pocket pc that is still supported, but not current.&#160; Applies to Handheld Charge Slips and EMR, specifically.</p>
+                                                    </td>
+                                                    <td colspan="2" class="td_7">
+                                                        <p class="p_142">CAG</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
