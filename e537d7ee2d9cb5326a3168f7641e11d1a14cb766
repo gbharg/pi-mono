@@ -1,0 +1,36 @@
+.pi/services/data/q1_2026/index.json
+  57f3a0f3d8478c72 4-5,7,10-11,13-24,29-30,32-33,38-53,81-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "e537d7ee2d9cb5326a3168f7641e11d1a14cb766",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 179,
+      "overriden_lines": 0
+    },
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 42,
+      "total_deletions": 36,
+      "accepted_lines": 42,
+      "overriden_lines": 0
+    }
+  }
+}
