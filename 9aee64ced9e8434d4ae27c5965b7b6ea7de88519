@@ -1,0 +1,38 @@
+.pi/services/amd/FTE_WORKFLOW_ANALYSIS.md
+  57f3a0f3d8478c72 3-5,10,12-13,15,17,22-27,29-44,49-50,52,54,60-66,68,74-77,79,81,83,87-91,93,95,101-106,108,110,114-116,118,120,127,130,132,136-142,144-147,149,151,153-155,157,159,161,165-173,175,177,179-183,187-190,194-198,200,202
+.pi/services/amd/DAILY_BASELINE.md
+  57f3a0f3d8478c72 3-8,12-31,33,35-37,39-56,58-82,84,86-92,94-95,100-114,116-117,119-131,135-141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "9aee64ced9e8434d4ae27c5965b7b6ea7de88519",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 207,
+      "overriden_lines": 0
+    },
+    "57f3a0f3d8478c72": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd3591da-a7d1-4db5-8fff-33fad78a0f0b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 246,
+      "overriden_lines": 0
+    }
+  }
+}
