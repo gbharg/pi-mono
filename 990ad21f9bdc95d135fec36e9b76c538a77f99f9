@@ -1,0 +1,69 @@
+.claude/skills/amd-issue-refund/SKILL.md
+  aa84b2f70ab6fa0f 1-193
+.claude/skills/exult-daily-kpi-report/SKILL.md
+  aa84b2f70ab6fa0f 1-205
+.claude/skills/rc-update-ivr/SKILL.md
+  aa84b2f70ab6fa0f 1-182
+.claude/skills/INDEX.md
+  aa84b2f70ab6fa0f 11,14,16,18-21,29-31,34-40,44,47-49,54-55
+.claude/skills/amd-upload-document/SKILL.md
+  aa84b2f70ab6fa0f 1-179
+.claude/skills/amd-send-patient-message/SKILL.md
+  aa84b2f70ab6fa0f 1-153
+.claude/skills/amd-add-insurance-coverage/SKILL.md
+  aa84b2f70ab6fa0f 1-180
+.claude/skills/amd-verify-insurance/SKILL.md
+  aa84b2f70ab6fa0f 1-136
+.claude/skills/rc-forward-number-to-queue/SKILL.md
+  aa84b2f70ab6fa0f 1-171
+.claude/skills/rc-send-appointment-reminder-sms/SKILL.md
+  aa84b2f70ab6fa0f 1-159
+.claude/skills/amd-check-in-patient/SKILL.md
+  aa84b2f70ab6fa0f 1-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "990ad21f9bdc95d135fec36e9b76c538a77f99f9",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    },
+    "aa84b2f70ab6fa0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e22a342e-4908-4553-a829-9489a174ea5a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 16401,
+      "total_deletions": 333,
+      "accepted_lines": 54791,
+      "overriden_lines": 2
+    },
+    "d4d354d134067fa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a281d00-0463-47a0-ba3f-d4402f4d82ff",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}
