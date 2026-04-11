@@ -1,0 +1,75 @@
+packages/exult-mcp/advancedmd-xmlrpc/pyproject.toml
+  aa84b2f70ab6fa0f 1-19
+packages/exult-mcp/advancedmd-xmlrpc/server.py
+  aa84b2f70ab6fa0f 1-367
+packages/exult-mcp/ringcentral-admin/server.py
+  aa84b2f70ab6fa0f 1-379
+packages/exult-mcp/.gitignore
+  aa84b2f70ab6fa0f 1-5
+packages/exult-mcp/microsoft365-admin/README.md
+  aa84b2f70ab6fa0f 1-69
+packages/exult-mcp/microsoft365-admin/pyproject.toml
+  aa84b2f70ab6fa0f 1-20
+packages/exult-mcp/advancedmd-xmlrpc/README.md
+  aa84b2f70ab6fa0f 1-79
+.pi/services/practicemd_integration/build_log.md
+  aa84b2f70ab6fa0f 1-69
+packages/exult-mcp/microsoft365-admin/server.py
+  aa84b2f70ab6fa0f 1-330
+packages/exult-mcp/README.md
+  aa84b2f70ab6fa0f 1-87
+packages/exult-mcp/ringcentral-admin/README.md
+  aa84b2f70ab6fa0f 1-83
+packages/exult-mcp/ringcentral-admin/pyproject.toml
+  aa84b2f70ab6fa0f 1-21
+.pi/services/myfax_integration/build_log.md
+  aa84b2f70ab6fa0f 1-154
+.pi/services/mcp_setup/build_log.md
+  aa84b2f70ab6fa0f 1-163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "ebd6b0c6525329f7b20046aa6f9e8d40839e383a",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "aa84b2f70ab6fa0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e22a342e-4908-4553-a829-9489a174ea5a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 2898,
+      "total_deletions": 66,
+      "accepted_lines": 51851,
+      "overriden_lines": 759
+    },
+    "d4d354d134067fa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a281d00-0463-47a0-ba3f-d4402f4d82ff",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
