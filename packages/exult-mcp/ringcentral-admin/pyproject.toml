@@ -1,0 +1,21 @@
+[project]
+name = "exult-mcp-ringcentral-admin"
+version = "0.1.0"
+description = "Exult MCP server for RingCentral admin operations (call logs, extensions, queues, IVR, voicemail)"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp>=1.2.0",
+    "httpx>=0.27.0",
+    "PyJWT>=2.8.0",
+]
+
+[project.scripts]
+exult-mcp-ringcentral-admin = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["."]
+only-include = ["server.py"]
