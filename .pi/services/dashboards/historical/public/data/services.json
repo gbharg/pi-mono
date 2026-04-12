@@ -1,0 +1,252 @@
+{
+  "categories": [
+    {
+      "category": "E&M Est 30min",
+      "charge_count": 3597,
+      "unique_patients": 576,
+      "gross": 1102245.0,
+      "collected": 894814.33,
+      "avg_fee": 306.43,
+      "net_collection_rate": 0.8118
+    },
+    {
+      "category": "Psychotherapy 60min",
+      "charge_count": 1801,
+      "unique_patients": 173,
+      "gross": 450030.0,
+      "collected": 370761.38,
+      "avg_fee": 249.88,
+      "net_collection_rate": 0.8239
+    },
+    {
+      "category": "TMS Treatment",
+      "charge_count": 224,
+      "unique_patients": 22,
+      "gross": 117504.25,
+      "collected": 104262.13,
+      "avg_fee": 524.57,
+      "net_collection_rate": 0.8873
+    },
+    {
+      "category": "Add-on Psychotherapy 30min",
+      "charge_count": 554,
+      "unique_patients": 251,
+      "gross": 107375.0,
+      "collected": 91599.41,
+      "avg_fee": 193.82,
+      "net_collection_rate": 0.8531
+    },
+    {
+      "category": "E&M New 60min",
+      "charge_count": 107,
+      "unique_patients": 105,
+      "gross": 63665.0,
+      "collected": 54395.0,
+      "avg_fee": 595.0,
+      "net_collection_rate": 0.8544
+    },
+    {
+      "category": "E&M Est 40min",
+      "charge_count": 149,
+      "unique_patients": 86,
+      "gross": 61925.0,
+      "collected": 52612.31,
+      "avg_fee": 415.6,
+      "net_collection_rate": 0.8496
+    },
+    {
+      "category": "E&M New 45min",
+      "charge_count": 119,
+      "unique_patients": 119,
+      "gross": 56645.0,
+      "collected": 39629.62,
+      "avg_fee": 476.01,
+      "net_collection_rate": 0.6996
+    },
+    {
+      "category": "Intensive OP",
+      "charge_count": 41,
+      "unique_patients": 5,
+      "gross": 34850.0,
+      "collected": 28492.96,
+      "avg_fee": 850.0,
+      "net_collection_rate": 0.8176
+    },
+    {
+      "category": "Psych Diagnostic Eval",
+      "charge_count": 94,
+      "unique_patients": 91,
+      "gross": 32700.0,
+      "collected": 25193.3,
+      "avg_fee": 347.87,
+      "net_collection_rate": 0.7704
+    },
+    {
+      "category": "No-Show Fee",
+      "charge_count": 198,
+      "unique_patients": 135,
+      "gross": 22700.0,
+      "collected": 11710.0,
+      "avg_fee": 114.65,
+      "net_collection_rate": 0.5159
+    },
+    {
+      "category": "Psychotherapy 45min",
+      "charge_count": 67,
+      "unique_patients": 42,
+      "gross": 16848.0,
+      "collected": 14223.04,
+      "avg_fee": 251.46,
+      "net_collection_rate": 0.8442
+    },
+    {
+      "category": "Other",
+      "charge_count": 300,
+      "unique_patients": 214,
+      "gross": 15744.39,
+      "collected": 12005.62,
+      "avg_fee": 52.48,
+      "net_collection_rate": 0.7625
+    },
+    {
+      "category": "E&M Est 20min",
+      "charge_count": 30,
+      "unique_patients": 29,
+      "gross": 6320.0,
+      "collected": 5679.95,
+      "avg_fee": 210.67,
+      "net_collection_rate": 0.8987
+    },
+    {
+      "category": "Urine Drug Screen",
+      "charge_count": 217,
+      "unique_patients": 55,
+      "gross": 5480.0,
+      "collected": 5165.0,
+      "avg_fee": 25.25,
+      "net_collection_rate": 0.9425
+    }
+  ],
+  "top_codes": [
+    {
+      "proc_code": "99214T",
+      "description": "OFFICE O/P EST MOD 30 MIN",
+      "charge_count": 3180,
+      "unique_patients": 544,
+      "gross": 972580.0,
+      "collected": 794401.49
+    },
+    {
+      "proc_code": "90837T",
+      "description": "PSYTX W PT 60 MINUTES",
+      "charge_count": 1089,
+      "unique_patients": 129,
+      "gross": 272250.0,
+      "collected": 222480.14
+    },
+    {
+      "proc_code": "90837",
+      "description": "PSYTX W PT 60 MINUTES",
+      "charge_count": 712,
+      "unique_patients": 94,
+      "gross": 177780.0,
+      "collected": 148281.24
+    },
+    {
+      "proc_code": "99214",
+      "description": "OFFICE O/P EST MOD 30 MIN",
+      "charge_count": 417,
+      "unique_patients": 146,
+      "gross": 129665.0,
+      "collected": 100412.84
+    },
+    {
+      "proc_code": "90868",
+      "description": "TCRANIAL MAGN STIM TX DELI",
+      "charge_count": 215,
+      "unique_patients": 21,
+      "gross": 114619.25,
+      "collected": 101387.13
+    },
+    {
+      "proc_code": "90833T",
+      "description": "PSYTX W PT W E/M 30 MIN",
+      "charge_count": 369,
+      "unique_patients": 201,
+      "gross": 71385.0,
+      "collected": 61646.21
+    },
+    {
+      "proc_code": "99215T",
+      "description": "OFFICE O/P EST HI 40 MIN",
+      "charge_count": 123,
+      "unique_patients": 70,
+      "gross": 51075.0,
+      "collected": 43620.69
+    },
+    {
+      "proc_code": "99205",
+      "description": "OFFICE O/P NEW HI 60 MIN",
+      "charge_count": 77,
+      "unique_patients": 76,
+      "gross": 45925.0,
+      "collected": 39365.82
+    },
+    {
+      "proc_code": "90833",
+      "description": "PSYTX W PT W E/M 30 MIN",
+      "charge_count": 185,
+      "unique_patients": 80,
+      "gross": 35990.0,
+      "collected": 29953.2
+    },
+    {
+      "proc_code": "99204",
+      "description": "OFFICE O/P NEW MOD 45 MIN",
+      "charge_count": 72,
+      "unique_patients": 72,
+      "gross": 34275.0,
+      "collected": 23540.65
+    },
+    {
+      "proc_code": "S9480T",
+      "description": "INTENSIVE OP PSYC SERVICES PER DIEM",
+      "charge_count": 38,
+      "unique_patients": 5,
+      "gross": 32300.0,
+      "collected": 26792.96
+    },
+    {
+      "proc_code": "99204T",
+      "description": "OFFICE O/P NEW MOD 45 MIN",
+      "charge_count": 47,
+      "unique_patients": 47,
+      "gross": 22370.0,
+      "collected": 16088.97
+    },
+    {
+      "proc_code": "90791",
+      "description": "PSYCH DIAGNOSTIC EVALUATION",
+      "charge_count": 64,
+      "unique_patients": 64,
+      "gross": 22300.0,
+      "collected": 17130.81
+    },
+    {
+      "proc_code": "99205T",
+      "description": "OFFICE O/P NEW HI 60 MIN",
+      "charge_count": 30,
+      "unique_patients": 30,
+      "gross": 17740.0,
+      "collected": 15029.18
+    },
+    {
+      "proc_code": "$CNS02",
+      "description": "NO SHOW - MED MANAGMENT FOLLOW-UP",
+      "charge_count": 144,
+      "unique_patients": 105,
+      "gross": 14400.0,
+      "collected": 7740.0
+    }
+  ]
+}

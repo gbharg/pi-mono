@@ -1,0 +1,282 @@
+{
+  "window": "2026-01-11T00:00:00.000Z to 2026-04-11T00:00:00.000Z",
+  "shaye_ext_id": 63198650008,
+  "daily": {
+    "2026-04-10": {
+      "total_inbound": 83,
+      "to_shaye": 7,
+      "answered": 3,
+      "vm_or_missed": 4
+    },
+    "2026-04-09": {
+      "total_inbound": 83,
+      "to_shaye": 1,
+      "answered": 0,
+      "vm_or_missed": 1
+    },
+    "2026-04-08": {
+      "total_inbound": 82,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-07": {
+      "total_inbound": 78,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-06": {
+      "total_inbound": 65,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-05": {
+      "total_inbound": 1,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-04": {
+      "total_inbound": 2,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-03": {
+      "total_inbound": 40,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-02": {
+      "total_inbound": 76,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-04-01": {
+      "total_inbound": 115,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-31": {
+      "total_inbound": 113,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-30": {
+      "total_inbound": 109,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-29": {
+      "total_inbound": 3,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-28": {
+      "total_inbound": 7,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-27": {
+      "total_inbound": 66,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-26": {
+      "total_inbound": 107,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-25": {
+      "total_inbound": 106,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-24": {
+      "total_inbound": 93,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-23": {
+      "total_inbound": 91,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-21": {
+      "total_inbound": 5,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-20": {
+      "total_inbound": 41,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-19": {
+      "total_inbound": 68,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-18": {
+      "total_inbound": 67,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-17": {
+      "total_inbound": 78,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-16": {
+      "total_inbound": 79,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-15": {
+      "total_inbound": 1,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-14": {
+      "total_inbound": 4,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-13": {
+      "total_inbound": 47,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-12": {
+      "total_inbound": 103,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-11": {
+      "total_inbound": 75,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-10": {
+      "total_inbound": 101,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-09": {
+      "total_inbound": 92,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-08": {
+      "total_inbound": 2,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-07": {
+      "total_inbound": 2,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-06": {
+      "total_inbound": 62,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-05": {
+      "total_inbound": 83,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-04": {
+      "total_inbound": 104,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-03": {
+      "total_inbound": 140,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-02": {
+      "total_inbound": 146,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-03-01": {
+      "total_inbound": 3,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-28": {
+      "total_inbound": 8,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-27": {
+      "total_inbound": 59,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-26": {
+      "total_inbound": 110,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-25": {
+      "total_inbound": 78,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-24": {
+      "total_inbound": 73,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    },
+    "2026-02-23": {
+      "total_inbound": 49,
+      "to_shaye": 0,
+      "answered": 0,
+      "vm_or_missed": 0
+    }
+  }
+}

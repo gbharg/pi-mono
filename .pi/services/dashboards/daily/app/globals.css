@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  font-family:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply bg-neutral-900 border border-neutral-800 rounded-lg p-4;
+  }
+  .card-title {
+    @apply text-[11px] uppercase tracking-wider text-neutral-400 font-medium mb-2;
+  }
+  .kpi-value {
+    @apply text-3xl font-semibold text-neutral-100 tabular-nums;
+  }
+  .kpi-sub {
+    @apply text-xs text-neutral-400 mt-1;
+  }
+}

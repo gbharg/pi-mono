@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-04-11T06:00:40.296727+00:00",
+  "snapshot_date": "2026-04-10",
+  "office": "Exult Healthcare (McKinney, TX) -- office 161112",
+  "source_dir": "/Users/agent/pi-mono/.pi/services/cohort_analysis/raw",
+  "source_files": [
+    "account_types.parquet",
+    "carriers.parquet",
+    "diagnosis_codes.parquet",
+    "facilities.parquet",
+    "financial_classes.parquet",
+    "modifier_codes.parquet",
+    "patients.parquet",
+    "procedure_codes.parquet",
+    "provider_profiles.parquet",
+    "providers.parquet",
+    "referral_sources.parquet",
+    "tx_detail_charges.parquet",
+    "tx_detail_payments.parquet",
+    "tx_summary.parquet",
+    "visits.parquet",
+    "visits_historical.parquet"
+  ],
+  "notes": [
+    "READ-ONLY snapshot. No live API calls.",
+    "PHI REDACTED: aggregate counts only. No patient names, DOB, chart numbers, or addresses.",
+    "Combined visit universe: historical XML backfill (2025-04 to 2026-03) + REST rich pull (2025-05 onwards). Deduplicated by visit_id; REST data wins on overlaps.",
+    "Cohort definition: first visit date within 2025-04-01 .. 2026-03-31, test-seed patients excluded.",
+    "LTV uses lifetime collected payments per patient (tx_summary sum_pat_payments + sum_ins_payments).",
+    "Service-line rollup excludes voided charges. Includes no-show fee codes ($CNS*)."
+  ]
+}

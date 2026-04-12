@@ -1,0 +1,68 @@
+{
+  "written_at": "2026-04-12T12:28:27Z",
+  "source": "bg-monitor(35s)",
+  "counts": {
+    "connected": 13,
+    "failed": 1,
+    "needs_auth": 0,
+    "other": 0
+  },
+  "servers": [
+    {
+      "name": "apple-shortcuts",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "bluebubbles-channel",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Cloudflare Developer Platform",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Gmail",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Google Calendar",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Keragon",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Linear",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Microsoft 365",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Slack",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "claude.ai Vercel",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "craft",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "ghost-os",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "plugin",
+      "state": "\u2713 Connected"
+    },
+    {
+      "name": "plugin",
+      "state": "\u2717 Failed to connect"
+    }
+  ]
+}

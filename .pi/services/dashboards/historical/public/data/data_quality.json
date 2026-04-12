@@ -1,0 +1,39 @@
+{
+  "notes": [
+    {
+      "metric": "Patients without recent visits",
+      "count": 875,
+      "note": "Of 1,952 total patients, these have no scheduled or historical visit. Likely historical / inactive / intake-failures."
+    },
+    {
+      "metric": "Patients missing tx_summary",
+      "count": 210,
+      "note": "tx_summary was pulled only for patients that had visits or charges. Gap between patient roster and financial ledger."
+    },
+    {
+      "metric": "Shell accounts (zero lifetime charges)",
+      "count": 992,
+      "note": "Patients with a chart in AMD but no billed charges ever. Primary cleanup target."
+    },
+    {
+      "metric": "Test / seed patient records",
+      "count": 10,
+      "note": "Records with names like TEST, ZTEST, etc. Excluded from cohort + provider analytics."
+    },
+    {
+      "metric": "Historical visits (XML backfill)",
+      "count": 16050,
+      "note": "From 2025-04 onwards. Lacks no-show status -- historical cancel/noshow is unresolved."
+    },
+    {
+      "metric": "Rich visits (REST pull)",
+      "count": 6023,
+      "note": "Full detail including status, carrier, provider code, telemedicine flag. Covers 2025-05 onwards."
+    },
+    {
+      "metric": "Visit IDs in BOTH sources",
+      "count": 4208,
+      "note": "Deduplicated in the combined view -- rich data takes precedence."
+    }
+  ]
+}
