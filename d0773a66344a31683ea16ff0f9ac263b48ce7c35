@@ -1,0 +1,243 @@
+.pi/services/daily_tracker/rev_rerun_daily.json
+  aa84b2f70ab6fa0f 1-8,12-28,73-79,82-98,101-110,122-128,131-147,151-166,169-185,188-204,207-215,218-236,239-247,261,281,304-310,313-321,325,348,379-392,395-411,414-422,426-433,436-444,447-455,458-474,477-485,489-496,500-501,503,505-508,511-515,518-527,531-538,542-549,553-554,563,565,574,576,585,587,596,598,607,609-615,619-626,629-637,640-648,651-659,662-670,673-683,692,694,705,709,711-719,723-730,733-735,755,757,766,768,776,787,806-807,810-813,816-819,822-825,828-838,842-849,853,947-953,957-964,968-975,978-986,998-1005,1008-1016,1019-1027,1030-1038,1042-1057,1061-1068,1072-1079,1083-1090,1094-1101,1105-1118,1121-1124,1133-1143,1147-1154,1158-1165,1169-1175,1195,1221,1233-1239,1243-1250,1254-1261,1264-1272,1275-1283,1286-1294,1298,1329-1335,1339-1346,1349-1357,1360-1376,1379-1387,1390-1398,1402-1417,1421-1422,1425-1428,1433-1435,1439-1448,1452-1454,1496-1499,1552,1556-1563,1567-1574,1578-1585,1589-1596,1599-1607,1611-1618,1621-1629,1633-1640,1644,1678-1684,1688-1695,1698-1706,1709-1717,1721-1729,1733,1744-1750,1754-1756,1760-1770,1774-1781,1785-1792,1796,1827-1833,1836-1844,1848-1850,1900-1912,1916-1923,1927-1934,1938-1945,1949-1956,1960-1967,1971-1978,1982-1989,1993-2000,2003-2024,2030,2033-2036,2039-2043,2047-2062,2066-2073,2077-2084,2088-2095,2099-2106,2110-2117,2121,2144-2150,2154-2161,2165,2199-2205,2209-2216,2220-2227,2231-2238,2242-2249,2253-2260,2264-2271,2275-2282,2286-2293,2296-2304,2307-2323,2327-2334,2338-2345,2349-2350,2354-2356,2360-2363,2366-2376,2380,2444-2450,2453-2461,2465-2472,2476-2477,2522-2527,2531-2538,2542-2549,2553-2560,2564-2571,2575-2582,2586-2593,2597-2605,2609,2620,2629,2631,2642,2644-2650,2655-2656,2660-2662,2666-2669,2672-2675,2678-2688,2692-2699,2703-2710,2714-2721,2725-2732,2736-2745,2756,2767,2778-2784,2788-2795,2799-2814,2818-2819,2860-2866,2870-2877,2880-2888,2892-2899,2903-2910,2914-2915,2924,2926,2937,2948-2949,2952-2955,2958-2961,2964-2974,2977-2985,2989-2996,2999-3002,3066-3071,3083-3089,3093-3100,3104-3111,3115,3149-3155,3159-3166,3169-3177,3181-3188,3192-3199,3203-3210,3214-3221,3225-3232,3236-3243,3247-3248,3251-3254,3258-3260,3265-3266,3270-3272,3276-3286,3290-3297,3311-3319,3323-3330,3334-3341,3345-3352,3356-3363,3366-3368,3378-3387
+.pi/services/dashboards/daily/app/page.tsx
+  aa84b2f70ab6fa0f 1-166
+.pi/services/dashboards/daily/postcss.config.mjs
+  aa84b2f70ab6fa0f 1-8
+.pi/services/dashboards/historical/public/data/locations.json
+  aa84b2f70ab6fa0f 1-24
+.pi/services/dashboards/daily/app/components/PendingWorkCard.tsx
+  aa84b2f70ab6fa0f 1-53
+.pi/services/daily_tracker/amd_coverage.json
+  aa84b2f70ab6fa0f 1-68
+.pi/services/dashboards/historical/components/Section.tsx
+  aa84b2f70ab6fa0f 1-30
+.pi/services/daily_tracker/write_summary_meta.py
+  aa84b2f70ab6fa0f 1-268
+.pi/services/monitor/panes/mcp_health.sh
+  aa84b2f70ab6fa0f 1-179
+.pi/services/daily_tracker/graph_util.py
+  aa84b2f70ab6fa0f 1-250
+.pi/services/daily_tracker/kpi_schema.py
+  aa84b2f70ab6fa0f 1-68
+.pi/services/dashboards/daily/app/components/SourceHealthBar.tsx
+  aa84b2f70ab6fa0f 1-52
+.pi/services/dashboards/historical/public/data/data_quality.json
+  aa84b2f70ab6fa0f 1-39
+.pi/services/daily_tracker/probe_mailboxes.py
+  aa84b2f70ab6fa0f 1-43
+.pi/services/dashboards/historical/components/KpiTile.tsx
+  aa84b2f70ab6fa0f 1-21
+.pi/services/daily_tracker/rec1_daily.json
+  aa84b2f70ab6fa0f 1-397
+.pi/services/daily_tracker/rerun_rec1.py
+  aa84b2f70ab6fa0f 1-144
+.pi/services/provisioning_audit.md
+  aa84b2f70ab6fa0f 1-437
+.pi/services/daily_tracker/npf2_keypad1_daily.json
+  aa84b2f70ab6fa0f 1-282
+.pi/services/daily_tracker/rc_errors.json
+  aa84b2f70ab6fa0f 1-5
+.pi/services/daily_tracker/rerun_ci.py
+  aa84b2f70ab6fa0f 1-296
+.pi/services/daily_tracker/extract_amd.py
+  aa84b2f70ab6fa0f 1-374
+.pi/services/dashboards/daily/app/api/snapshot/route.ts
+  aa84b2f70ab6fa0f 1-50
+.pi/services/dashboards/historical/public/data/providers.json
+  aa84b2f70ab6fa0f 1-125
+.pi/services/daily_tracker/build_log.md
+  aa84b2f70ab6fa0f 1-110
+.pi/services/dashboards/daily/app/api/login/route.ts
+  aa84b2f70ab6fa0f 1-58
+.pi/services/outlook-channel/package.json
+  aa84b2f70ab6fa0f 1-14
+.pi/services/dashboards/daily/app/api/healthz/route.ts
+  aa84b2f70ab6fa0f 1-11
+.pi/services/outlook-channel/server.ts
+  aa84b2f70ab6fa0f 1-596
+.pi/services/dashboards/historical/package.json
+  aa84b2f70ab6fa0f 1-26
+.pi/services/daily_tracker/npf_rerun_daily.json
+  aa84b2f70ab6fa0f 1-1490
+.pi/services/daily_tracker/build_skeleton.py
+  aa84b2f70ab6fa0f 1-203
+.pi/services/dashboards/daily/app/components/VoicemailCard.tsx
+  aa84b2f70ab6fa0f 1-60
+.pi/services/dashboards/daily/.gitignore
+  aa84b2f70ab6fa0f 1-47
+.pi/services/dashboards/daily/middleware.ts
+  aa84b2f70ab6fa0f 1-62
+.pi/services/dashboards/historical/public/data/kpis.json
+  aa84b2f70ab6fa0f 1-51
+.pi/services/daily_tracker/m365_daily.json
+  aa84b2f70ab6fa0f 1-2581
+.pi/services/monitor/panes/imessage_tail.sh
+  aa84b2f70ab6fa0f 1-75
+.pi/services/daily_tracker/verify_readback.py
+  aa84b2f70ab6fa0f 1-117
+.pi/services/dashboards/historical/components/LtvChart.tsx
+  aa84b2f70ab6fa0f 1-147
+.pi/services/dashboards/daily/app/layout.tsx
+  aa84b2f70ab6fa0f 1-22
+.pi/services/dashboards/historical/app/layout.tsx
+  aa84b2f70ab6fa0f 1-21
+.pi/services/daily_tracker/amd_daily.json
+  aa84b2f70ab6fa0f 1-7225
+.pi/services/dashboards/daily/tsconfig.json
+  aa84b2f70ab6fa0f 1-27
+.pi/services/dashboards/historical/lib/format.ts
+  aa84b2f70ab6fa0f 1-44
+.pi/services/daily_tracker/polish_formatting.py
+  aa84b2f70ab6fa0f 1-201
+.pi/services/dashboards/daily/.eslintrc.json
+  aa84b2f70ab6fa0f 1-3
+.pi/services/daily_tracker/workbook_address.json
+  aa84b2f70ab6fa0f 1-25
+.pi/services/dashboards/daily/app/components/FunnelCard.tsx
+  aa84b2f70ab6fa0f 1-93
+.pi/services/daily_tracker/verification_log.json
+  aa84b2f70ab6fa0f 1-330
+.pi/services/dashboards/historical/vercel_credentials.json
+  aa84b2f70ab6fa0f 1-6
+.pi/services/daily_tracker/rerun_dq.py
+  aa84b2f70ab6fa0f 1-123
+.pi/services/monitor/monitor.sh
+  aa84b2f70ab6fa0f 1-156
+.pi/services/dashboards/historical/app/globals.css
+  aa84b2f70ab6fa0f 1-78
+.pi/services/monitor/panes/agent_presence.sh
+  aa84b2f70ab6fa0f 1-79
+.pi/services/monitor/panes/header.sh
+  aa84b2f70ab6fa0f 1-74
+.pi/services/daily_tracker/extract_m365.py
+  aa84b2f70ab6fa0f 1-174
+.pi/services/monitor/panes/pi_session.sh
+  aa84b2f70ab6fa0f 1-141
+.pi/services/dashboards/daily/app/api/ingest/route.ts
+  aa84b2f70ab6fa0f 1-70
+.pi/services/monitor/status.json
+  aa84b2f70ab6fa0f 1,4,7-10,13,17,37,42-43,53,61
+.pi/services/dashboards/historical/build_data.py
+  aa84b2f70ab6fa0f 1-603
+.pi/services/dashboards/daily/app/components/ScheduleGrid.tsx
+  aa84b2f70ab6fa0f 1-107
+.pi/services/dashboards/historical/public/data/cohort_retention.json
+  aa84b2f70ab6fa0f 1-1013
+.pi/services/dashboards/daily/vercel.json
+  aa84b2f70ab6fa0f 1-15
+.pi/services/daily_tracker/extract_rc.py
+  aa84b2f70ab6fa0f 1-288
+.pi/services/dashboards/historical/app/api/login/route.ts
+  aa84b2f70ab6fa0f 1-44
+.pi/services/daily_tracker/write_cells.py
+  aa84b2f70ab6fa0f 1-189
+.pi/services/dashboards/daily/refresher/com.exult.dashboard-daily-refresh.plist
+  aa84b2f70ab6fa0f 1-36
+.pi/services/dashboards/historical/public/data/meta.json
+  aa84b2f70ab6fa0f 1-32
+.pi/services/dashboards/daily/app/components/PhoneActivityCard.tsx
+  aa84b2f70ab6fa0f 1-94
+.pi/services/daily_tracker/add_visuals.py
+  aa84b2f70ab6fa0f 1-343
+.pi/services/daily_tracker/m365_errors.json
+  aa84b2f70ab6fa0f 1-1827
+.pi/services/dashboards/daily/lib/types.ts
+  aa84b2f70ab6fa0f 1-209
+.pi/services/daily_tracker/rerun_npf.py
+  aa84b2f70ab6fa0f 1-183
+.pi/services/dashboards/daily/refresher/refresher.py
+  aa84b2f70ab6fa0f 1-948
+.pi/services/dashboards/historical/next.config.js
+  aa84b2f70ab6fa0f 1-6
+.pi/services/dashboards/historical/components/CohortHeatmap.tsx
+  aa84b2f70ab6fa0f 1-223
+.pi/services/daily_tracker/rerun_rev.py
+  aa84b2f70ab6fa0f 1-239
+.gitignore
+  aa84b2f70ab6fa0f 14,41-46
+.pi/services/dashboards/historical/next-env.d.ts
+  aa84b2f70ab6fa0f 1-5
+.pi/services/dashboards/daily/app/components/KpiCard.tsx
+  aa84b2f70ab6fa0f 1-25
+.pi/services/dashboards/historical/.gitignore
+  aa84b2f70ab6fa0f 1-6
+.pi/services/dashboards/historical/components/ProviderChart.tsx
+  aa84b2f70ab6fa0f 1-210
+.pi/services/dashboards/historical/public/data/revenue_waterfall.json
+  aa84b2f70ab6fa0f 1-6
+.pi/services/dashboards/historical/app/page.tsx
+  aa84b2f70ab6fa0f 1-239
+.pi/services/daily_tracker/rc_daily.json
+  aa84b2f70ab6fa0f 1-3676
+.pi/services/dashboards/historical/app/login/page.tsx
+  aa84b2f70ab6fa0f 1-49
+.pi/services/dashboards/historical/public/data/cohort_ltv.json
+  aa84b2f70ab6fa0f 1-136
+.pi/services/daily_tracker/ci_daily.json
+  aa84b2f70ab6fa0f 1-1910
+.pi/services/dashboards/daily/package.json
+  aa84b2f70ab6fa0f 1-33
+.pi/services/monitor/README.md
+  aa84b2f70ab6fa0f 1-109
+.pi/services/dashboards/daily/lib/storage.ts
+  aa84b2f70ab6fa0f 1-72
+.pi/services/dashboards/historical/components/ServicesChart.tsx
+  aa84b2f70ab6fa0f 1-209
+.pi/services/dashboards/daily/tailwind.config.ts
+  aa84b2f70ab6fa0f 1-19
+.pi/services/dashboards/historical/tailwind.config.ts
+  aa84b2f70ab6fa0f 1-30
+.pi/services/dashboards/historical/tsconfig.json
+  aa84b2f70ab6fa0f 1-21
+.pi/services/dashboards/historical/components/WaterfallChart.tsx
+  aa84b2f70ab6fa0f 1-117
+.pi/services/dashboards/historical/lib/data.ts
+  aa84b2f70ab6fa0f 1-31
+.pi/services/dashboards/historical/public/data/services.json
+  aa84b2f70ab6fa0f 1-252
+.pi/services/daily_tracker/verify_rerun.py
+  aa84b2f70ab6fa0f 1-81
+.pi/services/dashboards/daily/README.md
+  aa84b2f70ab6fa0f 1-36
+.pi/services/dashboards/daily/app/globals.css
+  aa84b2f70ab6fa0f 1-28
+.pi/services/daily_tracker/rerun_summary.py
+  aa84b2f70ab6fa0f 1-119
+.pi/services/outlook-channel/README.md
+  aa84b2f70ab6fa0f 1-147
+.pi/services/dashboards/historical/components/LocationCompare.tsx
+  aa84b2f70ab6fa0f 1-96
+.pi/services/dashboards/daily/app/login/page.tsx
+  aa84b2f70ab6fa0f 1-81
+.pi/services/dashboards/historical/middleware.ts
+  aa84b2f70ab6fa0f 1-52
+.pi/services/dashboards/daily/next.config.mjs
+  aa84b2f70ab6fa0f 1-4
+.pi/services/dashboards/daily/app/components/RevenueCard.tsx
+  aa84b2f70ab6fa0f 1-48
+.pi/services/dashboards/daily/lib/format.ts
+  aa84b2f70ab6fa0f 1-64
+.pi/services/dashboards/historical/postcss.config.js
+  aa84b2f70ab6fa0f 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "d0773a66344a31683ea16ff0f9ac263b48ce7c35",
+  "prompts": {
+    "aa84b2f70ab6fa0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e22a342e-4908-4553-a829-9489a174ea5a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 16172,
+      "total_deletions": 1327,
+      "accepted_lines": 62281,
+      "overriden_lines": 16
+    }
+  }
+}
