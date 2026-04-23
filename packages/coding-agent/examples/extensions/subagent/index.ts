@@ -436,6 +436,12 @@ const SubagentParams = Type.Object({
 		Type.Boolean({ description: "Prompt before running project-local agents. Default: true.", default: true }),
 	),
 	cwd: Type.Optional(Type.String({ description: "Working directory for the agent process (single mode)" })),
+	background: Type.Optional(
+		Type.Boolean({
+			description: "Run agent in background without waiting for results (single mode only). Default: false.",
+			default: false,
+		}),
+	),
 });
 
 export default function (pi: ExtensionAPI) {
@@ -645,6 +651,80 @@ export default function (pi: ExtensionAPI) {
 			}
 
 			if (params.agent && params.task) {
+				// Background mode: spawn and return immediately
+				if (params.background) {
+					const agent = agents.find((a) => a.name === params.agent);
+					if (!agent) {
+						const available = agents.map((a) => `"${a.name}"`).join(", ") || "none";
+						return {
+							content: [
+								{
+									type: "text",
+									text: `Unknown agent: "${params.agent}". Available agents: ${available}.`,
+								},
+							],
+							details: makeDetails("single")([]),
+							isError: true,
+						};
+					}
+
+					const args: string[] = ["--mode", "json", "-p", "--no-session", "--no-extensions"];
+					if (agent.model) args.push("--model", agent.model);
+					if (agent.tools && agent.tools.length > 0) args.push("--tools", agent.tools.join(","));
+
+					let tmpPromptDir: string | null = null;
+					let tmpPromptPath: string | null = null;
+
+					try {
+						if (agent.systemPrompt.trim()) {
+							const tmp = await writePromptToTempFile(agent.name, agent.systemPrompt);
+							tmpPromptDir = tmp.dir;
+							tmpPromptPath = tmp.filePath;
+							args.push("--append-system-prompt", tmpPromptPath);
+						}
+
+						args.push(`Task: ${params.task}`);
+
+						const invocation = getPiInvocation(args);
+						const proc = spawn(invocation.command, invocation.args, {
+							cwd: params.cwd ?? ctx.cwd,
+							shell: false,
+							stdio: "ignore",
+							detached: true,
+						});
+
+						// Unreference so parent can exit without waiting
+						proc.unref();
+
+						return {
+							content: [
+								{
+									type: "text",
+									text: `Agent "${params.agent}" spawned in background (PID: ${proc.pid})`,
+								},
+							],
+							details: makeDetails("single")([]),
+						};
+					} finally {
+						// Clean up temp files
+						if (tmpPromptPath) {
+							try {
+								fs.unlinkSync(tmpPromptPath);
+							} catch {
+								/* ignore */
+							}
+						}
+						if (tmpPromptDir) {
+							try {
+								fs.rmdirSync(tmpPromptDir);
+							} catch {
+								/* ignore */
+							}
+						}
+					}
+				}
+
+				// Normal mode: wait for result
 				const result = await runSingleAgent(
 					ctx.cwd,
 					agents,

@@ -11,12 +11,7 @@ describe("github normalization", () => {
 				{ requestedReviewer: { slug: "nested-slug" } },
 				{},
 			]),
-		).toEqual([
-			{ login: "flat-login" },
-			{ login: "flat-slug" },
-			{ login: "nested-login" },
-			{ login: "nested-slug" },
-		]);
+		).toEqual([{ login: "flat-login" }, { login: "flat-slug" }, { login: "nested-login" }, { login: "nested-slug" }]);
 	});
 
 	it("normalizes file paths and drops empty entries", () => {

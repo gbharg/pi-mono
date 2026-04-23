@@ -6,7 +6,12 @@ export interface ExecResult {
 	stderr: string;
 }
 
-export function execFileText(command: string, args: string[], cwd?: string, env?: NodeJS.ProcessEnv): Promise<ExecResult> {
+export function execFileText(
+	command: string,
+	args: string[],
+	cwd?: string,
+	env?: NodeJS.ProcessEnv,
+): Promise<ExecResult> {
 	return new Promise((resolve, reject) => {
 		execFile(command, args, { cwd, env }, (error, stdout, stderr) => {
 			const exitCode = extractExecExitCode(error);

@@ -1,7 +1,19 @@
 import type { PullRequestMetadata, ReviewCloudConfig } from "./types.js";
 
 const DEFAULT_IGNORED_PATH_PREFIXES = ["docs/", "plan/"];
-const DEFAULT_NON_CODE_EXTENSIONS = [".md", ".mdx", ".txt", ".rst", ".adoc", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".pdf"];
+const DEFAULT_NON_CODE_EXTENSIONS = [
+	".md",
+	".mdx",
+	".txt",
+	".rst",
+	".adoc",
+	".png",
+	".jpg",
+	".jpeg",
+	".gif",
+	".webp",
+	".pdf",
+];
 
 export interface ReviewScopeDecision {
 	ignored: boolean;
@@ -16,7 +28,9 @@ export function evaluateReviewScope(
 	if (files.length === 0) return { ignored: false };
 
 	const ignoredPathPrefixes = config.ignorePathPrefixes ?? DEFAULT_IGNORED_PATH_PREFIXES;
-	const nonCodeExtensions = (config.nonCodeExtensions ?? DEFAULT_NON_CODE_EXTENSIONS).map((extension) => extension.toLowerCase());
+	const nonCodeExtensions = (config.nonCodeExtensions ?? DEFAULT_NON_CODE_EXTENSIONS).map((extension) =>
+		extension.toLowerCase(),
+	);
 
 	const onlyIgnored = files.every((file) => {
 		const path = file.path.toLowerCase();

@@ -1,8 +1,16 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { delimiter, join } from "node:path";
-import type { PlanContext, PullRequestMetadata, ReviewCloudConfig, ReviewDispatchMode, ReviewModel, RunnerCommandTemplate, UsageCheckResult } from "./types.js";
 import { execFileText, spawnAndWait } from "./process.js";
+import type {
+	PlanContext,
+	PullRequestMetadata,
+	ReviewCloudConfig,
+	ReviewDispatchMode,
+	ReviewModel,
+	RunnerCommandTemplate,
+	UsageCheckResult,
+} from "./types.js";
 
 const MODELS = ["codex", "claude", "gemini"] as const;
 type ModelName = (typeof MODELS)[number];
@@ -119,15 +127,10 @@ export async function dispatchCloudReviews(
 				continue;
 			}
 			const command = interpolateRunnerArgs(template, pr, planContextFile, repo);
-			const exitCode = await spawnAndWait(
-				command.command,
-				command.args,
-				cwd,
-				{
-					...process.env,
-					...command.env,
-				},
-			);
+			const exitCode = await spawnAndWait(command.command, command.args, cwd, {
+				...process.env,
+				...command.env,
+			});
 			summaries.push({ model, exitCode, usagePercent: usageCheck.usagePercent });
 		}
 		return summaries;
@@ -152,12 +155,7 @@ async function checkUsageLimit(
 		...process.env,
 		...command.env,
 	});
-	const result = await execFileText(
-		command.command,
-		command.args,
-		cwd,
-		env,
-	);
+	const result = await execFileText(command.command, command.args, cwd, env);
 	if (result.code !== 0) {
 		return {
 			model,
@@ -270,7 +268,7 @@ function removePathSegment(pathValue: string | undefined, segment: string): stri
 function sanitizeTemplateTitle(title: string): string {
 	return title
 		.replace(/[\r\n\t\0]+/g, " ")
-		.replace(/[^a-zA-Z0-9 .,:/#@+_\-\[\]\(\)]/g, " ")
+		.replace(/[^a-zA-Z0-9 .,:/#@+_\-[\]()]/g, " ")
 		.replace(/\s+/g, " ")
 		.trim();
 }
@@ -291,12 +289,10 @@ function parseCodexBarUsagePercent(stdout: string): number | null {
 }
 
 function containsJsonPayload(stdout: string): boolean {
-	return stdout
-		.split(/\r?\n/)
-		.some((line) => {
-			const trimmed = line.trim();
-			return trimmed.startsWith("{") || trimmed.startsWith("[");
-		});
+	return stdout.split(/\r?\n/).some((line) => {
+		const trimmed = line.trim();
+		return trimmed.startsWith("{") || trimmed.startsWith("[");
+	});
 }
 
 function extractUsagePercent(value: unknown): number | null {
@@ -328,12 +324,7 @@ function asRecord(value: unknown): Record<string, unknown> | null {
 }
 
 function readPercent(value: Record<string, unknown>): number | null {
-	const candidates = [
-		value.usedPercent,
-		value.used_percent,
-		value.usagePercent,
-		value.percent,
-	];
+	const candidates = [value.usedPercent, value.used_percent, value.usagePercent, value.percent];
 	for (const candidate of candidates) {
 		const parsed = parsePercentValue(candidate);
 		if (parsed !== null) return parsed;

@@ -32,7 +32,12 @@ async function main(): Promise<void> {
 	}
 }
 
-async function runCheck(repo: string, prNumber: number | undefined, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
+async function runCheck(
+	repo: string,
+	prNumber: number | undefined,
+	config: ReturnType<typeof loadConfig>,
+	cwd: string,
+): Promise<void> {
 	const resolvedPrNumber = prNumber ?? (await getCurrentPrNumber(cwd, repo));
 	const pr = await fetchPullRequest(resolvedPrNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
@@ -60,7 +65,12 @@ async function runCheck(repo: string, prNumber: number | undefined, config: Retu
 	console.log(`ALLOW merge for PR #${pr.number} (${result.approvals} approvals)`);
 }
 
-async function runDispatch(repo: string, prNumber: number, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
+async function runDispatch(
+	repo: string,
+	prNumber: number,
+	config: ReturnType<typeof loadConfig>,
+	cwd: string,
+): Promise<void> {
 	const pr = await fetchPullRequest(prNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
 	if (scope.ignored) {
