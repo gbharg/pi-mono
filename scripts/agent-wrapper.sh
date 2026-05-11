@@ -724,8 +724,14 @@ PYTHON_SCRIPT
   
   # Execute Python with temp file. Token goes via env (LINEAR_APP_TOKEN_STREAM)
   # so it never appears in argv / process listings. Temp-file cleanup is
-  # handled by the RETURN trap above on normal function return paths.
-  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 "$py_script" "$session_id"
+  # handled by the RETURN trap above (fires on normal/early return; signal
+  # kills are covered by /tmp's OS-level cleanup, not by a trap).
+  #
+  # `python3 -u` forces unbuffered stdin/stdout. Without it, Python
+  # block-buffers stdin reads (~8KB) when fed by a pipe, which would delay
+  # event posts to Linear by minutes when agent output trickles in slowly.
+  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 -u "$py_script" "$session_id"
+
 }
 
 # ============================================================================
@@ -918,7 +924,10 @@ $error_log
     local subject
     subject=$(echo "$msg" | head -n1)
     
-    # Check conventional commit format (type(scope): message or type: message)
+    # Check conventional commit format (type(scope): message or type: message).
+    # Keep this list in sync with scripts/test-agent-wrapper.sh's verifier;
+    # `revert` is included there too.
+
     if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert)(\(.+\))?: .+'; then
       local err_msg="Commit $commit does not follow conventional commit format: $subject"
       error "$err_msg"
@@ -979,19 +988,19 @@ $log_content"
   log "Pushing branch $AGENT_BRANCH"
   git push origin "$AGENT_BRANCH"
   
-  # Push notes. Parallel agents can race on refs/notes/commits, so fetch
-  # and merge the remote notes ref first to avoid non-fast-forward loss of
-  # another agent's audit trail.
+  # Push notes. In parallel mode, multiple agents race on refs/notes/commits;
+  # a bare push would be rejected non-fast-forward for all but the first.
+  # Fetch + merge the remote ref first so concurrent pushes succeed in turn.
   log "Pushing git notes"
-  if git show-ref --verify --quiet refs/notes/commits; then
-    git fetch origin refs/notes/commits:refs/notes/origin-commits 2>/dev/null || true
-    if git show-ref --verify --quiet refs/notes/origin-commits; then
-      git notes merge -s cat_sort refs/notes/origin-commits || log "Warning: failed to merge remote git notes before push"
-    fi
-    git push origin refs/notes/commits || log "Warning: failed to push notes"
-  else
-    log "Warning: no local git notes ref to push"
+  git fetch origin "refs/notes/commits:refs/notes/origin-commits" 2>/dev/null || true
+  if git rev-parse --verify refs/notes/origin-commits >/dev/null 2>&1; then
+    # `git notes merge -s cat_sort_uniq` is the standard non-conflicting
+    # merge strategy for notes — concatenates entries from both refs.
+    git notes merge -s cat_sort_uniq refs/notes/origin-commits 2>/dev/null || \
+      log "Warning: notes merge failed; will attempt push anyway"
   fi
+  git push origin refs/notes/commits || log "Warning: failed to push notes (may not exist or remote moved again)"
+
   
   # Determine PR base based on mode
   local PR_BASE
