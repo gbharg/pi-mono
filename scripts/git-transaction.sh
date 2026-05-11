@@ -300,7 +300,12 @@ git_transaction() {
 
 # If script is sourced, export the function
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
-    export -f git_transaction log log_error log_success log_warning
+    # All helpers must be exported too; otherwise sub-shells that source
+    # this script and call git_transaction would fail at first reference
+    # to remove_from_stashes / stash_ref_for_name / cleanup_stashes.
+    export -f git_transaction \
+              remove_from_stashes stash_ref_for_name cleanup_stashes \
+              log log_error log_success log_warning
     log "git_transaction function loaded"
 fi
 

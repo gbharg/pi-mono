@@ -724,8 +724,13 @@ PYTHON_SCRIPT
   
   # Execute Python with temp file. Token goes via env (LINEAR_APP_TOKEN_STREAM)
   # so it never appears in argv / process listings. Temp-file cleanup is
-  # handled by the RETURN trap above (covers normal return + signals).
-  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 "$py_script" "$session_id"
+  # handled by the RETURN trap above (fires on normal/early return; signal
+  # kills are covered by /tmp's OS-level cleanup, not by a trap).
+  #
+  # `python3 -u` forces unbuffered stdin/stdout. Without it, Python
+  # block-buffers stdin reads (~8KB) when fed by a pipe, which would delay
+  # event posts to Linear by minutes when agent output trickles in slowly.
+  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 -u "$py_script" "$session_id"
 }
 
 # ============================================================================
