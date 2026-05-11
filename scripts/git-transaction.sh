@@ -49,6 +49,11 @@ trap cleanup_stashes EXIT
 # Git transaction function
 # Usage: git_transaction "command1" "command2" "command3" ...
 # Example: git_transaction "git add file.txt" "git commit -m 'message'" "git push"
+#
+# SECURITY: Each argument is executed via `bash -c "$cmd"`, so callers MUST NOT
+# pass strings derived from untrusted input (PR titles, issue bodies, agent
+# output, etc.). Treat this exactly like `bash -c` — only construct command
+# strings from constants and values you control. See PR #8 council review.
 git_transaction() {
     if [ $# -eq 0 ]; then
         log_error "No commands provided to git_transaction"
@@ -96,8 +101,11 @@ git_transaction() {
         ((cmd_num++))
         log "[$cmd_num/$#] Executing: $cmd"
         
+        # bash -c isolates side effects to a subshell (vs `eval` which would
+        # mutate the parent shell). Callers must still treat $cmd as trusted —
+        # see SECURITY note above the function definition.
         set +e
-        eval "$cmd"
+        bash -c "$cmd"
         exit_code=$?
         set -e
         
@@ -114,14 +122,30 @@ git_transaction() {
     # Handle success or failure
     if [ "$failed" = true ]; then
         log_error "Transaction FAILED - initiating rollback"
-        
+
+        # Restore branch first if a transaction command (e.g. `git checkout`)
+        # moved us away from the initial branch. This must happen before the
+        # HEAD reset so the reset targets the right ref.
+        if [ "$initial_branch" != "detached" ]; then
+            local current_branch
+            current_branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "detached")
+            if [ "$current_branch" != "$initial_branch" ]; then
+                log "Restoring branch checkout: ${current_branch} -> ${initial_branch}"
+                if git checkout "$initial_branch" >/dev/null 2>&1; then
+                    log_success "Branch restored to ${initial_branch}"
+                else
+                    log_error "Failed to checkout initial branch ${initial_branch}; manual recovery needed"
+                fi
+            fi
+        fi
+
         # Rollback strategy: reset to initial HEAD
         if [ -n "$initial_head" ]; then
             local current_head=$(git rev-parse HEAD 2>/dev/null || echo "")
-            
+
             if [ "$current_head" != "$initial_head" ]; then
                 log "Rolling back from ${current_head:0:8} to ${initial_head:0:8}"
-                
+
                 # Use reset --hard to undo commits made during transaction
                 if git reset --hard "$initial_head" >/dev/null 2>&1; then
                     log_success "HEAD reset to initial state"
@@ -130,7 +154,7 @@ git_transaction() {
                 fi
             else
                 log "HEAD unchanged, no commit rollback needed"
-                
+
                 # If HEAD didn't change, we might have staged changes to undo
                 if ! git diff --cached --quiet 2>/dev/null; then
                     log "Unstaging changes from failed transaction"
@@ -138,6 +162,12 @@ git_transaction() {
                 fi
             fi
         fi
+
+        # NOTE: Branches, tags, or worktrees CREATED inside the transaction
+        # are not undone — undoing creation requires tracking each ref
+        # written. If your transaction may create refs you want rolled back,
+        # capture them via `git for-each-ref` before/after and clean up
+        # explicitly at the call site.
         
         # Restore original working directory state
         if [ "$stash_created" = true ]; then
@@ -166,23 +196,34 @@ git_transaction() {
     else
         # Success path
         log_success "All commands executed successfully"
-        
-        # Clean up protective stash
+
+        # Restore the caller's pre-existing uncommitted work. Pop (not drop):
+        # the stash holds the user's WIP, not artifacts of this transaction.
+        # Dropping it would silently delete their changes.
         if [ "$stash_created" = true ]; then
             if git stash list | grep -q "$stash_name"; then
-                log "Dropping protective stash (no longer needed)"
-                local stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
+                log "Restoring caller's pre-existing uncommitted changes from protective stash"
+                local stash_index
+                stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
                 local stash_ref="stash@{$((stash_index - 1))}"
-                
-                if git stash drop "$stash_ref" >/dev/null 2>&1; then
-                    log_success "Protective stash cleaned up"
+
+                if git stash pop "$stash_ref" >/dev/null 2>&1; then
+                    log_success "Pre-existing changes restored"
                     TRANSACTION_STASHES=("${TRANSACTION_STASHES[@]/$stash_name}")
                 else
-                    log_warning "Failed to drop stash, but transaction succeeded"
+                    # Most likely cause: merge conflict between stashed work
+                    # and commits the transaction added. Leave the stash in
+                    # place so the user can resolve manually. Also remove from
+                    # TRANSACTION_STASHES so the EXIT-trap cleanup does NOT
+                    # drop it — that would silently delete the caller's work.
+                    log_warning "Failed to pop protective stash — likely a conflict with transaction changes."
+                    log_warning "Your work is preserved at: $stash_ref"
+                    log_warning "Recover with: git stash apply $stash_ref"
+                    TRANSACTION_STASHES=("${TRANSACTION_STASHES[@]/$stash_name}")
                 fi
             fi
         fi
-        
+
         local final_head=$(git rev-parse HEAD 2>/dev/null || echo "")
         log_success "Transaction completed: ${initial_head:0:8} → ${final_head:0:8}"
         return 0

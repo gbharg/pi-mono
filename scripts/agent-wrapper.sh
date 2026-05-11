@@ -139,7 +139,11 @@ linear_api_call() {
       "$LINEAR_API_URL")
     
     http_code=$(echo "$response" | tail -n1)
-    local body=$(echo "$response" | sed '$d')
+    # Declare-then-assign so $? from the subshell is preserved instead of
+    # masked by the always-success `local` builtin (SC2155). Without this,
+    # downstream `if $body | jq ...` checks could see a stale success status.
+    local body
+    body=$(echo "$response" | sed '$d')
     
     if [[ "$http_code" == "200" ]]; then
       # Check for GraphQL errors
@@ -427,9 +431,28 @@ phase_setup() {
     # Parallel mode
     AGENT_BRANCH="feat/$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")/agent-${AGENT_NAME}"
     log "Creating parallel branch: $AGENT_BRANCH from $TASK_BRANCH"
+
+    # Capture the parent repo's path BEFORE creating the worktree so we can
+    # symlink its node_modules into the new worktree below. node_modules is
+    # untracked, so a fresh worktree has no node_modules and any subsequent
+    # `./node_modules/.bin/tsx` invocation would fail.
+    local parent_repo_root
+    parent_repo_root="$(git rev-parse --show-toplevel)"
+
     git branch "$AGENT_BRANCH" "$TASK_BRANCH"
     git worktree add "$WORKTREE_PATH" "$AGENT_BRANCH"
     cd "$WORKTREE_PATH"
+
+    # Link the parent's node_modules into the worktree. The pi command
+    # (./node_modules/.bin/tsx ...) needs this; without it the agent would
+    # fail to launch with "command not found". Read-mostly access is safe
+    # across parallel agents.
+    if [[ -d "$parent_repo_root/node_modules" && ! -e "$WORKTREE_PATH/node_modules" ]]; then
+      ln -s "$parent_repo_root/node_modules" "$WORKTREE_PATH/node_modules"
+      log "Linked node_modules from parent repo into worktree"
+    elif [[ ! -d "$parent_repo_root/node_modules" ]]; then
+      log "WARNING: Parent repo has no node_modules at $parent_repo_root — agent will fail until \`pnpm install\` is run there"
+    fi
   fi
   
   export AGENT_BRANCH
@@ -527,17 +550,23 @@ stall_monitor() {
 # Stream JSON events from pi to Linear activities in real-time
 stream_to_linear() {
   local session_id="$1"
-  
-  # Write Python script to temp file so stdin remains free for pipe data
-  local py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
+
+  # Write Python script to temp file so stdin remains free for pipe data.
+  # Cleanup is registered on RETURN so the file is removed even if the pipe
+  # producer is killed mid-stream (was previously leaked on signal).
+  local py_script
+  py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
+  trap 'rm -f "$py_script"' RETURN
   cat > "$py_script" <<'PYTHON_SCRIPT'
+import os
 import sys
 import json
 import time
 import subprocess
 
 session_id = sys.argv[1]
-linear_app_token = sys.argv[2]
+# Token is passed via env, NOT argv, so it doesn't appear in `ps -ef`.
+linear_app_token = os.environ['LINEAR_APP_TOKEN_STREAM']
 last_post_time = 0
 rate_limit_seconds = 3
 
@@ -684,9 +713,10 @@ for line in sys.stdin:
         pass
 PYTHON_SCRIPT
   
-  # Execute Python with temp file, then clean up
-  python3 "$py_script" "$session_id" "$LINEAR_APP_TOKEN"
-  rm -f "$py_script"
+  # Execute Python with temp file. Token goes via env (LINEAR_APP_TOKEN_STREAM)
+  # so it never appears in argv / process listings. Temp-file cleanup is
+  # handled by the RETURN trap above (covers normal return + signals).
+  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 "$py_script" "$session_id"
 }
 
 # ============================================================================
@@ -738,28 +768,44 @@ phase_execution() {
   
   log "Spawning agent: ${pi_cmd[*]}"
   log "Output tee'd to: $log_file"
-  
-  # Execute agent and capture exit code
+
+  # Run pi via a FIFO so we can capture the AGENT process's real PID.
+  # Previous form ("pi | stream | tee &") set $! to `tee`, so the stall
+  # monitor signaled tee instead of the agent and never killed a stalled run.
   set +e
-  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file" &
+  local fifo
+  fifo=$(mktemp -u "/tmp/agent-stream-${AGENT_SESSION_ID}-XXXXXX")
+  mkfifo "$fifo"
+
+  # Reader side (stream + tee). Runs as a single subshell so we have one PID
+  # to wait on for the consumer half.
+  ( stream_to_linear "$AGENT_SESSION_ID" < "$fifo" | tee "$log_file" ) &
+  local READER_PID=$!
+
+  # Producer: pi (so $! is the real agent PID, not a downstream pipe stage).
+  "${pi_cmd[@]}" >"$fifo" 2>&1 &
   local AGENT_PID=$!
-  
-  # PI-134: Start stall monitor in background
+
+  # PI-134: Start stall monitor against the real agent PID.
   stall_monitor "$AGENT_PID" "$AGENT_SESSION_ID" &
   local STALL_MONITOR_PID=$!
-  
+
   # Wait for agent to complete
   wait "$AGENT_PID"
   AGENT_EXIT_CODE=$?
-  
+
+  # Drain the reader (tee/stream finish naturally when pi closes the fifo).
+  wait "$READER_PID" 2>/dev/null || true
+
   # Kill stall monitor
   kill "$STALL_MONITOR_PID" 2>/dev/null || true
   wait "$STALL_MONITOR_PID" 2>/dev/null || true
-  
+
+  rm -f "$fifo"
   set -e
-  
+
   log "Agent exited with code: $AGENT_EXIT_CODE"
-  
+
   return $AGENT_EXIT_CODE
 }
 
