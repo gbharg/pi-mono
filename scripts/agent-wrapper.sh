@@ -447,6 +447,13 @@ phase_setup() {
     # (./node_modules/.bin/tsx ...) needs this; without it the agent would
     # fail to launch with "command not found". Read-mostly access is safe
     # across parallel agents.
+    #
+    # WARNING: Do NOT run `pnpm install` / `npm install` / `yarn install`
+    # from inside a symlinked worktree, and do NOT run scripts that write
+    # into node_modules (postinstall hooks, patch-package, etc.). The
+    # symlink is shared, so parallel agents would race on the same
+    # directory and corrupt each other's installs. Run install in the
+    # parent repo first if dependencies need to change.
     if [[ -d "$parent_repo_root/node_modules" && ! -e "$WORKTREE_PATH/node_modules" ]]; then
       ln -s "$parent_repo_root/node_modules" "$WORKTREE_PATH/node_modules"
       log "Linked node_modules from parent repo into worktree"
@@ -552,8 +559,10 @@ stream_to_linear() {
   local session_id="$1"
 
   # Write Python script to temp file so stdin remains free for pipe data.
-  # Cleanup is registered on RETURN so the file is removed even if the pipe
-  # producer is killed mid-stream (was previously leaked on signal).
+  # RETURN traps fire when the function returns (normal return + early
+  # return paths); they do NOT fire on signal kills (only EXIT traps do).
+  # Impact is bounded: temp files live under /tmp and OS cleanup catches
+  # what the trap misses on hard kills.
   local py_script
   py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
   trap 'rm -f "$py_script"' RETURN

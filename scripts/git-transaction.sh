@@ -31,11 +31,34 @@ log_warning() {
 # Cleanup handler to ensure stashes are never orphaned
 declare -a TRANSACTION_STASHES=()
 
+# Remove $1 from TRANSACTION_STASHES, rebuilding the array without empty
+# entries. The bash pattern-substitution form `${arr[@]/$x}` REPLACES the
+# match with an empty string rather than removing the element — empty
+# entries then make `grep -q ""` match every line in `git stash list`,
+# which would silently drop unrelated user stashes. Always go through
+# this helper instead of `${arr[@]/$x}`.
+remove_from_stashes() {
+    local target="$1"
+    local rebuilt=()
+    local s
+    for s in "${TRANSACTION_STASHES[@]}"; do
+        [[ -n "$s" && "$s" != "$target" ]] && rebuilt+=("$s")
+    done
+    TRANSACTION_STASHES=("${rebuilt[@]}")
+}
+
 cleanup_stashes() {
+    local stash_name
     for stash_name in "${TRANSACTION_STASHES[@]}"; do
+        # Defensive empty-string guard. With the array filter above this
+        # should be unreachable, but `grep -q ""` would match the first
+        # `git stash list` line and drop an unrelated stash if it ever
+        # slipped through, so keep the check.
+        [ -z "$stash_name" ] && continue
         if git stash list | grep -q "$stash_name"; then
             log_warning "Cleaning up orphaned stash: $stash_name"
-            local stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
+            local stash_index
+            stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
             if [ -n "$stash_index" ]; then
                 local stash_ref="stash@{$((stash_index - 1))}"
                 git stash drop "$stash_ref" 2>/dev/null || true
@@ -44,7 +67,21 @@ cleanup_stashes() {
     done
 }
 
-trap cleanup_stashes EXIT
+# Install our EXIT trap, chaining onto any trap the caller already has.
+# When this script is sourced into a shell session that already has its
+# own EXIT trap, a bare `trap cleanup_stashes EXIT` would clobber theirs.
+__install_cleanup_trap() {
+    local existing
+    existing=$(trap -p EXIT 2>/dev/null | sed -E "s/^trap -- '//; s/' EXIT$//")
+    if [ -n "$existing" ]; then
+        # shellcheck disable=SC2064  # We want $existing expanded NOW so the
+        # caller's trap text is captured into our trap definition.
+        trap "cleanup_stashes; ${existing}" EXIT
+    else
+        trap cleanup_stashes EXIT
+    fi
+}
+__install_cleanup_trap
 
 # Git transaction function
 # Usage: git_transaction "command1" "command2" "command3" ...
@@ -54,6 +91,18 @@ trap cleanup_stashes EXIT
 # pass strings derived from untrusted input (PR titles, issue bodies, agent
 # output, etc.). Treat this exactly like `bash -c` — only construct command
 # strings from constants and values you control. See PR #8 council review.
+#
+# ISOLATION: Each command runs in its own `bash -c` subprocess. This means
+# shell functions defined in the caller (`my_helper arg`) and cross-command
+# state changes (`cd`, variable exports) DO NOT propagate between commands.
+# If you need shared state across steps, pre-compute it before calling
+# git_transaction and embed the resolved values into each command string.
+#
+# ROLLBACK SCOPE: Local mutations (commits, staged changes, branch checkout)
+# are rolled back. REMOTE-mutating commands (`git push`, PR creation, tag
+# pushes) CANNOT be rolled back — once pushed, the remote keeps the change
+# even if a later step fails. Always put push as the LAST command so a
+# failure can't leave the remote ahead of local rollback.
 git_transaction() {
     if [ $# -eq 0 ]; then
         log_error "No commands provided to git_transaction"
@@ -61,11 +110,11 @@ git_transaction() {
         return 1
     fi
 
-    local stash_name="git-transaction-$$-$(date +%s)"
+    local stash_name
+    stash_name="git-transaction-$$-$(date +%s)"
     local stash_created=false
     local initial_head=""
     local initial_branch=""
-    local has_uncommitted_changes=false
     
     # Capture initial state
     initial_head=$(git rev-parse HEAD 2>/dev/null || echo "")
@@ -76,7 +125,6 @@ git_transaction() {
     
     # Check for uncommitted changes to protect them
     if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
-        has_uncommitted_changes=true
         log "Detected uncommitted changes, creating protective stash"
         
         if git stash push -u -m "$stash_name" >/dev/null 2>&1; then
@@ -141,7 +189,8 @@ git_transaction() {
 
         # Rollback strategy: reset to initial HEAD
         if [ -n "$initial_head" ]; then
-            local current_head=$(git rev-parse HEAD 2>/dev/null || echo "")
+            local current_head
+            current_head=$(git rev-parse HEAD 2>/dev/null || echo "")
 
             if [ "$current_head" != "$initial_head" ]; then
                 log "Rolling back from ${current_head:0:8} to ${initial_head:0:8}"
@@ -174,22 +223,26 @@ git_transaction() {
             log "Restoring original working directory state"
             
             if git stash list | grep -q "$stash_name"; then
-                local stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
+                local stash_index
+                stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
                 local stash_ref="stash@{$((stash_index - 1))}"
-                
+
                 if git stash pop "$stash_ref" >/dev/null 2>&1; then
                     log_success "Original changes restored"
-                    # Remove from cleanup list since it was successfully popped
-                    TRANSACTION_STASHES=("${TRANSACTION_STASHES[@]/$stash_name}")
+                    # Properly remove from cleanup list (NOT pattern-substitution).
+                    remove_from_stashes "$stash_name"
                 else
                     log_error "Failed to automatically restore stash"
                     log_warning "Manual recovery needed: git stash apply $stash_ref"
+                    # Stash kept for the caller; remove from cleanup list so the
+                    # EXIT trap doesn't drop it.
+                    remove_from_stashes "$stash_name"
                 fi
             else
                 log_warning "Stash not found (may have been auto-applied)"
             fi
         fi
-        
+
         log_error "Transaction rolled back - failed at: $failure_cmd"
         return 1
         
@@ -209,7 +262,7 @@ git_transaction() {
 
                 if git stash pop "$stash_ref" >/dev/null 2>&1; then
                     log_success "Pre-existing changes restored"
-                    TRANSACTION_STASHES=("${TRANSACTION_STASHES[@]/$stash_name}")
+                    remove_from_stashes "$stash_name"
                 else
                     # Most likely cause: merge conflict between stashed work
                     # and commits the transaction added. Leave the stash in
@@ -219,12 +272,13 @@ git_transaction() {
                     log_warning "Failed to pop protective stash — likely a conflict with transaction changes."
                     log_warning "Your work is preserved at: $stash_ref"
                     log_warning "Recover with: git stash apply $stash_ref"
-                    TRANSACTION_STASHES=("${TRANSACTION_STASHES[@]/$stash_name}")
+                    remove_from_stashes "$stash_name"
                 fi
             fi
         fi
 
-        local final_head=$(git rev-parse HEAD 2>/dev/null || echo "")
+        local final_head
+        final_head=$(git rev-parse HEAD 2>/dev/null || echo "")
         log_success "Transaction completed: ${initial_head:0:8} → ${final_head:0:8}"
         return 0
     fi
