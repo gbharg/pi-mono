@@ -1,0 +1,21 @@
+scripts/git-transaction.sh
+  s_4487096af0f6cc::t_13362b091bd166 303-308
+scripts/agent-wrapper.sh
+  s_4487096af0f6cc::t_db6342bd44eeb5 727-733
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "48a6a46b666c7bcdc60d236cd2f59ea53a181e1a",
+  "prompts": {},
+  "sessions": {
+    "s_4487096af0f6cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec529c65-458b-4a42-b4bc-a604f6733a84",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
