@@ -1,0 +1,46 @@
+.pi/services/rc_call_analytics_2026-04-14.md
+  aa84b2f70ab6fa0f 1-321
+.pi/services/exult_linear_execution_plan.md
+  aa84b2f70ab6fa0f 1-180
+.pi/services/twilio_baa/build_log.md
+  aa84b2f70ab6fa0f 1-182
+.pi/services/rippling-provisioning-plan.md
+  f4c3f864fb65fe82 1-84
+.pi/services/daily_kpi_report_proposal.md
+  aa84b2f70ab6fa0f 1-631
+.pi/services/email_cost_comparison.md
+  aa84b2f70ab6fa0f 1-538
+.pi/services/amd_appointment_status_codes.md
+  f4c3f864fb65fe82 1-43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "e9d4b4941c5e0b252dbaabd24925f6b8263c76f6",
+  "prompts": {
+    "aa84b2f70ab6fa0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e22a342e-4908-4553-a829-9489a174ea5a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 29739,
+      "overriden_lines": 95
+    },
+    "f4c3f864fb65fe82": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d67aa699-29cd-45e5-95e9-9188cd451a35",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>",
+      "total_additions": 127,
+      "total_deletions": 0,
+      "accepted_lines": 127,
+      "overriden_lines": 0
+    }
+  }
+}
