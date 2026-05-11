@@ -1,0 +1,575 @@
+.pi/extensions/guard.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-26
+.pi/services/amd/amd-api-docs/raw/Content_Upload_Document.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-207
+packages/gbharg-auto-review/src/plan-context.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-58
+.pi/services/amd/amd-api-docs/raw/Content_file_chart_introduction.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-205
+packages/gbharg-auto-review/test/github.test.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-46
+.pi/services/amd/API_REFERENCE.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-282
+.pi/services/amd/amd-api-docs/raw/Content_Cancel_Appointment.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-225
+.pi/services/amd/amd-api-docs/raw/Content_addrespparty.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-167
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedproviders.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+.pi/extensions/usage-reset-notifier.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-303
+packages/gbharg-auto-review/test/scope.test.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-43
+.pi/services/amd/amd-api-docs/raw/Content_Upload_Bank_File.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_Get_Updated_EHR_Lab_Results.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_intake-setup.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-177
+.pi/services/amd/amd-api-docs/raw/Content_Update_Appointment_Reasons_For_Provider_Type.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-220
+.pi/services/amd/amd-api-docs/raw/Content_Documentation_Notes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-175
+.pi/services/amd/amd-api-docs/raw/Content_Update_Appointment_Reason.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-220
+packages/gbharg-auto-review/tsconfig.build.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-9
+.pi/services/amd/amd-api-docs/raw/Content_rollbackrevision.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-271
+.pi/services/FRONT_OFFICE_DAILY_SUMMARY.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-149
+.pi/services/amd/amd-api-docs/raw/Content_getehrimmunizations.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+.pi/services/amd/amd-api-docs/raw/Content_Custom_Tab_Request.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_selectuserfiletemplates.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-190
+.pi/services/amd/amd-api-docs/raw/Content_Update_Custom_Tab.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+.pi/services/amd/q1_raw/getupdatedreferringproviders_summary.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-7
+packages/gbharg-auto-review/test/runner.test.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-132
+.pi/services/amd/amd-api-docs/raw/Content_updateehrhwplans.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-197
+.pi/services/amd/amd-api-docs/raw/Content_getdiskusage.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-697
+.pi/services/amd/amd-api-docs/raw/Content_Scheduler_Block_and_Hold_Actions.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-203
+.pi/services/amd/amd-api-docs/raw/Content_Get_Responsible_Party_Payment_Plan.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-181
+.pi/services/amd/amd-api-docs/raw/Content_getchargedetaildata.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/amd-api-docs/raw/Content_getehrtemplates.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_Adding_and_Updating_Insurance_Coverages.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-268
+.pi/services/amd/amd-api-docs/raw/Content_getehrallergies.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+.pi/services/amd/amd-api-docs/raw/Content_intake-updaterecord.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-177
+.pi/services/amd/amd-api-docs/raw/Content_Streamed_vs._Non-Streamed_Requests.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-217
+.pi/services/amd/amd-api-docs/raw/Content_getappttypes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-174
+.pi/services/r2-media-worker/wrangler.toml
+  s_4487096af0f6cc::t_12f98273d779d1 1-12
+.pi/services/MORNING_REPORT_AMD_ADMIN_ADDENDUM.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-175
+packages/gbharg-auto-review/src/types.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-100
+.pi/services/amd/amd-api-docs/crawl_manifest.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-1514
+.pi/services/amd/amd-api-docs/raw/Content_Get_Patient_Transaction_History_Details.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/services/amd/amd-api-docs/raw/Content_getehrhwplanstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_lookupfacility.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/amd-api-docs/raw/Content_Payment_Notes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-338
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedvisitstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-190
+.pi/services/amd/amd-api-docs/raw/Content_Add_Write_Offs.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-182
+.pi/services/amd/amd-api-docs/raw/Content_Save_Referring_Providers.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-170
+.pi/services/amd/amd-api-docs/raw/Content_Hard_Coded_Values.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-7975
+.pi/services/amd/amd-api-docs/raw/Content_addpatient.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-277
+.pi/services/amd/amd-api-docs/raw/Content_selectpatientnotes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-208
+.pi/services/amd/amd-api-docs/raw/Content_Get_Allergy_Reaction_List.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-166
+.pi/services/amd/amd-api-docs/raw/Content_getpatientvisits.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-209
+.pi/services/amd/amd-api-docs/raw/Content_getehrhwplans.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-197
+.pi/HASHLINE_INSTALL_VERIFY.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-101
+.pi/services/amd/amd-api-docs/raw/Content_Look_Up_Management_Services_Office_Class.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-199
+.pi/services/amd/amd-api-docs/raw/Content_Payment_Checks.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-308
+.pi/services/data/q1_2026/index.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-87
+.pi/services/amd/amd-api-docs/raw/Content_Update_Patient_Preferences.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-168
+.pi/services/amd/amd-api-docs/raw/Content_copyfile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-337
+.pi/services/amd/amd-api-docs/raw/Content_Get_Additional_Demographics.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-174
+.pi/services/amd/amd-api-docs/raw/Content_getfilelist.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-854
+.pi/services/amd/amd-api-docs/raw/Content_Introduction.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-134
+.pi/services/amd/amd-api-docs/raw/Content_URL_Construction.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-212
+.pi/services/amd/amd-api-docs/raw/Content_updatedownloadstatus.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-582
+.pi/services/amd/amd-api-docs/raw/Content_Complete_Field_Lists.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-1369
+.pi/services/amd/amd-api-docs/raw/Content_updatepatient.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-369
+.pi/extensions/x-reader.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-276
+.pi/services/amd/amd-api-docs/raw/Content_Payment_Processing_Accounts.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-354
+.pi/services/amd/amd-api-docs/raw/Content_getehrnotesbyvisit.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+packages/gbharg-auto-review/src/process.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-41
+packages/gbharg-auto-review/src/runner.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-353
+.pi/services/amd/amd-api-docs/raw/Content_getcustomdata.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-197
+.pi/services/amd/amd-api-docs/raw/Content_getehrlabresults.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+.pi/services/amd/amd-api-docs/raw/Content_JSON_Format.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-187
+.pi/services/amd/amd-api-docs/raw/Content_updatememo.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_AdvancedMD_Error_Codes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-2006
+.pi/services/Q1_2026_FULL_REPORT.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-249
+.pi/extensions/plan-mode/README.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-65
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedvisits.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-259
+.pi/services/amd/amd-api-docs/raw/Content_Get_Allergy_Category.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-167
+.pi/services/amd/amd-api-docs/raw/Content_intake-createrecord-put.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-183
+.pi/services/amd/amd-api-docs/raw/Content_XML_Format.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-146
+.pi/services/amd/amd-api-docs/raw/Content_DocumentPostRequest.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-302
+.pi/services/amd/amd-api-docs/raw/Content_getehrtemplatestemplates.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/q1_raw/xmlrpc_action_probe_results.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-51
+heartbeat-test.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-31
+.pi/services/amd/amd-api-docs/raw/Content_getehrproblems.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+.pi/services/amd/amd-api-docs/raw/Content_lookuprespparty.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_lookupproccode.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-165
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedreferringproviders.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-190
+.pi/services/FRONT_OFFICE_ANALYSIS.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-207
+.pi/services/amd/amd-api-docs/raw/Content_Search_Patient_Resp_Party_or_Master_File.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-736
+.pi/services/amd/amd-api-docs/raw/Content_addehrproblem.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-218
+.pi/services/amd/amd-api-docs/raw/Content_Get_Clinical_Note_by_ID.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-196
+.pi/services/amd/amd-api-docs/raw/Content_getraceethnicitylists.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-175
+.pi/services/exult/rc-endpoints.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-91
+.pi/services/amd/amd-api-docs/raw/Content_Patient_Portal_Account.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-205
+.pi/services/amd/amd-api-docs/raw/Content_Uploading_Files_to_the_Patient_Chart_Files.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_SMS_Consent.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-444
+.pi/services/amd/amd-api-docs/raw/Content_Get_List_of_Clinical_Notes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-183
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedpatientstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_Get_List_of_Documents.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+.pi/services/amd/amd-api-docs/raw/Content_Get_External_Block.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-169
+packages/gbharg-auto-review/src/repo.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-16
+.pi/services/amd/amd-api-docs/raw/Content_Get_Patient_Portal_Account.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-196
+.pi/services/amd/amd-api-docs/raw/Content_lookupfinclass.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-164
+.pi/services/amd/amd-api-docs/raw/Content_Insert_Action_History.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/services/amd/amd-api-docs/raw/Content_Save_Patient_Portal_Account.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-216
+scripts/agent-wrapper.sh
+  ai_agent 470,474,479-481,522-524,529-532,772-777,780-784
+.pi/services/exult/rc-call-log-2026-q1.csv
+  s_4487096af0f6cc::t_12f98273d779d1 1-95
+.pi/services/amd/amd-api-docs/raw/Content_Get_Clinical_Note_Header_by_Id.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+.pi/services/amd/amd-api-docs/raw/Content_Get_Provider_Types_for_Intake_Provider_Setup.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-174
+.pi/services/amd/amd-api-docs/raw/Content_lookuprefprovider.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_getfieldsets.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+packages/gbharg-auto-review/vitest.config.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-9
+.pi/services/amd/amd-api-docs/raw/Content_Login_and_Re-Direct_Process.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-237
+.pi/services/amd/API_DOCUMENTATION.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-386
+.pi/services/amd/amd-api-docs/raw/Content_getpatientpharmacy.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-166
+packages/gbharg-auto-review/README.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-132
+.pi/services/amd/amd-api-docs/raw/Content_Get_Responsible_Party_Self.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-199
+packages/gbharg-auto-review/src/config.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-133
+.pi/services/r2-media-worker/package.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-9
+.pi/services/amd/amd-api-docs/raw/Content_getehrupdatednotes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+.pi/services/amd/amd-api-docs/raw/Content_Look_Up_Collector.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/services/amd/amd-api-docs/raw/Content_Update_and_Get_Patient_Consent_Status.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-167
+.pi/services/amd/amd-api-docs/raw/Content_Update_Status_of_Intake_Record.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-183
+.pi/services/amd/amd-api-docs/raw/Content_Audit.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-176
+.pi/services/amd/amd-api-docs/raw/Content_Get_Account_Detail.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/services/front_office_raw.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-1271
+.pi/services/amd/q1_raw/getreminderappts_aggregate.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-130
+.pi/settings.json
+  s_4487096af0f6cc::t_12f98273d779d1 4-7
+.pi/services/amd/amd-api-docs/raw/Content_getehrccdadata.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-186
+.pi/services/amd/amd-api-docs/raw/Content_addreferringprovider.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-187
+.pi/services/amd/amd-api-docs/raw/Content_Auto_Assign_Forms.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/data/q1_2026/README.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-64
+.pi/auto-review.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-21
+.pi/services/amd/api_reference.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-524
+.pi/services/MORNING_REPORT_SUPPLEMENT.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-257
+packages/gbharg-auto-review/src/scope.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-42
+.pi/services/amd/amd-api-docs/raw/Content_Mass_Rebill.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-475
+.pi/services/amd/amd-api-docs/raw/Content_Save_Appointment_Reason.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-200
+.pi/extensions/auto-review.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-3
+.pi/services/amd/amd-api-docs/raw/Content_Create_External_Block.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-180
+.pi/services/amd/amd-api-docs/raw/Content_Confirm_Appointment_Not_Booked.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+packages/gbharg-auto-review/src/policy.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-73
+.pi/services/amd/amd-api-docs/raw/Content_deletefile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-415
+.pi/services/amd/amd-api-docs/raw/Content_lookupdiagcode.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-188
+.pi/services/amd/amd-api-docs/raw/Content_Columns_Openings.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_savepatientnotes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-205
+.pi/services/amd/amd-api-docs/raw/Content_getehrmedicationstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-190
+.pi/services/amd/amd-api-docs/raw/Content_getehrccdadocument.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-185
+.pi/services/amd/amd-api-docs/raw/Content_updateehrproblem.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-217
+.pi/services/amd/amd-api-docs/raw/Content_Get_Claim_Status.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-171
+.pi/services/exult/graph-endpoints.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-116
+.pi/services/amd/amd-api-docs/raw/Content_selectdiagnosiscodes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-245
+.pi/services/amd/amd-api-docs/raw/Content_saveehrccdadata.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-181
+.pi/services/amd/amd-api-docs/raw/Content_Uploading_Files_to_Chart.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-196
+.pi/services/amd/api_documentation.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-4686
+.pi/services/amd/amd-api-docs/raw/Content_getworklisttotals.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/services/amd/amd-api-docs/raw/Content_Post_Received_Reports.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-525
+.pi/services/amd/amd-api-docs/raw/Content_Get_Patient_Preferences.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-169
+.pi/services/exult/DAILY_BASELINE_NON_AMD.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-313
+.pi/services/amd/amd-api-docs/raw/Content_addehrhwplans.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-196
+.pi/services/amd/amd-api-docs/raw/Content_Update_Marketing_Referral_(Save).htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-210
+.pi/services/amd/amd-api-docs/raw/Content_getepisodes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-165
+.pi/services/amd/DAILY_BASELINE.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-141
+.pi/services/amd/q1_hidden_visits_analysis.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-65
+.pi/services/r2-media-worker/deploy.sh
+  s_4487096af0f6cc::t_12f98273d779d1 1-26
+.pi/services/amd/amd-api-docs/raw/Content_Add_Insurance_Image.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/amd-api-docs/raw/Content_updatefilestatus.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-474
+.pi/services/amd/amd-api-docs/raw/Content_getreminderrecallvisits.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-201
+.pi/services/amd/amd-api-docs/raw/Content_lookupmarstatus.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+packages/gbharg-auto-review/src/cli.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+.pi/services/amd/amd-api-docs/raw/Content_Payment_Codes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-283
+.pi/services/amd/amd-api-docs/raw/Content_lookupaccttype.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-173
+.pi/services/amd/amd-api-docs/raw/Content_getworklist.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+.pi/extensions/plan-mode/index.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-340
+.pi/services/amd/amd-api-docs/raw/Content_getdemographic-demographics.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-250
+.pi/services/amd/amd-api-docs/raw/Content_getehrprofiles.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_lookupgroup.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-211
+.pi/services/amd/amd-api-docs/raw/Content_Save_Reconciliation.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_Create_and_Update_Responsible_Party_Payment_Plan.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-172
+.pi/services/amd/amd-api-docs/raw/Content_lookupmarsource.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_Add_Payment_Plan.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-170
+.pi/services/amd/amd-api-docs/raw/Content_Payment_Reasons.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-277
+.pi/services/amd/amd-api-docs/raw/Content_revisefile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-839
+.pi/services/amd/amd-api-docs/raw/Content_savememo.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-173
+.pi/services/amd/amd-api-docs/raw/Content_Posting_Messages.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-172
+.pi/services/amd/amd-api-docs/raw/Content_Look_Up_Patient.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-197
+.pi/services/amd/amd-api-docs/raw/Content_getehrlabresultstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_Get_Auto_Match_Details.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_updatefile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-1066
+.pi/services/MORNING_REPORT_2026-04-05.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-640
+packages/gbharg-auto-review/src/github.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-226
+.pi/services/amd/amd-api-docs/raw/Content_lookupcarrier.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+.pi/services/amd/amd-api-docs/raw/Content_addvisit.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-195
+.pi/services/amd/amd-api-docs/raw/Content_C-CDA_EHR_Actions.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-279
+.pi/services/amd/amd-api-docs/raw/Content_Get_Clinician_Profile_Picture.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-326
+.pi/services/amd/amd-api-docs/raw/Content_intake-getpaged.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-177
+.pi/services/amd/amd-api-docs/raw/Content_Get_Invitation_URL.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-187
+packages/gbharg-auto-review/src/index.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-205
+.pi/services/amd/amd-api-docs/raw/Content_DocumentPostResponse.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-183
+.pi/services/amd/amd-api-docs/raw/Content_addpayments.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-164
+.pi/services/amd/amd-api-docs/raw/Content_lookupprofile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-171
+.pi/services/amd/amd-api-docs/raw/Content_Add_Inbound_Referral.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-165
+packages/gbharg-auto-review/test/policy.test.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-119
+.pi/services/amd/amd-api-docs/raw/Content_Algorithms.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-201
+.pi/services/amd/amd-api-docs/raw/Content_POST_Paths.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-357
+.pi/services/amd/amd-api-docs/raw/Content_Add_Patient_Allergy.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-186
+.pi/services/amd/amd-api-docs/raw/Content_Delete_External_Block.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-163
+.pi/services/amd/amd-api-docs/raw/Content_saveehrccdadocument.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-180
+.pi/services/amd/amd-api-docs/raw/Content_Get_All_Appointment_Reasons_by_Provider_ID.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-170
+.pi/services/amd/amd-api-docs/raw/Content_getfile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-441
+.pi/services/amd/amd-api-docs/raw/Content_Payments.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-327
+.pi/services/amd/amd-api-docs/raw/Content_getdatevisits.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_selectcustomclaimfields.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/amd-api-docs/raw/Content_Whats_New.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-360
+initial-thought-test.md
+  s_4487096af0f6cc::t_12f98273d779d1 1
+.pi/services/amd/amd-api-docs/raw/Content_Batching.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-159
+.pi/services/amd/amd-api-docs/raw/Content_Get_Scheduler_Setup.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-173
+.pi/services/amd/amd-api-docs/raw/Content_Get_Appointments.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-164
+.pi/services/amd/amd-api-docs/raw/Content_Lookup_Actions.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-786
+.pi/services/amd/amd-api-docs/raw/Content_updaterefprovider.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-821
+.pi/services/amd/amd-api-docs/raw/Content_getehrnotestemplate02.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+packages/gbharg-auto-review/package.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-64
+.pi/services/amd/amd-api-docs/raw/Content_Lookup_Patient_Portal_Account.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-200
+.pi/services/amd/amd-api-docs/raw/Content_Get_Allergy_Severity_List.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-166
+.pi/services/amd/amd-api-docs/raw/Content_getclaimsreport.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-211
+.pi/services/amd/amd-api-docs/raw/Content_getreminderappts.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-203
+.pi/services/amd/amd-api-docs/raw/Content_Add_Marketing_Referral_(Save).htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-214
+.pi/services/amd/amd-api-docs/raw/Content_updvisitwithnewcharges.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-231
+.pi/services/amd/amd-api-docs/raw/Content_savepatientpharmacy.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-179
+.pi/services/amd/amd-api-docs/raw/Content_getrespparty.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-171
+.pi/services/amd/amd-api-docs/raw/Content_addehrnote.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-426
+.pi/services/amd/amd-api-docs/raw/Content_Update_Responsible_Party.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-168
+.pi/services/amd/amd-api-docs/raw/Content_addehrnotebyvisit.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_getreminderpatientbirthdays.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-201
+.pi/services/amd/amd-api-docs/raw/Content_Get_Visits_By_ID.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-214
+.pi/services/amd/amd-api-docs/raw/Content_Upload_Files_EHR.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-174
+.pi/extensions/plan-mode/utils.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-168
+.pi/services/amd/amd-api-docs/raw/Content_Get_List_of_Patient_Portal_Accounts.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-198
+.pi/services/amd/amd-api-docs/raw/Content_newappointment.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-257
+.pi/services/amd/amd-api-docs/raw/Content_uploadfile.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-3457
+.pi/services/amd/amd-api-docs/raw/Content_Charge_Rebill.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-331
+.pi/services/amd/amd-api-docs/raw/Content_EHR_APIs.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-235
+.pi/services/r2-media-worker/src/worker.js
+  s_4487096af0f6cc::t_12f98273d779d1 1-121
+.pi/services/amd/amd-api-docs/raw/Content_Send_Patient_Portal_Account_Invite.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-203
+.pi/services/amd/q1_verification_summary.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-76
+.pi/services/data/q1_2026/.gitignore
+  s_4487096af0f6cc::t_12f98273d779d1 1-8
+.pi/services/amd/amd-api-docs/raw/Content_getrevisionlist.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-830
+.pi/services/amd/amd-api-docs/raw/Content_gettxhistory.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-212
+.pi/services/amd/amd-api-docs/raw/Content_lookupprovider.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedproviderstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-192
+.pi/services/amd/amd-api-docs/raw/Content_getrevision.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-410
+.pi/services/amd/amd-api-docs/raw/Content_Get_Accounts_for_the_Collector.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-162
+packages/gbharg-auto-review/test/plan-context.test.ts
+  s_4487096af0f6cc::t_12f98273d779d1 1-42
+.pi/services/amd/amd-api-docs/raw/Content_intake-declineallbyid.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-176
+.pi/services/amd/FTE_WORKFLOW_ANALYSIS.md
+  s_4487096af0f6cc::t_12f98273d779d1 1-202
+.pi/services/amd/amd-api-docs/raw/Content_Requirements_and_Usage_Restrictions.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-212
+.pi/services/amd/amd-api-docs/raw/Content_System_Defaults_Requests.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-217
+.pi/services/amd/amd-api-docs/raw/Content_Get_Visit_ID_by_Reference_ID.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-210
+.pi/services/amd/amd-api-docs/raw/Content_lookupmodcode.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-164
+.pi/services/amd/amd-api-docs/raw/Content_getehrmedications.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-194
+.pi/services/amd/amd-api-docs/raw/Content_savecharges.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-323
+.pi/services/amd/amd-api-docs/raw/Content_getdemographic-api.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-189
+.pi/services/amd/amd-api-docs/raw/Content_intake-createrecord-post.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-185
+.pi/services/amd/amd-api-docs/raw/Content_getehrnotestemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+.pi/services/amd/amd-api-docs/raw/Content_Get_Document_by_Id.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-187
+.pi/services/amd/amd-api-docs/raw/Content_savenotetypes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-201
+.pi/services/amd/q1_full_status_breakdown.json
+  s_4487096af0f6cc::t_12f98273d779d1 1-71
+.pi/services/amd/amd-api-docs/raw/Content_getupdatedpatients.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-253
+.pi/services/amd/amd-api-docs/raw/Content_getehrproblemstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-201
+.pi/services/amd/amd-api-docs/raw/Content_Eligibilty.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-299
+.pi/services/amd/amd-api-docs/raw/Content_updateehrnotes.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-230
+.pi/services/amd/amd-api-docs/raw/Content_Get_Encounters.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-193
+.pi/services/amd/amd-api-docs/raw/Content_Labs_API.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-2832
+.pi/services/amd/amd-api-docs/raw/Content_Delete_Appointment_Reason.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-175
+.pi/services/amd/amd-api-docs/raw/Content_getehrimmunizationstemplate.htm
+  s_4487096af0f6cc::t_12f98273d779d1 1-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "ff927b06427ca6af774d1a7e4aac0f091323d95d",
+  "prompts": {},
+  "sessions": {
+    "s_4487096af0f6cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec529c65-458b-4a42-b4bc-a604f6733a84",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
