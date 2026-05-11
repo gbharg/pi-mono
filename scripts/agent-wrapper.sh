@@ -724,7 +724,7 @@ PYTHON_SCRIPT
   
   # Execute Python with temp file. Token goes via env (LINEAR_APP_TOKEN_STREAM)
   # so it never appears in argv / process listings. Temp-file cleanup is
-  # handled by the RETURN trap above (covers normal return + signals).
+  # handled by the RETURN trap above on normal function return paths.
   LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 "$py_script" "$session_id"
 }
 
@@ -919,7 +919,7 @@ $error_log
     subject=$(echo "$msg" | head -n1)
     
     # Check conventional commit format (type(scope): message or type: message)
-    if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci)(\(.+\))?: .+'; then
+    if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert)(\(.+\))?: .+'; then
       local err_msg="Commit $commit does not follow conventional commit format: $subject"
       error "$err_msg"
       post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
@@ -979,9 +979,19 @@ $log_content"
   log "Pushing branch $AGENT_BRANCH"
   git push origin "$AGENT_BRANCH"
   
-  # Push notes
+  # Push notes. Parallel agents can race on refs/notes/commits, so fetch
+  # and merge the remote notes ref first to avoid non-fast-forward loss of
+  # another agent's audit trail.
   log "Pushing git notes"
-  git push origin refs/notes/commits || log "Warning: failed to push notes (may not exist)"
+  if git show-ref --verify --quiet refs/notes/commits; then
+    git fetch origin refs/notes/commits:refs/notes/origin-commits 2>/dev/null || true
+    if git show-ref --verify --quiet refs/notes/origin-commits; then
+      git notes merge -s cat_sort refs/notes/origin-commits || log "Warning: failed to merge remote git notes before push"
+    fi
+    git push origin refs/notes/commits || log "Warning: failed to push notes"
+  else
+    log "Warning: no local git notes ref to push"
+  fi
   
   # Determine PR base based on mode
   local PR_BASE
