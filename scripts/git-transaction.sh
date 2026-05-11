@@ -44,25 +44,43 @@ remove_from_stashes() {
     for s in "${TRANSACTION_STASHES[@]}"; do
         [[ -n "$s" && "$s" != "$target" ]] && rebuilt+=("$s")
     done
-    TRANSACTION_STASHES=("${rebuilt[@]}")
+    if [ "${#rebuilt[@]}" -eq 0 ]; then
+        TRANSACTION_STASHES=()
+    else
+        TRANSACTION_STASHES=("${rebuilt[@]}")
+    fi
+}
+
+stash_ref_for_name() {
+    local target="$1"
+    [ -z "$target" ] && return 1
+
+    local ref
+    local subject
+    while IFS=$'\t' read -r ref subject; do
+        [ -z "$ref" ] && continue
+        if [[ "$subject" == *"$target"* ]]; then
+            printf '%s\n' "$ref"
+            return 0
+        fi
+    done < <(git stash list --format='%gd%x09%gs')
+
+    return 1
 }
 
 cleanup_stashes() {
+    [ "${#TRANSACTION_STASHES[@]}" -eq 0 ] && return 0
+
     local stash_name
+    local stash_ref
     for stash_name in "${TRANSACTION_STASHES[@]}"; do
         # Defensive empty-string guard. With the array filter above this
-        # should be unreachable, but `grep -q ""` would match the first
-        # `git stash list` line and drop an unrelated stash if it ever
-        # slipped through, so keep the check.
+        # should be unreachable, but an empty name must never be allowed to
+        # match/drop an unrelated user stash.
         [ -z "$stash_name" ] && continue
-        if git stash list | grep -q "$stash_name"; then
+        if stash_ref=$(stash_ref_for_name "$stash_name"); then
             log_warning "Cleaning up orphaned stash: $stash_name"
-            local stash_index
-            stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
-            if [ -n "$stash_index" ]; then
-                local stash_ref="stash@{$((stash_index - 1))}"
-                git stash drop "$stash_ref" 2>/dev/null || true
-            fi
+            git stash drop "$stash_ref" 2>/dev/null || true
         fi
     done
 }
@@ -123,8 +141,10 @@ git_transaction() {
     log "Starting git transaction with ${#} command(s)"
     log "Initial state: branch=${initial_branch}, HEAD=${initial_head:0:8}"
     
-    # Check for uncommitted changes to protect them
-    if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    # Check for uncommitted changes to protect them, including untracked files.
+    local status
+    status=$(git status --porcelain)
+    if [ -n "$status" ]; then
         log "Detected uncommitted changes, creating protective stash"
         
         if git stash push -u -m "$stash_name" >/dev/null 2>&1; then
@@ -222,11 +242,8 @@ git_transaction() {
         if [ "$stash_created" = true ]; then
             log "Restoring original working directory state"
             
-            if git stash list | grep -q "$stash_name"; then
-                local stash_index
-                stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
-                local stash_ref="stash@{$((stash_index - 1))}"
-
+            local stash_ref
+            if stash_ref=$(stash_ref_for_name "$stash_name"); then
                 if git stash pop "$stash_ref" >/dev/null 2>&1; then
                     log_success "Original changes restored"
                     # Properly remove from cleanup list (NOT pattern-substitution).
@@ -254,12 +271,9 @@ git_transaction() {
         # the stash holds the user's WIP, not artifacts of this transaction.
         # Dropping it would silently delete their changes.
         if [ "$stash_created" = true ]; then
-            if git stash list | grep -q "$stash_name"; then
+            local stash_ref
+            if stash_ref=$(stash_ref_for_name "$stash_name"); then
                 log "Restoring caller's pre-existing uncommitted changes from protective stash"
-                local stash_index
-                stash_index=$(git stash list | grep -n "$stash_name" | head -1 | cut -d: -f1)
-                local stash_ref="stash@{$((stash_index - 1))}"
-
                 if git stash pop "$stash_ref" >/dev/null 2>&1; then
                     log_success "Pre-existing changes restored"
                     remove_from_stashes "$stash_name"
