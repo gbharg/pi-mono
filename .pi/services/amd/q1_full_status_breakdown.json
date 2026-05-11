@@ -1,0 +1,71 @@
+{
+  "generated": "2026-04-05",
+  "window": "2026-01-01 to 2026-04-05",
+  "business_days": 67,
+  "total_q1_touched_visits": 6043,
+  "status_counts_full": {
+    "0": 986,
+    "1": 180,
+    "2": 7,
+    "3": 2827,
+    "10": 489,
+    "11": 1266,
+    "12": 288
+  },
+  "status_counts_rest_only": {
+    "0": 205,
+    "1": 93,
+    "2": 4,
+    "3": 1895,
+    "10": 471,
+    "12": 287
+  },
+  "status_counts_hidden_only": {
+    "0": 781,
+    "1": 87,
+    "2": 3,
+    "3": 932,
+    "10": 18,
+    "11": 1266,
+    "12": 1
+  },
+  "status_legend": {
+    "0": "scheduled (still future)",
+    "1": "confirmed (still future)",
+    "2": "arrived (in-progress)",
+    "3": "checked-out (COMPLETED VISIT)",
+    "10": "cancelled (tenant code)",
+    "11": "deleted/voided",
+    "12": "no-show (tenant code)"
+  },
+  "per_biz_day": {
+    "scheduled (still future)": 14.7,
+    "checked-out (COMPLETED VISIT)": 42.2,
+    "cancelled (tenant code)": 7.3,
+    "no-show (tenant code)": 4.3,
+    "confirmed (still future)": 2.7,
+    "arrived (in-progress)": 0.1,
+    "deleted/voided": 18.9
+  },
+  "headline_metrics": {
+    "completed_visits_q1": 2827,
+    "completed_visits_per_biz_day": 42.2,
+    "cancelled_q1": 489,
+    "no_show_q1": 288,
+    "deleted_voided_q1": 1266,
+    "future_scheduled_q1": 1166,
+    "total_touched_q1": 6043
+  },
+  "note": "REST scheduler list endpoint filters out status 11 (deleted/voided), which is why 1266 records were invisible until the XMLRPC getupdatedvisits unlock. REST DOES return status 10 and 12 (cancelled, no-show in this tenant), those are not filtered.",
+  "raw_phi_files": {
+    "location": ".pi/services/amd/q1_raw_phi/",
+    "gitignore_status": "blocked at .gitignore:44 (.pi/services/amd/*_raw_phi/) + local .gitignore whitelisting only README.md",
+    "files": [
+      "amd_q1_appts.json (REST list, 2955 records)",
+      "amd_q1_hidden_detail_full.json (REST detail of 3088 previously-hidden IDs)",
+      "amd_q1_updatedvisits_raw.xml (XMLRPC output, 6023 ids)",
+      "amd_q1_updpatients_raw.xml (700 touched patients, 95 new)",
+      "patient_directory_unique.json (sibling agent pull)"
+    ]
+  }
+}

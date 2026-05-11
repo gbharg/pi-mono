@@ -1,0 +1,87 @@
+{
+  "window": "2026-01-01 to 2026-03-31",
+  "business_days": 65,
+  "generated_at": "2026-04-05T15:00Z",
+  "phi_classification": "HIPAA-covered PHI — local only, gitignored via nested .gitignore (root unchanged)",
+  "top_level_report": "/Users/agent/pi-mono/.pi/services/Q1_2026_FULL_REPORT.md",
+  "total_size_bytes": 85000000,
+  "sources": {
+    "amd": {
+      "auth_for_this_archive": "GAUTAM session cookies (token={officekey}{64hex}, 24h TTL) for REST. ARC022825 API FULL used one-shot for getupdatedvisits/getupdatedpatients XMLRPC only.",
+      "size_bytes": 8400000,
+      "files": {
+        "rest_scheduler_appointments_full.json":      {"bytes": 7884441, "records": 2955, "note": "REST scheduler pull, status-filtered (hides 5, 11)"},
+        "rest_q1_summary_full.json":                  {"bytes": 3622,    "note": "aggregate summary of above"},
+        "rest_q1_analysis_prelim.json":               {"bytes": 583,     "note": "early per-workflow analysis"},
+        "rest_q1_creation_sample.json":               {"bytes": 3561,    "note": "creation-date classification sample"},
+        "rest_scheduler_columns.json":                {"bytes": 7506,    "records": 14, "note": "scheduler column definitions"},
+        "xmlrpc_getupdatedvisits_q1_raw.xml":         {"bytes": 139390,  "records": 6023, "note": "XMLRPC raw; full set (no REST filter)"},
+        "xmlrpc_getupdatedvisits_q1_ids.txt":         {"bytes": 54206,   "records": 6023, "note": "flat ID list"},
+        "xmlrpc_hidden_visit_ids_q1.json":            {"bytes": 30890,   "records": 3089, "note": "set difference: XMLRPC \\ REST"},
+        "xmlrpc_hidden_visit_sample300.json":         {"bytes": 107254,  "records": 300,  "note": "classified sample with status+creation+modified dates"},
+        "xmlrpc_getvisitinfobydate_q1_detail.xml":    {"bytes": 143047,  "note": "visit detail bulk pull (raw XML)"},
+        "xmlrpc_getupdatedpatients_q1_raw.xml":       {"bytes": 29651,   "note": "new+updated patient records (raw XML)"},
+        "xmlrpc_new_patient_ids.txt":                 {"bytes": 854,     "records": 170, "note": "extracted new patient IDs"}
+      }
+    },
+    "ringcentral": {
+      "auth": "JWT via Remote Admin app, ReadCallLog scope",
+      "endpoint": "GET /restapi/v1.0/account/~/call-log?view=Detailed (13 weekly windows, Inbound + Outbound)",
+      "size_bytes": 62131479,
+      "files": {
+        "rc_q1_calls_raw.ndjson": {"bytes": 62131479, "records": 7747, "note": "per-call records both directions, Q1 2026 full window"},
+        "rc-call-log-2026-q1.csv": {"bytes": 4130, "records": 94, "note": "per-day aggregated CSV"}
+      }
+    },
+    "m365": {
+      "auth": "app-only client_credentials, tenant exulthealthcare.com",
+      "endpoint": "GET /v1.0/users/{upn}/messages?$filter=receivedDateTime ge 2026-01-01T00:00:00Z and lt 2026-04-01T00:00:00Z",
+      "size_bytes": 11000000,
+      "total_messages": 9044,
+      "files": {
+        "office_at_exulthealthcare_com_q1.ndjson":         {"records": 1240, "note": "primary reception inbox"},
+        "fax_at_exulthealthcare_com_q1.ndjson":            {"records": 945,  "note": "eFax gateway"},
+        "exult-info_at_exulthealthcare_com_q1.ndjson":     {"records": 615,  "note": "shared info/intake (Jan-Feb under-reported)"},
+        "kendra_geller_at_exulthealthcare_com_q1.ndjson":  {"records": 4780, "note": "front desk ext 104 — incl all directions"},
+        "raj_bhargava_at_exulthealthcare_com_q1.ndjson":   {"records": 1281, "note": "COO admin inbox"},
+        "tms_at_exulthealthcare_com_q1.ndjson":            {"records": 100,  "note": "TMS workflow"},
+        "prescriptions_rx_at_exulthealthcare_com_q1.ndjson":{"records": 38,  "note": "eRx"},
+        "billing_at_exulthealthcare_com_q1.ndjson":        {"records": 16,   "note": "disabled but still receiving"},
+        "referrals_at_exulthealthcare_com_q1.ndjson":      {"records": 16,   "note": "inbound referrals"},
+        "c308_konica_at_exulthealthcare_com_q1.ndjson":    {"records": 13,   "note": "scanner output"}
+      },
+      "excluded_mailboxes": ["doctorb@exulthealthcare.com — physician personal, not front-desk workload"]
+    }
+  },
+  "headline_q1_metrics": {
+    "inbound_calls": 5672,
+    "missed_inbound": 2072,
+    "miss_rate_pct": 36.5,
+    "outbound_calls": 2004,
+    "total_touched_appointments": 6023,
+    "completed_visits_revised": 2853,
+    "cancellations": 465,
+    "no_shows": 286,
+    "reschedules_moved": 762,
+    "deleted_voided": 1256,
+    "appointments_confirmed": 1152,
+    "new_patients": 170,
+    "incoming_faxes": 804,
+    "patient_inquiry_emails": 121,
+    "insurance_emails": 53,
+    "pharmacy_emails": 45,
+    "active_providers": 9,
+    "locations": 2,
+    "telehealth_share_pct": 73
+  },
+  "fte_load_estimate": {
+    "direct_workflow_minutes_per_day": 628,
+    "plus_overhead_minutes_per_day": 880,
+    "fte_equivalents": 1.83
+  },
+  "sibling_amd_phi_archive": {
+    "path": "/Users/agent/pi-mono/.pi/services/amd/q1_raw_phi/",
+    "note": "Parallel sibling session's AMD PHI archive. Different file naming. Covered by root .gitignore line 44: .pi/services/amd/*_raw_phi/",
+    "verified_ignored": true
+  }
+}

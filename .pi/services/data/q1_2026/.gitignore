@@ -1,0 +1,8 @@
+# PHI data — NEVER commit to git
+# This directory contains raw patient-identifiable data pulled from
+# AdvancedMD, RingCentral, and Microsoft 365. HIPAA applies.
+# Only the index.json manifest and README.md may be committed.
+*
+!.gitignore
+!README.md
+!index.json

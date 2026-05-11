@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation|Patient Actions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Get New and Modified Patients</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1>Get New and Modified Patients</h1>
+                                            <h2><span class="span_28">Action:</span><span class="span_6"> getupdatedpatients</span>
+                                            </h2>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="getupdatedpatients" class="api" msgtime="7/24/2015 10:20:42 AM" datechanged="2005-03-24T8:25:28.730"&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;patient name="Name" ssn="SSN" changedat="ChangedAt" createdat="CreatedAt" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;insurance carname="CarName" carcode="CarCode" carcity="CarCity" changedat="ChangedAt" createdat="CreatedAt"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;referralplan referraltype="ReferralType" reason="Reason" byreferringproviderfid="ByReferringProviderFID"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;filterlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;filter table="patient" fieldset="dob" &gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/filterlist&gt;&#160;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "getupdatedpatients",&#160;<br />&#160;&#160;&#160;&#160;"@class": "api",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "7/24/2015 10:20:42 AM",&#160;<br />&#160;&#160;&#160;&#160;"@datechanged": "2005-03-24T8:25:28.730",&#160;<br />&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@name": "Name",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "SSN",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"insurance": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carname": "CarName",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcode": "CarCode",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcity": "CarCity",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"referralplan": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@referraltype": "ReferralType",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@reason": "Reason",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@byreferringproviderfid": "ByReferringProviderFID"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"filterlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"filter": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@table": "patient",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fieldset": "dob"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3>Results:</h3>
+                                            <p class="p_25"><span class="span_6">This request returns a &lt;patientlist&gt; element or object that contains a list of all patients that have been modified or added since the specified date. ("Modified" patients include those whose responsible party information has changed as well. Additionally, if the &lt;insurance&gt; element is included, then patients whose insurance information has changed will be returned. If the &lt;referralplan&gt; element is included, then patients whose referral plan information has changed will be returned. Likewise, if the &lt;episode&gt; element is included, then patients whose episodes have changed will be returned.&#160; Also, if the&lt; customdata&gt; element is included, a customdatachanged attribute will exist notifying you if any customdata has changed for patients included in the results.)</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_6">If the &lt;insurance&gt; element is included then each &lt;patient&gt; element will contain an&lt; insurancelist&gt; element that contains a list of the patient's insurance coverages. All insurance coverages will be included, even those that have not changed. Similarly if the &lt;referralplan&gt; element is included then each &lt;patient&gt; element will contain a &lt;referralplanlist&gt; element that contains all of the patient's referral plans.&#160; Likewise, if the &lt;episode&gt; element is included then each &lt;patient&gt; element will contain an &lt;episodelist&gt; element that contains all of the patient's episodes.</span>
+                                            </p>
+                                            <p class="p_25"><span class="span_6">Every returned element (&lt;patient&gt;, &lt;insurance&gt;, &lt;referralplan&gt; and &lt;episode&gt;) will contain an ID attribute. The &lt;patient&gt; elements will also include an "updatestatus" attribute that indicates why the patient was returned:</span>
+                                            </p>
+                                            <ul class="ul_1">
+                                                <li class="li_2">N: The patient was added since the specified date</li>
+                                                <li class="li_1"><span class="span_6">C: The patient or the patient's responsible party information has been modified (If the &lt;insurance&gt; or &lt;referralplan&gt; element is included, then this could also indicate that the patient's insurance coverage and/or referral plan has changed) </span>
+                                                </li>
+                                                <li class="li_2">D: The patient existed prior to the specified date, but has since been deleted</li>
+                                            </ul>
+                                            <p class="p_26">In addition to the above standard attributes, each element can also contain any of a large number of optional attributes, which must be identified by the calling application. For example, in the sample request above, the calling application has specified that the patient elements should include the patient's full name ("Name"), and the attribute should be "name". A list of available fields can be determined by calling the getupdatedpatientstemplate action, described below. </p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Results servertime="2005-03-25T8:25:35.730" patientcount="14"&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient id="198511" name="CARD,ANDY" ssn="" changedat="2005-03-24T12:54:12.493" createdat="2015-04-23T09:26:45.953" updatestatus="C"&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;insurancelist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;insurance id="7126" seqnum="1" carname="BAKERY AND CONFICTIONARY" carcode="BAKE1" carcity="KENNSINGTON" changedat="2015-07-09T15:21:17.633" createdat="2015-05-01T09:44:49.440" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/insurancelist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;referralplanlist&gt;&#160;<br />     &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;referralplan id="2345" referraltype="I" reason="12" byreferringproviderfid="123" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/referralplanlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/patient&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/Results&gt;&#160;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"PPMDResults": {&#160;<br />&#160;&#160;&#160;&#160;"Results": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@servertime": "2005-03-25T8:25:35.730",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@patientcount": "14",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"patientlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "198511",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "CARD,ANDY",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "2005-03-24T12:54:12.493",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "2015-04-23T09:26:45.953",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@updatestatus": "C",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"insurancelist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"insurance": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "7126",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@seqnum": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carname": "BAKERY AND CONFICTIONARY",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carcode": "BAKE1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@carcity": "KENNSINGTON",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "2015-07-09T15:21:17.633",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "2015-05-01T09:44:49.440"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"referralplanlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"referralplan": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "2345",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@referraltype": "I",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@reason": "12",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@byreferringproviderfid": "123"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="p_25"><span class="span_6">On occasion, this method may attempt to update 1000 patients or more depending on the "datechanged" attribute sent in and activity on the office key.&#160; When more than 1000 (patients?) match the filtering criteria the response xml will differ from what was requested in order to facilitate response time.&#160; When this occurs the response will include just the patient IDs of all of the patients that would have otherwise been returned in a &lt;patientlist&gt; element.&#160; In addition to the &lt;patientlist&gt;, a client error, </span><span class="span_26">code -2147217350</span><span class="span_6">, will be returned so that you will be properly notified of what has occurred.&#160; After trapping the client error, save the &lt;patientlist&gt; element in order to resubmit the resulting patient IDs in subsequent calls to getupdatedpatients.&#160; &#160;Next, resubmit the patient IDs in smaller chunks of 500 patients or fewer. &#160; For example, the call below would return a response with all of the requested data for the three patients with the given IDs: </span>
+                                            </p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="getupdatedpatients" class="api" msgtime="7/24/201510:20:42 AM" datechanged="2005-03-24T8:25:28.730"&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient id='123'&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient id='456'&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;patient id='789'&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/patientlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;patient name="Name" ssn="SSN" changedat="ChangedAt" createdat="CreatedAt" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;insurance carname="CarName" carcode="CarCode" carcity="CarCity" changedat="ChangedAt" createdat="CreatedAt"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;referralplan referraltype="ReferralType" reason="Reason" byreferringproviderfid="ByReferringProviderFID"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;filterlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;filter table="patient" fieldset="dob" &gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/filterlist&gt;&#160;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "getupdatedpatients",&#160;<br />&#160;&#160;&#160;&#160;"@class": "api",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "7/24/201510:20:42 AM",&#160;<br />&#160;&#160;&#160;&#160;"@datechanged": "2005-03-24T8:25:28.730",&#160;<br />&#160;&#160;&#160;&#160;"patientlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"patient": [&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "123"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "456"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;{&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "789"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;]&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@name": "Name",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "SSN",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"insurance": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carname": "CarName",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcode": "CarCode",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcity": "CarCity",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"referralplan": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@referraltype": "ReferralType",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@reason": "Reason",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@byreferringproviderfid": "ByReferringProviderFID"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"filterlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"filter": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@table": "patient",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fieldset": "dob"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="p_25"><span class="span_6">A developer may also want to retrieve the results for a single patient at a time. A new "patientid" attribute exists on the root &lt;ppmdmsg&gt; element that will allow for this. Using this method may return a response more quickly, but is simply a different way to retrieve the demographics information for a selected patient.&#160; For example:&#160; </span>
+                                            </p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="getupdatedpatients" class="api" msgtime="7/24/2015 10:20:42 AM" datechanged="2005-03-24T8:25:28.730" patientid="1234"&gt;&#160;&#160;<br />&#160;&#160;&#160;&#160;&lt;patient name="Name" ssn="SSN" changedat="ChangedAt" createdat="CreatedAt" /&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;insurance carname="CarName" carcode="CarCode" carcity="CarCity" changedat="ChangedAt" createdat="CreatedAt"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;referralplan referraltype="ReferralType" reason="Reason" byreferringproviderfid="ByReferringProviderFID"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;filterlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;filter table="patient" fieldset="dob" &gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/filterlist&gt;&#160;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_21">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "getupdatedpatients",&#160;<br />&#160;&#160;&#160;&#160;"@class": "api",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "7/24/2015 10:20:42 AM",&#160;<br />&#160;&#160;&#160;&#160;"@datechanged": "2005-03-24T8:25:28.730",&#160;<br />&#160;&#160;&#160;&#160;"@patientid": "1234",&#160;<br />&#160;&#160;&#160;&#160;"patient": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@name": "Name",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@ssn": "SSN",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"insurance": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carname": "CarName",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcode": "CarCode",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@carcity": "CarCity",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@changedat": "ChangedAt",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@createdat": "CreatedAt"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"referralplan": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@referraltype": "ReferralType",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@reason": "Reason",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"@byreferringproviderfid": "ByReferringProviderFID"&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"filterlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"filter": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@table": "patient",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@fieldset": "dob"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;}&#160;<br />}&#160;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="Note" style="font-weight: bold;">Notes:</p>
+                                            <blockquote>
+                                                <ul class="ul_1">
+                                                    <li class="NotesListItems"><span class="span_6">The &lt;insurance&gt;, &lt;referralplan&gt;, and &lt;filterlist&gt; elements or objects are optional. For example, if &lt;insurance&gt; element is not included, then patients whose insurance information has changed will not be returned. </span>
+                                                    </li>
+                                                    <li class="NotesListItems"><span class="span_6">If a &lt;filterlist&gt; element is not specified, a default set of filters will be applied to the incoming request. If you want to see what values are available for the &lt;filterlist&gt; element see the </span><a href="#getfieldsets"><span class="span_5">getfieldsets</span></a><span class="span_6"> API call. </span>
+                                                    </li>
+                                                    <li class="NotesListItems"><span class="span_6">If a patient has been added since the specified date and then deleted, that patient will not be returned in the results. Deleted patients will only be returned if they existed in the database prior to the specified date. </span>
+                                                    </li>
+                                                    <li class="NotesListItems"><span class="span_26">Repeated getupdatedpatient calls</span><span class="span_6">: Please make sure you understand the importance of servertime in the response from AdvancedMD and datachanged attribute in the request you send.&#160; When a response comes back from AdvancedMD, store the servertime value and use this value in the datechanged attribute when the next call is made to update patients. Do not adjust the servertime value with the time zones. </span>
+                                                    </li>
+                                                    <li class="NotesListItems"><span class="span_6">If you exceed </span><span class="span_26">28 days</span><span class="span_6"> between the datechanged and the current date you will receive additional patients that have a visit that occurs after the value passed in date changed.</span>
+                                                    </li>
+                                                </ul>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation|Provider Actions" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Update Referring Provider</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1>Update Referring Provider</h1>
+                                            <h2><span class="span_21">Action:</span><a name="updaterefprovider"></a>updaterefprovider</h2>
+                                            <p>This action is used to update an existing referring provider, including soft-delete.</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Sample Request:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <p>The request body should contain a <b>masterfile</b> node with the provider's data.</p>
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="updaterefprovider" class="masterfiles" id="644" type="0"&gt;<br />&#160;&#160;&#160;&#160;&lt;masterfile uid="644" code="CAR00" address1="" address2="" zipcode="" city="" state="" officephone="" fax="" countrycode="" email="" areacode="" practicename="" speciality="" taxonomy="" npinumber="" includeonhcfa="0" receiveautofax="1" licensenumber="" title="" lastname="CARSON" middlename="" firstname="DAVE" overwrite="0" other="" phonetype="C" isinactive="0" changedat="07/18/2025 03:21:40"/&gt;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="ImportantNote"><b>Important Note</b>: By default, any value not included in the request payload will be nullified. If <b>preservevalues=”1”</b> on the masterfile node, only values provided will be updated, and values not provided will remain unchanged.</p>
+                                            <p>Optional ppmdmsg attributes:</p>
+                                            <ul>
+                                                <li>
+                                                    <p><b>id</b> – the identifier of the provider to return in the response (can be different from the ref provider that is being updated). If not specified, the list of all ref provider records will be returned. If set to <b>-1</b>, the response will not contain ref provider information.</p>
+                                                </li>
+                                                <li>
+                                                    <p><b>type</b> – the lookup type, indicates how much data to include in the response. If missing or set to <b>0</b>,  the response will contain the extended provider information. Otherwise, the data will be limited to <b>uid</b>, <b>code</b>, <b>name</b>, <b>changedat</b>, and <b>display</b>.</p>
+                                                </li>
+                                            </ul>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Example Request:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="updaterefprovider" class="masterfiles" id="-1"&gt;<br />&#160;&#160;&#160;&#160;&lt;masterfile uid="644" code="CAR00" npinumber="1234567890" preservevalues="1"/&gt;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Example Response:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-857dbcfbf5-lq898" lst="07/21/2025 02:39:09" newid="644" /&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Example Request:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="updaterefprovider" class="masterfiles" id="644" type="0"&gt;<br />&#160;&#160;&#160;&#160;&lt;masterfile uid="644" code="CAR00" npinumber="1234567890" preservevalues="1"/&gt;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Example Response:</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-857dbcfbf5-lq898" lst="07/21/2025 02:43:19" newid="644"&gt;<br />&#160;&#160;&#160;&#160;&lt;record licensekey="253018" uid="644" code="CAR00" name="CARSON, DAVE" lastname="CARSON" middlename="" firstname="DAVE" userfilefid="18466" financialsummaryfid="219093732" accountsreceivablefid="1613038651" display="1" address1="" address2="" zipcode="" city="" state="" areacode="" countrycode="" contactname="" officephone="" officeextension="" fax="" cell="" pager="" homephone="" other="" phonetype="C" email="" changedat="07/21/2025 02:43:20" title="" officeextension1="" homephone1="" practicename="" speciality="" taxonomy="" npinumber="" licensenumber="" includeonhcfa="0" ar_current="0.00" ar_30_days="0.00" ar_60_days="0.00" ar_90_days="0.00" ar_morethan120days="0.00" unappliedmoney="0.00" totalbalance="0.00" mtd_charges="0.00" mtd_payments="0.00" mtd_writeoffs="0.00" ytd_payments="0.00" ytd_charges="0.00" ytd_writeoffs="0.00" mtd_patients="" ytd_patients="" isinactive="0" receiveautofax="1" /&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p>&#160;</p>
+                                            <h3>Fields for the masterfile Node</h3>
+                                            <table>
+                                                <col />
+                                                <col />
+                                                <col style="width: 453px;" />
+                                                <col />
+                                                <col style="width: 182px;" />
+                                                <col style="width: 517px;" />
+                                                <tbody>
+                                                    <tr>
+                                                        <th rowspan="1" colspan="1">&#160;</th>
+                                                        <th rowspan="1" colspan="1">&#160;</th>
+                                                        <th rowspan="1" colspan="1">Description</th>
+                                                        <th rowspan="1" colspan="1">Type</th>
+                                                        <th rowspan="1" colspan="1">Default value</th>
+                                                        <th>Notes</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>uid</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Referring Provider ID</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>int</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>&#160;</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>code</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Unique Referring Provider code</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(6)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>&#160;</p>
+                                                        </td>
+                                                        <td>Required, unless you need to delete the ref provider.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>speciality</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Specialty</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(50)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>npinumber</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NPI number</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(15)</p>
+                                                            <p>not null </p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>licensenumber</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>License number</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(14)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>practicename</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Practice name</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(100)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>7</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>taxonomy</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Taxonomy</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(20)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>8</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>title</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Provider’s title (e.g. MD)</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(10)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>9</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>firstname</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>First name</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(35)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>10</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>middlename</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Middle name</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(35)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>11</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>lastname</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Last name</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(35)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>12</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>address1</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Apt / Ste #</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(30)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>13</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>address2</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Address</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(30)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>14</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>countrycode</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Country code</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(3)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>15</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>zipcode</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Zip code</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(10)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>16</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>city</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>City</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(30)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>17</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>state</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>State</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(3)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>18</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>areacode</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Area code</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(3)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>19</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>officephone</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Office phone number</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(25)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>20</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>other</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Other phone number</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(25)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>21</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>phonetype</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Other phone type </p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(1)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>No value range validation.</p>
+                                                            <p>Allowed values:</p>
+                                                            <p>C - Cell, P - Pager, H - Home, O - Other</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>22</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>fax</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Fax number</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>char(25)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>Please provide a valid fax number for the provider to receive Auto-Faxes.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>23</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>email</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Email</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>varchar(50)</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>24</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>isinactive</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Indicates whether the provider is inactive</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>bit</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>0</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>25</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>changedat</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Date and time when the request was modified.</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>datetime</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Current datetime.</p>
+                                                        </td>
+                                                        <td>If another user has changed the record after this timestamp, an error will be thrown. This is used to ensure consistency if multiple requests try to modify the record simultaneously.</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>26</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>includeonhcfa</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Allow to include a provider as the ordering/supervising provider on paper claims </p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>bit</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>NULL</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>27</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>preservevalues</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Indicates whether to nullify the values that were not supplied in the request payload</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>bit</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>0</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>28</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>receiveautofax</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Allow the referring provider to receive an auto-fax</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>bit</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>1</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>29</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>overwrite</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>If set to 0, enforces additional validation on the provider’s data. The error occurs when another provider with the same NPI or name is found</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>bit</p>
+                                                            <p>not null</p>
+                                                        </td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>0</p>
+                                                        </td>
+                                                        <td>&#160;</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p>&#160;</p>
+                                            <h3>Delete and Restore Ref Provider</h3>
+                                            <p>The ref provider visibility can be changed if the provider code is not specified in the request payload. In this case, you have to specify the display parameter.</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Request and Response</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <p>The request body should contain a <b>masterfile</b> node with the provider’s data without code attribute. The display indicates whether to delete <b>- 0</b> or undelete <b>- 1</b> the referring provider:</p>
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="updaterefprovider" class="masterfiles" id="644"&gt;<br />&#160;&#160;&#160;&#160;&lt;masterfile uid="644" display="0"/&gt;<br />&lt;/ppmdmsg&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p>&#160;</p>
+                                            <h3>Errors</h3>
+                                            <table>
+                                                <col />
+                                                <col />
+                                                <col />
+                                                <tbody>
+                                                    <tr>
+                                                        <th rowspan="1" colspan="1">&#160;</th>
+                                                        <th rowspan="1" colspan="1">Use case</th>
+                                                        <th>Response</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Update the ref provider that was changed after the specified changedat date.</p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-857dbcfbf5-lq898" lst="07/22/2025 00:06:33"&gt;<br />&#160;&#160;&#160;&#160;&lt;Results /&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217398&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Another user has changed this record.&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Delete ref provider that is linked to a patient’s referral (as Referred By).</p>
+                                                            <p>Note: the error wording does not describe the actual root cause.</p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-857dbcfbf5-lq898" lst="07/22/2025 01:05:56"&gt;<br />&#160;&#160;&#160;&#160;&lt;Results /&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217389&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;This insert cannot be completed because of conflicts in other office keys.&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Change the provider’s Name or NPI to the one that is already assigned to a different provider in the system. </p>
+                                                            <p>Note: occur only if overwrite=0.</p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-598c86d9f4-bdgp4" lst="07/30/2025 10:50:57"&gt;<br />&#160;&#160;&#160;&#160;&lt;Results /&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217297&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Overwritable duplicate found..&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Change the provider’s code to the one that is already assigned to a different, not-deleted provider in the system. </p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="5CD116MK1W" lst="8/22/2025 9:43:27 AM"&gt;<br />&#160;&#160;&#160;&#160;&lt;Results /&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217406&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Duplicate code: Item cannot be added.&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td rowspan="1" colspan="1">
+                                                            <p>Change the provider’s code to the one that is already assigned to a different, deleted provider in the system. </p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                                <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-598c86d9f4-bdgp4" lst="07/30/2025 10:50:57"&gt;<br />&#160;&#160;&#160;&#160;&lt;Results /&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Client&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Client Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147217392&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Deleted duplicate found..&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" />Other Errors</a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <p class="Note"><b>Note</b>: Any other errors (e.g., database check failed) will be returned with the code -2147221504. Example:</p>
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults s="advancedmd-api-processrequest-0-598c86d9f4-7spdz" lst="07/30/2025 10:59:26"&gt;<br />&#160;&#160;&#160;&#160;&lt;Error&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;Fault&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultcode&gt;Server&lt;/faultcode&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;faultstring&gt;Server Error&lt;/faultstring&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;code&gt;-2147221504&lt;/code&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;description&gt;Cannot insert the value NULL into column 'LastName', table 'GROUP_VERSION_253.dbo.mf_ReferringProviders'; column does not allow nulls. UPDATE fails.<br />The statement has been terminated.&lt;/description&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;...<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/detail&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/Fault&gt;<br />&#160;&#160;&#160;&#160;&lt;/Error&gt;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

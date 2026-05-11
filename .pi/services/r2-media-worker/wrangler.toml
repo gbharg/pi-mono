@@ -1,0 +1,12 @@
+name = "r2-media-worker"
+main = "src/worker.js"
+compatibility_date = "2024-12-01"
+account_id = "31831acba9b4ff8831fa31d904a0dd3e"
+
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "openclaw-screenshots"
+
+[vars]
+# UPLOAD_TOKEN is set via `wrangler secret put UPLOAD_TOKEN`
+# Generate with: openssl rand -hex 32

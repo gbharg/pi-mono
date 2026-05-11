@@ -1,0 +1,76 @@
+{
+  "source": "REST /api/scheduler/appointments all 14 columns \u00d7 14 weeks",
+  "window": "2026-01-01 to 2026-04-05",
+  "business_days": 67,
+  "total_appointments_returned": 2955,
+  "note": "Scheduler list endpoint filters status 4/5/6/11. This is kept+scheduled, NOT the full booking history.",
+  "unique_patient_ids_count": 636,
+  "by_status": {
+    "0": 205,
+    "3": 1895,
+    "10": 471,
+    "12": 287,
+    "1": 93,
+    "2": 4
+  },
+  "status_legend": {
+    "0": "scheduled (no confirm)",
+    "1": "confirmed",
+    "2": "arrived",
+    "3": "checked out / visit posted (COMPLETED)",
+    "10": "unconfirmed future/placeholder (observed)",
+    "12": "unconfirmed future/placeholder variant (observed)",
+    "NOTE": "4=cancelled, 5=no-show, 6=rescheduled, 11=deleted \u2014 all filtered out by list endpoint"
+  },
+  "by_column_heading": {
+    "DR. DEEPIKA BHARGAVA (M)": 550,
+    "NGOMENI MBILIKIRA (S)": 305,
+    "SKYE TOLES (M)": 375,
+    "JERRITT TODD (M)": 376,
+    "NGOMENI MBILIKIRA": 835,
+    "TECHS": 44,
+    "BRIA HAWKINS": 36,
+    "VIVICA SNYPE-STEWART": 8,
+    "RHONDA EMMONS(S)": 316,
+    "VANAJAKSHI DATTATREYA": 110
+  },
+  "by_appointmenttypeid_top10": {
+    "6614": 1462,
+    "6609": 695,
+    "6608": 363,
+    "6611": 223,
+    "6610": 69,
+    "6631": 40,
+    "6613": 37,
+    "6605": 33,
+    "6606": 16,
+    "6632": 4
+  },
+  "telemedicine_count": 2216,
+  "telemedicine_percent": 75.0,
+  "creationdate_sample": {
+    "sample_size": 400,
+    "created_in_q1_2026": 287,
+    "created_pre_2026": 113,
+    "implied_total_q1_new_bookings": 2120,
+    "implied_new_bookings_per_business_day": 31.6
+  },
+  "rc_combined_q1": {
+    "window": "2026-01-05 to 2026-04-04",
+    "business_days": 65,
+    "inbound_voice": 5577,
+    "inbound_voice_per_day": 85.8,
+    "inbound_answered": 3427,
+    "inbound_voicemail": 849,
+    "inbound_missed": 1301,
+    "outbound_voice": 2027,
+    "outbound_voice_per_day": 31.2,
+    "inbound_fax": 224,
+    "inbound_fax_per_day": 3.4,
+    "outbound_fax": 0,
+    "miss_rate_pct": 38.6,
+    "inbound_peak_day": 138,
+    "inbound_median_day": 85
+  },
+  "commit_reference": "4d274721"
+}

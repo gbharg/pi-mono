@@ -1,0 +1,7 @@
+{
+  "source_action": "ppmdmsg getupdatedreferringproviders",
+  "source_endpoint": "POST https://pm-wfe-137.advancedmd.com/practicemanager/xmlrpc/processrequest.aspx",
+  "privilege_required": "none - this action is accessible to GAUTAM's ADMIN role without any special grant (unlike getupdatedvisits/getupdatedpatients which are denied)",
+  "total_returned": 3,
+  "note": "Referring providers are healthcare professionals external to Exult. Detail (IDs, codes, names, specialty) is stored in AMD and was returned in the response but is intentionally NOT committed here. If needed for analysis, rerun the action in a live session."
+}

@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-04-05T14:50 CDT",
+  "commit_context": "Post-unlock of getupdatedvisits via repurposed ARC022825 API FULL service account",
+  "window": "2026-01-01 to 2026-04-05",
+  "business_days": 67,
+  "sources": {
+    "rest_scheduler_list": {
+      "endpoint": "GET /api/scheduler/appointments?columnId&startDate&endDate&forView=week",
+      "unique_ids_returned": 2955,
+      "note": "Already committed at .pi/services/amd/q1_verification_summary.json"
+    },
+    "xmlrpc_getupdatedvisits": {
+      "endpoint": "POST /xmlrpc/processrequest.aspx action=getupdatedvisits",
+      "parameters": "datechanged=2026-01-01T00:00:00 ignoreappttypes=1",
+      "auth": "Bearer token from ARC022825 API FULL service account login",
+      "unique_ids_returned": 6023,
+      "note": "Returns ALL visits with creation or modification timestamp since datechanged"
+    }
+  },
+  "diff": {
+    "intersection": 2934,
+    "only_in_xmlrpc_hidden_by_rest": 3089,
+    "only_in_rest_not_touched_in_q1": 21
+  },
+  "hidden_sample_classification": {
+    "sample_size": 300,
+    "method": "random.sample(hidden_ids, 300) with seed 42, fetched via REST detail endpoint",
+    "status_distribution": {
+      "11 (deleted/voided)": {"count": 122, "pct": 40.7, "extrapolated_q1_total": 1256},
+      "3 (checked-out)":     {"count": 93,  "pct": 31.0, "extrapolated_q1_total": 958},
+      "0 (scheduled)":       {"count": 74,  "pct": 24.7, "extrapolated_q1_total": 762},
+      "1 (confirmed)":       {"count": 8,   "pct": 2.7,  "extrapolated_q1_total": 82},
+      "10 (?)":              {"count": 3,   "pct": 1.0,  "extrapolated_q1_total": 31}
+    },
+    "notable_absences": [
+      "Zero records with status=4 (classic cancelled code) — this tenant appears NOT to use status 4",
+      "Zero records with status=5 (classic no-show) — appears NOT used",
+      "Zero records with status=6 (classic reschedule) — appears NOT used",
+      "Zero records with cancelnoshowreason populated in the entire sample",
+      "This tenant's cancel/no-show codes are 10 and 12 (already captured in REST list pull, 758 records total)"
+    ]
+  },
+  "revised_q1_workflow_denominators": {
+    "total_touched_appointments":  6023,
+    "completed_visits":            {"value": 2853, "per_biz_day": 42.6, "prior_estimate": 1861, "delta_pct": 53.3},
+    "deleted_voided_records":      {"value": 1256, "per_biz_day": 18.7, "note": "Series exceptions, merged duplicates, manual corrections — NEW workflow line not in v2 report"},
+    "scheduled_moved_between":     {"value": 762,  "per_biz_day": 11.4, "note": "Appointments that were rescheduled (moved date/time) but kept the same visit record"},
+    "cancel_noshow_total":         {"value": 758,  "per_biz_day": 11.3, "note": "Unchanged from v2 — statuses 10 + 12 in this tenant"},
+    "kept_clean":                  {"value": 2205, "per_biz_day": 32.9, "note": "Still-scheduled, confirmed, arrived, or completed without being moved/voided"}
+  },
+  "impact_on_morning_report": {
+    "prior_billable_load_minutes_per_day": 687,
+    "revised_billable_load_estimate":      "~900 (50% of additional completed + 50% of deleted workflow time)",
+    "prior_fte_equivalent":                1.43,
+    "revised_fte_equivalent_estimate":     "~1.88",
+    "automation_pitch_impact": "STRONGER — more measurable workload means a bigger absolute savings, not smaller. The 'bring 1.43 FTEs back to 1' becomes 'bring 1.88 FTEs back to 1'."
+  },
+  "recommendation": "Morning report v2 headline numbers (1,861 completed, 27.78/day) should be read as lower-bound. Real completed-visit rate is ~42/day. Before recomputing per-workflow LLM costs, run a full-population detail pull of all 3,089 hidden IDs (not just the 300 sample) — ~20 min of throttled calls. Alternatively, live with the sample extrapolation if the error bar on sampling is acceptable (<5% at n=300).",
+  "raw_data": {
+    "visit_ids": "/tmp/amd_q1_updatedvisits_ids.txt (6023 lines)",
+    "hidden_ids": "/tmp/amd_q1_hidden_ids.json (3089 entries)",
+    "sample_results": "/tmp/amd_hidden_sample.json (300 classified records)",
+    "raw_xml_dump": "/tmp/amd_q1_updatedvisits_raw.xml (143 KB)"
+  }
+}

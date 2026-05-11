@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html xmlns:MadCap="http://www.madcapsoftware.com/Schemas/MadCap.xsd" lang="en-us" xml:lang="en-us" class="_Skins_Top_Navigation" data-mc-search-type="Stem" data-mc-help-system-file-name="Default.xml" data-mc-path-to-help-system="../" data-mc-has-content-body="True" data-mc-toc-path="API Documentation" data-mc-target-type="WebHelp2" data-mc-runtime-file-type="Topic;Default" data-mc-preload-images="false" data-mc-in-preview-mode="false">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>Lookup Actions</title>
+        <!-- Reference your local Pendo initializer (loads the agent & calls initialize) -->
+        <link href="../Skins/Default/Stylesheets/Slideshow.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/TextEffects.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Topic.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Default/Stylesheets/Components/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/foundation.6.2.3.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Styles.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Tablet.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Mobile.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="../Skins/Fluid/Stylesheets/Print.css" rel="stylesheet" type="text/css" data-mc-generated="True" />
+        <link href="Resources/Stylesheets/AMDStyles.css" rel="stylesheet" type="text/css" />
+        <script src="../Resources/Scripts/jquery.min.js" type="text/javascript">
+        </script>
+        <script src="../Resources/Scripts/purify.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/require.config.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/foundation.6.2.3_custom.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/plugins.min.js" type="text/javascript" defer="defer">
+        </script>
+        <script src="../Resources/Scripts/MadCapAll.js" type="text/javascript" defer="defer">
+        </script>
+        <script type="text/javascript" src="Resources/Scripts/pendo-init.js">
+        </script>
+    </head>
+    <body>
+        <div class="foundation-wrap off-canvas-wrapper">
+            <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper="">
+                <aside class="off-canvas position-right" role="complementary" id="offCanvas" data-off-canvas="" data-position="right" data-mc-ignore="true">
+                    <ul class="off-canvas-drilldown vertical menu off-canvas-list" data-drilldown="" data-mc-back-link="Back" data-mc-css-tree-node-expanded="is-drilldown-submenu-parent" data-mc-css-tree-node-collapsed="is-drilldown-submenu-parent" data-mc-css-sub-menu="vertical menu slide-in-right is-drilldown-submenu" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="True" data-mc-include-back="True" data-mc-defer-expand-event="True" data-mc-expanded-event="open.zf.drilldown closed.zf.drilldown" data-mc-expand-event="click.zf.drilldown" data-mc-toc="True">
+                    </ul>
+                </aside>
+                <div class="off-canvas-content inner-wrap" data-off-canvas-content="">
+                    <div>
+                        <nav class="title-bar tab-bar" aria-label="Main navigation and search" data-mc-ignore="true"><a class="skip-to-content fluid-skip showOnFocus" href="#">Skip To Main Content</a>
+                            <div class="middle title-bar-section outer-row clearfix">
+                                <div class="menu-icon-container relative clearfix">
+                                    <div class="central-account-wrapper">
+                                        <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                            <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                                <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="menu-icon" aria-label="Show Navigation Panel" data-toggle="offCanvas"><span></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="title-bar-layout outer-row">
+                                <div class="logo-wrapper"><a class="logo" href="Home.htm" alt="Logo"></a>
+                                </div>
+                                <div class="navigation-wrapper nocontent">
+                                    <ul class="navigation clearfix" data-mc-css-tree-node-has-children="has-children" data-mc-css-sub-menu="sub-menu" data-mc-expand-event="mouseenter" data-mc-top-nav-menu="True" data-mc-max-depth="5" data-mc-include-icon="False" data-mc-include-indicator="False" data-mc-include-children="True" data-mc-include-siblings="True" data-mc-include-parent="True" data-mc-toc="True">
+                                        <li class="placeholder" style="visibility:hidden"><a>placeholder</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="central-account-wrapper">
+                                    <div class="central-dropdown"><a class="central-account-drop"><span class="central-account-image"></span><span class="central-account-text">Account</span></a>
+                                        <div class="central-dropdown-content"><a class="MCCentralLink central-dropdown-content-settings">Settings</a>
+                                            <hr class="central-separator" /><a class="MCCentralLink central-dropdown-content-logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-search-wrapper">
+                                    <div class="nav-search row">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="main-section">
+                        <div class="row outer-row sidenav-layout">
+                            <nav class="sidenav-wrapper">
+                                <div class="sidenav-container">
+                                    <ul class="off-canvas-accordion vertical menu sidenav" data-accordion-menu="" data-mc-css-tree-node-expanded="is-accordion-submenu-parent" data-mc-css-tree-node-collapsed="is-accordion-submenu-parent" data-mc-css-sub-menu="vertical menu accordion-menu is-accordion-submenu nested" data-mc-include-indicator="False" data-mc-include-icon="False" data-mc-include-parent-link="False" data-mc-include-back="False" data-mc-defer-expand-event="True" data-mc-expanded-event="down.zf.accordionMenu up.zf.accordionMenu" data-mc-expand-event="click.zf.accordionMenu" data-mc-toc="True" data-mc-side-nav-menu="True">
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="body-container">
+                                <div data-mc-content-body="True">
+                                    <div class="side-content">
+                                        <form class="search" action="#">
+                                            <div class="search-bar search-bar-container needs-pie _Skins_Topics_Searchbar mc-component">
+                                                <input class="search-field needs-pie" type="search" aria-label="Search Field" placeholder="Search" />
+                                                <div class="search-filter-wrapper"><span class="invisible-label" id="search-filters-label">Filter: </span>
+                                                    <div class="search-filter" aria-haspopup="true" aria-controls="sf-content" aria-expanded="false" aria-label="Search Filter" title="All Files" role="button" tabindex="0">
+                                                    </div>
+                                                    <div class="search-filter-content" id="sf-content">
+                                                        <ul>
+                                                            <li>
+                                                                <button class="mc-dropdown-item" aria-labelledby="search-filters-label filterSelectorLabel-00001"><span id="filterSelectorLabel-00001">All Files</span>
+                                                                </button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="search-submit-wrapper" dir="ltr">
+                                                    <div class="search-submit" title="Search" role="button" tabindex="0"><span class="invisible-label">Submit Search</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="topic-layout">
+                                        <div class="side-content"> </div>
+                                        <div role="main" id="mc-main-content">
+                                            <h1>Lookup Actions</h1>
+                                            <h2>Searching for a patient, responsible party, or system settings (master file)</h2>
+                                            <p class="p_26">All "lookup" actions are formatted as follows:</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                        <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;ppmdmsg action="lookuppatient" class="api" msgtime="5/22/2015&#160;<br />3:02:39 PM" name="ami,mon" page="1"/&gt;</code></pre>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <blockquote>
+                                                        <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"ppmdmsg": {&#160;<br />&#160;&#160;&#160;&#160;"@action": "lookuppatient",&#160;<br />&#160;&#160;&#160;&#160;"@class": "api",&#160;<br />&#160;&#160;&#160;&#160;"@msgtime": "5/22/2015 3:02:39 PM",&#160;<br />&#160;&#160;&#160;&#160;"@name": "ami,mon",&#160;<br />&#160;&#160;&#160;&#160;"@page": "1"&#160;<br />&#160;&#160;}&#160;<br />}&#160;</code></pre>
+                                                            </div>
+                                                        </div>
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                            <h3>Available Lookups:</h3>
+                                            <p class="p_26">The following table lists the lookup actions available and the applicable attributes. Links open specific examples.</p>
+                                            <table class="table_2">
+                                                <col class="col_5">
+                                                </col>
+                                                <col class="col_5">
+                                                </col>
+                                                <col class="col_6">
+                                                </col>
+                                                <col class="col_7">
+                                                </col>
+                                                <col class="col_8">
+                                                </col>
+                                                <col class="col_9">
+                                                </col>
+                                                <col class="col_10">
+                                                </col>
+                                                <col class="col_11">
+                                                </col>
+                                                <col class="col_12">
+                                                </col>
+                                                <col class="col_13">
+                                                </col>
+                                                <col class="col_14">
+                                                </col>
+                                                <tr>
+                                                    <td class="td_2" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_77">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_77">&#160;</p>
+                                                    </td>
+                                                    <td colspan="9" class="td_2" style="background-color: #c0c0c0;font-weight: bold;">
+                                                        <p class="p_81">Attributes (Lookup Criteria)</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_2">
+                                                        <p class="p_81">Action</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_81">Item</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">name</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">chart</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">acctnum</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">ssn</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">phone</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">dob</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">visit</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">code</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_132">specialty</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77">lookupaccttype</p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Account Type</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3"><a href="lookupcarrier.htm">lookupcarrier</a>
+                                                    </td>
+                                                    <td class="td_3">Carrier</td>
+                                                    <td class="td_2">X</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupdiagcode.htm">lookupdiagcode</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Diagnosis Code</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3"><a href="lookupfacility.htm">lookupfacility</a>
+                                                    </td>
+                                                    <td class="td_3">Facilities</td>
+                                                    <td class="td_2">X</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupfinclass.htm">lookupfinclass</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Financial Class</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3"><a href="lookupmarsource.htm">lookupmarsource</a>
+                                                    </td>
+                                                    <td class="td_3">Referral Source</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3"><a href="lookupmarstatus.htm">lookupmarstatus</a>
+                                                    </td>
+                                                    <td class="td_3">Referral Status</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                    <td class="td_2">&#160;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupmodcode.htm">lookupmodcode</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Modifier Code</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77">lookupnotetypes</p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Note Types</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77">lookuppatient</p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Patient</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupproccode.htm">lookupproccode</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Procedure Code</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupprofile.htm">lookupprofile</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Profile</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookupprovider.htm">lookupprovider</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Provider</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookuprefprovider.htm">lookuprefprovider</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Referring Provider</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77"><a href="lookuprespparty.htm">lookuprespparty</a>
+                                                        </p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">Responsible Party</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="td_3">
+                                                        <p class="p_77">lookupzipcode</p>
+                                                    </td>
+                                                    <td class="td_3">
+                                                        <p class="p_77">ZIP Code</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">X</p>
+                                                    </td>
+                                                    <td class="td_2">
+                                                        <p class="p_133">&#160;</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p class="Note" style="font-weight: bold;"><span class="span_26">Note:</span>
+                                            </p>
+                                            <blockquote>
+                                                <ul class="doublenotecontent">
+                                                    <li class="ListParagraph_3"><span class="span_6">The action will need one of the following lookup criteria (for example, code or name should be part of the xml request, otherwise the engine might send an error back. We do not recommend to use multiple search criteria simultaneously. This call is meant for use with only one search criteria at a time.</span>
+                                                    </li>
+                                                    <li class="ListParagraph_4">Specify the attribute codeset="10" in the lookupdaigcode call when looking up ICD10 codes.&#160;This will auto import the code into the office key.</li>
+                                                </ul>
+                                            </blockquote>
+                                            <h3>Look up criteria:</h3>
+                                            <ul class="ul_1">
+                                                <li class="li_1"><b>name</b>: This generally represents either the name or description of the item. In the case of ZIP Codes, it represents the City (City, State) that the ZIP Code corresponds to. </li>
+                                                <li class="li_1"><b>chart</b>: The patient's chart number. Alphanumeric. </li>
+                                                <li class="li_1"><b>acctnum</b>: The responsible party's account number</li>
+                                                <li class="li_1"><b>ssn</b>: The patient's or responsible party's Social Security Number</li>
+                                                <li class="li_1"><b>phone</b>: The patient's or responsible party's home phone number</li>
+                                                <li class="li_1"><b>dob</b>: The patient's or responsible party's date of birth (any valid date format, but pref. "mm/dd/yyyy")</li>
+                                                <li class="li_1"><b>visit</b>: A visit number associated with the patient</li>
+                                                <li class="li_1"><b>code</b>: Most system settings (master files) in AdvancedMD have codes associated with them</li>
+                                                <li class="li_1"><b>codeset</b>:(Only applies to lookupdiagcode): The codeset (ICD-9 or ICD-10) the code belongs to.</li>
+                                                <li class="li_1"><b>specialty</b>: The referring provider's specialty</li>
+                                            </ul>
+                                            <h3>Results:</h3>
+                                            <p class="p_26">The results of a lookup request vary according to the item. Example:</p>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample XML:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <blockquote>
+                                                        <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>&lt;PPMDResults&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Results&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;finclasslist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;finclass id="fclass4" code="FF" name="FULL FEE SCHEDULE" billins="1" billlab="1" acceptassign="1" responsible="1" allowfeesched="feesch21093"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/finclasslist&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;feeschedlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;feesched id="feesch21093" name="ALLOWABLE" type="A"/&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/feeschedlist&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;/Results&gt;&#160;<br />&#160;&#160;&#160;&#160;&lt;Error/&gt;&#160;<br />&lt;/PPMDResults&gt;</code></pre>
+                                                            </div>
+                                                        </div>
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                            <div class="MCDropDown MCDropDown_Closed dropDown"><span class="MCDropDownHead dropDownHead"><a href="#" class="MCDropDownHotSpot dropDownHotspot MCDropDownHotSpot_ MCHotSpotImage" aria-expanded="false"><img class="MCDropDown_Image_Icon" src="../Skins/Default/Stylesheets/Images/transparent.gif" height="15" width="16" alt="Closed" data-mc-alt2="Open" /><span class="span_28">Sample JSON:</span></a></span>
+                                                <div class="MCDropDownBody dropDownBody">
+                                                    <blockquote>
+                                                        <div class="codeSnippet"><a class="codeSnippetCopyButton" role="button" href="javascript:void(0);">Copy</a>
+                                                            <div class="codeSnippetBody" data-mc-continue="False" data-mc-line-number-start="1" data-mc-use-line-numbers="False"><pre><code>{&#160;<br />&#160;&#160;"PPMDResults": {&#160;<br />&#160;&#160;&#160;&#160;"Results": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"finclasslist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"finclass": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "fclass4",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@code": "FF",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "FULL FEE SCHEDULE",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@billins": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@billlab": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@acceptassign": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@responsible": "1",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@allowfeesched": "feesch21093"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;"feeschedlist": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"feesched": {&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@id": "feesch21093",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@name": "ALLOWABLE",&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"@type": "A"&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;&#160;&#160;}&#160;<br />&#160;&#160;&#160;&#160;},&#160;<br />&#160;&#160;&#160;&#160;"Error": null&#160;<br />&#160;&#160;}&#160;<br />}&#160;</code></pre>
+                                                            </div>
+                                                        </div>
+                                                        <p>Notice in this example that a <b>&lt;feesched&gt;</b> element is returned along with the <b>&lt;finclass&gt;</b> element. This is because one of the attributes of the <b>&lt;finclass&gt;</b> element is the allowable fee schedule (<b>allowfeesched</b>) associated with the financial class. This is common, since each lookup dialog in AdvancedMD may display any number of details about the returned items.</p>
+                                                    </blockquote>
+                                                </div>
+                                            </div>
+                                            <h3>Notes</h3>
+                                            <blockquote>
+                                                <ul class="doublenotecontent">
+                                                    <li class="li_1"><span class="span_6">The </span><span class="span_27">page</span><span class="span_6"> attribute is currently only valid for </span><span class="span_27">lookuppatient, lookuprespparty</span><span class="span_6">,</span><span class="span_6">and </span><span class="span_27">lookupcarrier</span><span class="span_6">, since those lookups frequently return a large number of elements and the lookup dialogs are limited to 50 items per call. The attribute is not required and should be omitted unless you need to deal with more than 50 returned elements. </span>
+                                                    </li>
+                                                    <li class="li_1"><span class="span_6">In most cases, items are returned that </span><span class="span_27">start with the</span><span class="span_6"> value of the criteria attribute. For example, if the attribute code="FF" is submitted, then all items with a code starting with the letters "FF" will be returned. Exceptions include </span><span class="span_27">name</span><span class="span_6">, which, if prefixed with the character "%", will find names that contain the criteria string; and </span><span class="span_27">date</span><span class="span_6">, which generally expects the entire date, but will try to guess if only a year is submitted, for example. </span>
+                                                    </li>
+                                                    <li class="li_1"><span class="span_6">The </span><span class="span_27">exactmatch</span><span class="span_6"> attribute is used to indicate that if an exact match is found, then ONLY that item should be returned. For example, if a patient named "DOE,JOHN" and a patient "DOE,JOHN Q" both exist in the database, and you do a patient lookup with name="DOE,JOHN", then only the first patient will be returned if exactmatch="1", whereas both patients would be returned otherwise. This attribute is used for front-end application functionality; in most cases, you will probably want to omit this attribute or set it to "-1". </span>
+                                                    </li>
+                                                </ul>
+                                            </blockquote>
+                                        </div>
+                                    </div>
+                                    <p style="text-align: right;">Version <span class="mc-variable Variables.Version_Number variable">2.2.7</span></p>
+                                    <p style="text-align: right;">© <span class="mc-variable Variables.Year variable">2026</span> AdvancedMD</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><a data-close="true"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
