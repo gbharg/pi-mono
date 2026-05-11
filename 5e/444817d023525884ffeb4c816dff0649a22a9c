@@ -1,0 +1,30 @@
+scripts/git-transaction.sh
+  s_4487096af0f6cc::t_ece27e46ad5f52 104-106,108
+  s_4487096af0f6cc::t_95e421b1d12e06 199-202,205-207,209-211,214-215,219-221,226
+  s_4487096af0f6cc::t_b3e0773d5bbe04 125-141,145,148,157,165-170
+  s_4487096af0f6cc::t_adc8012ac4411a 52-56
+  s_4487096af0f6cc::t_60a2513831d8e8 216-218,222
+scripts/agent-wrapper.sh
+  s_4487096af0f6cc::t_e35bfe71077647 454
+  s_4487096af0f6cc::t_f1addbf8d54e8c 434-441,445-453,455
+  s_4487096af0f6cc::t_4e0a03ee3b6109 142-146
+  s_4487096af0f6cc::t_6da52599248273 716-719
+  s_4487096af0f6cc::t_56398eaebd2df5 558
+  s_4487096af0f6cc::t_51f613a0899557 771-774,776-786,788-789,792,796-799,803-804,806,808
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.4",
+  "base_commit_sha": "5e444817d023525884ffeb4c816dff0649a22a9c",
+  "prompts": {},
+  "sessions": {
+    "s_4487096af0f6cc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ec529c65-458b-4a42-b4bc-a604f6733a84",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
