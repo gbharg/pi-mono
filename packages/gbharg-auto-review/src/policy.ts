@@ -1,4 +1,4 @@
-import type { LatestReviewState, MergePolicyInput, MergePolicyResult } from "./types.js";
+import type { LatestReviewState, MergePolicyInput, MergePolicyResult } from "./types.ts";
 
 export function collapseLatestReviews(
 	reviews: Array<LatestReviewState & { submittedAt?: string }>,
@@ -34,7 +34,11 @@ export function evaluateMergePolicy(input: MergePolicyInput): MergePolicyResult 
 			if (pendingChecks.length > 0) {
 				reasons.push(`pending deploy checks: ${pendingChecks.join(", ")}`);
 			}
-			if (!failingChecks.length && !pendingChecks.length && !deployChecks.some((check) => check.state === "SUCCESS")) {
+			if (
+				!failingChecks.length &&
+				!pendingChecks.length &&
+				!deployChecks.some((check) => check.state === "SUCCESS")
+			) {
 				reasons.push(`missing successful deploy check matching: ${input.deployCheckPatterns.join(", ")}`);
 			}
 		}
@@ -60,10 +64,7 @@ export function evaluateMergePolicy(input: MergePolicyInput): MergePolicyResult 
 	};
 }
 
-function selectDeployChecks(
-	statusChecks: MergePolicyInput["statusChecks"],
-	patterns: string[],
-) {
+function selectDeployChecks(statusChecks: MergePolicyInput["statusChecks"], patterns: string[]) {
 	const checks = statusChecks ?? [];
 	const normalizedPatterns = patterns.map((pattern) => pattern.toLowerCase());
 	return checks.filter((check) => {

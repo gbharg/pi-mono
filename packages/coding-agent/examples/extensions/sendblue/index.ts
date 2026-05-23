@@ -14,8 +14,8 @@ import * as http from "node:http";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { StringEnum } from "@mariozechner/pi-ai";
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import { StringEnum } from "@earendil-works/pi-ai";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "@sinclair/typebox";
 
 const EXTENSION_DIR = typeof __dirname !== "undefined" ? __dirname : dirname(fileURLToPath(import.meta.url));
@@ -153,7 +153,7 @@ async function fetchRecentHistory(limit = 50): Promise<string> {
 function logMessage(entry: Record<string, unknown>): void {
 	const logPath = join(DATA_DIR, "messages.jsonl");
 	try {
-		fs.appendFileSync(logPath, JSON.stringify(entry) + "\n", "utf-8");
+		fs.appendFileSync(logPath, `${JSON.stringify(entry)}\n`, "utf-8");
 	} catch (err) {
 		console.error(`${LOG} Failed to write message log:`, err);
 	}
@@ -221,7 +221,7 @@ export default function sendblueExtension(pi: ExtensionAPI) {
 			if (req.method === "POST" && req.url === "/webhook") {
 				// Authenticate if WEBHOOK_SECRET is configured
 				if (WEBHOOK_SECRET) {
-					const provided = req.headers["x-webhook-secret"] ?? req.headers["authorization"];
+					const provided = req.headers["x-webhook-secret"] ?? req.headers.authorization;
 					if (provided !== WEBHOOK_SECRET && provided !== `Bearer ${WEBHOOK_SECRET}`) {
 						res.writeHead(401);
 						res.end(JSON.stringify({ error: "Unauthorized" }));
@@ -364,7 +364,7 @@ export default function sendblueExtension(pi: ExtensionAPI) {
 				message_handle: (result as Record<string, unknown>).message_handle ?? "",
 			});
 
-			const preview = params.content.length > 80 ? params.content.slice(0, 80) + "..." : params.content;
+			const preview = params.content.length > 80 ? `${params.content.slice(0, 80)}...` : params.content;
 			return {
 				content: [{ type: "text" as const, text: `Sent to ${params.number}: "${preview}"` }],
 				details: { result },
@@ -382,7 +382,7 @@ export default function sendblueExtension(pi: ExtensionAPI) {
 			message_handle: Type.String({ description: "message_handle of message to react to" }),
 			reaction: StringEnum(["love", "like", "dislike", "laugh", "emphasize", "question"], {
 				description: "Reaction type",
-			}),
+			}) as any,
 		}),
 		async execute(_toolCallId, params) {
 			await sendbluePost("/api/send-reaction", {

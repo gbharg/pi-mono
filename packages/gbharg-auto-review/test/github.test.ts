@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizePullRequestFiles, normalizeReviewRequests, normalizeStatusChecks } from "../src/github.js";
+import { normalizePullRequestFiles, normalizeReviewRequests, normalizeStatusChecks } from "../src/github.ts";
 
 describe("github normalization", () => {
 	it("normalizes review requests across gh payload shapes", () => {
@@ -11,12 +11,7 @@ describe("github normalization", () => {
 				{ requestedReviewer: { slug: "nested-slug" } },
 				{},
 			]),
-		).toEqual([
-			{ login: "flat-login" },
-			{ login: "flat-slug" },
-			{ login: "nested-login" },
-			{ login: "nested-slug" },
-		]);
+		).toEqual([{ login: "flat-login" }, { login: "flat-slug" }, { login: "nested-login" }, { login: "nested-slug" }]);
 	});
 
 	it("normalizes file paths and drops empty entries", () => {

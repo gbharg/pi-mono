@@ -10,7 +10,7 @@
  *          imessage_history, and any other non-execution tools.
  */
 
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const BLOCKED_TOOLS = new Set(["bash", "edit", "write"]);
 

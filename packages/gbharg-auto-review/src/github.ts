@@ -1,5 +1,11 @@
-import { execFileText } from "./process.js";
-import type { LatestReviewState, PullRequestFile, PullRequestMetadata, PullRequestReviewRequest, PullRequestStatusCheck } from "./types.js";
+import { execFileText } from "./process.ts";
+import type {
+	LatestReviewState,
+	PullRequestFile,
+	PullRequestMetadata,
+	PullRequestReviewRequest,
+	PullRequestStatusCheck,
+} from "./types.ts";
 
 interface GhReview {
 	state: string;
@@ -124,7 +130,10 @@ export function normalizeLatestReviews(reviews: GhReview[] | undefined): LatestR
 export function normalizeReviewRequests(reviewRequests: GhReviewRequest[] | undefined): PullRequestReviewRequest[] {
 	if (!reviewRequests) return [];
 	return reviewRequests
-		.map((request) => request.login ?? request.slug ?? request.requestedReviewer?.login ?? request.requestedReviewer?.slug)
+		.map(
+			(request) =>
+				request.login ?? request.slug ?? request.requestedReviewer?.login ?? request.requestedReviewer?.slug,
+		)
 		.filter((login): login is string => Boolean(login))
 		.map((login) => ({ login }));
 }
@@ -204,7 +213,7 @@ function normalizeCheckRunState(
 		case "STARTUP_FAILURE":
 		case "TIMED_OUT":
 			return "FAILURE";
-		case undefined:
+		case "UNDEFINED":
 			return status ? "PENDING" : null;
 		default:
 			return "PENDING";

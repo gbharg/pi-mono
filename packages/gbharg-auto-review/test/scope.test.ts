@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { evaluateReviewScope } from "../src/scope.js";
+import { evaluateReviewScope } from "../src/scope.ts";
 
 describe("review scope", () => {
 	it("ignores PRs that only change ignored directories", () => {
