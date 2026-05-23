@@ -101,3 +101,7 @@ Sub-agents are spawned with `--no-extensions` (no memory, no hooks) but sessions
 5. Pi updates Linear, commits to GitHub, texts Gautam with results
 6. Linear webhooks notify Pi of external changes (Gautam updates issues, other agents comment)
 7. EOD cron verifies everything is synced and nothing was dropped
+
+## Infrastructure references
+
+- SSH mesh + agent topology (MBP ↔ iMac ↔ VM, host aliases, key matrix, 5-agent layout, Tailscale SSH caveat): `.pi/ssh-mesh.md`
