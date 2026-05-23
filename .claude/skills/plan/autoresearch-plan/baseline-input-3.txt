@@ -1,0 +1,1 @@
+Refactor the authentication middleware to support OAuth2 in addition to the existing JWT flow. Legal flagged the current session token storage for compliance issues. This touches the auth service, session store, user model, and 3 API controllers. Need to maintain backward compatibility during migration. No existing Linear issue, create new. Auto-create branch.

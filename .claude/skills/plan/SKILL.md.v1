@@ -1,0 +1,259 @@
+---
+name: plan
+description: "Enter plan mode to design an implementation plan. Use when starting non-trivial work that needs structure, user stories, and Linear tracking."
+user-invocable: true
+allowed-tools: ["EnterPlanMode", "ExitPlanMode"]
+version: v1.0.0
+---
+
+# /plan
+
+Enter plan mode to create a structured implementation plan before writing code.
+
+## When to Use
+
+- Starting non-trivial work (3+ files, multiple stories)
+- Need to align with the user on approach before implementing
+- Building a feature that requires Linear tracking and a PR
+
+## Interaction Protocol (critical — do not skip)
+
+The planning process is **collaborative and conversational**. After entering plan mode (step 1 of Workflow), you MUST:
+
+1. **Ask clarification questions — as many rounds as needed.** Before drafting, identify ambiguities, unknowns, and design trade-offs. Cover scope boundaries, constraints, preferred approach, tech choices, edge cases, and any decision where multiple valid paths exist. Continue asking in successive rounds until you have enough clarity to draft with minimal assumptions on key decisions. Do NOT limit yourself to 2-3 questions. Do NOT silently assume. **You MUST wait for user answers before drafting — never skip ahead.** (This step happens AFTER you call `EnterPlanMode` — always enter plan mode first.)
+
+   **Platform-specific question mechanism:**
+   - **Claude Code**: Use the `AskUserQuestion` tool with structured `options`, `header` chips, and `preview` for code/architecture comparisons. Call it in multiple rounds.
+   - **Codex / Gemini / other agents**: Present numbered questions as plain text (group 3-4 per round). End each round with "Please answer these before I continue." Do NOT proceed to drafting until the user has responded. If the user's answers surface new ambiguities, ask a follow-up round.
+
+2. **Present the FULL plan text** to the user — every section, every user story, every acceptance criterion. Do NOT summarize, abbreviate, or say "I wrote a plan file." The user needs to read and approve the complete plan inline. Even if the plan exceeds 100 lines, present it inline. The user MUST see every word in the conversation — never defer to "see the plan file for details."
+3. **Iterate on feedback.** When the user requests changes, update the plan and present the FULL updated plan again — not just the diff. Continue until the user explicitly approves.
+4. **Never auto-approve.** Only call `ExitPlanMode` when the user explicitly signals approval (e.g., "looks good", "approved", "ship it").
+
+## Statusline Integration
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh skill-start "/plan" "Explore" "Design" "Review" "Approve"
+```
+
+## Workflow
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-start "/plan" 1
+```
+
+1. **Enter plan mode immediately** using the `EnterPlanMode` tool — do this FIRST.
+2. **Gather context.** Read the planning reference (`~/.claude/projects/-Users-Work/memory/planning-reference.md`) for detailed templates. Ask clarification questions (via `AskUserQuestion` on Claude Code, or plain text on other agents) in multiple rounds until you can draft with confidence.
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-done "/plan" 1
+```
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-start "/plan" 2
+```
+
+3. **Draft the plan** following `~/.claude/rules/planning.md` — every plan must include:
+   - Context, Scope, Future Recommendations (FR-XXX)
+   - Execution Strategy (solo/subagents/teams/Ralph)
+   - User Stories (US-001, US-002, ...) — each MUST have Description + verifiable Acceptance Criteria (see format below)
+   - Execution Strategy MUST specify: model (Opus/Sonnet), tools allowed, and permission mode (auto/manual) for each agent; parallel execution required for 3+ stories (see Execution Requirements)
+   - Story Map, GitHub Workflow, Testing & Validation, Rollback
+
+   **User Story format (every story must follow this structure):**
+   ```
+   ### US-001: [Title]
+   **Description:** [1-2 sentences: what this story delivers and why]
+   **Acceptance Criteria:**
+   1. [Specific, verifiable condition]
+   2. [Specific, verifiable condition]
+   3. Typecheck/lint passes.
+   ```
+   Even for 1-2 story plans, each story MUST have Description (1-2 sentences) and Acceptance Criteria (numbered, verifiable checklist). Do NOT produce stories with only a title or vague criteria like "works correctly."
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-done "/plan" 2
+```
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-start "/plan" 3
+```
+
+4. **Present the full plan** to the user for review. Walk through key decisions and trade-offs.
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-done "/plan" 3
+```
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-start "/plan" 4
+```
+
+5. **On approval** (ExitPlanMode), execute the automation:
+   - Create Linear parent issue + sub-issues per story
+   - Create backlog issues for Future Recommendations
+   - Commit plan + create feature branch + open draft PR
+   - Output the Story Map table
+
+```bash
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh step-done "/plan" 4
+bash ~/openclaw/config/claude/hooks/statusline-emit.sh skill-done "/plan" success
+```
+
+## Quick Start
+
+When the user types `/plan`:
+
+1. **Immediately enter plan mode** by calling the `EnterPlanMode` tool — do this FIRST, before any questions or drafting.
+2. **Discovery phase** — ask questions in successive rounds to fully understand intent:
+   - **Round 1**: Scope and goals (what are we building, what problem does it solve, what's out of scope)
+   - **Round 2**: Technical constraints and preferences (stack, patterns, existing code to integrate with)
+   - **Round 3**: Edge cases and trade-offs (error handling strategy, performance requirements, migration concerns)
+   - **Round 4+**: Any remaining ambiguities surfaced by earlier answers (keep going until confident)
+   - **Claude Code**: Use `AskUserQuestion` with `header` chips, `options` with descriptions, and `preview` for code/architecture comparisons
+   - **Codex / Gemini**: Present 3-4 numbered questions per round as plain text. End with "Please answer before I proceed." Wait for the user's response before asking the next round or drafting.
+   - Stop only when you can draft the plan with minimal assumptions on key decisions
+3. If the task is vague, start the first round by asking what they want to build
+4. Draft the complete plan
+5. Present the **full plan text** inline for review — do NOT just reference the file
+
+## Status Line Integration
+
+The status line dynamically shows plan progress, running agents, and story completion. This requires three lifecycle calls:
+
+### 1. On Plan Approval (after ExitPlanMode)
+
+Write the plan marker and initialize plan state:
+
+```bash
+mkdir -p /tmp/claude/sessions/$PPID
+echo "<agent>:<plan-slug>" > /tmp/claude/sessions/$PPID/active-plan
+bash /Users/Work/openclaw/config/claude/hooks/plan-progress.sh init <plan-file-path>
+```
+
+This parses US-XXX stories from the plan file into `/tmp/claude/sessions/$PPID/plan.json`, which the status line reads to show the plan view.
+
+### 2. During Implementation (story status tracking)
+
+When starting a story:
+
+```bash
+bash /Users/Work/openclaw/config/claude/hooks/plan-progress.sh update US-001 in-progress
+```
+
+When completing a story:
+
+```bash
+bash /Users/Work/openclaw/config/claude/hooks/plan-progress.sh update US-001 done
+```
+
+The status line updates automatically after each assistant message to reflect these changes.
+
+### 3. On Plan Completion (ExitPlanMode or /done)
+
+```bash
+bash /Users/Work/openclaw/config/claude/hooks/plan-progress.sh clear
+```
+
+**Note:** Sub-agent tracking is automatic via the `agent-tracker.sh` hook -- no manual calls needed. Running agents appear in the status line plan view with elapsed time.
+
+## Task & Agent Orchestration (critical — prevents ID errors)
+
+During plan execution, you manage two separate ID systems. Confusing them causes "Task ID is required" and "No task found" errors.
+
+### 1. Task IDs (TaskCreate/TaskUpdate/TaskGet)
+
+TaskCreate returns a task object with an auto-generated `id` (e.g., `bnifse8x5`). You MUST capture this ID from the response to use in subsequent TaskUpdate/TaskGet calls.
+
+```
+# CORRECT: Create task, then reference the returned ID
+TaskCreate(subject: "US-001: Add auth middleware", description: "...")
+# Response includes id: "abc123"
+TaskUpdate(taskId: "abc123", status: "in_progress")
+# ... do work ...
+TaskUpdate(taskId: "abc123", status: "completed")
+```
+
+**Common mistakes:**
+- Calling `TaskUpdate` or `TaskGet` with a made-up ID → "No task found"
+- Calling `TaskOutput` with a TaskCreate ID → wrong tool (TaskOutput is for background agents, not task tracking)
+
+### 2. Agent IDs (Agent tool with run_in_background)
+
+When you spawn a background agent via the `Agent` tool with `run_in_background: true`, you receive an agent ID. Use `TaskOutput(task_id: "<agent-id>")` to retrieve results.
+
+```
+# CORRECT: Spawn agent, then check output with the returned ID
+Agent(prompt: "Implement US-002", run_in_background: true)
+# Response includes agentId: "xyz789"
+# ... later, when notified of completion ...
+TaskOutput(task_id: "xyz789", block: false, timeout: 5000)
+```
+
+**Common mistakes:**
+- Calling `TaskOutput` without `task_id` → "Task ID is required"
+- Calling `TaskOutput` with a stale ID from before context compaction → "No task found"
+- Mixing up TaskCreate IDs with Agent IDs — they are different systems
+
+### 3. Surviving context compaction
+
+After compaction, agent IDs from earlier in the conversation may be lost. To prevent stale ID errors:
+- **Create tasks BEFORE spawning agents** — TaskList survives compaction
+- **Store the agent ID in task metadata**: `TaskUpdate(taskId: "abc123", metadata: {"agentId": "xyz789"})`
+- **Use TaskList to recover state** — if you don't remember an ID, list all tasks first
+- **Never guess IDs** — if an ID is lost, use TaskList or accept that the background result is gone
+
+### 4. Orchestration pattern for parallel stories
+
+```
+# Phase 1: Create all tasks upfront
+TaskCreate(subject: "US-001: ...", description: "...")  → id: "t1"
+TaskCreate(subject: "US-002: ...", description: "...")  → id: "t2"
+
+# Phase 2: Spawn agents, link IDs
+TaskUpdate(taskId: "t1", status: "in_progress")
+Agent(prompt: "...", run_in_background: true, isolation: "worktree")  → agentId: "a1"
+TaskUpdate(taskId: "t1", metadata: {"agentId": "a1"})
+
+TaskUpdate(taskId: "t2", status: "in_progress")
+Agent(prompt: "...", run_in_background: true, isolation: "worktree")  → agentId: "a2"
+TaskUpdate(taskId: "t2", metadata: {"agentId": "a2"})
+
+# Phase 3: When notified of completion, retrieve results
+TaskOutput(task_id: "a1", block: false, timeout: 5000)
+TaskUpdate(taskId: "t1", status: "completed")
+```
+
+## Notes
+
+- Rename the plan file from the random slug to a descriptive one immediately
+- Branch must match: `feat/<plan-slug>`
+- Trivial work (1-2 stories, solo): skip per-story sub-issues
+- Memory-only plans: no Linear issues needed
+
+## Execution Requirements
+
+### Parallel Execution (mandatory for 3+ stories)
+
+Plans with 3 or more user stories MUST specify a parallel execution strategy. Solo serial execution is only acceptable for plans with 1-2 stories.
+
+Every plan MUST specify: model (Opus/Sonnet), tools allowed, and permission mode (auto/manual) for each agent involved.
+
+**Required in the Execution Strategy section of every plan:**
+
+1. **Agent model selection**: Which model handles orchestration (Opus) vs implementation (Sonnet)
+2. **Parallelism level**: How many concurrent workers (default: 3-5 for Ralph, 2-3 for manual subagents)
+3. **Isolation method**: Worktrees (default for code changes) or background agents (for research/memory)
+4. **Dependency ordering**: Which stories can run in parallel vs which have sequential dependencies
+5. **Permission mode**: Auto-approve or manual review per agent
+
+**Acceptable patterns (pick one per plan):**
+
+| Pattern | When to use | Stories |
+|---------|------------|---------|
+| Solo | 1-2 stories, simple changes | 1-2 |
+| Subagents | 3-5 stories, mixed code+memory | 3-5 |
+| Ralph swarm | 6+ stories, independent issues | 6+ |
+| Council plan | Architecture decisions needed first | Any |
+
+Plans that specify "solo" for 3+ stories will be rejected during review. The orchestrator MUST spawn parallel workers using the Agent tool with `isolation: "worktree"` for code changes.

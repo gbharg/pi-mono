@@ -1,0 +1,1 @@
+Build a new REST API endpoint for user preferences. The endpoint should support GET, PUT, and DELETE operations. Preferences are stored in the existing PostgreSQL database. There's an existing user service that handles auth. This is for the OpenClaw project. No existing Linear issue. Create a new branch.

@@ -1,0 +1,1 @@
+Add dark mode support to the settings page. The app uses Tailwind CSS and has a DESIGN.md with the existing color system. Need to handle: toggle in settings, persist preference, apply across all pages, respect system preference. Existing Linear issue AI-342. Use the current branch.

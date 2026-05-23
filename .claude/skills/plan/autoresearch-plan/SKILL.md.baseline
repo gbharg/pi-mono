@@ -1,0 +1,275 @@
+---
+name: plan
+description: "Enter plan mode to design, review, and execute implementation plans. Consolidates strategy review, design review, and engineering review into a single 6-phase workflow."
+user-invocable: true
+allowed-tools: ["EnterPlanMode", "ExitPlanMode", "AskUserQuestion", "Agent"]
+version: v2.0.0
+---
+
+# /plan — Unified Planning Skill
+
+Design, review, and execute implementation plans in one flow.
+
+## 6-Phase Workflow
+
+```
+INTAKE → DRAFT → REVIEW → ITERATE → APPROVE → EXECUTE
+```
+
+---
+
+## Phase 1: INTAKE
+
+**Enter plan mode immediately** using `EnterPlanMode` (Claude Code) or announce "Entering plan mode" (Codex/Gemini/Cursor).
+
+### Agent Detection
+
+Detect the running agent and adapt interaction style:
+
+- If `AskUserQuestion` tool is available → Claude Code mode (structured questions)
+- Otherwise → plain text mode (numbered questions, "Please answer before I continue")
+
+| Capability | Claude Code | Codex / Gemini / Cursor |
+|------------|-------------|--------------------------|
+| Plan mode | `EnterPlanMode` tool | Text: "Entering plan mode" |
+| Questions | `AskUserQuestion` | Numbered text questions |
+| Plan approval | `ExitPlanMode` tool | "Approved? (yes/no)" |
+| Linear | MCP `save_issue` tool | `gh` CLI or skip |
+| Sub-agents | `Agent` tool | Save proposal only |
+| Status line | `plan-progress.sh` | Skip (not available) |
+
+### Required Questions (Round 1)
+
+Collect these before drafting — no exceptions:
+
+1. **What are you building?** Goal + problem statement. If already described, confirm understanding.
+2. **Linear issue?** Existing `AI-XXX` | create new | skip tracking
+3. **Branch strategy?** Auto-create `feat/<slug>` | use existing branch | create worktree
+
+### Adaptive Questions (Round 2+)
+
+Ask follow-up rounds based on answers. Stop when you can draft with minimal assumptions.
+
+- No Linear issue → ask about priority, labels
+- UI components mentioned → ask about design system, responsive needs
+- Touching existing code → ask about constraints, patterns to follow
+- Complex scope → ask about edge cases, failure modes, perf requirements
+- Multi-person work → ask about file ownership, coordination
+- User says "just draft it" → stop asking, draft minimal plan
+
+### Thoroughness Auto-Calibration
+
+Do NOT ask the user to pick a thoroughness level. Auto-detect from signals:
+
+| Signal | Thoroughness | Reviews triggered |
+|--------|-------------|-------------------|
+| 1-2 files, simple change | Minimal | Eng review (abbreviated) |
+| 3-8 files, standard feature | Standard | Eng review (full) |
+| UI components involved | Standard+ | + Design review |
+| New service/API/data model | Deep | + Strategy review |
+| 9+ files or 3+ new abstractions | Deep | All reviews + diagrams |
+| 6+ stories | Deep | All reviews + execution |
+| User asks for more depth | Expand | Add requested dimension |
+
+Always start high-level (problem framing, scope) and drill down as complexity warrants. Complex plans get multiple refinement turns.
+
+---
+
+## Phase 2: DRAFT
+
+1. **Write plan file** to `.claude/plans/{agent}:{descriptive-slug}.md`
+   - Rename random slugs immediately. Symlink old name for backward compat.
+
+2. **Frontmatter:**
+   ```yaml
+   ---
+   agent: claude          # or codex, gemini, cursor
+   branch: feat/<slug>
+   session_id: <UUID>
+   linear_issue: <AI-XXX or "pending">
+   created_at: <ISO 8601>
+   thoroughness: <minimal|standard|deep>
+   reviews: [strategy, design, review]
+   ---
+   ```
+
+3. **Plan sections** (include based on thoroughness):
+
+   **All plans (minimal+):**
+   - Context (problem + why now)
+   - Scope (in-scope + NOT-in-scope)
+   - User Stories (US-XXX with Description + verifiable Acceptance Criteria)
+   - Story Map (dependency graph)
+
+   **Standard+:**
+   - Future Recommendations (FR-XXX with priority)
+   - GitHub Workflow (branch, commit format, PR)
+   - Testing & Validation
+   - Rollback plan
+
+   **Deep:**
+   - ASCII diagrams (data flow, state machines, dependencies)
+   - Failure mode analysis per new codepath
+   - Performance considerations
+   - Execution Strategy (pre-filled, refined in Phase 6)
+
+4. **User Story format:**
+   ```
+   ### US-XXX: [Title]
+   **Description:** [1-2 sentences: what + why]
+   **Acceptance Criteria:**
+   1. [Specific, verifiable condition]
+   2. [Specific, verifiable condition]
+   3. Typecheck/lint passes.
+   ```
+
+5. **Present the FULL plan text inline.** Never say "see the plan file." Show every word.
+
+---
+
+## Phase 3: REVIEW (auto-routed, Strategy → Design → Engineering)
+
+Review order: high-level to detailed. Read the child skill BEFORE running each review.
+
+### 3A: Strategy Review
+
+**Trigger:** Deep thoroughness, OR plan touches product direction, OR 6+ stories, OR user requests.
+
+Read and follow `~/.claude/skills/plan/children/strategy/SKILL.md`. Key outputs:
+- Premise challenge, implementation alternatives, scope mode, NOT-in-scope
+
+### 3B: Design Review
+
+**Trigger:** Plan has UI scope (new pages, components, user-facing interactions).
+**Skip:** No UI scope → "No UI scope — skipping design review."
+
+Read and follow `~/.claude/skills/plan/children/design/SKILL.md`. Key outputs:
+- 7-pass rating (0-10), interaction state tables, responsive + a11y specs
+
+### 3C: Engineering Review
+
+**Trigger:** Always (unless minimal AND user explicitly skips).
+
+Read and follow `~/.claude/skills/plan/children/review/SKILL.md`. Key outputs:
+- Scope challenge, architecture/quality/test/perf review, test diagram, failure modes
+
+### Review Completion Summary
+
+```
++====================================================================+
+|              PLAN REVIEW SUMMARY                                    |
++====================================================================+
+| Thoroughness  | [level] ([signals])                                 |
+| Strategy      | [mode + expansions] or "skipped"                    |
+| Design        | [before → after] or "skipped (no UI)"               |
+| Engineering   | [issues found/resolved]                             |
+| Test coverage | [diagram + gaps]                                    |
+| Failure modes | [critical gaps]                                     |
+| NOT in scope  | [count]                                             |
+| FRs           | [FR-001 through FR-XXX]                              |
++====================================================================+
+```
+
+---
+
+## Phase 4: ITERATE
+
+- User reviews plan after reviews have refined it
+- Changes → update plan → re-present FULL plan
+- If changes affect reviewed section → re-run that review pass
+- Continue until explicit approval
+
+**Never auto-approve.** Only proceed to Phase 5 on explicit signal: "looks good", "approved", "ship it". Neutral acknowledgments ("ok", "I see") are NOT approval.
+
+---
+
+## Phase 5: APPROVE
+
+On explicit approval:
+
+1. `ExitPlanMode` (Claude Code) or "Plan approved" (others)
+
+2. **Linear parent issue** (if tracking enabled):
+   ```
+   save_issue(title, team: "OpenClaw", state: "In Progress",
+              labels: ["Feature"], description: context + scope + story titles)
+   ```
+
+3. **Sub-issues per story** (skip for 1-2 story trivial plans):
+   - Title: `[US-XXX] <Story title>`
+   - Wave 2 stories: `blockedBy: [Wave 1 IDs]`
+
+4. **FR backlog issues** (standalone, not sub-issues)
+
+5. **Feature branch + draft PR:**
+   ```bash
+   git checkout -b feat/<plan-slug>
+   git push -u private feat/<plan-slug>
+   gh pr create --draft --title "feat: [AI-XXX] <title>" --body "..."
+   ```
+
+6. **Status line init** (Claude Code only):
+   ```bash
+   mkdir -p /tmp/claude/sessions/$PPID
+   echo "<agent>:<plan-slug>" > /tmp/claude/sessions/$PPID/active-plan
+   bash ~/.claude/skills/plan/hooks/plan-progress.sh init <plan-file-path>
+   ```
+
+---
+
+## Phase 6: EXECUTE
+
+Auto-propose execution strategy:
+
+| Stories | Deps | Strategy | Models |
+|---------|------|----------|--------|
+| 1 | — | Solo | This session |
+| 2 | independent | Parallel sub-agents | Sonnet workers |
+| 2 | sequential | Sequential chain | This session |
+| 3-5 | independent | Parallel sub-agents | Sonnet (worktree) |
+| 3-5 | mixed | Waves | Wave 1 parallel, Wave 2 after |
+| 6+ | independent | Ralph swarm | ralph.sh --parallel |
+| 6+ | mixed | Ralph waves | ralph.sh --distribute |
+| Any | deliberation | Council first | council:plan |
+
+Present proposal: strategy, models, parallelism, isolation, dependency ordering, permission mode.
+
+**Options:**
+- **A) Execute now** — spawn agents
+- **B) Modify strategy** — adjust parameters
+- **C) Execute later** — save proposal to plan file
+
+### Orchestration (when executing)
+
+1. `TaskCreate` for each story BEFORE spawning agents
+2. Spawn with `isolation: "worktree"` for code, `mode: "bypassPermissions"` for workers
+3. Store agent IDs: `TaskUpdate(taskId, metadata: {agentId})`
+4. Track: `plan-progress.sh update US-XXX in-progress|done`
+5. On completion: `plan-progress.sh clear`
+
+### Surviving Context Compaction
+
+- Create tasks BEFORE spawning → TaskList survives compaction
+- Store agent IDs in task metadata immediately
+- Use TaskList to recover if IDs are lost
+- Never guess IDs
+
+---
+
+## Plan File Management
+
+- **Naming:** `.claude/plans/{agent}:{slug}.md` — branch: `feat/<slug>`
+- **Session linkage:** frontmatter `session_id` + `/done` appends References section
+- **Commits:** `feat: [AI-XXX] [US-YYY] description`
+- **One feature per branch, one branch per PR**
+
+---
+
+## Notes
+
+- Rename random slugs immediately
+- Trivial (1-2 stories): skip sub-issues, abbreviated review
+- Memory-only plans: no Linear, no branch/PR
+- If Linear MCP unavailable: fall back to `gh` CLI or skip
+- Non-Claude agents without `Agent` tool: save execution proposal only
+- Parallel execution mandatory for 3+ stories (Solo rejected during review)

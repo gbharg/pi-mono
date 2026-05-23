@@ -17,7 +17,12 @@ packages/*/dist-firefox/
 .vscode/
 .zed/
 .idea/
-.claude/
+# .claude/ holds Claude Code session caches, project transcripts, local plans, etc.
+# But .claude/skills/ is shared content (skill definitions used by every agent
+# in this repo) and MUST be tracked. Using /.claude/* (not .claude/) so git
+# still descends into the dir to honor the !skills/ negation below.
+/.claude/*
+!/.claude/skills/
 *.swp
 *.swo
 *~
