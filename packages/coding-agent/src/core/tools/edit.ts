@@ -1,25 +1,33 @@
-import type { AgentTool } from "@mariozechner/pi-agent-core";
-import { Container, Text } from "@mariozechner/pi-tui";
-import { type Static, Type } from "@sinclair/typebox";
+import type { AgentTool } from "@earendil-works/pi-agent-core";
+import { Box, Container, Spacer, Text } from "@earendil-works/pi-tui";
 import { constants } from "fs";
 import { access as fsAccess, readFile as fsReadFile, writeFile as fsWriteFile } from "fs/promises";
-import { renderDiff } from "../../modes/interactive/components/diff.js";
-import type { ToolDefinition } from "../extensions/types.js";
+import { type Static, Type } from "typebox";
+import { renderDiff } from "../../modes/interactive/components/diff.ts";
+import type { ToolDefinition } from "../extensions/types.ts";
 import {
 	applyEditsToNormalizedContent,
+	computeEditsDiff,
 	detectLineEnding,
 	type Edit,
+	type EditDiffError,
+	type EditDiffResult,
 	generateDiffString,
+	generateUnifiedPatch,
 	normalizeToLF,
 	restoreLineEndings,
 	stripBom,
-} from "./edit-diff.js";
-import { withFileMutationQueue } from "./file-mutation-queue.js";
-import { resolveToCwd } from "./path-utils.js";
-import { invalidArgText, shortenPath, str } from "./render-utils.js";
-import { wrapToolDefinition } from "./tool-definition-wrapper.js";
+} from "./edit-diff.ts";
+import { withFileMutationQueue } from "./file-mutation-queue.ts";
+import { resolveToCwd } from "./path-utils.ts";
+import { invalidArgText, shortenPath, str } from "./render-utils.ts";
+import { wrapToolDefinition } from "./tool-definition-wrapper.ts";
 
-type EditRenderState = Record<string, never>;
+type EditPreview = EditDiffResult | EditDiffError;
+
+type EditRenderState = {
+	callComponent?: EditCallRenderComponent;
+};
 
 const replaceEditSchema = Type.Object(
 	{
@@ -50,8 +58,10 @@ type LegacyEditToolInput = EditToolInput & {
 };
 
 export interface EditToolDetails {
-	/** Unified diff of the changes made */
+	/** Display-oriented diff of the changes made */
 	diff: string;
+	/** Standard unified patch of the changes made */
+	patch: string;
 	/** Line number of the first change in the new file (for editor navigation) */
 	firstChangedLine?: number;
 }
@@ -85,14 +95,24 @@ function prepareEditArguments(input: unknown): EditToolInput {
 		return input as EditToolInput;
 	}
 
-	const args = input as LegacyEditToolInput;
-	if (typeof args.oldText !== "string" || typeof args.newText !== "string") {
-		return input as EditToolInput;
+	const args = input as Record<string, unknown>;
+
+	// Some models (Opus 4.6, GLM-5.1) send edits as a JSON string instead of an array
+	if (typeof args.edits === "string") {
+		try {
+			const parsed = JSON.parse(args.edits);
+			if (Array.isArray(parsed)) args.edits = parsed;
+		} catch {}
 	}
 
-	const edits = Array.isArray(args.edits) ? [...args.edits] : [];
-	edits.push({ oldText: args.oldText, newText: args.newText });
-	const { oldText: _oldText, newText: _newText, ...rest } = args;
+	const legacy = args as LegacyEditToolInput;
+	if (typeof legacy.oldText !== "string" || typeof legacy.newText !== "string") {
+		return args as EditToolInput;
+	}
+
+	const edits = Array.isArray(legacy.edits) ? [...legacy.edits] : [];
+	edits.push({ oldText: legacy.oldText, newText: legacy.newText });
+	const { oldText: _oldText, newText: _newText, ...rest } = legacy;
 	return { ...rest, edits } as EditToolInput;
 }
 
@@ -111,9 +131,69 @@ type RenderableEditArgs = {
 	newText?: string;
 };
 
+type EditToolResultLike = {
+	content: Array<{ type: string; text?: string; data?: string; mimeType?: string }>;
+	details?: EditToolDetails;
+};
+
+type EditCallRenderComponent = Box & {
+	preview?: EditPreview;
+	previewArgsKey?: string;
+	previewPending?: boolean;
+	settledError?: boolean;
+};
+
+function createEditCallRenderComponent(): EditCallRenderComponent {
+	return Object.assign(new Box(1, 1, (text: string) => text), {
+		preview: undefined as EditPreview | undefined,
+		previewArgsKey: undefined as string | undefined,
+		previewPending: false,
+		settledError: false,
+	});
+}
+
+function getEditCallRenderComponent(state: EditRenderState, lastComponent: unknown): EditCallRenderComponent {
+	if (lastComponent instanceof Box) {
+		const component = lastComponent as EditCallRenderComponent;
+		state.callComponent = component;
+		return component;
+	}
+	if (state.callComponent) {
+		return state.callComponent;
+	}
+	const component = createEditCallRenderComponent();
+	state.callComponent = component;
+	return component;
+}
+
+function getRenderablePreviewInput(args: RenderableEditArgs | undefined): { path: string; edits: Edit[] } | null {
+	if (!args) {
+		return null;
+	}
+
+	const path = typeof args.path === "string" ? args.path : typeof args.file_path === "string" ? args.file_path : null;
+	if (!path) {
+		return null;
+	}
+
+	if (
+		Array.isArray(args.edits) &&
+		args.edits.length > 0 &&
+		args.edits.every((edit) => typeof edit?.oldText === "string" && typeof edit?.newText === "string")
+	) {
+		return { path, edits: args.edits };
+	}
+
+	if (typeof args.oldText === "string" && typeof args.newText === "string") {
+		return { path, edits: [{ oldText: args.oldText, newText: args.newText }] };
+	}
+
+	return null;
+}
+
 function formatEditCall(
 	args: RenderableEditArgs | undefined,
-	theme: typeof import("../../modes/interactive/theme/theme.js").theme,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
 ): string {
 	const invalidArg = invalidArgText(theme);
 	const rawPath = str(args?.file_path ?? args?.path);
@@ -124,30 +204,88 @@ function formatEditCall(
 
 function formatEditResult(
 	args: RenderableEditArgs | undefined,
-	result: {
-		content: Array<{ type: string; text?: string; data?: string; mimeType?: string }>;
-		details?: EditToolDetails;
-	},
-	theme: typeof import("../../modes/interactive/theme/theme.js").theme,
+	preview: EditPreview | undefined,
+	result: EditToolResultLike,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
 	isError: boolean,
 ): string | undefined {
 	const rawPath = str(args?.file_path ?? args?.path);
+	const previewDiff = preview && !("error" in preview) ? preview.diff : undefined;
+	const previewError = preview && "error" in preview ? preview.error : undefined;
 	if (isError) {
 		const errorText = result.content
 			.filter((c) => c.type === "text")
 			.map((c) => c.text || "")
 			.join("\n");
-		if (!errorText) {
+		if (!errorText || errorText === previewError) {
 			return undefined;
 		}
-		return `\n${theme.fg("error", errorText)}`;
+		return theme.fg("error", errorText);
 	}
 
 	const resultDiff = result.details?.diff;
-	if (!resultDiff) {
-		return undefined;
+	if (resultDiff && resultDiff !== previewDiff) {
+		return renderDiff(resultDiff, { filePath: rawPath ?? undefined });
 	}
-	return `\n${renderDiff(resultDiff, { filePath: rawPath ?? undefined })}`;
+
+	return undefined;
+}
+
+function getEditHeaderBg(
+	preview: EditPreview | undefined,
+	settledError: boolean | undefined,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
+): (text: string) => string {
+	if (preview) {
+		if ("error" in preview) {
+			return (text: string) => theme.bg("toolErrorBg", text);
+		}
+		return (text: string) => theme.bg("toolSuccessBg", text);
+	}
+	if (settledError) {
+		return (text: string) => theme.bg("toolErrorBg", text);
+	}
+	return (text: string) => theme.bg("toolPendingBg", text);
+}
+
+function buildEditCallComponent(
+	component: EditCallRenderComponent,
+	args: RenderableEditArgs | undefined,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
+): EditCallRenderComponent {
+	component.setBgFn(getEditHeaderBg(component.preview, component.settledError, theme));
+	component.clear();
+	component.addChild(new Text(formatEditCall(args, theme), 0, 0));
+
+	if (!component.preview) {
+		return component;
+	}
+
+	const body =
+		"error" in component.preview ? theme.fg("error", component.preview.error) : renderDiff(component.preview.diff);
+	component.addChild(new Spacer(1));
+	component.addChild(new Text(body, 0, 0));
+	return component;
+}
+
+function setEditPreview(
+	component: EditCallRenderComponent,
+	preview: EditPreview,
+	argsKey: string | undefined,
+): boolean {
+	const current = component.preview;
+	const changed =
+		current === undefined ||
+		("error" in current && "error" in preview
+			? current.error !== preview.error
+			: "error" in current !== "error" in preview) ||
+		(!("error" in current) &&
+			!("error" in preview) &&
+			(current.diff !== preview.diff || current.firstChangedLine !== preview.firstChangedLine));
+	component.preview = preview;
+	component.previewArgsKey = argsKey;
+	component.previewPending = false;
+	return changed;
 }
 
 export function createEditToolDefinition(
@@ -169,6 +307,7 @@ export function createEditToolDefinition(
 			"Keep edits[].oldText as small as possible while still being unique in the file. Do not pad with large unchanged regions.",
 		],
 		parameters: editSchema,
+		renderShell: "self",
 		prepareArguments: prepareEditArguments,
 		async execute(_toolCallId, input: EditToolInput, signal?: AbortSignal, _onUpdate?, _ctx?) {
 			const { path, edits } = validateEditInput(input);
@@ -205,11 +344,13 @@ export function createEditToolDefinition(
 								// Check if file exists.
 								try {
 									await ops.access(absolutePath);
-								} catch {
+								} catch (error: unknown) {
+									const errorMessage =
+										error instanceof Error && "code" in error ? `Error code: ${error.code}` : String(error);
 									if (signal) {
 										signal.removeEventListener("abort", onAbort);
 									}
-									reject(new Error(`File not found: ${path}`));
+									reject(new Error(`Could not edit file: ${path}. ${errorMessage}.`));
 									return;
 								}
 
@@ -256,6 +397,7 @@ export function createEditToolDefinition(
 								}
 
 								const diffResult = generateDiffString(baseContent, newContent);
+								const patch = generateUnifiedPatch(path, baseContent, newContent);
 								resolve({
 									content: [
 										{
@@ -263,7 +405,7 @@ export function createEditToolDefinition(
 											text: `Successfully replaced ${edits.length} block(s) in ${path}.`,
 										},
 									],
-									details: { diff: diffResult.diff, firstChangedLine: diffResult.firstChangedLine },
+									details: { diff: diffResult.diff, patch, firstChangedLine: diffResult.firstChangedLine },
 								});
 							} catch (error: unknown) {
 								// Clean up abort handler.
@@ -280,20 +422,68 @@ export function createEditToolDefinition(
 			);
 		},
 		renderCall(args, theme, context) {
-			const text = (context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
-			text.setText(formatEditCall(args, theme));
-			return text;
+			const component = getEditCallRenderComponent(context.state, context.lastComponent);
+			const previewInput = getRenderablePreviewInput(args as RenderableEditArgs | undefined);
+			const argsKey = previewInput
+				? JSON.stringify({ path: previewInput.path, edits: previewInput.edits })
+				: undefined;
+
+			if (component.previewArgsKey !== argsKey) {
+				component.preview = undefined;
+				component.previewArgsKey = argsKey;
+				component.previewPending = false;
+				component.settledError = false;
+			}
+
+			if (context.argsComplete && previewInput && !component.preview && !component.previewPending) {
+				component.previewPending = true;
+				const requestKey = argsKey;
+				void computeEditsDiff(previewInput.path, previewInput.edits, context.cwd).then((preview) => {
+					if (component.previewArgsKey === requestKey) {
+						setEditPreview(component, preview, requestKey);
+						context.invalidate();
+					}
+				});
+			}
+
+			return buildEditCallComponent(component, args, theme);
 		},
 		renderResult(result, _options, theme, context) {
-			const output = formatEditResult(context.args, result as any, theme, context.isError);
+			const callComponent = context.state.callComponent;
+			const previewInput = getRenderablePreviewInput(context.args as RenderableEditArgs | undefined);
+			const argsKey = previewInput
+				? JSON.stringify({ path: previewInput.path, edits: previewInput.edits })
+				: undefined;
+			const typedResult = result as EditToolResultLike;
+			const resultDiff = !context.isError ? typedResult.details?.diff : undefined;
+			let changed = false;
+			if (callComponent) {
+				if (typeof resultDiff === "string") {
+					changed =
+						setEditPreview(
+							callComponent,
+							{ diff: resultDiff, firstChangedLine: typedResult.details?.firstChangedLine },
+							argsKey,
+						) || changed;
+				}
+				if (callComponent.settledError !== context.isError) {
+					callComponent.settledError = context.isError;
+					changed = true;
+				}
+				if (changed) {
+					buildEditCallComponent(callComponent, context.args as RenderableEditArgs | undefined, theme);
+				}
+			}
+
+			const output = formatEditResult(context.args, callComponent?.preview, typedResult, theme, context.isError);
+			const component = (context.lastComponent as Container | undefined) ?? new Container();
+			component.clear();
 			if (!output) {
-				const component = (context.lastComponent as Container | undefined) ?? new Container();
-				component.clear();
 				return component;
 			}
-			const text = (context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
-			text.setText(output);
-			return text;
+			component.addChild(new Spacer(1));
+			component.addChild(new Text(output, 1, 0));
+			return component;
 		},
 	};
 }
@@ -301,7 +491,3 @@ export function createEditToolDefinition(
 export function createEditTool(cwd: string, options?: EditToolOptions): AgentTool<typeof editSchema> {
 	return wrapToolDefinition(createEditToolDefinition(cwd, options));
 }
-
-/** Default edit tool using process.cwd() for backwards compatibility. */
-export const editToolDefinition = createEditToolDefinition(process.cwd());
-export const editTool = createEditTool(process.cwd());

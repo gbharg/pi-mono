@@ -7,17 +7,19 @@
  */
 
 import {
+	findEnvKeys,
 	getEnvApiKey,
 	type OAuthCredentials,
 	type OAuthLoginCallbacks,
 	type OAuthProviderId,
-} from "@mariozechner/pi-ai";
-import { getOAuthApiKey, getOAuthProvider, getOAuthProviders } from "@mariozechner/pi-ai/oauth";
+} from "@earendil-works/pi-ai";
+import { getOAuthApiKey, getOAuthProvider, getOAuthProviders } from "@earendil-works/pi-ai/oauth";
 import { chmodSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 import lockfile from "proper-lockfile";
-import { getAgentDir } from "../config.js";
-import { resolveConfigValue } from "./resolve-config-value.js";
+import { getAgentDir } from "../config.ts";
+import { normalizePath } from "../utils/paths.ts";
+import { resolveConfigValue } from "./resolve-config-value.ts";
 
 export type ApiKeyCredential = {
 	type: "api_key";
@@ -32,6 +34,12 @@ export type AuthCredential = ApiKeyCredential | OAuthCredential;
 
 export type AuthStorageData = Record<string, AuthCredential>;
 
+export type AuthStatus = {
+	configured: boolean;
+	source?: "stored" | "runtime" | "environment" | "fallback" | "models_json_key" | "models_json_command";
+	label?: string;
+};
+
 type LockResult<T> = {
 	result: T;
 	next?: string;
@@ -43,7 +51,11 @@ export interface AuthStorageBackend {
 }
 
 export class FileAuthStorageBackend implements AuthStorageBackend {
-	constructor(private authPath: string = join(getAgentDir(), "auth.json")) {}
+	private authPath: string;
+
+	constructor(authPath: string = join(getAgentDir(), "auth.json")) {
+		this.authPath = normalizePath(authPath);
+	}
 
 	private ensureParentDir(): void {
 		const dir = dirname(this.authPath);
@@ -187,8 +199,10 @@ export class AuthStorage {
 	private fallbackResolver?: (provider: string) => string | undefined;
 	private loadError: Error | null = null;
 	private errors: Error[] = [];
+	private storage: AuthStorageBackend;
 
-	private constructor(private storage: AuthStorageBackend) {
+	private constructor(storage: AuthStorageBackend) {
+		this.storage = storage;
 		this.reload();
 	}
 
@@ -327,6 +341,30 @@ export class AuthStorage {
 		if (getEnvApiKey(provider)) return true;
 		if (this.fallbackResolver?.(provider)) return true;
 		return false;
+	}
+
+	/**
+	 * Return auth status without exposing credential values or refreshing tokens.
+	 */
+	getAuthStatus(provider: string): AuthStatus {
+		if (this.data[provider]) {
+			return { configured: true, source: "stored" };
+		}
+
+		if (this.runtimeOverrides.has(provider)) {
+			return { configured: false, source: "runtime", label: "--api-key" };
+		}
+
+		const envKeys = findEnvKeys(provider);
+		if (envKeys?.[0]) {
+			return { configured: false, source: "environment", label: envKeys[0] };
+		}
+
+		if (this.fallbackResolver?.(provider)) {
+			return { configured: false, source: "fallback", label: "custom provider config" };
+		}
+
+		return { configured: false };
 	}
 
 	/**
