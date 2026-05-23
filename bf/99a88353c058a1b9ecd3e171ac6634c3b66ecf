@@ -1,0 +1,11 @@
+package-lock.json
+  ai_agent 6178,6184-6187,6193-6198,6200-6202,6206-6220,6224-6226
+packages/coding-agent/examples/extensions/sendblue/index.ts
+  ai_agent 19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "bf99a88353c058a1b9ecd3e171ac6634c3b66ecf",
+  "prompts": {}
+}
