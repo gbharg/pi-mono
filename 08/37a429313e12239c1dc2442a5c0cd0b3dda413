@@ -1,0 +1,19 @@
+packages/exult-mcp/advancedmd-xmlrpc/server.py
+  s_89c6a4a2b3e801::t_64d40399d8f0df 46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "0837a429313e12239c1dc2442a5c0cd0b3dda413",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
