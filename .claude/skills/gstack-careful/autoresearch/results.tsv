@@ -1,0 +1,8 @@
+experiment	score	max_score	pass_rate	status	description
+0	3	5	60.0%	baseline	original skill — no changes
+1	2	5	40.0%	discard	fix sed regex (g flag on short flags) — regression: breaks --recursive detection
+2	3	5	60.0%	keep	fix sed substitution order — strip long flags before short flags. Fixes EVAL 3 (0/12 -> 12/12)
+3	4	5	80.0%	keep	strip all --long-flag patterns in safe-exception sed. Fixes EVAL 1 (15/15)
+4	4	5	80.0%	keep	strip quoted strings (CMD_SAFE) for false positive prevention. EVAL 5: 6/11 -> 11/11
+5	4	5	80.0%	keep	fix JSON extraction truncation — trailing backslash triggers Python fallback
+6	5	5	100.0%	keep	SQL client-aware detection — CMD_SAFE_LOWER for general, raw CMD for SQL clients

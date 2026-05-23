@@ -1,0 +1,72 @@
+{
+  "skill_name": "careful",
+  "status": "complete",
+  "current_experiment": 6,
+  "baseline_score": 60.0,
+  "best_score": 100.0,
+  "experiments": [
+    {
+      "id": 0,
+      "score": 3,
+      "max_score": 5,
+      "pass_rate": 60.0,
+      "status": "baseline",
+      "description": "original skill — no changes"
+    },
+    {
+      "id": 1,
+      "score": 2,
+      "max_score": 5,
+      "pass_rate": 40.0,
+      "status": "discard",
+      "description": "fix sed regex for safe exceptions — sed -E with separate substitutions and g flag on short flags. REGRESSION: g flag partially matches inside --recursive, causing dangerous rm --recursive commands to be allowed"
+    },
+    {
+      "id": 2,
+      "score": 3,
+      "max_score": 5,
+      "pass_rate": 60.0,
+      "status": "keep",
+      "description": "fix sed substitution order — strip short flags after long flags to prevent partial matching inside --recursive. Same aggregate score but fixes EVAL 3 (0/12 -> 12/12)"
+    },
+    {
+      "id": 3,
+      "score": 4,
+      "max_score": 5,
+      "pass_rate": 80.0,
+      "status": "keep",
+      "description": "strip all --long-flag patterns before short flags in safe-exception sed. Fixes rm -r --force /tmp/important. EVAL 1: 15/15"
+    },
+    {
+      "id": 4,
+      "score": 4,
+      "max_score": 5,
+      "pass_rate": 80.0,
+      "status": "keep",
+      "description": "strip quoted strings (CMD_SAFE) before pattern matching to prevent false positives on echo/grep with destructive keywords. EVAL 5: 6/11 -> 11/11, but EVAL 1 regressed 15/15 -> 14/15 (psql with embedded quotes)"
+    },
+    {
+      "id": 5,
+      "score": 4,
+      "max_score": 5,
+      "pass_rate": 80.0,
+      "status": "keep",
+      "description": "fix JSON extraction truncation — detect trailing backslash in grep output to trigger Python fallback for commands with escaped quotes"
+    },
+    {
+      "id": 6,
+      "score": 5,
+      "max_score": 5,
+      "pass_rate": 100.0,
+      "status": "keep",
+      "description": "SQL client-aware detection — use CMD_SAFE_LOWER for general SQL checks (prevents grep/echo false positives) but also check raw CMD when command starts with a known SQL client (psql, mysql, sqlite3, etc.)"
+    }
+  ],
+  "eval_breakdown": [
+    {"name": "Blocks dangerous commands", "pass_count": 15, "total": 15},
+    {"name": "Allows safe commands", "pass_count": 15, "total": 15},
+    {"name": "Allows safe exceptions", "pass_count": 12, "total": 12},
+    {"name": "Warning message quality", "pass_count": 5, "total": 5},
+    {"name": "No false positives on edge cases", "pass_count": 11, "total": 11}
+  ]
+}
