@@ -1,8 +1,8 @@
-import { execFileText } from "./process.js";
+import { execFileText } from "./process.ts";
 
 export async function inferGitHubRepo(cwd: string): Promise<string | undefined> {
 	const envRepo = process.env.GITHUB_REPOSITORY;
-	if (envRepo && envRepo.includes("/")) return envRepo;
+	if (envRepo?.includes("/")) return envRepo;
 
 	const remote = await execFileText("git", ["remote", "get-url", "origin"], cwd);
 	if (remote.code !== 0) return undefined;

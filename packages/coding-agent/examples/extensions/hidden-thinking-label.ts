@@ -18,7 +18,7 @@
  *   /thinking-label          Reset to the default label
  */
 
-import type { ExtensionAPI, ExtensionContext } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
 const DEFAULT_LABEL = "Pondering...";
 
@@ -30,10 +30,6 @@ export default function (pi: ExtensionAPI) {
 	};
 
 	pi.on("session_start", async (_event, ctx) => {
-		applyLabel(ctx);
-	});
-
-	pi.on("session_switch", async (_event, ctx) => {
 		applyLabel(ctx);
 	});
 

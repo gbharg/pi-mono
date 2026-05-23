@@ -1,12 +1,12 @@
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
+import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "@sinclair/typebox";
-import { loadConfig } from "./config.js";
-import { fetchPullRequest, getCurrentPrNumber } from "./github.js";
-import { parsePlanContext } from "./plan-context.js";
-import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
-import { inferGitHubRepo } from "./repo.js";
-import { dispatchCloudReviews } from "./runner.js";
-import { evaluateReviewScope } from "./scope.js";
+import { loadConfig } from "./config.ts";
+import { fetchPullRequest, getCurrentPrNumber } from "./github.ts";
+import { parsePlanContext } from "./plan-context.ts";
+import { collapseLatestReviews, evaluateMergePolicy } from "./policy.ts";
+import { inferGitHubRepo } from "./repo.ts";
+import { dispatchCloudReviews } from "./runner.ts";
+import { evaluateReviewScope } from "./scope.ts";
 
 const ArgsSchema = Type.Object({
 	pr: Type.Optional(Type.Number({ description: "Pull request number" })),
@@ -24,7 +24,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const pr = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			let config;
+			let config: any;
 			try {
 				config = loadConfig(ctx.cwd);
 			} catch (error) {
@@ -53,7 +53,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const prNumber = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			let config;
+			let config: any;
 			try {
 				config = loadConfig(ctx.cwd);
 			} catch (error) {
@@ -120,7 +120,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 
 		const prMatch = event.input.command.match(/\bgh\s+pr\s+merge\s+(\d+)\b/);
 		const pr = prMatch ? Number(prMatch[1]) : await getCurrentPrNumber(ctx.cwd, repo);
-		let config;
+		let config: any;
 		try {
 			config = loadConfig(ctx.cwd);
 		} catch (error) {

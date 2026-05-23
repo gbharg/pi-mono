@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { parsePlanContext, renderPlanContext, upsertPlanContext } from "../src/plan-context.js";
-import type { PlanContext } from "../src/types.js";
+import { parsePlanContext, renderPlanContext, upsertPlanContext } from "../src/plan-context.ts";
+import type { PlanContext } from "../src/types.ts";
 
 const context: PlanContext = {
 	version: 1,

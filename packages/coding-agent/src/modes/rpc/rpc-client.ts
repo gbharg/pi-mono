@@ -5,13 +5,13 @@
  */
 
 import { type ChildProcess, spawn } from "node:child_process";
-import type { AgentEvent, AgentMessage, ThinkingLevel } from "@mariozechner/pi-agent-core";
-import type { ImageContent } from "@mariozechner/pi-ai";
-import type { SessionStats } from "../../core/agent-session.js";
-import type { BashResult } from "../../core/bash-executor.js";
-import type { CompactionResult } from "../../core/compaction/index.js";
-import { attachJsonlLineReader, serializeJsonLine } from "./jsonl.js";
-import type { RpcCommand, RpcResponse, RpcSessionState, RpcSlashCommand } from "./rpc-types.js";
+import type { AgentEvent, AgentMessage, ThinkingLevel } from "@earendil-works/pi-agent-core";
+import type { ImageContent } from "@earendil-works/pi-ai";
+import type { SessionStats } from "../../core/agent-session.ts";
+import type { BashResult } from "../../core/bash-executor.ts";
+import type { CompactionResult } from "../../core/compaction/index.ts";
+import { attachJsonlLineReader, serializeJsonLine } from "./jsonl.ts";
+import type { RpcCommand, RpcResponse, RpcSessionState, RpcSlashCommand } from "./rpc-types.ts";
 
 // ============================================================================
 // Types
@@ -59,8 +59,11 @@ export class RpcClient {
 		new Map();
 	private requestId = 0;
 	private stderr = "";
+	private options: RpcClientOptions;
 
-	constructor(private options: RpcClientOptions = {}) {}
+	constructor(options: RpcClientOptions = {}) {
+		this.options = options;
+	}
 
 	/**
 	 * Start the RPC agent process.
@@ -92,6 +95,7 @@ export class RpcClient {
 		// Collect stderr for debugging
 		this.process.stderr?.on("data", (data) => {
 			this.stderr += data.toString();
+			process.stderr.write(data);
 		});
 
 		// Set up strict JSONL reader for stdout.
@@ -338,6 +342,15 @@ export class RpcClient {
 	 */
 	async fork(entryId: string): Promise<{ text: string; cancelled: boolean }> {
 		const response = await this.send({ type: "fork", entryId });
+		return this.getData(response);
+	}
+
+	/**
+	 * Clone the current active branch into a new session.
+	 * @returns Object with `cancelled: true` if an extension cancelled the clone
+	 */
+	async clone(): Promise<{ cancelled: boolean }> {
+		const response = await this.send({ type: "clone" });
 		return this.getData(response);
 	}
 

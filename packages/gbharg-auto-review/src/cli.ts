@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { loadConfig, loadWatchState, saveWatchState } from "./config.js";
-import { addReviewers, fetchPullRequest, getCurrentPrNumber, listOpenReviewablePullRequests } from "./github.js";
-import { parsePlanContext } from "./plan-context.js";
-import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
-import { dispatchCloudReviews, resolveDispatchMode } from "./runner.js";
-import { evaluateReviewScope } from "./scope.js";
+import { loadConfig, loadWatchState, saveWatchState } from "./config.ts";
+import { addReviewers, fetchPullRequest, getCurrentPrNumber, listOpenReviewablePullRequests } from "./github.ts";
+import { parsePlanContext } from "./plan-context.ts";
+import { collapseLatestReviews, evaluateMergePolicy } from "./policy.ts";
+import { dispatchCloudReviews, resolveDispatchMode } from "./runner.ts";
+import { evaluateReviewScope } from "./scope.ts";
 
 type Command = "check" | "dispatch" | "watch";
 
@@ -32,7 +32,12 @@ async function main(): Promise<void> {
 	}
 }
 
-async function runCheck(repo: string, prNumber: number | undefined, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
+async function runCheck(
+	repo: string,
+	prNumber: number | undefined,
+	config: ReturnType<typeof loadConfig>,
+	cwd: string,
+): Promise<void> {
 	const resolvedPrNumber = prNumber ?? (await getCurrentPrNumber(cwd, repo));
 	const pr = await fetchPullRequest(resolvedPrNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
@@ -60,7 +65,12 @@ async function runCheck(repo: string, prNumber: number | undefined, config: Retu
 	console.log(`ALLOW merge for PR #${pr.number} (${result.approvals} approvals)`);
 }
 
-async function runDispatch(repo: string, prNumber: number, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
+async function runDispatch(
+	repo: string,
+	prNumber: number,
+	config: ReturnType<typeof loadConfig>,
+	cwd: string,
+): Promise<void> {
 	const pr = await fetchPullRequest(prNumber, repo, cwd);
 	const scope = evaluateReviewScope(pr, config);
 	if (scope.ignored) {
@@ -100,7 +110,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 	const intervalMs = config.pollIntervalMs ?? 30_000;
 	for (;;) {
 		const state = loadWatchState();
-		let prs;
+		let prs: any;
 		try {
 			prs = await listOpenReviewablePullRequests(repo, cwd);
 		} catch (error) {
@@ -109,7 +119,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 			await new Promise((resolve) => setTimeout(resolve, intervalMs));
 			continue;
 		}
-		const activePrNumbers = new Set(prs.map((pr) => String(pr.number)));
+		const activePrNumbers = new Set(prs.map((pr: any) => String(pr.number)));
 		const nextSeenHeads = Object.fromEntries(
 			Object.entries(state.pullRequests).filter(([prNumber]) => activePrNumbers.has(prNumber)),
 		);
