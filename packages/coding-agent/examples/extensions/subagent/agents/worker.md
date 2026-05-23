@@ -1,7 +1,7 @@
 ---
 name: worker
 description: General-purpose subagent with full capabilities, isolated context
-model: claude-sonnet-4-5
+model: gpt-5.5
 tools: bash,read,edit,write
 ---
 

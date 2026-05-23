@@ -11,6 +11,7 @@ packages/*/dist-firefox/
 
 # Environment
 .env
+.config/
 
 # Editor files
 .vscode/
@@ -38,6 +39,11 @@ todo.md
 plans/
 .pi/.env
 .pi/services/*/node_modules/
+# PHI — raw AMD data dumps, never commit
+.pi/services/amd/q1_raw_phi/
+.pi/services/amd/*_raw_phi/
+.pi/services/rc_archive/
+.pi/services/cohort_analysis/
 .pi/hf-sessions/
 .pi/hf-sessions-backup/
 collect.sh

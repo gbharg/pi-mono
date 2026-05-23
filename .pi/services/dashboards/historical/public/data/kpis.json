@@ -1,0 +1,51 @@
+{
+  "snapshot_date": "2026-04-10",
+  "date_range": {
+    "start": "2025-04-01",
+    "end": "2026-03-31"
+  },
+  "total_patients": 1952,
+  "patients_with_visits": 1077,
+  "total_visits": 17865,
+  "total_visits_to_date": 16596,
+  "rich_visits": 6023,
+  "historical_visits": 16050,
+  "gross_billed": 2456376.64,
+  "total_collected": 757944.11,
+  "total_writeoffs": 1289597.2999999993,
+  "outstanding_balance": 408835.23,
+  "net_collection_rate": 0.3085618457925084,
+  "billed_patients": 750,
+  "zero_charge_patients": 992,
+  "tx_summary_patients": 1742,
+  "visit_status_breakdown": [
+    {
+      "status_label": "Historical",
+      "n": 11842
+    },
+    {
+      "status_label": "Completed",
+      "n": 2827
+    },
+    {
+      "status_label": "Cancelled",
+      "n": 704
+    },
+    {
+      "status_label": "No-Show",
+      "n": 460
+    },
+    {
+      "status_label": "Scheduled",
+      "n": 295
+    },
+    {
+      "status_label": "Rescheduled",
+      "n": 288
+    },
+    {
+      "status_label": "Confirmed",
+      "n": 180
+    }
+  ]
+}

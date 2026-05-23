@@ -1,0 +1,24 @@
+{
+  "rows": [
+    {
+      "location": "EXULT HEALTHCARE",
+      "visits": 14084,
+      "unique_patients": 1005,
+      "completed": 2237.0,
+      "noshows": 385.0,
+      "cancelled": 480.0,
+      "gross": 1735461.1,
+      "collected": 1443552.35
+    },
+    {
+      "location": "MDPA",
+      "visits": 2512,
+      "unique_patients": 374,
+      "completed": 590.0,
+      "noshows": 75.0,
+      "cancelled": 224.0,
+      "gross": 354443.04,
+      "collected": 263004.2
+    }
+  ]
+}

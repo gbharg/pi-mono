@@ -1,0 +1,125 @@
+{
+  "rows": [
+    {
+      "provider": "MBILIKIRA, NGOMENI",
+      "total_visits": 3547,
+      "unique_patients": 623,
+      "noshows": 100.0,
+      "completed": 1138.0,
+      "new_patients": 619,
+      "assigned_patients": 377,
+      "mean_ltv": 605.35,
+      "median_ltv": 498.26
+    },
+    {
+      "provider": "TODD, JERRITT",
+      "total_visits": 2710,
+      "unique_patients": 81,
+      "noshows": 56.0,
+      "completed": 332.0,
+      "new_patients": 80,
+      "assigned_patients": 62,
+      "mean_ltv": 2259.04,
+      "median_ltv": 1969.88
+    },
+    {
+      "provider": "TOLES, SKYE",
+      "total_visits": 2049,
+      "unique_patients": 102,
+      "noshows": 96.0,
+      "completed": 251.0,
+      "new_patients": 101,
+      "assigned_patients": 68,
+      "mean_ltv": 1372.49,
+      "median_ltv": 875.21
+    },
+    {
+      "provider": "BHARGAVA, DEEPIKA",
+      "total_visits": 1827,
+      "unique_patients": 318,
+      "noshows": 119.0,
+      "completed": 559.0,
+      "new_patients": 311,
+      "assigned_patients": 175,
+      "mean_ltv": 885.4,
+      "median_ltv": 679.75
+    },
+    {
+      "provider": "EXULT HEALTHCARE",
+      "total_visits": 1793,
+      "unique_patients": 40,
+      "noshows": 0.0,
+      "completed": 15.0,
+      "new_patients": 40,
+      "assigned_patients": 20,
+      "mean_ltv": 2806.11,
+      "median_ltv": 1499.05
+    },
+    {
+      "provider": "DAVIS, APRIL",
+      "total_visits": 1770,
+      "unique_patients": 426,
+      "noshows": 0.0,
+      "completed": 116.0,
+      "new_patients": 426,
+      "assigned_patients": 211,
+      "mean_ltv": 433.26,
+      "median_ltv": 317.04
+    },
+    {
+      "provider": "Rhonda Emmons",
+      "total_visits": 1723,
+      "unique_patients": 92,
+      "noshows": 53.0,
+      "completed": 277.0,
+      "new_patients": 92,
+      "assigned_patients": 56,
+      "mean_ltv": 1608.26,
+      "median_ltv": 1147.61
+    },
+    {
+      "provider": "Snype-Stewart, VIVICA",
+      "total_visits": 513,
+      "unique_patients": 77,
+      "noshows": 6.0,
+      "completed": 28.0,
+      "new_patients": 77,
+      "assigned_patients": 46,
+      "mean_ltv": 912.98,
+      "median_ltv": 186.81
+    },
+    {
+      "provider": "HAWKINS,BRIA",
+      "total_visits": 412,
+      "unique_patients": 31,
+      "noshows": 12.0,
+      "completed": 29.0,
+      "new_patients": 31,
+      "assigned_patients": 16,
+      "mean_ltv": 2323.84,
+      "median_ltv": 1791.0
+    },
+    {
+      "provider": "DATTATREYA, VANAJAKSHI",
+      "total_visits": 162,
+      "unique_patients": 72,
+      "noshows": 18.0,
+      "completed": 81.0,
+      "new_patients": 72,
+      "assigned_patients": 23,
+      "mean_ltv": 197.09,
+      "median_ltv": 125.0
+    },
+    {
+      "provider": "DANIELS, VICTORIA",
+      "total_visits": 82,
+      "unique_patients": 32,
+      "noshows": 0.0,
+      "completed": 1.0,
+      "new_patients": 32,
+      "assigned_patients": 11,
+      "mean_ltv": 64.1,
+      "median_ltv": 0.0
+    }
+  ]
+}

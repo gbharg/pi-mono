@@ -1,0 +1,1013 @@
+{
+  "cohorts": [
+    {
+      "cohort_month": "2025-04",
+      "cohort_size": 7,
+      "cells": [
+        {
+          "age": 0,
+          "count": 7,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 6,
+          "pct": 0.8571,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 2,
+          "pct": 0.2857,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": 0,
+          "pct": 0.0,
+          "status": "actual"
+        },
+        {
+          "age": 9,
+          "count": 1,
+          "pct": 0.1429,
+          "status": "actual"
+        },
+        {
+          "age": 10,
+          "count": 0,
+          "pct": 0.0,
+          "status": "actual"
+        },
+        {
+          "age": 11,
+          "count": 0,
+          "pct": 0.0,
+          "status": "actual"
+        },
+        {
+          "age": 12,
+          "count": 0,
+          "pct": 0.0,
+          "status": "actual"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-05",
+      "cohort_size": 491,
+      "cells": [
+        {
+          "age": 0,
+          "count": 491,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 331,
+          "pct": 0.6741,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 363,
+          "pct": 0.7393,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 346,
+          "pct": 0.7047,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 325,
+          "pct": 0.6619,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 313,
+          "pct": 0.6375,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 295,
+          "pct": 0.6008,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 297,
+          "pct": 0.6049,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": 274,
+          "pct": 0.558,
+          "status": "actual"
+        },
+        {
+          "age": 9,
+          "count": 252,
+          "pct": 0.5132,
+          "status": "actual"
+        },
+        {
+          "age": 10,
+          "count": 262,
+          "pct": 0.5336,
+          "status": "actual"
+        },
+        {
+          "age": 11,
+          "count": 141,
+          "pct": 0.2872,
+          "status": "actual"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-06",
+      "cohort_size": 163,
+      "cells": [
+        {
+          "age": 0,
+          "count": 163,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 78,
+          "pct": 0.4785,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 91,
+          "pct": 0.5583,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 86,
+          "pct": 0.5276,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 61,
+          "pct": 0.3742,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 66,
+          "pct": 0.4049,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 79,
+          "pct": 0.4847,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 68,
+          "pct": 0.4172,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": 59,
+          "pct": 0.362,
+          "status": "actual"
+        },
+        {
+          "age": 9,
+          "count": 68,
+          "pct": 0.4172,
+          "status": "actual"
+        },
+        {
+          "age": 10,
+          "count": 32,
+          "pct": 0.1963,
+          "status": "actual"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-07",
+      "cohort_size": 98,
+      "cells": [
+        {
+          "age": 0,
+          "count": 98,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 49,
+          "pct": 0.5,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 47,
+          "pct": 0.4796,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 41,
+          "pct": 0.4184,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 30,
+          "pct": 0.3061,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 30,
+          "pct": 0.3061,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 27,
+          "pct": 0.2755,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 26,
+          "pct": 0.2653,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": 22,
+          "pct": 0.2245,
+          "status": "actual"
+        },
+        {
+          "age": 9,
+          "count": 15,
+          "pct": 0.1531,
+          "status": "actual"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-08",
+      "cohort_size": 49,
+      "cells": [
+        {
+          "age": 0,
+          "count": 49,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 31,
+          "pct": 0.6327,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 28,
+          "pct": 0.5714,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 25,
+          "pct": 0.5102,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 19,
+          "pct": 0.3878,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 15,
+          "pct": 0.3061,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 9,
+          "pct": 0.1837,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 10,
+          "pct": 0.2041,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": 2,
+          "pct": 0.0408,
+          "status": "actual"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-09",
+      "cohort_size": 50,
+      "cells": [
+        {
+          "age": 0,
+          "count": 50,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 32,
+          "pct": 0.64,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 24,
+          "pct": 0.48,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 20,
+          "pct": 0.4,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 17,
+          "pct": 0.34,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 16,
+          "pct": 0.32,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 16,
+          "pct": 0.32,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": 8,
+          "pct": 0.16,
+          "status": "actual"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-10",
+      "cohort_size": 49,
+      "cells": [
+        {
+          "age": 0,
+          "count": 49,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 22,
+          "pct": 0.449,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 17,
+          "pct": 0.3469,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 17,
+          "pct": 0.3469,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 15,
+          "pct": 0.3061,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 13,
+          "pct": 0.2653,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": 10,
+          "pct": 0.2041,
+          "status": "actual"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-11",
+      "cohort_size": 25,
+      "cells": [
+        {
+          "age": 0,
+          "count": 25,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 16,
+          "pct": 0.64,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 13,
+          "pct": 0.52,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 14,
+          "pct": 0.56,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 9,
+          "pct": 0.36,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": 5,
+          "pct": 0.2,
+          "status": "actual"
+        },
+        {
+          "age": 6,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2025-12",
+      "cohort_size": 28,
+      "cells": [
+        {
+          "age": 0,
+          "count": 28,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 20,
+          "pct": 0.7143,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 16,
+          "pct": 0.5714,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 13,
+          "pct": 0.4643,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": 9,
+          "pct": 0.3214,
+          "status": "actual"
+        },
+        {
+          "age": 5,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 6,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2026-01",
+      "cohort_size": 40,
+      "cells": [
+        {
+          "age": 0,
+          "count": 40,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 26,
+          "pct": 0.65,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 17,
+          "pct": 0.425,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": 9,
+          "pct": 0.225,
+          "status": "actual"
+        },
+        {
+          "age": 4,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 5,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 6,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2026-02",
+      "cohort_size": 30,
+      "cells": [
+        {
+          "age": 0,
+          "count": 30,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 21,
+          "pct": 0.7,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": 10,
+          "pct": 0.3333,
+          "status": "actual"
+        },
+        {
+          "age": 3,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 4,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 5,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 6,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    },
+    {
+      "cohort_month": "2026-03",
+      "cohort_size": 31,
+      "cells": [
+        {
+          "age": 0,
+          "count": 31,
+          "pct": 1.0,
+          "status": "actual"
+        },
+        {
+          "age": 1,
+          "count": 16,
+          "pct": 0.5161,
+          "status": "actual"
+        },
+        {
+          "age": 2,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 3,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 4,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 5,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 6,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 7,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 8,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 9,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 10,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 11,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        },
+        {
+          "age": 12,
+          "count": null,
+          "pct": null,
+          "status": "future"
+        }
+      ]
+    }
+  ],
+  "max_age_shown": 12
+}

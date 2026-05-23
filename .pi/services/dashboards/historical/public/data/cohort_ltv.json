@@ -1,0 +1,136 @@
+{
+  "rows": [
+    {
+      "cohort_month": "2025-04",
+      "cohort_size": 7,
+      "billed_patients": 1.0,
+      "mean_ltv_all": 1224.35,
+      "mean_ltv_billed": 8570.42,
+      "median_ltv": 0.0,
+      "p90_ltv_billed": 8570.42,
+      "total_collected": 8570.42,
+      "total_gross": 17919.0
+    },
+    {
+      "cohort_month": "2025-05",
+      "cohort_size": 491,
+      "billed_patients": 358.0,
+      "mean_ltv_all": 973.85,
+      "mean_ltv_billed": 1335.39,
+      "median_ltv": 623.29,
+      "p90_ltv_billed": 2488.36,
+      "total_collected": 478160.58,
+      "total_gross": 1533007.02
+    },
+    {
+      "cohort_month": "2025-06",
+      "cohort_size": 163,
+      "billed_patients": 126.0,
+      "mean_ltv_all": 571.72,
+      "mean_ltv_billed": 739.61,
+      "median_ltv": 388.6,
+      "p90_ltv_billed": 1119.41,
+      "total_collected": 93190.33,
+      "total_gross": 307728.04
+    },
+    {
+      "cohort_month": "2025-07",
+      "cohort_size": 98,
+      "billed_patients": 57.0,
+      "mean_ltv_all": 648.65,
+      "mean_ltv_billed": 1115.23,
+      "median_ltv": 153.67,
+      "p90_ltv_billed": 2296.17,
+      "total_collected": 63568.04,
+      "total_gross": 193951.06
+    },
+    {
+      "cohort_month": "2025-08",
+      "cohort_size": 49,
+      "billed_patients": 30.0,
+      "mean_ltv_all": 385.27,
+      "mean_ltv_billed": 629.28,
+      "median_ltv": 62.0,
+      "p90_ltv_billed": 1362.12,
+      "total_collected": 18878.34,
+      "total_gross": 67613.0
+    },
+    {
+      "cohort_month": "2025-09",
+      "cohort_size": 50,
+      "billed_patients": 36.0,
+      "mean_ltv_all": 597.15,
+      "mean_ltv_billed": 829.38,
+      "median_ltv": 205.72,
+      "p90_ltv_billed": 2510.78,
+      "total_collected": 29857.55,
+      "total_gross": 94029.08
+    },
+    {
+      "cohort_month": "2025-10",
+      "cohort_size": 49,
+      "billed_patients": 29.0,
+      "mean_ltv_all": 545.81,
+      "mean_ltv_billed": 922.23,
+      "median_ltv": 154.58,
+      "p90_ltv_billed": 2012.65,
+      "total_collected": 26744.74,
+      "total_gross": 80614.25
+    },
+    {
+      "cohort_month": "2025-11",
+      "cohort_size": 25,
+      "billed_patients": 16.0,
+      "mean_ltv_all": 355.63,
+      "mean_ltv_billed": 555.67,
+      "median_ltv": 364.6,
+      "p90_ltv_billed": 992.78,
+      "total_collected": 8890.77,
+      "total_gross": 29033.0
+    },
+    {
+      "cohort_month": "2025-12",
+      "cohort_size": 28,
+      "billed_patients": 19.0,
+      "mean_ltv_all": 428.78,
+      "mean_ltv_billed": 631.89,
+      "median_ltv": 343.01,
+      "p90_ltv_billed": 1334.58,
+      "total_collected": 12005.84,
+      "total_gross": 42320.0
+    },
+    {
+      "cohort_month": "2026-01",
+      "cohort_size": 40,
+      "billed_patients": 26.0,
+      "mean_ltv_all": 200.75,
+      "mean_ltv_billed": 308.85,
+      "median_ltv": 5.0,
+      "p90_ltv_billed": 625.6,
+      "total_collected": 8030.07,
+      "total_gross": 36761.19
+    },
+    {
+      "cohort_month": "2026-02",
+      "cohort_size": 30,
+      "billed_patients": 24.0,
+      "mean_ltv_all": 192.49,
+      "mean_ltv_billed": 240.61,
+      "median_ltv": 118.5,
+      "p90_ltv_billed": 556.99,
+      "total_collected": 5774.64,
+      "total_gross": 30895.0
+    },
+    {
+      "cohort_month": "2026-03",
+      "cohort_size": 31,
+      "billed_patients": 25.0,
+      "mean_ltv_all": 88.96,
+      "mean_ltv_billed": 110.3,
+      "median_ltv": 0.0,
+      "p90_ltv_billed": 281.07,
+      "total_collected": 2757.61,
+      "total_gross": 16790.0
+    }
+  ]
+}
