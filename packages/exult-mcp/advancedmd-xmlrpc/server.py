@@ -43,7 +43,7 @@ CONFIG_PATH = Path(
     )
 )
 LOGIN_URL = "https://partnerlogin.advancedmd.com/practicemanager/xmlrpc/processrequest.aspx"
-APP_NAME = "TEMP"
+APP_NAME = "ABS-AVMD"
 
 
 def _load_creds() -> dict:
