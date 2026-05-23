@@ -158,3 +158,231 @@ Attribution:
 ## User Override
 
 If the user's instructions conflict with any rule in this document, ask for explicit confirmation before overriding. Only then execute their instructions.
+
+---
+
+# Production Topology (pi-mono fleet)
+
+This section describes how pi-mono is deployed as a fleet of always-on Claude
+orchestrators across multiple hosts. Agents running inside one of these
+sessions should identify themselves first (hostname + user + cwd) and then
+read the matching subsection.
+
+The contributor conventions above (Conversational Style, Code Quality, Git,
+etc.) apply to ALL work in this repo regardless of which host you're on. The
+topology below is operational reference — not a license to bypass the rules.
+
+## 1. Hosts
+
+Five production orchestrator sessions:
+
+| # | Host         | User    | cwd                              | Channel       | Number / Endpoint            |
+|---|--------------|---------|----------------------------------|---------------|------------------------------|
+| 1 | MBP (Work)   | Work    | /Users/Work/pi-mono              | Sendblue      | +16452468277                 |
+| 2 | iMac         | agent   | /Users/agent/pi-mono             | BlueBubbles   | iMessage via local BB server |
+| 3 | iMac         | exult   | /Users/exult/exult-agent         | Sendblue      | +13053333940                 |
+| 4 | iMac         | exult   | /Users/exult/exult-agent         | MS Teams      | Teams bot, separate process  |
+| 5 | Hetzner VM   | claude  | /home/claude/repos/exult-agent   | Sendblue      | +16292925296                 |
+
+Hosts 3 and 4 share the same cwd and user but run as two independent
+processes in two independent tmux panes with independent pinned session ids.
+
+Sessions 1, 3, and 5 each have their own Sendblue tenant (distinct +number,
+api key, secret, webhook signing secret, webhook URL). Never mix credentials.
+
+## 2. Repo Relationships
+
+- `pi-mono` (this repo, https://github.com/gbharg/pi-mono) is canonical for
+  hosts 1 and 2. Fork of earendil-works/pi-mono with custom orchestrator
+  extensions in `packages/agent`, `packages/coding-agent`, `packages/tui`.
+- `exult-agent` (separate repo) is canonical for hosts 3, 4, and 5. It carries
+  the Teams + Sendblue channel adapters used by the exult-facing fleet.
+- `openclaw` is the legacy codebase that previously hosted the Sendblue
+  channel, memory scripts, and hook layer. It is still mounted on MBP and
+  iMac filesystems and is referenced by hooks in `~/.claude/settings.json`
+  via absolute paths. Memory/state hooks (recall, presence, git-guard,
+  pre-compaction-extract, auto-done-trigger, compact-marker) continue to read
+  and write inside `/Users/<user>/openclaw/...`. Do not delete openclaw.
+
+The pi-mono orchestrators on hosts 1+2 still load `sendblue-channel` /
+`bluebubbles-channel` MCP servers that live under `openclaw/tools/`. Each
+session's `.mcp.json` is the source of truth for which channel is active.
+
+## 3. Per-host Configuration
+
+### Host 1 — MBP Work (Sendblue, +16452468277)
+
+- Supervisor wrapper: `/Users/Work/.local/bin/sendblue-pi-forever.sh`
+- Tmux respawn shim: `/Users/Work/.local/bin/sendblue-run-tmux.sh`
+- launchd plist: `~/Library/LaunchAgents/com.openclaw.sendblue-channel.plist`
+- `.mcp.json`: `/Users/Work/pi-mono/.mcp.json` (gitignored; Sendblue creds inline)
+- `.env`: not at the pi-mono root. The channel server's own `.env` lives at
+  `/Users/Work/openclaw/tools/sendblue-channel/.env`.
+- Session pin: `/Users/Work/pi-mono/.sendblue-orchestrator-session-id`
+- Lock: `/tmp/sendblue-channel.lock`
+- Logs: `/tmp/sendblue-channel.log`, `/tmp/sendblue-channel.err`
+- Tmux target: `mbp:1.1`
+
+### Host 2 — iMac agent (BlueBubbles)
+
+- Supervisor wrapper: `/Users/agent/.local/bin/bb-claude-forever.sh`
+- Expect helper for login prompts: `/Users/agent/.local/bin/bb-claude-launch.expect`
+- launchd plist: `~/Library/LaunchAgents/com.openclaw.bb-claude-forever.plist`
+  (currently `.disabled-2026-05-20`; re-enable when ready)
+- `.mcp.json`: not present at pi-mono root; BlueBubbles channel is loaded via
+  `--dangerously-load-development-channels` from
+  `/Users/agent/openclaw/tools/bluebubbles-channel/`.
+- BlueBubbles macOS app: launchd-managed via
+  `~/Library/LaunchAgents/com.bluebubbles.server.plist` (required)
+- Tmux target: `agent:main.5`
+- Lock: `/tmp/bb-claude-forever.lock`
+
+### Host 3 — iMac exult Sendblue (+13053333940)
+
+- cwd: `/Users/exult/exult-agent`
+- Channel server: `/Users/exult/sendblue-channel/server.ts` (bun)
+- `.mcp.json`: `/Users/exult/exult-agent/.mcp.json` (Sendblue creds inline,
+  webhook port 18800)
+- launchd plist: `/Users/exult/Library/LaunchAgents/` (exact filename
+  inaccessible to non-exult users; `launchctl list | grep sendblue` while
+  logged in as exult)
+- Session pin + logs follow the exult-agent repo conventions; see that repo.
+
+### Host 4 — iMac exult MS Teams
+
+- cwd: `/Users/exult/exult-agent` (shared with host 3, distinct process)
+- Channel server: under exult-agent's `tools/teams-channel/`
+- launchd companion on MBP (cross-user wrapper):
+  `/Users/Work/Library/LaunchAgents/com.exult.teams-channel.plist` calls
+  `/Users/Work/Library/Application Support/exult-teams/launch.sh`. iMac
+  exult runs the actual channel process.
+- Creds env: `MSTEAMS_APP_ID`, `MSTEAMS_APP_PASSWORD`, `MSTEAMS_TENANT_ID`
+- Webhook port: 3978
+- Public URL: `https://claude-cloud.tail053faf.ts.net/teams/api/messages`
+  (Tailscale Funnel)
+
+### Host 5 — Hetzner cloud (Sendblue, +16292925296)
+
+- SSH alias: `claude-cloud` → 46.224.71.218, user `claude`
+- cwd: `/home/claude/repos/exult-agent`
+- Supervisor wrapper: `/home/claude/.local/bin/exult-agent-forever.sh`
+- Channel server: `/home/claude/repos/openclaw/tools/sendblue-channel/` (per
+  `~/repos/exult-agent/.mcp.json`)
+- systemd units (system, not user): `sendblue-channel.service` (+
+  `sendblue-channel.service.d/` drop-in for env), `teams-channel.service`
+- `.mcp.json`: `/home/claude/repos/exult-agent/.mcp.json`
+- Webhook ports: Sendblue 18802, Teams 3978
+- Public URL: `https://claude-cloud.tail053faf.ts.net/sendblue/webhook/...`
+- Tmux target: `exult-agent:0.0`
+
+## 4. Restart Procedures
+
+Never `pkill claude` on a host you have not first observed. Each orchestrator
+is a long-running conversation; killing it loses in-memory state that has not
+yet flushed to disk.
+
+Safe respawn:
+
+1. SSH in as the correct user (Work / agent / exult / claude).
+2. Identify the pane:
+   `tmux list-panes -a -F '#S:#W.#P #{pane_title} #{pane_current_command}'`
+3. Capture context: `tmux capture-pane -t <pane> -p -S -200`
+4. With the user's approval:
+   - macOS: `launchctl kickstart -k gui/$(id -u)/<label>` (e.g.
+     `com.openclaw.sendblue-channel` for host 1). KeepAlive respawns the
+     supervisor, which respawns claude into the pane.
+   - Hetzner: `sudo systemctl restart sendblue-channel` (or `teams-channel`).
+5. Watch `/tmp/sendblue-channel.log` (macOS) or
+   `journalctl -u sendblue-channel -f` (Linux) for the dev-channels prompt.
+
+Dev-channels confirmation + login flow:
+
+The harness loads its channel via `--dangerously-load-development-channels`.
+On first launch (and after binary upgrade), claude prompts for a `y`
+confirmation in the pane. The supervisor scripts answer this via embedded
+`expect` / `tmux send-keys` (see `bb-claude-launch.expect` on iMac and the
+inline logic in `sendblue-pi-forever.sh`). If the prompt text changes (e.g.
+binary upgrade), the auto-answer breaks — `tmux attach`, type `y` manually,
+detach. If claude needs OAuth re-login, the supervisor cannot help; attach
+and complete the flow by hand.
+
+## 5. Repo Sync
+
+A launchd / systemd job on each host pulls `origin/main` for pi-mono every 30
+minutes. Orchestrator sessions never push to main; all changes go through a PR.
+
+- MBP Work: `~/Library/LaunchAgents/com.gbharg.pi-mono-sync.plist`,
+  `StartInterval=1800`, runs
+  `cd /Users/Work/pi-mono && git fetch origin && git pull --ff-only origin main`,
+  logs to `/tmp/pi-mono-sync.log`.
+- iMac agent: identical plist at
+  `/Users/agent/Library/LaunchAgents/com.gbharg.pi-mono-sync.plist`
+  pointing at `/Users/agent/pi-mono`.
+- iMac exult and Hetzner: no pi-mono sync (they track exult-agent instead;
+  see that repo for its sync mechanism).
+
+If `git pull --ff-only` fails (non-FF, conflict, dirty tree), the cron logs
+the failure and exits non-zero. Resolution is manual — SSH in, resolve,
+commit or stash, next sync catches up. There is no auto-resolution.
+
+## 6. Communication Architecture
+
+Each Sendblue-bearing host runs its own bun process listening on its own
+webhook port. Sendblue's cloud delivers inbound iMessages to that webhook
+URL; the bun process writes them into the channel server's in-memory queue;
+the local claude orchestrator consumes them via the `sendblue-channel` MCP
+server (over stdio). Outbound replies go the reverse path: claude calls the
+MCP `reply` tool, the bun process posts to Sendblue's REST API.
+
+Constraints:
+
+- Each host's Sendblue account is a separate tenant with its own +number,
+  api key id, secret, and webhook signing secret. Do not call the Sendblue
+  REST API for one host using another host's creds.
+- Only ONE claude session per host may bind the channel MCP at a time. The
+  supervisor's `/tmp/sendblue-channel.lock` enforces this. A stray claude
+  session in another pane that loads the same channel via
+  `--dangerously-load-development-channels` will starve the orchestrator by
+  stealing the webhook port. On MBP, the settings-restore hook actively
+  strips `sendblue-channel` from `~/.claude/settings.json` to prevent
+  accidental global registration.
+- BlueBubbles (host 2) talks to the local BlueBubbles macOS app, not a
+  cloud API. The webhook is local + BB-token-authenticated. iMessage
+  availability depends on the iMac's signed-in Apple ID.
+- Teams (host 4) uses the Bot Framework / MS Graph webhook over Tailscale
+  Funnel — see the exult-agent repo for bot registration details.
+
+## 7. Adding a New Host
+
+Checklist for a sixth session:
+
+1. Provision the host. Install: bun, node 22+, tmux, git, gh, the claude
+   binary, and (macOS) tailscale.
+2. Clone the canonical repo into the chosen cwd (`pi-mono` for self-contained
+   hosts, `exult-agent` for the exult fleet).
+3. If a new Sendblue +number is needed, register a Sendblue subaccount.
+   Capture: api key id, secret, webhook signing secret, +number. Pick an
+   unused local webhook port and a Tailscale Funnel subdomain.
+4. Drop a `.mcp.json` at the cwd root referencing the channel server in
+   `openclaw/tools/<channel>` (or the exult-agent equivalent). Creds inline,
+   file gitignored.
+5. Copy a `*-forever.sh` supervisor from a sibling host. Edit HOME, WORK_DIR,
+   TARGET tmux pane, lock file path. Make it executable.
+6. Install the supervisor: launchd plist (macOS) or systemd unit (Linux).
+   `RunAtLoad=true`, `KeepAlive=true`, throttle 10–30s. Log to `/tmp/` or
+   `~/Library/Logs/`.
+7. Add the host to the pi-mono-sync schedule (or exult-agent-sync).
+8. Add a row to the topology table above and open a PR.
+9. Test: send an inbound message from the new +number to yourself; verify
+   claude responds and the supervisor logs the round trip.
+
+Do NOT skip step 3. Re-using another host's Sendblue creds causes both hosts
+to receive the same inbound webhook — duplicate replies and account-level
+rate-limit collisions.
+
+## See Also
+
+- `CONTRIBUTING.md` — contributor gate for the upstream pi-mono fork.
+- `~/.claude/agents/orchestrator.md` (each host) — orchestrator system prompt.
+- `~/.claude/settings.json` (each host) — hook registrations.
+- `openclaw/tools/sendblue-channel/CLAUDE.md` — channel-specific runtime notes.
