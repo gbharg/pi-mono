@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { collapseLatestReviews, evaluateMergePolicy } from "../src/policy.js";
-import type { LatestReviewState, PlanContext } from "../src/types.js";
+import { collapseLatestReviews, evaluateMergePolicy } from "../src/policy.ts";
+import type { LatestReviewState, PlanContext } from "../src/types.ts";
 
 const planContext: PlanContext = {
 	version: 1,

@@ -1,16 +1,16 @@
 import { createInterface } from "node:readline";
-import type { AgentTool } from "@mariozechner/pi-agent-core";
-import { Text } from "@mariozechner/pi-tui";
-import { type Static, Type } from "@sinclair/typebox";
+import type { AgentTool } from "@earendil-works/pi-agent-core";
+import { Text } from "@earendil-works/pi-tui";
 import { spawn } from "child_process";
 import { readFileSync, statSync } from "fs";
 import path from "path";
-import { keyHint } from "../../modes/interactive/components/keybinding-hints.js";
-import { ensureTool } from "../../utils/tools-manager.js";
-import type { ToolDefinition, ToolRenderResultOptions } from "../extensions/types.js";
-import { resolveToCwd } from "./path-utils.js";
-import { getTextOutput, invalidArgText, shortenPath, str } from "./render-utils.js";
-import { wrapToolDefinition } from "./tool-definition-wrapper.js";
+import { type Static, Type } from "typebox";
+import { keyHint } from "../../modes/interactive/components/keybinding-hints.ts";
+import { ensureTool } from "../../utils/tools-manager.ts";
+import type { ToolDefinition, ToolRenderResultOptions } from "../extensions/types.ts";
+import { resolveToCwd } from "./path-utils.ts";
+import { getTextOutput, invalidArgText, shortenPath, str } from "./render-utils.ts";
+import { wrapToolDefinition } from "./tool-definition-wrapper.ts";
 import {
 	DEFAULT_MAX_BYTES,
 	formatSize,
@@ -18,7 +18,7 @@ import {
 	type TruncationResult,
 	truncateHead,
 	truncateLine,
-} from "./truncate.js";
+} from "./truncate.ts";
 
 const grepSchema = Type.Object({
 	pattern: Type.String({ description: "Search pattern (regex or literal string)" }),
@@ -66,7 +66,7 @@ export interface GrepToolOptions {
 
 function formatGrepCall(
 	args: { pattern: string; path?: string; glob?: string; limit?: number } | undefined,
-	theme: typeof import("../../modes/interactive/theme/theme.js").theme,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
 ): string {
 	const pattern = str(args?.pattern);
 	const rawPath = str(args?.path);
@@ -90,7 +90,7 @@ function formatGrepResult(
 		details?: GrepToolDetails;
 	},
 	options: ToolRenderResultOptions,
-	theme: typeof import("../../modes/interactive/theme/theme.js").theme,
+	theme: typeof import("../../modes/interactive/theme/theme.ts").theme,
 	showImages: boolean,
 ): string {
 	const output = getTextOutput(result, showImages).trim();
@@ -215,7 +215,7 @@ export function createGrepToolDefinition(
 						if (ignoreCase) args.push("--ignore-case");
 						if (literal) args.push("--fixed-strings");
 						if (glob) args.push("--glob", glob);
-						args.push(pattern, searchPath);
+						args.push("--", pattern, searchPath);
 
 						const child = spawn(rgPath, args, { stdio: ["ignore", "pipe", "pipe"] });
 						const rl = createInterface({ input: child.stdout });
@@ -267,7 +267,7 @@ export function createGrepToolDefinition(
 						};
 
 						// Collect matches during streaming, then format them after rg exits.
-						const matches: Array<{ filePath: string; lineNumber: number }> = [];
+						const matches: Array<{ filePath: string; lineNumber: number; lineText?: string }> = [];
 						rl.on("line", (line) => {
 							if (!line.trim() || matchCount >= effectiveLimit) return;
 							let event: any;
@@ -280,7 +280,9 @@ export function createGrepToolDefinition(
 								matchCount++;
 								const filePath = event.data?.path?.text;
 								const lineNumber = event.data?.line_number;
-								if (filePath && typeof lineNumber === "number") matches.push({ filePath, lineNumber });
+								const lineText = event.data?.lines?.text;
+								if (filePath && typeof lineNumber === "number")
+									matches.push({ filePath, lineNumber, lineText });
 								if (matchCount >= effectiveLimit) {
 									matchLimitReached = true;
 									stopChild(true);
@@ -312,8 +314,19 @@ export function createGrepToolDefinition(
 
 							// Format matches after streaming finishes so custom readFile() backends can be async.
 							for (const match of matches) {
-								const block = await formatBlock(match.filePath, match.lineNumber);
-								outputLines.push(...block);
+								if (contextValue === 0 && match.lineText !== undefined) {
+									const relativePath = formatPath(match.filePath);
+									const sanitized = match.lineText
+										.replace(/\r\n/g, "\n")
+										.replace(/\r/g, "")
+										.replace(/\n$/, "");
+									const { text: truncatedText, wasTruncated } = truncateLine(sanitized);
+									if (wasTruncated) linesTruncated = true;
+									outputLines.push(`${relativePath}:${match.lineNumber}: ${truncatedText}`);
+								} else {
+									const block = await formatBlock(match.filePath, match.lineNumber);
+									outputLines.push(...block);
+								}
 							}
 
 							const rawOutput = outputLines.join("\n");
@@ -369,7 +382,3 @@ export function createGrepToolDefinition(
 export function createGrepTool(cwd: string, options?: GrepToolOptions): AgentTool<typeof grepSchema> {
 	return wrapToolDefinition(createGrepToolDefinition(cwd, options));
 }
-
-/** Default grep tool using process.cwd() for backwards compatibility. */
-export const grepToolDefinition = createGrepToolDefinition(process.cwd());
-export const grepTool = createGrepTool(process.cwd());

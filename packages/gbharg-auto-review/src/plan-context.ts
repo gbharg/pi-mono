@@ -1,4 +1,4 @@
-import type { PlanContext } from "./types.js";
+import type { PlanContext } from "./types.ts";
 
 export const PLAN_CONTEXT_START = "<!-- pi-review:plan-context";
 export const PLAN_CONTEXT_END = "-->";

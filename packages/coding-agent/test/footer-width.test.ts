@@ -1,9 +1,9 @@
-import { visibleWidth } from "@mariozechner/pi-tui";
+import { visibleWidth } from "@earendil-works/pi-tui";
 import { beforeAll, describe, expect, it } from "vitest";
-import type { AgentSession } from "../src/core/agent-session.js";
-import type { ReadonlyFooterDataProvider } from "../src/core/footer-data-provider.js";
-import { FooterComponent } from "../src/modes/interactive/components/footer.js";
-import { initTheme } from "../src/modes/interactive/theme/theme.js";
+import type { AgentSession } from "../src/core/agent-session.ts";
+import type { ReadonlyFooterDataProvider } from "../src/core/footer-data-provider.ts";
+import { FooterComponent } from "../src/modes/interactive/components/footer.ts";
+import { initTheme } from "../src/modes/interactive/theme/theme.ts";
 
 type AssistantUsage = {
 	input: number;
@@ -48,6 +48,7 @@ function createSession(options: {
 		sessionManager: {
 			getEntries: () => entries,
 			getSessionName: () => options.sessionName,
+			getCwd: () => "/tmp/project",
 		},
 		getContextUsage: () => ({ contextWindow: 200_000, percent: 12.3 }),
 		modelRegistry: {

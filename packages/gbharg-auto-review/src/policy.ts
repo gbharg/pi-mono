@@ -1,4 +1,4 @@
-import type { LatestReviewState, MergePolicyInput, MergePolicyResult } from "./types.js";
+import type { LatestReviewState, MergePolicyInput, MergePolicyResult } from "./types.ts";
 
 export function collapseLatestReviews(
 	reviews: Array<LatestReviewState & { submittedAt?: string }>,

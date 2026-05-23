@@ -1,4 +1,4 @@
-import type { PullRequestMetadata, ReviewCloudConfig } from "./types.js";
+import type { PullRequestMetadata, ReviewCloudConfig } from "./types.ts";
 
 const DEFAULT_IGNORED_PATH_PREFIXES = ["docs/", "plan/"];
 const DEFAULT_NON_CODE_EXTENSIONS = [

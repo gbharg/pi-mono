@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizePullRequestFiles, normalizeReviewRequests, normalizeStatusChecks } from "../src/github.js";
+import { normalizePullRequestFiles, normalizeReviewRequests, normalizeStatusChecks } from "../src/github.ts";
 
 describe("github normalization", () => {
 	it("normalizes review requests across gh payload shapes", () => {

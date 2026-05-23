@@ -1,7 +1,7 @@
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { delimiter, join } from "node:path";
-import { execFileText, spawnAndWait } from "./process.js";
+import { execFileText, spawnAndWait } from "./process.ts";
 import type {
 	PlanContext,
 	PullRequestMetadata,
@@ -10,7 +10,7 @@ import type {
 	ReviewModel,
 	RunnerCommandTemplate,
 	UsageCheckResult,
-} from "./types.js";
+} from "./types.ts";
 
 const MODELS = ["codex", "claude", "gemini"] as const;
 type ModelName = (typeof MODELS)[number];

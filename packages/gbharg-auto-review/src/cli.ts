@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { loadConfig, loadWatchState, saveWatchState } from "./config.js";
-import { addReviewers, fetchPullRequest, getCurrentPrNumber, listOpenReviewablePullRequests } from "./github.js";
-import { parsePlanContext } from "./plan-context.js";
-import { collapseLatestReviews, evaluateMergePolicy } from "./policy.js";
-import { dispatchCloudReviews, resolveDispatchMode } from "./runner.js";
-import { evaluateReviewScope } from "./scope.js";
+import { loadConfig, loadWatchState, saveWatchState } from "./config.ts";
+import { addReviewers, fetchPullRequest, getCurrentPrNumber, listOpenReviewablePullRequests } from "./github.ts";
+import { parsePlanContext } from "./plan-context.ts";
+import { collapseLatestReviews, evaluateMergePolicy } from "./policy.ts";
+import { dispatchCloudReviews, resolveDispatchMode } from "./runner.ts";
+import { evaluateReviewScope } from "./scope.ts";
 
 type Command = "check" | "dispatch" | "watch";
 
@@ -110,7 +110,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 	const intervalMs = config.pollIntervalMs ?? 30_000;
 	for (;;) {
 		const state = loadWatchState();
-		let prs;
+		let prs: any;
 		try {
 			prs = await listOpenReviewablePullRequests(repo, cwd);
 		} catch (error) {
@@ -119,7 +119,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 			await new Promise((resolve) => setTimeout(resolve, intervalMs));
 			continue;
 		}
-		const activePrNumbers = new Set(prs.map((pr) => String(pr.number)));
+		const activePrNumbers = new Set(prs.map((pr: any) => String(pr.number)));
 		const nextSeenHeads = Object.fromEntries(
 			Object.entries(state.pullRequests).filter(([prNumber]) => activePrNumbers.has(prNumber)),
 		);

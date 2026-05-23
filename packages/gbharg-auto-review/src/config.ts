@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
-import type { ReviewCloudConfig, WatchState } from "./types.js";
+import type { ReviewCloudConfig, WatchState } from "./types.ts";
 
 export const DEFAULT_CONFIG_PATH = ".pi/auto-review.json";
 export const DEFAULT_STATE_PATH = join(homedir(), ".pi", "auto-review-state.json");

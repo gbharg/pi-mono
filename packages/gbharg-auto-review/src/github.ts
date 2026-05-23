@@ -1,11 +1,11 @@
-import { execFileText } from "./process.js";
+import { execFileText } from "./process.ts";
 import type {
 	LatestReviewState,
 	PullRequestFile,
 	PullRequestMetadata,
 	PullRequestReviewRequest,
 	PullRequestStatusCheck,
-} from "./types.js";
+} from "./types.ts";
 
 interface GhReview {
 	state: string;
@@ -213,7 +213,7 @@ function normalizeCheckRunState(
 		case "STARTUP_FAILURE":
 		case "TIMED_OUT":
 			return "FAILURE";
-		case undefined:
+		case "UNDEFINED":
 			return status ? "PENDING" : null;
 		default:
 			return "PENDING";

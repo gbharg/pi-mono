@@ -139,7 +139,11 @@ linear_api_call() {
       "$LINEAR_API_URL")
     
     http_code=$(echo "$response" | tail -n1)
-    local body=$(echo "$response" | sed '$d')
+    # Declare-then-assign so $? from the subshell is preserved instead of
+    # masked by the always-success `local` builtin (SC2155). Without this,
+    # downstream `if $body | jq ...` checks could see a stale success status.
+    local body
+    body=$(echo "$response" | sed '$d')
     
     if [[ "$http_code" == "200" ]]; then
       # Check for GraphQL errors
@@ -427,9 +431,35 @@ phase_setup() {
     # Parallel mode
     AGENT_BRANCH="feat/$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")/agent-${AGENT_NAME}"
     log "Creating parallel branch: $AGENT_BRANCH from $TASK_BRANCH"
+
+    # Capture the parent repo's path BEFORE creating the worktree so we can
+    # symlink its node_modules into the new worktree below. node_modules is
+    # untracked, so a fresh worktree has no node_modules and any subsequent
+    # `./node_modules/.bin/tsx` invocation would fail.
+    local parent_repo_root
+    parent_repo_root="$(git rev-parse --show-toplevel)"
+
     git branch "$AGENT_BRANCH" "$TASK_BRANCH"
     git worktree add "$WORKTREE_PATH" "$AGENT_BRANCH"
     cd "$WORKTREE_PATH"
+
+    # Link the parent's node_modules into the worktree. The pi command
+    # (./node_modules/.bin/tsx ...) needs this; without it the agent would
+    # fail to launch with "command not found". Read-mostly access is safe
+    # across parallel agents.
+    #
+    # WARNING: Do NOT run `pnpm install` / `npm install` / `yarn install`
+    # from inside a symlinked worktree, and do NOT run scripts that write
+    # into node_modules (postinstall hooks, patch-package, etc.). The
+    # symlink is shared, so parallel agents would race on the same
+    # directory and corrupt each other's installs. Run install in the
+    # parent repo first if dependencies need to change.
+    if [[ -d "$parent_repo_root/node_modules" && ! -e "$WORKTREE_PATH/node_modules" ]]; then
+      ln -s "$parent_repo_root/node_modules" "$WORKTREE_PATH/node_modules"
+      log "Linked node_modules from parent repo into worktree"
+    elif [[ ! -d "$parent_repo_root/node_modules" ]]; then
+      log "WARNING: Parent repo has no node_modules at $parent_repo_root — agent will fail until \`pnpm install\` is run there"
+    fi
   fi
   
   export AGENT_BRANCH
@@ -527,17 +557,25 @@ stall_monitor() {
 # Stream JSON events from pi to Linear activities in real-time
 stream_to_linear() {
   local session_id="$1"
-  
-  # Write Python script to temp file so stdin remains free for pipe data
-  local py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
+
+  # Write Python script to temp file so stdin remains free for pipe data.
+  # RETURN traps fire when the function returns (normal return + early
+  # return paths); they do NOT fire on signal kills (only EXIT traps do).
+  # Impact is bounded: temp files live under /tmp and OS cleanup catches
+  # what the trap misses on hard kills.
+  local py_script
+  py_script=$(mktemp /tmp/linear-stream-XXXXXX.py)
+  trap 'rm -f "$py_script"' RETURN
   cat > "$py_script" <<'PYTHON_SCRIPT'
+import os
 import sys
 import json
 import time
 import subprocess
 
 session_id = sys.argv[1]
-linear_app_token = sys.argv[2]
+# Token is passed via env, NOT argv, so it doesn't appear in `ps -ef`.
+linear_app_token = os.environ['LINEAR_APP_TOKEN_STREAM']
 last_post_time = 0
 rate_limit_seconds = 3
 
@@ -684,9 +722,15 @@ for line in sys.stdin:
         pass
 PYTHON_SCRIPT
   
-  # Execute Python with temp file, then clean up
-  python3 "$py_script" "$session_id" "$LINEAR_APP_TOKEN"
-  rm -f "$py_script"
+  # Execute Python with temp file. Token goes via env (LINEAR_APP_TOKEN_STREAM)
+  # so it never appears in argv / process listings. Temp-file cleanup is
+  # handled by the RETURN trap above (fires on normal/early return; signal
+  # kills are covered by /tmp's OS-level cleanup, not by a trap).
+  #
+  # `python3 -u` forces unbuffered stdin/stdout. Without it, Python
+  # block-buffers stdin reads (~8KB) when fed by a pipe, which would delay
+  # event posts to Linear by minutes when agent output trickles in slowly.
+  LINEAR_APP_TOKEN_STREAM="$LINEAR_APP_TOKEN" python3 -u "$py_script" "$session_id"
 }
 
 # ============================================================================
@@ -738,23 +782,27 @@ phase_execution() {
   
   log "Spawning agent: ${pi_cmd[*]}"
   log "Output tee'd to: $log_file"
-  
-  # PI-134: Start stall monitor in background BEFORE pipeline
+
+  # PI-134: Start stall monitor in background BEFORE pipeline.
+  # Main's c3e3707b approach (kept here over the council's FIFO suggestion):
+  # run the pipeline in the foreground and use PIPESTATUS[0] for the agent
+  # exit code; the stall monitor watches the wrapper PID and pkill -P kills
+  # all wrapper children if a stall fires.
   stall_monitor "$$" "$AGENT_SESSION_ID" &
   local STALL_MONITOR_PID=$!
-  
+
   # Execute agent pipeline in foreground and capture exit code
   set +e
   "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
   AGENT_EXIT_CODE=${PIPESTATUS[0]}
   set -e
-  
+
   # Kill stall monitor
   kill "$STALL_MONITOR_PID" 2>/dev/null || true
   wait "$STALL_MONITOR_PID" 2>/dev/null || true
-  
+
   log "Agent exited with code: $AGENT_EXIT_CODE"
-  
+
   return $AGENT_EXIT_CODE
 }
 
@@ -875,8 +923,10 @@ $error_log
     local subject
     subject=$(echo "$msg" | head -n1)
     
-    # Check conventional commit format (type(scope): message or type: message)
-    if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci)(\(.+\))?: .+'; then
+    # Check conventional commit format (type(scope): message or type: message).
+    # Keep this list in sync with scripts/test-agent-wrapper.sh's verifier;
+    # `revert` is included there too.
+    if ! echo "$subject" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert)(\(.+\))?: .+'; then
       local err_msg="Commit $commit does not follow conventional commit format: $subject"
       error "$err_msg"
       post_agent_activity "$AGENT_SESSION_ID" "error" "$err_msg"
@@ -936,9 +986,18 @@ $log_content"
   log "Pushing branch $AGENT_BRANCH"
   git push origin "$AGENT_BRANCH"
   
-  # Push notes
+  # Push notes. In parallel mode, multiple agents race on refs/notes/commits;
+  # a bare push would be rejected non-fast-forward for all but the first.
+  # Fetch + merge the remote ref first so concurrent pushes succeed in turn.
   log "Pushing git notes"
-  git push origin refs/notes/commits || log "Warning: failed to push notes (may not exist)"
+  git fetch origin "refs/notes/commits:refs/notes/origin-commits" 2>/dev/null || true
+  if git rev-parse --verify refs/notes/origin-commits >/dev/null 2>&1; then
+    # `git notes merge -s cat_sort_uniq` is the standard non-conflicting
+    # merge strategy for notes — concatenates entries from both refs.
+    git notes merge -s cat_sort_uniq refs/notes/origin-commits 2>/dev/null || \
+      log "Warning: notes merge failed; will attempt push anyway"
+  fi
+  git push origin refs/notes/commits || log "Warning: failed to push notes (may not exist or remote moved again)"
   
   # Determine PR base based on mode
   local PR_BASE

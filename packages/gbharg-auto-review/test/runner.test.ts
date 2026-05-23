@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { findDuplicateReviewReason, interpolateRunnerArgs, parseUsagePercent } from "../src/runner.js";
-import type { PullRequestMetadata, ReviewCloudConfig, RunnerCommandTemplate } from "../src/types.js";
+import { findDuplicateReviewReason, interpolateRunnerArgs, parseUsagePercent } from "../src/runner.ts";
+import type { PullRequestMetadata, ReviewCloudConfig, RunnerCommandTemplate } from "../src/types.ts";
 
 const pr: PullRequestMetadata = {
 	number: 42,
