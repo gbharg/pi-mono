@@ -1,0 +1,69 @@
+.claude/skills/INDEX.md
+  aa84b2f70ab6fa0f 1-35
+.claude/skills/rc-transfer-caller/SKILL.md
+  aa84b2f70ab6fa0f 1-103
+.claude/skills/rc-add-extension/SKILL.md
+  aa84b2f70ab6fa0f 1-145
+.claude/skills/amd-add-patient/SKILL.md
+  aa84b2f70ab6fa0f 1-137
+.claude/skills/amd-cancel-appointment/SKILL.md
+  aa84b2f70ab6fa0f 1-110
+.claude/skills/rc-disable-extension/SKILL.md
+  aa84b2f70ab6fa0f 1-141
+.claude/skills/rc-update-call-queue/SKILL.md
+  aa84b2f70ab6fa0f 1-174
+.claude/skills/amd-reschedule-appointment/SKILL.md
+  aa84b2f70ab6fa0f 1-140
+.claude/skills/rc-pull-call-history/SKILL.md
+  aa84b2f70ab6fa0f 1-125
+.claude/skills/amd-get-medical-records/SKILL.md
+  aa84b2f70ab6fa0f 108
+.claude/skills/amd-process-payment/SKILL.md
+  aa84b2f70ab6fa0f 1-166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "9d015015045f1d4723ee741999e6ee0d7d527178",
+  "prompts": {
+    "043aacd52129e973": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51196e30-d096-46ae-bc7e-55296b2d8764",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    },
+    "aa84b2f70ab6fa0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e22a342e-4908-4553-a829-9489a174ea5a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 41550,
+      "total_deletions": 1628,
+      "accepted_lines": 39930,
+      "overriden_lines": 13
+    },
+    "d4d354d134067fa4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2a281d00-0463-47a0-ba3f-d4402f4d82ff",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Gautam Bhargava",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 0,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}
