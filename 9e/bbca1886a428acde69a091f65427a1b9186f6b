@@ -1,0 +1,97 @@
+packages/gbharg-auto-review/src/index.ts
+  s_89c6a4a2b3e801::t_e66308fa9561f9 27,56,123
+  s_89c6a4a2b3e801::t_019124d8d5d663 3-9
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 1
+packages/gbharg-auto-review/src/process.ts
+  s_89c6a4a2b3e801::t_728694fe64f341 9-14
+.gitignore
+  s_89c6a4a2b3e801::t_eb9a23f03c96b5 44
+packages/coding-agent/src/modes/interactive/theme/theme.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 745
+.pi/extensions/imessage-channel/index.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 21
+packages/gbharg-auto-review/package.json
+  s_89c6a4a2b3e801::t_129b1f7bfcd99f 37
+  s_89c6a4a2b3e801::t_a46e34e59a569d 38,41-44
+packages/gbharg-auto-review/test/plan-context.test.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 2-3
+.pi/extensions/plan-mode/index.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 15-18
+  s_89c6a4a2b3e801::t_16ce4b56a40108 19
+packages/gbharg-auto-review/src/runner.ts
+  s_89c6a4a2b3e801::t_728694fe64f341 5-12,130-133,158,271,292-295,327
+  s_89c6a4a2b3e801::t_019124d8d5d663 4,13
+.pi/extensions/guard.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 13
+.pi/services/linear-webhook/package.json
+  s_89c6a4a2b3e801::t_a46e34e59a569d 5
+packages/gbharg-auto-review/test/policy.test.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 2-3
+packages/gbharg-auto-review/src/plan-context.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 1
+packages/coding-agent/test/config.test.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 186,191,195-196,271,277,281-282,339,350-351,365,371,375-376
+  s_89c6a4a2b3e801::t_728694fe64f341 345-346
+packages/gbharg-auto-review/src/config.ts
+  s_89c6a4a2b3e801::t_728694fe64f341 10-14,30-42,44-46,132-135
+  s_89c6a4a2b3e801::t_019124d8d5d663 4
+packages/gbharg-auto-review/src/cli.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 3-8
+  s_89c6a4a2b3e801::t_e66308fa9561f9 113
+  s_89c6a4a2b3e801::t_9463da77d05d18 122
+  s_89c6a4a2b3e801::t_728694fe64f341 35-40,68-73
+.pi/extensions/usage-reset-notifier.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 11
+packages/gbharg-auto-review/src/policy.ts
+  s_89c6a4a2b3e801::t_728694fe64f341 37-41,67
+  s_89c6a4a2b3e801::t_019124d8d5d663 1
+packages/gbharg-auto-review/src/repo.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 1
+  s_89c6a4a2b3e801::t_7fc9057d2fe87a 5
+.pi/extensions/x-reader.ts
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 1
+packages/gbharg-auto-review/src/github.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 1,8
+  s_89c6a4a2b3e801::t_7fc9057d2fe87a 216
+  s_89c6a4a2b3e801::t_728694fe64f341 2-7,133-136
+packages/gbharg-auto-review/test/runner.test.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 2-3
+packages/coding-agent/examples/extensions/sendblue/package.json
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 11
+.pi/extensions/auto-review.ts
+  s_89c6a4a2b3e801::t_16ce4b56a40108 1
+.pi/services/mcp-bridge/package.json
+  s_89c6a4a2b3e801::t_a46e34e59a569d 5
+packages/coding-agent/examples/extensions/sendblue/index.ts
+  s_89c6a4a2b3e801::t_0f36158ce2f5c3 385
+  s_89c6a4a2b3e801::t_7fc9057d2fe87a 156,224,367
+  s_89c6a4a2b3e801::t_9d92c7125abf9b 17-18
+packages/gbharg-auto-review/test/scope.test.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 2
+packages/gbharg-auto-review/src/scope.ts
+  s_89c6a4a2b3e801::t_019124d8d5d663 1
+  s_89c6a4a2b3e801::t_728694fe64f341 4-16,31-33
+packages/ai/src/models.generated.ts
+  ai_agent 3557,3593,3609-3611,3683,3707-3727,3735-3737,3740-3741,3917-3935,8671-8673,8677,11618,11748,11754,11767,11771,12621-12639,13145-13148,14044
+packages/gbharg-auto-review/test/github.test.ts
+  s_89c6a4a2b3e801::t_728694fe64f341 14
+  s_89c6a4a2b3e801::t_019124d8d5d663 2
+package-lock.json
+  ai_agent 1183-1186,2039-2044,6178-6209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.0",
+  "base_commit_sha": "9ebbca1886a428acde69a091f65427a1b9186f6b",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
