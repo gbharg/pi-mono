@@ -1,6 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "AdvancedMD Connect API — enumerated PM/EHR operations. Each operation is an XML-RPC `ProcessRequest` invocation wrapping a <ppmdmsg action='...' class='...'> envelope. Derived from confirmed production integrations (Keragon AMD MCP, Healthjump notes) — 49 operations across 10 functional groups. Operations sourced from Keragon's published MCP server. This data is for programmatic reference; see references/connect-api.md for narrative + recipes.",
+  "$comment": "AdvancedMD Connect API — enumerated PM/EHR operations. Each operation is an XML-RPC `ProcessRequest` invocation wrapping a <ppmdmsg action='...' class='...'> envelope. Derived from confirmed production integrations (Keragon AMD MCP, Healthjump notes) — 49 operations across 10 functional groups. The `sync_delta` group re-lists the delta-capable ops from `patients`+`visits` for discoverability; the canonical definition of each op is in its primary group. This data is for programmatic reference; see references/connect-api.md for narrative + recipes.",
   "source": {
     "extracted_from": ["Keragon AMD MCP (production)", "Healthjump AMD integration notes"],
     "extracted_at": "2026-05-23",

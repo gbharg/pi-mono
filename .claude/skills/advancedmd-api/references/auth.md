@@ -203,7 +203,7 @@ For REST variants of the Connect API, AdvancedMD issues OAuth 2.0 tokens via a s
 | `user/*.rs` | Read/search for the user's authorized patients |
 | `patient/{Resource}.read` | Resource-scoped (e.g. `patient/Patient.read`, `patient/Observation.rs`) |
 
-Per-resource scopes are supported for all 22 USCDI v3 resources: `AllergyIntolerance, CarePlan, CareTeam, Condition, Coverage, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immunization, Location, MedicationDispense, MedicationRequest, Observation, Organization, Patient, Practitioner, Procedure, Provenance, RelatedPerson, ServiceRequest, Specimen`.
+Per-resource scopes are supported for all 23 USCDI v3 resources: `AllergyIntolerance, CarePlan, CareTeam, Condition, Coverage, Device, DiagnosticReport, DocumentReference, Encounter, Goal, Immunization, Location, MedicationDispense, MedicationRequest, Observation, Organization, Patient, Practitioner, Procedure, Provenance, RelatedPerson, ServiceRequest, Specimen` (the last two are accepted as scopes but not yet exposed as search endpoints in the v1 OpenAPI spec).
 
 **Important**: AdvancedMD does NOT yet fully support generic `user/*` scopes (planned end of 2025). Practically, `user/*.read` issues a token bound to a specific patient — to query a different patient you must include `_id` in the query/body and the EHR enforces ACLs.
 

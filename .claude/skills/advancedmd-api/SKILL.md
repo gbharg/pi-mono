@@ -107,7 +107,7 @@ Surface (derived from confirmed production integrations — Keragon, etc.):
 - **Intake** — get/create intake records (web forms)
 - **Sync** — new + modified patients, visits, patient notes (delta sync by date)
 
-See `references/pm-operations.md` for the full enumerated catalog with parameter shapes.
+See `references/connect-api.md` for the enumerated catalog grouped by area, and `data/pm-operations.json` for the same surface as structured JSON (parameter shapes + return types + enums).
 
 ## Auth Cheat Sheet
 

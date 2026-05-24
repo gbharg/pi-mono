@@ -11,7 +11,7 @@ Reverse-engineered from the public OpenAPI 3.0.1 spec (243 KB YAML, `data/openap
 - **Auth**: 3-legged OAuth 2.0 (SMART App Launch), PKCE optional
 - **Capability statement**: `GET /v1/r4/{org_id}/metadata` → FHIR `CapabilityStatement`
 
-## Resource Tags (22 total)
+## Resource Tags (21 listed in the v1 OpenAPI spec; 23 in USCDI v3 incl. scope-only)
 
 ```
 AllergyIntolerance, CarePlan, CareTeam, Condition, Coverage, Device,
@@ -20,7 +20,7 @@ Location, MedicationDispense, MedicationRequest, Observation, Organization,
 Patient, Practitioner, Procedure, Provenance, RelatedPerson
 ```
 
-US Core resources `ServiceRequest` and `Specimen` are mentioned in scopes but are not yet in the v1 spec.
+US Core 6.1.0 also lists `ServiceRequest` and `Specimen` as USCDI v3 resources — they appear in AMD's OAuth scope catalog (you can request `patient/ServiceRequest.read`, `patient/Specimen.read`) but were not yet exposed as searchable endpoints in the v1 OpenAPI spec we mirrored. Verify the live set with `GET /v1/r4/{org_id}/metadata`.
 
 ## All Endpoints (50+)
 

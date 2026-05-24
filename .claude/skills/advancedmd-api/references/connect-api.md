@@ -89,7 +89,7 @@ Operations grouped by area:
 - `getNewAndModifiedPatientNotes` — delta sync of notes by date + template
 - `createPatientNote` — add free-text note linked to patient + provider + note type
 
-### Documents (3 ops)
+### Documents (4 ops)
 - `getFiles` — list files for a patient by file type
 - `getPatientDocument` — metadata for a document
 - `uploadPatientDocument` — upload a file (URL or text content)
@@ -111,7 +111,7 @@ Operations grouped by area:
 - `getReasons` — block reasons (type 1) or hold reasons (type 2)
 - `getFacilities` — list of facilities
 
-### Billing & Charges (5 ops)
+### Billing & Charges (6 ops)
 - `createCharge` — create a charge (proccode, diagcodes, modcodes, units, facility, patient, visit)
 - `getChargeDetails` — fetch a charge by ID
 - `applyPaymentToCharge` — apply patient or insurance payment to a charge
@@ -124,12 +124,12 @@ Operations grouped by area:
 - `getFinancialClasses` — financial-class master list
 - `createInsurance` — attach an insurance plan to a patient
 
-### Referrals (4 ops)
+### Referrals (3 ops)
 - `addInboundReferral` — create inbound referral with authorization details
 - `getReferringProviders` — list referring providers
 - `getReferralStatuses` — list valid statuses
 
-### Codes (3 ops)
+### Codes (4 ops)
 - `getDiagnosisCodes` — ICD-10/9 code lookup (filter by code)
 - `getProcedureCodes` — CPT/HCPCS lookup (filter by code)
 - `getModifierCodes` — modifier code lookup
@@ -142,9 +142,12 @@ Operations grouped by area:
 - `getIntakeRecords` — list intake records by date range + status (confirmed/declined)
 - `createIntakeRecord` — register an intake (web form submission)
 
-### Sync / Delta (3 ops)
-- `getNewAndModifiedPatients` — patients modified after a date
-- `getNewAndModifiedPatientNotes` — notes modified after a date for a template
+### Sync / Delta (3 ops — re-listing the delta-capable ops for discoverability)
+
+The first two also appear under **Patients** above; this grouping is the recipe for incremental sync.
+
+- `getNewAndModifiedPatients` — patients modified after a date (also in Patients group)
+- `getNewAndModifiedPatientNotes` — notes modified after a date for a template (also in Patients group)
 - `getNewAndModifiedVisits` — visits modified after a date
 
 ## ID Prefix Convention

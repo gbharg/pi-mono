@@ -202,20 +202,27 @@ const PASS     = process.env.AMD_CONNECT_PASS!;
 const OFFICE   = process.env.AMD_OFFICE_KEY!;
 
 async function callConnect(action: string, klass: string, body: Record<string, unknown>) {
+  // Attribute values + element bodies all need XML escaping — otherwise a
+  // first name like `O'Brien` or a note containing `<` breaks the envelope
+  // (or, worse, allows injection of additional XML elements).
+  const attr  = (s: string) => xmlAttr(String(s));
+  const xtext = (s: unknown) => xmlText(String(s ?? ""));
+
   // Inner ppmdmsg envelope — operation-specific
   const inner =
-    `<ppmdmsg action="${action}" class="${klass}" ` +
-    `username="${USER}" password="${PASS}" officekey="${OFFICE}">` +
+    `<ppmdmsg action="${attr(action)}" class="${attr(klass)}" ` +
+    `username="${attr(USER)}" password="${attr(PASS)}" officekey="${attr(OFFICE)}">` +
     Object.entries(body)
-      .map(([k, v]) => `<${k}>${v}</${k}>`)
+      .map(([k, v]) => `<${k}>${xtext(v)}</${k}>`)
       .join("") +
     `</ppmdmsg>`;
 
-  // Outer XML-RPC envelope wraps the inner as a string param
+  // Outer XML-RPC envelope wraps the inner as a string param (the inner
+  // itself contains markup so it must be XML-escaped on the way out)
   const xmlRpc =
     `<?xml version="1.0"?>` +
     `<methodCall><methodName>ProcessRequest</methodName>` +
-    `<params><param><value><string>${escape(inner)}</string></value></param></params>` +
+    `<params><param><value><string>${xmlText(inner)}</string></value></param></params>` +
     `</methodCall>`;
 
   const r = await fetch(ENDPOINT, {
@@ -238,9 +245,16 @@ async function callConnect(action: string, klass: string, body: Record<string, u
   return result.results;
 }
 
-function escape(s: string) {
-  return s.replace(/[<>&"']/g, (c) =>
-    ({ "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&apos;" }[c] as string));
+// Escape order matters — ampersand FIRST so we don't double-encode the entities
+// emitted by the other replacements.
+function xmlText(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+function xmlAttr(s: string): string {
+  return xmlText(s).replace(/"/g, "&quot;").replace(/'/g, "&apos;");
 }
 
 // Example — find a patient

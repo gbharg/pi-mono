@@ -32,9 +32,9 @@ The "API access — patient selection" criterion of the 21st Century Cures Act m
 
 This is **why FHIR is read-only at AMD** — the Cures Act §170.315(g)(10) criterion only required read.
 
-## USCDI v3 — the 22 resources
+## USCDI v3 — the 23 resources
 
-These are the 22 FHIR resources AMD must expose under USCDI v3 (Class):
+These are the 23 FHIR resources AMD must support under USCDI v3 / US Core 6.1.0:
 
 ```
 AllergyIntolerance, CarePlan, CareTeam, Condition, Coverage, Device,
