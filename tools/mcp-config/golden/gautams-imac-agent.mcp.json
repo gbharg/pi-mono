@@ -1,0 +1,130 @@
+{
+  "mcpServers": {
+    "advancedmd": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/advancedmd/mcp"
+    },
+    "agentation": {
+      "args": [
+        "-y",
+        "agentation",
+        "mcp"
+      ],
+      "command": "npx"
+    },
+    "bb-imessage": {
+      "args": [
+        "run",
+        "--cwd",
+        "/Users/Work/openclaw/tools/bb-imessage",
+        "--shell=bun",
+        "--silent",
+        "start"
+      ],
+      "command": "/Users/Work/.bun/bin/bun",
+      "env": {
+        "BB_PASSWORD": "<REDACTED_BB_PASSWORD>"
+      }
+    },
+    "commdb": {
+      "args": [
+        "tsx",
+        "/Users/Work/openclaw/tools/commdb/src/mcp-server.ts"
+      ],
+      "command": "npx",
+      "cwd": "/Users/Work/openclaw/tools/commdb"
+    },
+    "docstrange": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/docstrange/mcp"
+    },
+    "email-channel": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/email/mcp"
+    },
+    "fetch": {
+      "args": [
+        "-y",
+        "@anthropic/mcp-server-fetch"
+      ],
+      "command": "npx"
+    },
+    "gmail": {
+      "args": [
+        "-y",
+        "gmail-mcp"
+      ],
+      "command": "npx",
+      "env": {
+        "GMAIL_CREDENTIALS_PATH": "~/.gmail-mcp/credentials.json",
+        "GMAIL_OAUTH_PATH": "~/.gmail-mcp/gcp-oauth.keys.json"
+      }
+    },
+    "lume": {
+      "args": [
+        "serve",
+        "--mcp"
+      ],
+      "command": "lume"
+    },
+    "nia": {
+      "headers": {
+        "Authorization": "Bearer ${NIA_API_KEY}"
+      },
+      "type": "http",
+      "url": "https://apigcp.trynia.ai/mcp"
+    },
+    "paper": {
+      "type": "http",
+      "url": "http://127.0.0.1:29979/mcp"
+    },
+    "ringcentral": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral/mcp"
+    },
+    "ringcentral-admin": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral-admin/mcp"
+    },
+    "rippling": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/rippling/mcp"
+    },
+    "sendblue-channel": {
+      "args": [
+        "-c",
+        "cd /Users/Work/openclaw/tools/sendblue-channel && exec /Users/Work/.bun/bin/bun run server.ts"
+      ],
+      "command": "bash",
+      "env": {
+        "SENDBLUE_API_KEY_ID": "<REDACTED_SENDBLUE_API_KEY_ID_IMAC_AGENT>",
+        "SENDBLUE_API_SECRET_KEY": "<REDACTED_SENDBLUE_API_SECRET_KEY_IMAC_AGENT>"
+      }
+    },
+    "teams-mcp": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/teams-mcp/mcp"
+    }
+  }
+}

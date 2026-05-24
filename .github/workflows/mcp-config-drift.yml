@@ -1,0 +1,16 @@
+name: mcp-config drift check (warn-only)
+on: [pull_request]
+jobs:
+  drift-warn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare against gbharg/exult-agent main
+        continue-on-error: true
+        run: |
+          curl -sL "https://api.github.com/repos/gbharg/exult-agent/tarball/main" -o /tmp/upstream.tar.gz
+          mkdir -p /tmp/upstream && tar xzf /tmp/upstream.tar.gz -C /tmp/upstream --strip-components=1
+          if ! diff -r /tmp/upstream/tools/mcp-config tools/mcp-config > /tmp/drift.diff 2>&1; then
+            echo "::warning::mcp-config drift detected vs gbharg/exult-agent main"
+            cat /tmp/drift.diff
+          fi

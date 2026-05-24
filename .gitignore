@@ -55,3 +55,7 @@ plans/
 .pi/hf-sessions-backup/
 collect.sh
 .next/
+
+# Vendored mcp-config (per-host secrets + render output)
+tools/mcp-config/hosts/*.env
+tools/mcp-config/.rendered-by
