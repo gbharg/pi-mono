@@ -31,10 +31,10 @@ All hooks are best-effort and never block the session.
 
 ## qmd integration
 
-First-time setup (one command, idempotent):
+First-time setup (idempotent — run once per machine, from the repo root):
 
 ```bash
-qmd collection add pi-mono-memory "$PWD/memory" 2>/dev/null || true
+qmd collection add "$PWD/memory" --name pi-mono-memory
 qmd context add "$PWD/memory" "pi-mono session memory — daily logs, decisions, learnings, session extracts"
 qmd update pi-mono-memory
 ```
@@ -48,7 +48,7 @@ qmd update pi-mono-memory
 Query manually:
 
 ```bash
-qmd query 'lex:auth flow' --collection pi-mono-memory
+qmd search "auth flow" -c pi-mono-memory --files
 ```
 
 ## Conventions

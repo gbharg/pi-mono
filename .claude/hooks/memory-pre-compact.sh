@@ -21,23 +21,26 @@ MEMORY_DIR="$REPO/memory"
 INPUT=""
 [ ! -t 0 ] && INPUT=$(cat 2>/dev/null || true)
 
-SESSION_ID=$(printf '%s' "$INPUT" | python3 -c '
+# Single python invocation for both fields; tab-separated so we can read them.
+PARSED=$(printf '%s' "$INPUT" | python3 -c '
 import sys, json
 try:
     d = json.load(sys.stdin)
-    print(d.get("session_id", ""))
+    print(d.get("session_id", "") + "\t" + d.get("trigger", "auto"))
 except Exception:
-    pass
-' 2>/dev/null || true)
+    print("\tauto")
+' 2>/dev/null || printf '\tauto')
+SESSION_ID="${PARSED%%$'\t'*}"
+TRIGGER="${PARSED#*$'\t'}"
+[ -z "$TRIGGER" ] && TRIGGER="auto"
 
-TRIGGER=$(printf '%s' "$INPUT" | python3 -c '
-import sys, json
-try:
-    d = json.load(sys.stdin)
-    print(d.get("trigger", "auto"))
-except Exception:
-    print("auto")
-' 2>/dev/null || echo "auto")
+# Reject session IDs that contain anything outside the UUID/hex/dash alphabet
+# so the value can be safely embedded in file paths.
+if [ -n "$SESSION_ID" ]; then
+    case "$SESSION_ID" in
+        *[!a-zA-Z0-9_-]*) SESSION_ID="" ;;
+    esac
+fi
 
 SHORT_ID="${SESSION_ID:0:8}"
 [ -z "$SHORT_ID" ] && SHORT_ID="unknown"
@@ -48,26 +51,31 @@ DAILY_FILE="$MEMORY_DIR/daily/$TODAY.md"
 
 mkdir -p "$MEMORY_DIR/daily" "$MEMORY_DIR/sessions" 2>/dev/null || exit 0
 
-# Append daily marker.
-{
-    [ ! -s "$DAILY_FILE" ] && printf '# %s\n\n' "$TODAY"
-    printf '## %s — compact (%s) — session %s\n\n' "$(date +%H:%M)" "$TRIGGER" "$SHORT_ID"
-    printf 'Session compacted. Extract: `memory/sessions/%s.md`.\n\n' "$SESSION_ID"
-    printf -- '---\n\n'
-} >> "$DAILY_FILE" 2>/dev/null || true
+# Build the daily entry as a single string (preserving trailing newlines via
+# bash ANSI-C $'...' quoting; command substitution would strip them) and
+# append it in one write so a concurrent compaction can't interleave lines.
+EXTRACT_REF="memory/sessions/${SESSION_ID:-$SHORT_ID}.md"
+NOW_HM=$(date +%H:%M)
+ENTRY=""
+[ ! -s "$DAILY_FILE" ] && ENTRY="# ${TODAY}"$'\n\n'
+ENTRY+="## ${NOW_HM} — compact (${TRIGGER}) — session ${SHORT_ID}"$'\n\n'
+ENTRY+="Session compacted. Extract: \`${EXTRACT_REF}\`."$'\n\n'
+ENTRY+=$'---\n\n'
+printf '%s' "$ENTRY" >> "$DAILY_FILE" 2>/dev/null || true
 
 # Write a session-extract stub if we haven't already.
-SESSION_FILE="$MEMORY_DIR/sessions/$SESSION_ID.md"
-if [ -n "$SESSION_ID" ] && [ ! -f "$SESSION_FILE" ]; then
-    {
-        printf -- '---\n'
-        printf 'session_id: %s\n' "$SESSION_ID"
-        printf 'trigger: %s\n' "$TRIGGER"
-        printf 'compacted_at: %s\n' "$DATE"
-        printf -- '---\n\n'
-        printf '# Session %s\n\n' "$SHORT_ID"
-        printf 'Auto-extract on PreCompact. Add a short summary of what this session worked on and any durable decisions.\n'
-    } > "$SESSION_FILE" 2>/dev/null || true
+if [ -n "$SESSION_ID" ]; then
+    SESSION_FILE="$MEMORY_DIR/sessions/$SESSION_ID.md"
+    if [ ! -f "$SESSION_FILE" ]; then
+        STUB=$'---\n'
+        STUB+="session_id: ${SESSION_ID}"$'\n'
+        STUB+="trigger: ${TRIGGER}"$'\n'
+        STUB+="compacted_at: ${DATE}"$'\n'
+        STUB+=$'---\n\n'
+        STUB+="# Session ${SHORT_ID}"$'\n\n'
+        STUB+=$'Auto-extract on PreCompact. Add a short summary of what this session worked on and any durable decisions.\n'
+        printf '%s' "$STUB" > "$SESSION_FILE" 2>/dev/null || true
+    fi
 fi
 
 exit 0

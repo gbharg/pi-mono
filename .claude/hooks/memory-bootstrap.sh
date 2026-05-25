@@ -1,11 +1,13 @@
 #!/bin/bash
-# memory-bootstrap.sh — SessionStart hook for pi-mono session memory.
+# memory-bootstrap.sh — UserPromptSubmit hook (fires once per session via
+# marker-file dedup). Claude Code has no first-class SessionStart event, so we
+# attach to UserPromptSubmit and short-circuit after the first prompt.
 #
 # On the first prompt of a session, inject:
 #   1. memory/context.md (active focus + in-flight branches)
 #   2. today's daily/YYYY-MM-DD.md (if it exists)
 #
-# Best-effort: never blocks. Marker file at /tmp prevents double-firing.
+# Best-effort: never blocks. User-scoped cache prevents cross-user collisions.
 #
 # Input: JSON on stdin with { session_id, ... }
 # Output: <memory-bootstrap> block on stdout, or nothing.
@@ -30,14 +32,23 @@ except Exception:
 # Without a session_id we have no way to dedupe; bail out.
 [ -z "$SESSION_ID" ] && exit 0
 
-CACHE_DIR="/tmp/pi-mono-memory"
+# Reject session IDs that contain anything outside the UUID/hex/dash alphabet
+# so the value can be safely embedded in file paths.
+case "$SESSION_ID" in
+    *[!a-zA-Z0-9_-]*) exit 0 ;;
+esac
+
+# User-scoped cache dir avoids /tmp symlink-squatting and cross-user collisions
+# on shared machines. Falls through TMPDIR -> /tmp.
+CACHE_DIR="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/pi-mono-memory-$(id -u)"
 mkdir -p "$CACHE_DIR" 2>/dev/null || exit 0
 MARKER="$CACHE_DIR/bootstrap-$SESSION_ID"
 [ -f "$MARKER" ] && exit 0
 touch "$MARKER"
 
-# Trim old markers (keep last 20).
-ls -t "$CACHE_DIR"/bootstrap-* 2>/dev/null | tail -n +21 | xargs rm -f 2>/dev/null || true
+# Trim old markers (keep last 20). `find -delete` handles whitespace and
+# missing files safely.
+find "$CACHE_DIR" -maxdepth 1 -type f -name 'bootstrap-*' -mtime +7 -delete 2>/dev/null || true
 
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"

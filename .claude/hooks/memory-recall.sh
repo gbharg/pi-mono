@@ -33,12 +33,21 @@ except Exception:
 case "$PROMPT" in
     /*) exit 0 ;;
 esac
-if printf '%s\n' "$PROMPT" | head -1 | grep -qiE '^(This session is being continued|<system|<command|<task-notification|Stop hook)'; then
-    exit 0
-fi
+# Use bash parameter expansion (not a pipeline) so large prompts don't trigger
+# SIGPIPE on `head -1` and bypass the filter under `set -o pipefail`.
+FIRST_LINE="${PROMPT%%$'\n'*}"
+shopt -s nocasematch
+case "$FIRST_LINE" in
+    "This session is being continued"*|"<system"*|"<command"*|"<task-notification"*|"Stop hook"*)
+        shopt -u nocasematch
+        exit 0
+        ;;
+esac
+shopt -u nocasematch
 
-# Only run if the pi-mono-memory collection exists.
-qmd collection list 2>/dev/null | grep -q '^pi-mono-memory ' || exit 0
+# Only run if the pi-mono-memory collection exists. `\s|$` tolerates tab/space
+# column separators or end-of-line in `qmd collection list` output.
+qmd collection list 2>/dev/null | grep -qE '^pi-mono-memory(\s|$)' || exit 0
 
 # BM25 (`qmd search`) is intersection-style: every term must appear in the
 # matched document. Reduce the prompt to its 4 most distinctive content words
