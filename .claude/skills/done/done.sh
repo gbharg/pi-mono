@@ -10,6 +10,10 @@
 #   echo "<summary body>" | .claude/skills/done/done.sh
 #   .claude/skills/done/done.sh --commit ["<summary body>"]
 
+# `-u` and `pipefail` only; deliberately no `-e` — every step is
+# best-effort and failures are handled inline. If you add `-e` later,
+# audit the pipelines (e.g. `git log ... | head`) for benign non-zero
+# upstream exits that would now abort the script.
 set -uo pipefail
 
 COMMIT=0
@@ -68,10 +72,14 @@ if [ -z "$SUMMARY_BODY" ]; then
     RECENT_COMMITS=$(git log --oneline -n 5 "origin/main..HEAD" 2>/dev/null | head -c 800)
     [ -z "$RECENT_COMMITS" ] && RECENT_COMMITS="(no commits ahead of origin/main)"
     DIFF_FILES=$(git diff --name-only "origin/main...HEAD" 2>/dev/null | head -n 20 | head -c 800)
-    SNAPSHOT_FILE="${TMPDIR:-/tmp}/pi-mono-session-snapshot.md"
+    # Matches the per-user cache dir memory-pre-compact.sh writes into.
+    SNAPSHOT_FILE="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/pi-mono-memory-$(id -u)/snapshot.md"
     SNAPSHOT_NOTE=""
     if [ -f "$SNAPSHOT_FILE" ]; then
-        AGE=$(( $(date +%s) - $(stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
+        # GNU `stat -c %Y` first; falls through to BSD `stat -f %m`. The
+        # reverse order broke on Linux (see memory-bootstrap.sh for the
+        # full story).
+        AGE=$(( $(date +%s) - $(stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
         if [ "$AGE" -ge 0 ] && [ "$AGE" -lt 21600 ]; then
             SNAPSHOT_NOTE=$'\nPre-compact snapshot is fresh ('"$SNAPSHOT_FILE"$'); resume agents can replay branch+context from it.'
         fi
@@ -130,22 +138,14 @@ if [ -f "$CONTEXT_FILE" ]; then
     awk \
         -v focus="$NEW_FOCUS_BODY" \
         -v branches="$NEW_BRANCHES_BODY" '
-        BEGIN { mode = "passthrough" }
+        BEGIN { mode = "passthrough"; saw_focus = 0; saw_branches = 0 }
         /^## Active focus *$/ {
-            print
-            print ""
-            print focus
-            print ""
-            mode = "skip"
-            next
+            print; print ""; print focus; print ""
+            mode = "skip"; saw_focus = 1; next
         }
         /^## In-flight branches *$/ {
-            print
-            print ""
-            print branches
-            print ""
-            mode = "skip"
-            next
+            print; print ""; print branches; print ""
+            mode = "skip"; saw_branches = 1; next
         }
         /^## / {
             mode = "passthrough"
@@ -154,6 +154,22 @@ if [ -f "$CONTEXT_FILE" ]; then
         }
         {
             if (mode != "skip") print
+        }
+        END {
+            # If either section is missing from the file, append it so a
+            # fresh / hand-trimmed context.md still gets the latest state.
+            if (!saw_focus) {
+                print ""
+                print "## Active focus"
+                print ""
+                print focus
+            }
+            if (!saw_branches) {
+                print ""
+                print "## In-flight branches"
+                print ""
+                print branches
+            }
         }
     ' "$CONTEXT_FILE" > "$CONTEXT_FILE.tmp" && mv "$CONTEXT_FILE.tmp" "$CONTEXT_FILE"
 fi

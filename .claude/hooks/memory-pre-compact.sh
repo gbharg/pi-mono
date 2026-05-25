@@ -83,14 +83,23 @@ if [ -n "$SESSION_ID" ]; then
     fi
 fi
 
-# Build the post-compact snapshot in /tmp. Best-effort: every git command is
-# scoped to the repo, errors swallowed. The file is overwritten each compact
-# (only the most recent snapshot is interesting).
-SNAPSHOT_FILE="${TMPDIR:-/tmp}/pi-mono-session-snapshot.md"
+# Build the post-compact snapshot in the per-user cache dir (same path
+# memory-bootstrap.sh uses for its session markers). World-writable /tmp
+# would let any local user inject content into this file and the next
+# bootstrap would inject it as trusted context. The user-private dir on
+# macOS lives under /var/folders/.../T/ (mode 700, owner-only) and on
+# Linux falls through XDG_RUNTIME_DIR → TMPDIR → /tmp; we still own the
+# subdirectory by uid so cross-user writes can't reach it.
+SNAPSHOT_DIR="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/pi-mono-memory-$(id -u)"
+mkdir -p "$SNAPSHOT_DIR" 2>/dev/null && chmod 700 "$SNAPSHOT_DIR" 2>/dev/null || true
+SNAPSHOT_FILE="$SNAPSHOT_DIR/snapshot.md"
 build_snapshot() {
     cd "$REPO" 2>/dev/null || return 1
     local branch ahead_behind commits diff_files status_changes context_head
     branch=$(git branch --show-current 2>/dev/null || echo "(detached)")
+    # `git rev-list --left-right --count A...B` prints `<left> <right>`
+    # where left = commits in A only (HEAD is behind by this) and right =
+    # commits in B only (HEAD is ahead by this). Labels below match.
     ahead_behind=$(git rev-list --left-right --count "origin/main...HEAD" 2>/dev/null \
         | awk '{ printf "behind=%d ahead=%d", $1, $2 }')
     commits=$(git log --oneline -n 10 "origin/main..HEAD" 2>/dev/null \

@@ -56,7 +56,10 @@ find "$CACHE_DIR" -maxdepth 1 -type f -name 'bootstrap-*' -mtime +7 -delete 2>/d
 
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"
-SNAPSHOT_FILE="${TMPDIR:-/tmp}/pi-mono-session-snapshot.md"
+# Same per-user cache dir memory-pre-compact.sh writes into. Keeping the
+# snapshot here (not in /tmp) prevents cross-user injection of fake
+# pre-compact content.
+SNAPSHOT_FILE="$CACHE_DIR/snapshot.md"
 
 CONTEXT_BLOCK=""
 [ -f "$CONTEXT_FILE" ] && CONTEXT_BLOCK=$(head -c 2000 "$CONTEXT_FILE")
@@ -68,7 +71,11 @@ SNAPSHOT_BLOCK=""
 if [ -f "$SNAPSHOT_FILE" ]; then
     # Only inject snapshots written in the last 6 hours; older ones are
     # leftovers from prior sessions and would mislead the resumed agent.
-    SNAPSHOT_AGE=$(( $(date +%s) - $(stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
+    # `stat -c %Y` (GNU) is tried first; on BSD/macOS it fails cleanly and
+    # falls through to `stat -f %m`. The previous reverse order broke on
+    # Linux: BSD-style `-f %m` printed multi-line filesystem stats to
+    # stdout that polluted the arithmetic expansion.
+    SNAPSHOT_AGE=$(( $(date +%s) - $(stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
     if [ "$SNAPSHOT_AGE" -ge 0 ] && [ "$SNAPSHOT_AGE" -lt 21600 ]; then
         SNAPSHOT_BLOCK=$(head -c 4000 "$SNAPSHOT_FILE")
     fi
