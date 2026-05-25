@@ -7,11 +7,12 @@
 # Writes:
 #   memory/sessions/<session_id>.md    (one-shot; created if missing)
 #   memory/daily/YYYY-MM-DD.md         (appended marker line)
-#   /tmp/pi-mono-session-snapshot.md   (overwritten each compact;
+#   $REPO/.claude/.snapshot.md        (overwritten each compact;
 #                                       memory-bootstrap.sh injects it on
 #                                       the next prompt so the compacted
 #                                       session resumes with git + context
-#                                       continuity)
+#                                       continuity; gitignored via the
+#                                       existing /.claude/* rule)
 #
 # Best-effort; never blocks compaction.
 #

@@ -6,7 +6,7 @@
 # On the first prompt of a session, inject:
 #   1. memory/context.md (active focus + in-flight branches)
 #   2. today's daily/YYYY-MM-DD.md (if it exists)
-#   3. /tmp/pi-mono-session-snapshot.md if present and fresh (mtime < 6h),
+#   3. $REPO/.claude/.snapshot.md if present and fresh (mtime < 6h),
 #      so a session resuming after PreCompact gets immediate git + context
 #      continuity. Older snapshots are ignored — they're noise after a
 #      genuine session boundary.

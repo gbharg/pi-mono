@@ -22,8 +22,8 @@ scripts did not apply to pi-mono.
 1. Computes a slug from the current branch (`feat/foo` → `foo`, `fix/bar` → `bar`).
 2. Reads the session summary body from a positional arg or from stdin. If
    nothing is provided, builds a minimal summary from git state (branch,
-   recent commits, modified files) plus `/tmp/pi-mono-session-snapshot.md`
-   when it is fresh.
+   recent commits, modified files) plus `.claude/.snapshot.md` (the
+   pre-compact snapshot) when it is fresh.
 3. Appends a `## HH:MM — <branch>` block to `memory/daily/YYYY-MM-DD.md`
    (creates the date heading if the file is new).
 4. Writes the full summary to
