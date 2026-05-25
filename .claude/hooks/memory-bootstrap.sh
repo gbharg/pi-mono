@@ -6,6 +6,10 @@
 # On the first prompt of a session, inject:
 #   1. memory/context.md (active focus + in-flight branches)
 #   2. today's daily/YYYY-MM-DD.md (if it exists)
+#   3. /tmp/pi-mono-session-snapshot.md if present and fresh (mtime < 6h),
+#      so a session resuming after PreCompact gets immediate git + context
+#      continuity. Older snapshots are ignored — they're noise after a
+#      genuine session boundary.
 #
 # Best-effort: never blocks. User-scoped cache prevents cross-user collisions.
 #
@@ -52,6 +56,7 @@ find "$CACHE_DIR" -maxdepth 1 -type f -name 'bootstrap-*' -mtime +7 -delete 2>/d
 
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"
+SNAPSHOT_FILE="${TMPDIR:-/tmp}/pi-mono-session-snapshot.md"
 
 CONTEXT_BLOCK=""
 [ -f "$CONTEXT_FILE" ] && CONTEXT_BLOCK=$(head -c 2000 "$CONTEXT_FILE")
@@ -59,7 +64,17 @@ CONTEXT_BLOCK=""
 DAILY_BLOCK=""
 [ -f "$TODAY_FILE" ] && DAILY_BLOCK=$(head -c 2000 "$TODAY_FILE")
 
-[ -z "$CONTEXT_BLOCK" ] && [ -z "$DAILY_BLOCK" ] && exit 0
+SNAPSHOT_BLOCK=""
+if [ -f "$SNAPSHOT_FILE" ]; then
+    # Only inject snapshots written in the last 6 hours; older ones are
+    # leftovers from prior sessions and would mislead the resumed agent.
+    SNAPSHOT_AGE=$(( $(date +%s) - $(stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
+    if [ "$SNAPSHOT_AGE" -ge 0 ] && [ "$SNAPSHOT_AGE" -lt 21600 ]; then
+        SNAPSHOT_BLOCK=$(head -c 4000 "$SNAPSHOT_FILE")
+    fi
+fi
+
+[ -z "$CONTEXT_BLOCK" ] && [ -z "$DAILY_BLOCK" ] && [ -z "$SNAPSHOT_BLOCK" ] && exit 0
 
 printf '<memory-bootstrap>\n'
 if [ -n "$CONTEXT_BLOCK" ]; then
@@ -67,6 +82,9 @@ if [ -n "$CONTEXT_BLOCK" ]; then
 fi
 if [ -n "$DAILY_BLOCK" ]; then
     printf '\n--- memory/daily/%s.md ---\n%s\n' "$(date +%Y-%m-%d)" "$DAILY_BLOCK"
+fi
+if [ -n "$SNAPSHOT_BLOCK" ]; then
+    printf '\n--- pre-compact snapshot (%s) ---\n%s\n' "$SNAPSHOT_FILE" "$SNAPSHOT_BLOCK"
 fi
 printf '</memory-bootstrap>\n'
 
