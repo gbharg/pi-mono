@@ -19,7 +19,7 @@ Ship a right-sized subset:
   `memory/MEMORY.md`).
 - Three project-scoped hooks under `.claude/hooks/`:
   - `memory-recall.sh` (UserPromptSubmit) — single-tier `qmd` lookup.
-  - `memory-bootstrap.sh` (SessionStart) — context + today's daily.
+  - `memory-bootstrap.sh` (UserPromptSubmit, marker-file dedup) — context + today's daily on the first prompt of a session.
   - `memory-pre-compact.sh` (PreCompact) — write session extract + daily marker.
 - One new `qmd` collection (`pi-mono-memory`) pointed at `memory/`.
 

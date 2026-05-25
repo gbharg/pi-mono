@@ -24,7 +24,7 @@ Claude Code session picks them up automatically.
 | Hook | Event | Purpose |
 | --- | --- | --- |
 | `memory-recall.sh` | `UserPromptSubmit` | Inject top-3 `qmd` matches from `pi-mono-memory` for the user prompt |
-| `memory-bootstrap.sh` | `SessionStart` | Inject `context.md` + today's daily log on the first prompt of a session |
+| `memory-bootstrap.sh` | `UserPromptSubmit` | Inject `context.md` + today's daily log on the first prompt of a session (once per session via marker-file dedup) |
 | `memory-pre-compact.sh` | `PreCompact` | Append a marker to today's daily; persist a session extract |
 
 All hooks are best-effort and never block the session.
