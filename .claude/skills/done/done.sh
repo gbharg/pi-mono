@@ -20,20 +20,12 @@ set -uo pipefail
 # (e.g. `PI_MONO_SNAPSHOT_TTL=86400 /done`) for long-running flows.
 PI_MONO_SNAPSHOT_TTL="${PI_MONO_SNAPSHOT_TTL:-21600}"
 
-# Cross-platform mtime. See memory-bootstrap.sh for the full rationale —
-# selecting up front by `uname` avoids the broken `stat -c ... || stat -f ...`
-# fallthrough that emitted garbage on Linux.
-case "$(uname 2>/dev/null)" in
-    Darwin) _stat_mtime() { stat -f %m "$1" 2>/dev/null; } ;;
-    *)      _stat_mtime() { stat -c %Y "$1" 2>/dev/null; } ;;
-esac
+# File mtime as epoch seconds. `date -r FILE +%s` works on both BSD/macOS
+# `date` and GNU/Linux `date`, so it replaces the previous stat-dialect
+# selector + python fallback with a single portable call. Kept identical
+# (verbatim) in memory-bootstrap.sh; update both if you ever change it.
 _file_mtime() {
-    local m
-    m=$(_stat_mtime "$1")
-    if [ -z "$m" ]; then
-        m=$(python3 -c 'import os,sys;print(int(os.path.getmtime(sys.argv[1])))' "$1" 2>/dev/null || echo 0)
-    fi
-    printf '%s' "${m:-0}"
+    date -r "$1" +%s 2>/dev/null || echo 0
 }
 
 COMMIT=0
@@ -223,18 +215,31 @@ if [ "$COMMIT" -eq 1 ]; then
     else
         # Capture stderr so a real failure (hook rejection, pre-commit
         # block, signing failure, etc.) is surfaced instead of being
-        # silently masked. We still tolerate the "nothing to commit"
-        # case — staging memory files that are unchanged isn't an error.
+        # silently masked. Pass the explicit memory paths to BOTH `git add`
+        # and `git commit` so unrelated files the user happened to have
+        # staged are not bundled into the "memory: session log" commit.
+        # The `--` pathspec on `git commit` makes it commit only those
+        # paths regardless of what's in the index. Diff/check is scoped
+        # to the same paths to avoid false "FAILED" reports when other
+        # files are staged but the memory files are unchanged.
         COMMIT_ERR=$(mktemp 2>/dev/null || echo "/tmp/done-commit-err.$$")
-        if ( git add -- "${EXISTING[@]}" && \
-             git commit -m "memory: session log ${DATE}" >/dev/null ) 2>"$COMMIT_ERR"; then
+        set +e
+        ( git add -- "${EXISTING[@]}" \
+            && git commit -m "memory: session log ${DATE}" -- "${EXISTING[@]}" >/dev/null \
+        ) 2>"$COMMIT_ERR"
+        COMMIT_RC=$?
+        set -uo pipefail
+        if [ "$COMMIT_RC" -eq 0 ]; then
             COMMIT_OUTCOME="commit: ${EXISTING[*]} committed as 'memory: session log ${DATE}'"
-        elif [ -z "$(git diff --cached --name-only 2>/dev/null)" ] \
-             && ! grep -qiE 'error|fatal|fail' "$COMMIT_ERR" 2>/dev/null; then
+        elif [ "$COMMIT_RC" -eq 1 ] \
+             && [ -z "$(git diff --cached --name-only -- "${EXISTING[@]}" 2>/dev/null)" ]; then
+            # `git commit` exits 1 with no staged memory-path diff = "nothing
+            # to commit" for our scope (we tolerate this). Anything else is
+            # a genuine failure worth surfacing.
             COMMIT_OUTCOME="commit: nothing to commit (memory files unchanged)"
         else
-            COMMIT_OUTCOME="commit: FAILED — $(tail -n 5 "$COMMIT_ERR" 2>/dev/null | tr '\n' ' ' | head -c 400)"
-            echo "[done] commit failed:" >&2
+            COMMIT_OUTCOME="commit: FAILED (exit $COMMIT_RC) — $(tail -n 5 "$COMMIT_ERR" 2>/dev/null | tr '\n' ' ' | head -c 400)"
+            echo "[done] commit failed (exit $COMMIT_RC):" >&2
             tail -n 10 "$COMMIT_ERR" >&2 2>/dev/null || true
         fi
         rm -f "$COMMIT_ERR" 2>/dev/null || true

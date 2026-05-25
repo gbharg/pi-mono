@@ -27,22 +27,12 @@ MEMORY_DIR="$REPO/memory"
 # long-running operator workflows that legitimately resume older sessions.
 PI_MONO_SNAPSHOT_TTL="${PI_MONO_SNAPSHOT_TTL:-21600}"
 
-# Cross-platform mtime. `stat -c %Y` is GNU coreutils; `stat -f %m` is BSD
-# (macOS). Picking the right one up front avoids the trap from the old
-# `stat -c ... || stat -f ...` chain, where BSD's `-f %m` on Linux enters
-# *filesystem* mode and prints garbage instead of failing cleanly. We fall
-# back to a python3 one-liner if neither stat dialect is available.
-case "$(uname 2>/dev/null)" in
-    Darwin) _stat_mtime() { stat -f %m "$1" 2>/dev/null; } ;;
-    *)      _stat_mtime() { stat -c %Y "$1" 2>/dev/null; } ;;
-esac
+# File mtime as epoch seconds. `date -r FILE +%s` is portable across
+# BSD/macOS `date` and GNU/Linux `date`, replacing the prior stat-dialect
+# selector + python fallback. Kept identical (verbatim) in done.sh; update
+# both if you ever change it.
 _file_mtime() {
-    local m
-    m=$(_stat_mtime "$1")
-    if [ -z "$m" ]; then
-        m=$(python3 -c 'import os,sys;print(int(os.path.getmtime(sys.argv[1])))' "$1" 2>/dev/null || echo 0)
-    fi
-    printf '%s' "${m:-0}"
+    date -r "$1" +%s 2>/dev/null || echo 0
 }
 
 INPUT=""
@@ -85,6 +75,9 @@ TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"
 # (only skills/, hooks/, settings.json are negated).
 SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
 
+# Injection budget per block: context 2K + daily 2K + snapshot 4K ≈ ~8K
+# total injection cap. Bump deliberately if you add a new source; don't
+# let each source's cap creep silently.
 CONTEXT_BLOCK=""
 [ -f "$CONTEXT_FILE" ] && CONTEXT_BLOCK=$(head -c 2000 "$CONTEXT_FILE")
 

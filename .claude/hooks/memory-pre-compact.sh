@@ -100,19 +100,23 @@ mkdir -p "$REPO/.claude" 2>/dev/null || true
 # lying around. EXIT covers both normal exit and unhandled signals.
 trap 'rm -f "$SNAPSHOT_TMP" 2>/dev/null || true' EXIT
 build_snapshot() {
-    cd "$REPO" 2>/dev/null || return 1
+    # All git invocations are scoped via `git -C "$REPO"` so this function
+    # never mutates the caller's cwd. (Previously a bare `cd "$REPO"` was
+    # safe because exit 0 followed immediately, but additions after this
+    # block would have inherited the changed cwd.)
     local branch ahead_behind commits diff_files status_changes context_head
-    branch=$(git branch --show-current 2>/dev/null || echo "(detached)")
+    [ -d "$REPO/.git" ] || [ -f "$REPO/.git" ] || return 1
+    branch=$(git -C "$REPO" branch --show-current 2>/dev/null || echo "(detached)")
     # `git rev-list --left-right --count A...B` prints `<left> <right>`
     # where left = commits in A only (HEAD is behind by this) and right =
     # commits in B only (HEAD is ahead by this). Labels below match.
-    ahead_behind=$(git rev-list --left-right --count "origin/main...HEAD" 2>/dev/null \
+    ahead_behind=$(git -C "$REPO" rev-list --left-right --count "origin/main...HEAD" 2>/dev/null \
         | awk '{ printf "behind=%d ahead=%d", $1, $2 }')
-    commits=$(git log --oneline -n 10 "origin/main..HEAD" 2>/dev/null \
+    commits=$(git -C "$REPO" log --oneline -n 10 "origin/main..HEAD" 2>/dev/null \
         | head -c 1500)
-    diff_files=$(git diff --name-status "origin/main...HEAD" 2>/dev/null \
+    diff_files=$(git -C "$REPO" diff --name-status "origin/main...HEAD" 2>/dev/null \
         | head -n 40 | head -c 2000)
-    status_changes=$(git status -s 2>/dev/null | head -n 40 | head -c 1500)
+    status_changes=$(git -C "$REPO" status -s 2>/dev/null | head -n 40 | head -c 1500)
     if [ -f "$MEMORY_DIR/context.md" ]; then
         context_head=$(head -c 1500 "$MEMORY_DIR/context.md")
     else
