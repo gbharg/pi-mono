@@ -72,8 +72,8 @@ if [ -z "$SUMMARY_BODY" ]; then
     RECENT_COMMITS=$(git log --oneline -n 5 "origin/main..HEAD" 2>/dev/null | head -c 800)
     [ -z "$RECENT_COMMITS" ] && RECENT_COMMITS="(no commits ahead of origin/main)"
     DIFF_FILES=$(git diff --name-only "origin/main...HEAD" 2>/dev/null | head -n 20 | head -c 800)
-    # Matches the per-user cache dir memory-pre-compact.sh writes into.
-    SNAPSHOT_FILE="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/pi-mono-memory-$(id -u)/snapshot.md"
+    # Same repo-scoped path memory-pre-compact.sh / memory-bootstrap.sh use.
+    SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
     SNAPSHOT_NOTE=""
     if [ -f "$SNAPSHOT_FILE" ]; then
         # GNU `stat -c %Y` first; falls through to BSD `stat -f %m`. The

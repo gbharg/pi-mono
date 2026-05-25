@@ -83,16 +83,14 @@ if [ -n "$SESSION_ID" ]; then
     fi
 fi
 
-# Build the post-compact snapshot in the per-user cache dir (same path
-# memory-bootstrap.sh uses for its session markers). World-writable /tmp
-# would let any local user inject content into this file and the next
-# bootstrap would inject it as trusted context. The user-private dir on
-# macOS lives under /var/folders/.../T/ (mode 700, owner-only) and on
-# Linux falls through XDG_RUNTIME_DIR → TMPDIR → /tmp; we still own the
-# subdirectory by uid so cross-user writes can't reach it.
-SNAPSHOT_DIR="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}/pi-mono-memory-$(id -u)"
-mkdir -p "$SNAPSHOT_DIR" 2>/dev/null && chmod 700 "$SNAPSHOT_DIR" 2>/dev/null || true
-SNAPSHOT_FILE="$SNAPSHOT_DIR/snapshot.md"
+# Write the snapshot inside the repo at .claude/.snapshot.md. Repo-scoped
+# (so multiple clones / worktrees on the same machine don't bleed each
+# other's branch state into the wrong session), and already gitignored —
+# `.claude/*` is in pi-mono's .gitignore with explicit allowlist negations
+# for skills/, hooks/, and settings.json, so dotfiles like this one are
+# silently excluded.
+SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
+mkdir -p "$REPO/.claude" 2>/dev/null || true
 build_snapshot() {
     cd "$REPO" 2>/dev/null || return 1
     local branch ahead_behind commits diff_files status_changes context_head

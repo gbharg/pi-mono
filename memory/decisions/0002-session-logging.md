@@ -26,11 +26,13 @@ Extend the two PR-#18 hooks rather than add sibling hooks, and replace the
 mirrored openclaw `/done` `SKILL.md` with a right-sized pi-mono version
 plus a single `done.sh` script:
 
-- **`memory-pre-compact.sh`** also writes
-  `/tmp/pi-mono-session-snapshot.md` with branch, ahead/behind, commits on
-  the branch, file diff against `origin/main`, uncommitted status, and the
-  head of `memory/context.md`. The snapshot is overwritten on every
-  compaction — only the most recent one is useful.
+- **`memory-pre-compact.sh`** also writes a snapshot to
+  `.claude/.snapshot.md` (repo-scoped so multiple clones / worktrees on
+  the same machine don't bleed each other's branch state, and already
+  gitignored via the existing `/.claude/*` rule) with branch, ahead/behind,
+  commits on the branch, file diff against `origin/main`, uncommitted
+  status, and the head of `memory/context.md`. The snapshot is overwritten
+  on every compaction — only the most recent one is useful.
 
 - **`memory-bootstrap.sh`** also injects the snapshot when it exists and
   was written in the last 6 hours, so the resumed session gets git +

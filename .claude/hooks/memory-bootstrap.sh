@@ -56,10 +56,11 @@ find "$CACHE_DIR" -maxdepth 1 -type f -name 'bootstrap-*' -mtime +7 -delete 2>/d
 
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"
-# Same per-user cache dir memory-pre-compact.sh writes into. Keeping the
-# snapshot here (not in /tmp) prevents cross-user injection of fake
-# pre-compact content.
-SNAPSHOT_FILE="$CACHE_DIR/snapshot.md"
+# Repo-scoped snapshot path matching memory-pre-compact.sh. Different
+# clones / worktrees of pi-mono on the same machine get their own
+# snapshot. The file is gitignored via the existing `/.claude/*` rule
+# (only skills/, hooks/, settings.json are negated).
+SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
 
 CONTEXT_BLOCK=""
 [ -f "$CONTEXT_FILE" ] && CONTEXT_BLOCK=$(head -c 2000 "$CONTEXT_FILE")
