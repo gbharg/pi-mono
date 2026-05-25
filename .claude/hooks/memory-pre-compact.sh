@@ -7,6 +7,14 @@
 # Writes:
 #   memory/sessions/<session_id>.md    (one-shot; created if missing)
 #   memory/daily/YYYY-MM-DD.md         (appended marker line)
+#   $REPO/.claude/.snapshot.md         (overwritten atomically each compact
+#                                       via staged .tmp + mv;
+#                                       memory-bootstrap.sh injects it on
+#                                       the next prompt so the compacted
+#                                       session resumes with git + context
+#                                       continuity. Repo-scoped path is
+#                                       gitignored by the existing
+#                                       /.claude/* rule.)
 #
 # Best-effort; never blocks compaction.
 #
@@ -76,6 +84,77 @@ if [ -n "$SESSION_ID" ]; then
         STUB+=$'Auto-extract on PreCompact. Add a short summary of what this session worked on and any durable decisions.\n'
         printf '%s' "$STUB" > "$SESSION_FILE" 2>/dev/null || true
     fi
+fi
+
+# Write the snapshot inside the repo at .claude/.snapshot.md. Repo-scoped
+# (so multiple clones / worktrees on the same machine don't bleed each
+# other's branch state into the wrong session), and already gitignored —
+# `.claude/*` is in pi-mono's .gitignore with explicit allowlist negations
+# for skills/, hooks/, and settings.json, so dotfiles like this one are
+# silently excluded. The .tmp companion used for the atomic write is
+# matched by the same rule.
+SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
+SNAPSHOT_TMP="${SNAPSHOT_FILE}.tmp"
+mkdir -p "$REPO/.claude" 2>/dev/null || true
+# Make sure a crashed or signalled run doesn't leave a half-written .tmp
+# lying around. EXIT covers both normal exit and unhandled signals.
+trap 'rm -f "$SNAPSHOT_TMP" 2>/dev/null || true' EXIT
+build_snapshot() {
+    # All git invocations are scoped via `git -C "$REPO"` so this function
+    # never mutates the caller's cwd. (Previously a bare `cd "$REPO"` was
+    # safe because exit 0 followed immediately, but additions after this
+    # block would have inherited the changed cwd.)
+    local branch ahead_behind commits diff_files status_changes context_head
+    [ -d "$REPO/.git" ] || [ -f "$REPO/.git" ] || return 1
+    branch=$(git -C "$REPO" branch --show-current 2>/dev/null || echo "(detached)")
+    # `git rev-list --left-right --count A...B` prints `<left> <right>`
+    # where left = commits in A only (HEAD is behind by this) and right =
+    # commits in B only (HEAD is ahead by this). Labels below match.
+    ahead_behind=$(git -C "$REPO" rev-list --left-right --count "origin/main...HEAD" 2>/dev/null \
+        | awk '{ printf "behind=%d ahead=%d", $1, $2 }')
+    commits=$(git -C "$REPO" log --oneline -n 10 "origin/main..HEAD" 2>/dev/null \
+        | head -c 1500)
+    diff_files=$(git -C "$REPO" diff --name-status "origin/main...HEAD" 2>/dev/null \
+        | head -n 40 | head -c 2000)
+    status_changes=$(git -C "$REPO" status -s 2>/dev/null | head -n 40 | head -c 1500)
+    if [ -f "$MEMORY_DIR/context.md" ]; then
+        context_head=$(head -c 1500 "$MEMORY_DIR/context.md")
+    else
+        context_head=""
+    fi
+
+    printf -- '---\n'
+    printf 'session_id: %s\n' "$SESSION_ID"
+    printf 'trigger: %s\n' "$TRIGGER"
+    printf 'compacted_at: %s\n' "$DATE"
+    printf 'branch: %s\n' "$branch"
+    printf -- '---\n\n'
+    printf '# Session snapshot (pre-compact)\n\n'
+    printf 'Branch `%s` (%s)\n\n' "$branch" "${ahead_behind:-no-upstream}"
+    if [ -n "$commits" ]; then
+        printf '## Commits on this branch (vs origin/main)\n\n```\n%s\n```\n\n' "$commits"
+    fi
+    if [ -n "$diff_files" ]; then
+        printf '## Files changed (vs origin/main)\n\n```\n%s\n```\n\n' "$diff_files"
+    fi
+    if [ -n "$status_changes" ]; then
+        printf '## Uncommitted changes\n\n```\n%s\n```\n\n' "$status_changes"
+    fi
+    if [ -n "$context_head" ]; then
+        printf '## memory/context.md (head)\n\n%s\n' "$context_head"
+    fi
+}
+# Stage to .tmp first, then atomic rename. Avoids the truncate-then-stream
+# window where a concurrent reader (memory-bootstrap.sh on a sibling pane)
+# could pick up a half-written snapshot and inject garbage into the next
+# prompt. On failure we drop a one-line breadcrumb into the daily log so
+# the missing snapshot is debuggable.
+if build_snapshot > "$SNAPSHOT_TMP" 2>/dev/null && mv "$SNAPSHOT_TMP" "$SNAPSHOT_FILE" 2>/dev/null; then
+    :
+else
+    printf '%s snapshot-failed (session %s, trigger %s)\n' \
+        "$DATE" "$SHORT_ID" "$TRIGGER" \
+        >> "$DAILY_FILE" 2>/dev/null || true
 fi
 
 exit 0

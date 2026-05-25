@@ -1,73 +1,92 @@
 ---
 name: done
-description: "End-of-session wrap-up. Trigger: /done. Detects agent, mines reusable work, writes session memory, and keeps deployed repos in sync across MBP and iMac."
+description: "End-of-session wrap-up for pi-mono. Trigger: /done. Appends a daily-log entry, writes a session summary, refreshes memory/context.md from git state, and re-indexes qmd. Pass --commit to commit the memory updates."
 user-invocable: true
+allowed-tools: ["Bash"]
 version: v1.0.0
 ---
 
-# /done
+# /done — pi-mono session wrap-up
 
-Use this skill to finish a work session without leaving memory drift, doc drift, or deploy drift behind.
+Run this at the end of a working session so the memory system in `memory/`
+captures what just happened. Right-sized counterpart to openclaw's much larger
+`/done` — no MRDs, no Linear sync, no multi-host deploy. Just durable on-disk
+memory.
 
-## Load Order
+This replaces the openclaw-style `/done` that was previously vendored under
+`.claude/skills/done/`. Its `~/openclaw/memory/...` paths and bundled
+scripts did not apply to pi-mono.
 
-1. Read `references/agent-config.md` to resolve the running agent and flags.
-2. Read `references/workflow.md` and execute it in order.
-3. Prefer bundled scripts for deterministic steps:
-   - `scripts/save_log.sh`
-   - `scripts/follow-ups.sh`
-   - `scripts/pull-main.sh`
-   - `scripts/sync-imac-after-deploy.sh`
-   - `scripts/update-changelog.sh`
-   - `scripts/feature-manifest.sh`
-   - `scripts/generate-mrd.sh`
-   - `scripts/validate-feature.sh`
-   - `scripts/check-overwrites.sh`
-   - `scripts/collect-telemetry.sh`
+## What it does
+
+1. Computes a slug from the current branch (`feat/foo` → `foo`, `fix/bar` → `bar`).
+2. Reads the session summary body from a positional arg or from stdin. If
+   nothing is provided, builds a minimal summary from git state (branch,
+   recent commits, modified files) plus `.claude/.snapshot.md` (the
+   pre-compact snapshot) when it is fresh.
+3. Appends a `## HH:MM — <branch>` block to `memory/daily/YYYY-MM-DD.md`
+   (creates the date heading if the file is new).
+4. Writes the full summary to
+   `memory/sessions/auto/YYYYMMDD-HHMMSS-<slug>.md`.
+5. Rewrites the `## Active focus` and `## In-flight branches` sections of
+   `memory/context.md` to reflect the latest session; leaves everything else
+   intact.
+6. Runs `qmd update pi-mono-memory` if `qmd` is on PATH and the collection
+   is registered.
+7. If `--commit` is passed, stages only the touched memory paths and commits
+   as `memory: session log <date>`.
+
+Best-effort: every step degrades to a no-op if its preconditions aren't met
+(no git, no qmd, no memory dir).
+
+## Invocation
+
+```bash
+# As a slash command in Claude Code:
+/done
+
+# Direct call with an explicit summary:
+.claude/skills/done/done.sh "Wrapped up the auth refactor; added OAuth callback handler and updated 3 tests."
+
+# Via stdin:
+echo "Quick fix on the qmd index pattern." | .claude/skills/done/done.sh
+
+# With auto-commit:
+.claude/skills/done/done.sh --commit "Shipped ADR 0002."
+```
 
 ## Flags
 
-| Flag            | Effect                                              |
-| --------------- | --------------------------------------------------- |
-| `--agent X`     | Override agent detection                            |
-| `--linear`      | Enable Linear issue creation (session + follow-ups) |
-| `--no-simplify` | Skip the /simplify code review step                 |
-| `--no-validate` | Skip pre-merge validation                           |
-| `--no-mrd`      | Skip MRD generation                                 |
+| Flag       | Effect                                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `--commit` | Stage the touched memory files and commit as `memory: session log <date>`. Always stages explicit paths; never `git add -A`. |
 
-## Agent Detection
+## Output
 
-See [instructions/agent-detection.md](instructions/agent-detection.md) for the resolution priority order.
+- `memory/daily/YYYY-MM-DD.md` — appended `## HH:MM — <branch>` block.
+- `memory/sessions/auto/YYYYMMDD-HHMMSS-<slug>.md` — full summary with
+  frontmatter (branch, SHA, timestamp).
+- `memory/context.md` — `## Active focus` repointed at the new session file;
+  `## In-flight branches` replaced with the current branch status. Other
+  sections untouched.
+- Stdout: a list of the files written and the qmd / commit outcome.
 
-## Source Of Truth
+## When NOT to use
 
-Use the session/chat history as the primary record of what happened. Use git state, command output, and changed files to verify details, not to replace the actual session narrative, decisions, or deferred work.
-
-## Ordering and Deployment Rules
-
-See [instructions/ordering-rules.md](instructions/ordering-rules.md) for merge ordering constraints and post-deploy sync requirements.
-
-## Evaluation
-
-See [eval/checklist.md](eval/checklist.md) for assertions that verify a complete /done execution.
-
-## Key Paths
-
-- Scripts: `scripts/save_log.sh`, `scripts/follow-ups.sh`, `scripts/pull-main.sh`, `scripts/sync-imac-after-deploy.sh`, `~/openclaw/scripts/skill-sync`
-- Agent config: `references/agent-config.md`
-- Full workflow: `references/workflow.md`
-- Daily logs: `~/openclaw/memory/daily/YYYY-MM-DD.md`
-- Agent context: `~/openclaw/memory/agents/<AGENT_ID>/context.md`
-- Decisions: `~/openclaw/memory/shared/decisions/YYYY-MM.md`
-- Learnings: `~/openclaw/skills/memory:learnings/scripts/learnings.sh`
-- Feature manifests: `~/openclaw/memory/shared/features/<slug>.md`
-- MRDs: `~/openclaw/memory/shared/features/{AI-NNN}-{slug}-mrd.md`
-
-For the step-by-step procedure, agent flags, and command snippets, use `references/workflow.md`.
+- If the session was purely memory-only (you're in a `feat/memory-*`
+  branch), `/done` would just log itself — usually pointless.
+- If the branch contains no committable work yet, the summary will be
+  sparse; finish the work first.
 
 ## Gotchas
 
-See [references/gotchas.md](references/gotchas.md) for known failure points and workarounds.
+- Slug uses everything after the first `/` in the branch name. Branches
+  without a `/` use the full name.
+- `qmd update pi-mono-memory` only fires when the collection is registered
+  (`qmd collection add memory --name pi-mono-memory` from the repo root).
+  Missing collection → silent no-op.
+- `--commit` stages only `memory/daily/...`, `memory/sessions/auto/...`,
+  and `memory/context.md`. Unrelated unstaged edits stay untouched.
 
 ## Shared Memory ACL (future)
 

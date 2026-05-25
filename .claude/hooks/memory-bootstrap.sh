@@ -6,6 +6,11 @@
 # On the first prompt of a session, inject:
 #   1. memory/context.md (active focus + in-flight branches)
 #   2. today's daily/YYYY-MM-DD.md (if it exists)
+#   3. $REPO/.claude/.snapshot.md if present and fresh
+#      (mtime < $PI_MONO_SNAPSHOT_TTL seconds; default 6h),
+#      so a session resuming after PreCompact gets immediate git + context
+#      continuity. Older snapshots are ignored — they're noise after a
+#      genuine session boundary.
 #
 # Best-effort: never blocks. User-scoped cache prevents cross-user collisions.
 #
@@ -17,6 +22,18 @@ set -uo pipefail
 REPO="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 MEMORY_DIR="$REPO/memory"
 [ -d "$MEMORY_DIR" ] || exit 0
+
+# Snapshot staleness window. Defaults to 6h; override via env for tests or
+# long-running operator workflows that legitimately resume older sessions.
+PI_MONO_SNAPSHOT_TTL="${PI_MONO_SNAPSHOT_TTL:-21600}"
+
+# File mtime as epoch seconds. `date -r FILE +%s` is portable across
+# BSD/macOS `date` and GNU/Linux `date`, replacing the prior stat-dialect
+# selector + python fallback. Kept identical (verbatim) in done.sh; update
+# both if you ever change it.
+_file_mtime() {
+    date -r "$1" +%s 2>/dev/null || echo 0
+}
 
 INPUT=""
 [ ! -t 0 ] && INPUT=$(cat 2>/dev/null || true)
@@ -52,14 +69,34 @@ find "$CACHE_DIR" -maxdepth 1 -type f -name 'bootstrap-*' -mtime +7 -delete 2>/d
 
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 TODAY_FILE="$MEMORY_DIR/daily/$(date +%Y-%m-%d).md"
+# Repo-scoped snapshot path matching memory-pre-compact.sh. Different
+# clones / worktrees of pi-mono on the same machine get their own
+# snapshot. The file is gitignored via the existing `/.claude/*` rule
+# (only skills/, hooks/, settings.json are negated).
+SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
 
+# Injection budget per block: context 2K + daily 2K + snapshot 4K ≈ ~8K
+# total injection cap. Bump deliberately if you add a new source; don't
+# let each source's cap creep silently.
 CONTEXT_BLOCK=""
 [ -f "$CONTEXT_FILE" ] && CONTEXT_BLOCK=$(head -c 2000 "$CONTEXT_FILE")
 
 DAILY_BLOCK=""
 [ -f "$TODAY_FILE" ] && DAILY_BLOCK=$(head -c 2000 "$TODAY_FILE")
 
-[ -z "$CONTEXT_BLOCK" ] && [ -z "$DAILY_BLOCK" ] && exit 0
+SNAPSHOT_BLOCK=""
+if [ -f "$SNAPSHOT_FILE" ]; then
+    # Only inject snapshots written within $PI_MONO_SNAPSHOT_TTL seconds
+    # (default 6h). Older ones are leftovers from prior sessions and
+    # would mislead the resumed agent. mtime comes from the
+    # platform-aware _file_mtime helper above.
+    SNAPSHOT_AGE=$(( $(date +%s) - $(_file_mtime "$SNAPSHOT_FILE") ))
+    if [ "$SNAPSHOT_AGE" -ge 0 ] && [ "$SNAPSHOT_AGE" -lt "$PI_MONO_SNAPSHOT_TTL" ]; then
+        SNAPSHOT_BLOCK=$(head -c 4000 "$SNAPSHOT_FILE")
+    fi
+fi
+
+[ -z "$CONTEXT_BLOCK" ] && [ -z "$DAILY_BLOCK" ] && [ -z "$SNAPSHOT_BLOCK" ] && exit 0
 
 printf '<memory-bootstrap>\n'
 if [ -n "$CONTEXT_BLOCK" ]; then
@@ -67,6 +104,9 @@ if [ -n "$CONTEXT_BLOCK" ]; then
 fi
 if [ -n "$DAILY_BLOCK" ]; then
     printf '\n--- memory/daily/%s.md ---\n%s\n' "$(date +%Y-%m-%d)" "$DAILY_BLOCK"
+fi
+if [ -n "$SNAPSHOT_BLOCK" ]; then
+    printf '\n--- pre-compact snapshot (%s) ---\n%s\n' "$SNAPSHOT_FILE" "$SNAPSHOT_BLOCK"
 fi
 printf '</memory-bootstrap>\n'
 
