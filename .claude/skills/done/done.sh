@@ -149,15 +149,22 @@ printf '%s' "$SESSION_DOC" > "$SESSION_FILE"
 # ---------- update memory/context.md ----------
 CONTEXT_FILE="$MEMORY_DIR/context.md"
 if [ -f "$CONTEXT_FILE" ]; then
-    # Rewrite ## Active focus + ## In-flight branches sections in-place via
-    # awk. Other sections are untouched. The two replacement sections are
-    # written through awk env vars so embedded special chars are inert.
+    # Rewrite ## Active focus + ## In-flight branches sections in-place
+    # via awk. Other sections are untouched. The replacement bodies are
+    # passed through the ENVIRON[] map (not `-v var=...`) so awk does NOT
+    # interpret backslash escapes in branch names like `feat/foo\bar`.
+    # The skip block terminates on either a level-2 OR level-1 heading,
+    # so a stray `# ...` later in the file doesn't cause the rest of the
+    # document to be silently dropped.
     NEW_FOCUS_BODY="- Latest session: \`memory/sessions/auto/${TS}-${SLUG}.md\` on branch \`${BRANCH}\`."
     NEW_BRANCHES_BODY="- \`${BRANCH}\` — last touched ${ISO_NOW} (sha ${SHORT_SHA})."
-    awk \
-        -v focus="$NEW_FOCUS_BODY" \
-        -v branches="$NEW_BRANCHES_BODY" '
-        BEGIN { mode = "passthrough"; saw_focus = 0; saw_branches = 0 }
+    export NEW_FOCUS_BODY NEW_BRANCHES_BODY
+    awk '
+        BEGIN {
+            focus    = ENVIRON["NEW_FOCUS_BODY"]
+            branches = ENVIRON["NEW_BRANCHES_BODY"]
+            mode = "passthrough"; saw_focus = 0; saw_branches = 0
+        }
         /^## Active focus *$/ {
             print; print ""; print focus; print ""
             mode = "skip"; saw_focus = 1; next
@@ -166,7 +173,7 @@ if [ -f "$CONTEXT_FILE" ]; then
             print; print ""; print branches; print ""
             mode = "skip"; saw_branches = 1; next
         }
-        /^## / {
+        /^# / || /^## / {
             mode = "passthrough"
             print
             next
