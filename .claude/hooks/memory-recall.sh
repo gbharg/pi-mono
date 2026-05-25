@@ -87,7 +87,7 @@ fi
 if [ "$HAS_SHARED" -eq 1 ]; then
     SHARED_RESULTS=$(qmd search "$QUERY" -c agent-memory-shared -n 1 --files 2>/dev/null || true)
 fi
-RESULTS=$(printf '%s\n%s' "$LOCAL_RESULTS" "$SHARED_RESULTS" | grep -v '^$' | sort -u)
+RESULTS=$(printf '%s\n%s' "$LOCAL_RESULTS" "$SHARED_RESULTS" | grep -v '^$' | awk '!seen[$0]++')
 [ -z "$RESULTS" ] && exit 0
 
 # Pull the qmd:// URI off each line. Keep the full URI so the consumer can tell

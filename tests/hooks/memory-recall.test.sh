@@ -163,6 +163,26 @@ else
     assert "T3: neither — no output (got: $T3_OUT)" "1"
 fi
 
+# --- Test 4: relevance ordering — local URIs precede shared URIs ---------
+# When both collections return results, the printf'd order is local then
+# shared; the awk-based dedup preserves that order (a `sort -u` would
+# alphabetize and break BM25 relevance ranking).
+T4_DIR="$SANDBOX_ROOT/t4"
+make_stub "$T4_DIR" both
+T4_OUT=$(run_hook "$T4_DIR" "$PROMPT")
+
+# Extract just the qmd:// URIs in the order they appear in the output.
+T4_ORDER=$(echo "$T4_OUT" | grep -oE 'qmd://[A-Za-z0-9_./-]+')
+T4_FIRST_LOCAL_LINE=$(echo "$T4_ORDER" | grep -n 'qmd://pi-mono-memory/' | head -1 | cut -d: -f1)
+T4_FIRST_SHARED_LINE=$(echo "$T4_ORDER" | grep -n 'qmd://agent-memory-shared/' | head -1 | cut -d: -f1)
+
+if [ -n "$T4_FIRST_LOCAL_LINE" ] && [ -n "$T4_FIRST_SHARED_LINE" ] \
+        && [ "$T4_FIRST_LOCAL_LINE" -lt "$T4_FIRST_SHARED_LINE" ]; then
+    assert "T4: local URIs precede shared URIs (local@$T4_FIRST_LOCAL_LINE < shared@$T4_FIRST_SHARED_LINE)" "0"
+else
+    assert "T4: local URIs precede shared URIs (local@$T4_FIRST_LOCAL_LINE shared@$T4_FIRST_SHARED_LINE)" "1"
+fi
+
 # --- Summary -------------------------------------------------------------
 echo
 printf 'Results: %d passed, %d failed\n' "$PASSES" "$FAILS"
