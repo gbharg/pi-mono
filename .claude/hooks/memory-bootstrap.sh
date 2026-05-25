@@ -6,7 +6,8 @@
 # On the first prompt of a session, inject:
 #   1. memory/context.md (active focus + in-flight branches)
 #   2. today's daily/YYYY-MM-DD.md (if it exists)
-#   3. $REPO/.claude/.snapshot.md if present and fresh (mtime < 6h),
+#   3. $REPO/.claude/.snapshot.md if present and fresh
+#      (mtime < $PI_MONO_SNAPSHOT_TTL seconds; default 6h),
 #      so a session resuming after PreCompact gets immediate git + context
 #      continuity. Older snapshots are ignored — they're noise after a
 #      genuine session boundary.
@@ -21,6 +22,28 @@ set -uo pipefail
 REPO="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
 MEMORY_DIR="$REPO/memory"
 [ -d "$MEMORY_DIR" ] || exit 0
+
+# Snapshot staleness window. Defaults to 6h; override via env for tests or
+# long-running operator workflows that legitimately resume older sessions.
+PI_MONO_SNAPSHOT_TTL="${PI_MONO_SNAPSHOT_TTL:-21600}"
+
+# Cross-platform mtime. `stat -c %Y` is GNU coreutils; `stat -f %m` is BSD
+# (macOS). Picking the right one up front avoids the trap from the old
+# `stat -c ... || stat -f ...` chain, where BSD's `-f %m` on Linux enters
+# *filesystem* mode and prints garbage instead of failing cleanly. We fall
+# back to a python3 one-liner if neither stat dialect is available.
+case "$(uname 2>/dev/null)" in
+    Darwin) _stat_mtime() { stat -f %m "$1" 2>/dev/null; } ;;
+    *)      _stat_mtime() { stat -c %Y "$1" 2>/dev/null; } ;;
+esac
+_file_mtime() {
+    local m
+    m=$(_stat_mtime "$1")
+    if [ -z "$m" ]; then
+        m=$(python3 -c 'import os,sys;print(int(os.path.getmtime(sys.argv[1])))' "$1" 2>/dev/null || echo 0)
+    fi
+    printf '%s' "${m:-0}"
+}
 
 INPUT=""
 [ ! -t 0 ] && INPUT=$(cat 2>/dev/null || true)
@@ -70,14 +93,12 @@ DAILY_BLOCK=""
 
 SNAPSHOT_BLOCK=""
 if [ -f "$SNAPSHOT_FILE" ]; then
-    # Only inject snapshots written in the last 6 hours; older ones are
-    # leftovers from prior sessions and would mislead the resumed agent.
-    # `stat -c %Y` (GNU) is tried first; on BSD/macOS it fails cleanly and
-    # falls through to `stat -f %m`. The previous reverse order broke on
-    # Linux: BSD-style `-f %m` printed multi-line filesystem stats to
-    # stdout that polluted the arithmetic expansion.
-    SNAPSHOT_AGE=$(( $(date +%s) - $(stat -c %Y "$SNAPSHOT_FILE" 2>/dev/null || stat -f %m "$SNAPSHOT_FILE" 2>/dev/null || echo 0) ))
-    if [ "$SNAPSHOT_AGE" -ge 0 ] && [ "$SNAPSHOT_AGE" -lt 21600 ]; then
+    # Only inject snapshots written within $PI_MONO_SNAPSHOT_TTL seconds
+    # (default 6h). Older ones are leftovers from prior sessions and
+    # would mislead the resumed agent. mtime comes from the
+    # platform-aware _file_mtime helper above.
+    SNAPSHOT_AGE=$(( $(date +%s) - $(_file_mtime "$SNAPSHOT_FILE") ))
+    if [ "$SNAPSHOT_AGE" -ge 0 ] && [ "$SNAPSHOT_AGE" -lt "$PI_MONO_SNAPSHOT_TTL" ]; then
         SNAPSHOT_BLOCK=$(head -c 4000 "$SNAPSHOT_FILE")
     fi
 fi

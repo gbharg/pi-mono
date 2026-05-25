@@ -7,12 +7,14 @@
 # Writes:
 #   memory/sessions/<session_id>.md    (one-shot; created if missing)
 #   memory/daily/YYYY-MM-DD.md         (appended marker line)
-#   $REPO/.claude/.snapshot.md        (overwritten each compact;
+#   $REPO/.claude/.snapshot.md         (overwritten atomically each compact
+#                                       via staged .tmp + mv;
 #                                       memory-bootstrap.sh injects it on
 #                                       the next prompt so the compacted
 #                                       session resumes with git + context
-#                                       continuity; gitignored via the
-#                                       existing /.claude/* rule)
+#                                       continuity. Repo-scoped path is
+#                                       gitignored by the existing
+#                                       /.claude/* rule.)
 #
 # Best-effort; never blocks compaction.
 #
@@ -89,9 +91,14 @@ fi
 # other's branch state into the wrong session), and already gitignored —
 # `.claude/*` is in pi-mono's .gitignore with explicit allowlist negations
 # for skills/, hooks/, and settings.json, so dotfiles like this one are
-# silently excluded.
+# silently excluded. The .tmp companion used for the atomic write is
+# matched by the same rule.
 SNAPSHOT_FILE="$REPO/.claude/.snapshot.md"
+SNAPSHOT_TMP="${SNAPSHOT_FILE}.tmp"
 mkdir -p "$REPO/.claude" 2>/dev/null || true
+# Make sure a crashed or signalled run doesn't leave a half-written .tmp
+# lying around. EXIT covers both normal exit and unhandled signals.
+trap 'rm -f "$SNAPSHOT_TMP" 2>/dev/null || true' EXIT
 build_snapshot() {
     cd "$REPO" 2>/dev/null || return 1
     local branch ahead_behind commits diff_files status_changes context_head
@@ -133,6 +140,17 @@ build_snapshot() {
         printf '## memory/context.md (head)\n\n%s\n' "$context_head"
     fi
 }
-build_snapshot > "$SNAPSHOT_FILE" 2>/dev/null || true
+# Stage to .tmp first, then atomic rename. Avoids the truncate-then-stream
+# window where a concurrent reader (memory-bootstrap.sh on a sibling pane)
+# could pick up a half-written snapshot and inject garbage into the next
+# prompt. On failure we drop a one-line breadcrumb into the daily log so
+# the missing snapshot is debuggable.
+if build_snapshot > "$SNAPSHOT_TMP" 2>/dev/null && mv "$SNAPSHOT_TMP" "$SNAPSHOT_FILE" 2>/dev/null; then
+    :
+else
+    printf '%s snapshot-failed (session %s, trigger %s)\n' \
+        "$DATE" "$SHORT_ID" "$TRIGGER" \
+        >> "$DAILY_FILE" 2>/dev/null || true
+fi
 
 exit 0
