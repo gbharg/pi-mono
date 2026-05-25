@@ -87,3 +87,14 @@ echo "Quick fix on the qmd index pattern." | .claude/skills/done/done.sh
   Missing collection → silent no-op.
 - `--commit` stages only `memory/daily/...`, `memory/sessions/auto/...`,
   and `memory/context.md`. Unrelated unstaged edits stay untouched.
+
+## Shared Memory ACL (future)
+
+The `agent-memory-shared` qmd collection (cross-repo blocks at `~/.agent-memory/shared/`) is queried by `.claude/hooks/memory-recall.sh` alongside `pi-mono-memory`. The current access model is intentionally simple: **every agent that runs the hook sees every block in `agent-memory-shared`** — there is no per-agent or per-channel filtering at recall time. Per-block `owner` metadata in `~/.agent-memory/shared/manifest.json` only gates *writes*, not reads.
+
+Downstream consumers with multiple distinct agent personas — notably the exult-agent three-channel orchestrator (sendblue / ringcentral / email) — will eventually need finer-grained read scoping. Two viable options when that pressure arrives:
+
+1. **Manifest ACL match at recall time**: extend the hook (or a shared helper) to read `manifest.json`, resolve the current agent's identity, and skip blocks whose `read_acl` doesn't include it.
+2. **Split per-channel shared collections**: e.g. `agent-memory-shared-sendblue`, `agent-memory-shared-ringcentral`, with the hook selecting collections based on the calling channel. Simpler operationally; duplicates blocks that are truly cross-channel.
+
+Defer the choice until a real isolation requirement lands (e.g. user-specific PII that should not bleed across channels). For now, keep shared blocks generic enough that "every agent sees every block" is the correct semantics.
