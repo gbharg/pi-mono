@@ -1,0 +1,22 @@
+# Skills mirrored from gbharg/exult-agent. One slug per line.
+# Pin the source commit in `.skills-upstream-sha` at the repo root.
+# Refresh by running `scripts/sync-skills.sh`.
+#
+# Lines starting with '#' and blank lines are ignored.
+# Skill directories listed here will be wiped and replaced on every sync —
+# do not edit their contents in this repo, edit upstream and re-sync.
+advancedmd
+autobrowse
+curogram
+daily-summary
+excel
+fax
+finance
+messages
+outlook
+pdf
+ringcentral
+rippling
+vercel
+verify
+word
