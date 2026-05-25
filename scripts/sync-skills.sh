@@ -57,7 +57,12 @@ fi
 find "$TMP/upstream" -type f -name '*.env' -print -delete || true
 
 # Read the manifest: one skill slug per line, skip comments + blanks.
-mapfile -t SKILLS < <(grep -vE '^\s*(#|$)' "$MANIFEST")
+# Use a while-read loop instead of `mapfile` (a bash 4+ builtin) so this
+# works on macOS's bundled bash 3.2 at /bin/bash.
+SKILLS=()
+while IFS= read -r line; do
+  SKILLS+=("$line")
+done < <(grep -vE '^\s*(#|$)' "$MANIFEST")
 if [ "${#SKILLS[@]}" -eq 0 ]; then
   echo "error: manifest is empty — nothing to sync" >&2
   exit 1
