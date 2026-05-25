@@ -7,6 +7,11 @@
 # Writes:
 #   memory/sessions/<session_id>.md    (one-shot; created if missing)
 #   memory/daily/YYYY-MM-DD.md         (appended marker line)
+#   /tmp/pi-mono-session-snapshot.md   (overwritten each compact;
+#                                       memory-bootstrap.sh injects it on
+#                                       the next prompt so the compacted
+#                                       session resumes with git + context
+#                                       continuity)
 #
 # Best-effort; never blocks compaction.
 #
@@ -77,5 +82,49 @@ if [ -n "$SESSION_ID" ]; then
         printf '%s' "$STUB" > "$SESSION_FILE" 2>/dev/null || true
     fi
 fi
+
+# Build the post-compact snapshot in /tmp. Best-effort: every git command is
+# scoped to the repo, errors swallowed. The file is overwritten each compact
+# (only the most recent snapshot is interesting).
+SNAPSHOT_FILE="${TMPDIR:-/tmp}/pi-mono-session-snapshot.md"
+build_snapshot() {
+    cd "$REPO" 2>/dev/null || return 1
+    local branch ahead_behind commits diff_files status_changes context_head
+    branch=$(git branch --show-current 2>/dev/null || echo "(detached)")
+    ahead_behind=$(git rev-list --left-right --count "origin/main...HEAD" 2>/dev/null \
+        | awk '{ printf "behind=%d ahead=%d", $1, $2 }')
+    commits=$(git log --oneline -n 10 "origin/main..HEAD" 2>/dev/null \
+        | head -c 1500)
+    diff_files=$(git diff --name-status "origin/main...HEAD" 2>/dev/null \
+        | head -n 40 | head -c 2000)
+    status_changes=$(git status -s 2>/dev/null | head -n 40 | head -c 1500)
+    if [ -f "$MEMORY_DIR/context.md" ]; then
+        context_head=$(head -c 1500 "$MEMORY_DIR/context.md")
+    else
+        context_head=""
+    fi
+
+    printf -- '---\n'
+    printf 'session_id: %s\n' "$SESSION_ID"
+    printf 'trigger: %s\n' "$TRIGGER"
+    printf 'compacted_at: %s\n' "$DATE"
+    printf 'branch: %s\n' "$branch"
+    printf -- '---\n\n'
+    printf '# Session snapshot (pre-compact)\n\n'
+    printf 'Branch `%s` (%s)\n\n' "$branch" "${ahead_behind:-no-upstream}"
+    if [ -n "$commits" ]; then
+        printf '## Commits on this branch (vs origin/main)\n\n```\n%s\n```\n\n' "$commits"
+    fi
+    if [ -n "$diff_files" ]; then
+        printf '## Files changed (vs origin/main)\n\n```\n%s\n```\n\n' "$diff_files"
+    fi
+    if [ -n "$status_changes" ]; then
+        printf '## Uncommitted changes\n\n```\n%s\n```\n\n' "$status_changes"
+    fi
+    if [ -n "$context_head" ]; then
+        printf '## memory/context.md (head)\n\n%s\n' "$context_head"
+    fi
+}
+build_snapshot > "$SNAPSHOT_FILE" 2>/dev/null || true
 
 exit 0
