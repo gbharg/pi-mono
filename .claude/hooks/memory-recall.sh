@@ -53,14 +53,9 @@ shopt -u nocasematch
 # ~/.agent-memory/shared/README.md).
 COLLECTIONS_LIST=$(qmd collection list 2>/dev/null || true)
 HAS_LOCAL=0; HAS_SHARED=0
-echo "$COLLECTIONS_LIST" | grep -qE '^pi-mono-memory(\s|$)' && HAS_LOCAL=1
-echo "$COLLECTIONS_LIST" | grep -qE '^agent-memory-shared(\s|$)' && HAS_SHARED=1
+printf '%s\n' "$COLLECTIONS_LIST" | grep -qE '^pi-mono-memory(\s|$)' && HAS_LOCAL=1
+printf '%s\n' "$COLLECTIONS_LIST" | grep -qE '^agent-memory-shared(\s|$)' && HAS_SHARED=1
 [ "$HAS_LOCAL" -eq 0 ] && [ "$HAS_SHARED" -eq 0 ] && exit 0
-
-# Build the -c flag list. qmd search accepts multiple -c (verified 2026-05-25).
-QMD_COLS=()
-[ "$HAS_LOCAL" -eq 1 ] && QMD_COLS+=(-c pi-mono-memory)
-[ "$HAS_SHARED" -eq 1 ] && QMD_COLS+=(-c agent-memory-shared)
 
 # BM25 (`qmd search`) is intersection-style: every term must appear in the
 # matched document. Reduce the prompt to its 4 most distinctive content words
@@ -79,17 +74,28 @@ QUERY=$(printf '%s' "$PROMPT" \
 # If we stripped everything, fall back to the raw prompt.
 [ -z "${QUERY// /}" ] && QUERY="$PROMPT"
 
-# BM25 search across enabled collections — fast, no LLM expansion. Cap at 4
-# total file matches (was 3 when only pi-mono-memory; +1 to give shared blocks
-# room to surface without crowding out local results).
+# BM25 search per enabled collection with per-collection caps. Querying each
+# collection separately (instead of one global -n cap) guarantees deterministic
+# budget: 3 local + 1 shared. Without this, high-scoring shared blocks (short,
+# keyword-dense identity/context blocks) can displace local hits entirely.
 # --files output: "#hash,score,qmd://<collection>/relative/path.md"
-RESULTS=$(qmd search "$QUERY" "${QMD_COLS[@]}" -n 4 --files 2>/dev/null || true)
+LOCAL_RESULTS=""
+SHARED_RESULTS=""
+if [ "$HAS_LOCAL" -eq 1 ]; then
+    LOCAL_RESULTS=$(qmd search "$QUERY" -c pi-mono-memory -n 3 --files 2>/dev/null || true)
+fi
+if [ "$HAS_SHARED" -eq 1 ]; then
+    SHARED_RESULTS=$(qmd search "$QUERY" -c agent-memory-shared -n 1 --files 2>/dev/null || true)
+fi
+RESULTS=$(printf '%s\n%s' "$LOCAL_RESULTS" "$SHARED_RESULTS" | grep -v '^$' | sort -u)
 [ -z "$RESULTS" ] && exit 0
 
 # Pull the qmd:// URI off each line. Keep the full URI so the consumer can tell
 # which collection (pi-mono-memory vs agent-memory-shared) the hit came from.
+# Line-match is scoped to the two known collections as defense-in-depth in case
+# `qmd search` ever leaks unrelated URIs.
 LINES=$(printf '%s\n' "$RESULTS" \
-    | awk -F, '/qmd:\/\// { for (i=1;i<=NF;i++) if ($i ~ /^qmd:\/\//) print $i }' \
+    | awk -F, '/qmd:\/\/(pi-mono-memory|agent-memory-shared)\// { for (i=1;i<=NF;i++) if ($i ~ /^qmd:\/\//) print $i }' \
     | head -4)
 [ -z "$LINES" ] && exit 0
 
