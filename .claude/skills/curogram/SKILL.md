@@ -1,4 +1,5 @@
 ---
+name: curogram
 description: "Use when sending or reading patient text messages, managing Curogram conversations/appointments/patients, or interacting with app.curogram.com programmatically. Reverse-engineered REST + GraphQL client."
 allowed-tools:
   - Bash(curl *)
@@ -17,7 +18,7 @@ Curogram is the HIPAA-compliant 2-way SMS platform Exult Healthcare uses for pat
 
 Cookie-based session — there is no API token. Two ways to acquire a session:
 
-1. **Recommended**: ask Gautam to sign in at `https://app.curogram.com` and copy the `Cookie` header + `XSRF-TOKEN` cookie value from DevTools. Persist to `~/claude-workspace/config/credentials/curogram.json`:
+1. **Recommended**: ask Gautam to sign in at `https://app.curogram.com` and copy the `Cookie` header + `XSRF-TOKEN` cookie value from DevTools. Persist to `/Users/agent/.config/exult/curogram.json` (see [`INDEX.md`](../INDEX.md) for the canonical credential paths):
    ```json
    {
      "cookie": "<full Cookie header>",
@@ -83,7 +84,7 @@ Open the file matching the task:
 ```bash
 CONV_ID="<conversation ObjectId>"
 TEXT="Your appointment with Dr. Bhargava is confirmed for tomorrow at 10am."
-CRED=$(cat ~/claude-workspace/config/credentials/curogram.json)
+CRED=$(cat /Users/agent/.config/exult/curogram.json)
 COOKIE=$(jq -r .cookie <<<"$CRED")
 XSRF=$(jq -r .xsrf_token <<<"$CRED")
 
@@ -132,4 +133,4 @@ curl -sS "https://api-v2.curogram.com/conversations/$CONV_ID/messages?take=30" \
 
 ## Source
 
-Reverse-engineered 2026-05-01 from the production Angular bundle at `app.curogram.com/main.b44a600408df199f.js` plus live network capture. Canonical copy lives at `~/openclaw/skills/curogram/`. 99 GraphQL ops + 139 REST endpoints documented.
+Reverse-engineered 2026-05-01 from the production Angular bundle at `app.curogram.com/main.b44a600408df199f.js` plus live network capture. Canonical copy lives at `/Users/agent/pi-mono/.claude/skills/curogram/` (mirrored from exult-agent — see [`INDEX.md`](../INDEX.md)). 99 GraphQL ops + 139 REST endpoints documented.

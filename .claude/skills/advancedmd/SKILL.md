@@ -1,4 +1,5 @@
 ---
+name: advancedmd
 description: "Use when handling patient data, looking up patients, managing appointments, checking visit status, or working with AdvancedMD."
 allowed-tools:
   - Bash(curl *)
@@ -12,7 +13,9 @@ allowed-tools:
 
 ## Credentials
 
-Load from `~/claude-workspace/config/credentials/advancedmd.json`
+Load from `/Users/agent/.config/exult/advancedmd.json` (or `~/.config/exult/advancedmd.json`).
+See [`INDEX.md`](../INDEX.md) for the canonical credential / data paths used across pi-mono.
+
 - Office ID: 161112
 - Auth: See credentials file for API key and session token flow
 
@@ -41,7 +44,7 @@ Always verify the patient ID returned matches the intended patient before procee
 
 ### Data Files
 
-Local PHI data lives at `~/claude-workspace/data/amd_phi/`. This directory contains cached patient records and visit exports. Treat all contents as HIPAA-protected.
+Local PHI data lives at `/Users/agent/pi-mono/.pi/services/amd/` (cached patient records, visit exports). Treat all contents as HIPAA-protected. The AMD API reference cache is at `/Users/agent/pi-mono/.pi/services/amd/amd-api-docs/raw/`; the XMLRPC client is `/Users/agent/pi-mono/.pi/services/cohort_analysis/amd_xmlrpc_client.py`. See [`INDEX.md`](../INDEX.md) for the full set of canonical paths.
 
 ## Gotchas
 
@@ -49,7 +52,7 @@ Local PHI data lives at `~/claude-workspace/data/amd_phi/`. This directory conta
 - **Writes need Gautam approval.** Never create, modify, or delete patient data without explicit approval. Read operations are fine.
 - **Always verify patient ID.** AMD can return multiple matches. Confirm the right patient before taking action.
 - **API seat limit.** Only 2 API seats are provisioned. If you get auth failures, a seat may be in use. Wait and retry.
-- **PHI handling.** Never log full patient records to console. Never write PHI to files outside `~/claude-workspace/data/amd_phi/`.
+- **PHI handling.** Never log full patient records to console. Never write PHI to files outside `/Users/agent/pi-mono/.pi/services/amd/`.
 - **Date format.** AMD uses MM/DD/YYYY in some endpoints and YYYY-MM-DD in others. Check the API reference for each endpoint.
 
 ## Reference Docs
@@ -73,7 +76,7 @@ AMD has no REST API for user management. Use Playwright browser automation.
 
 ### Create User
 1. Navigate to https://login.advancedmd.com/
-2. Login: office key 161112, username GAUTAM, password from config/credentials/admin-logins.json
+2. Login: office key 161112, username GAUTAM, password from `/Users/agent/.config/exult/admin-logins.json`
 3. Handle 2FA: code sent to gautambharg@gmail.com (check via Gmail MCP: search for "from:noreply@advancedmd.com" sorted by newest)
 4. After login, navigate to: PM module > System Settings (gear icon) > Utilities > User Management
 5. Click "Add" button on Users tab

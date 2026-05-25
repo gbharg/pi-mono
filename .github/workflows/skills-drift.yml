@@ -1,0 +1,94 @@
+name: skills drift check (warn-only)
+on: [pull_request]
+jobs:
+  drift-warn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare mirrored skills against gbharg/exult-agent
+        env:
+          # Fine-grained PAT with repo:read on gbharg/exult-agent. GITHUB_TOKEN
+          # is scoped to the current repo only and cannot read a different
+          # private repo, so a dedicated secret is required (same pattern as
+          # openclaw's mcp-config-drift.yml).
+          UPSTREAM_REPO_PAT: ${{ secrets.UPSTREAM_REPO_PAT }}
+        run: |
+          set -euo pipefail
+          if [ -z "${UPSTREAM_REPO_PAT:-}" ]; then
+            echo "::warning::drift CI disabled — secret UPSTREAM_REPO_PAT is not set on this repo. Add a fine-grained PAT with repo:read on gbharg/exult-agent under Settings → Secrets and variables → Actions."
+            exit 0
+          fi
+
+          MANIFEST=".claude/skills/MIRRORED.txt"
+          if [ ! -f "$MANIFEST" ]; then
+            echo "::error::Missing $MANIFEST — cannot determine which skills are mirrored."
+            exit 1
+          fi
+
+          # Resolve the upstream ref. Pinned SHA wins; fall back to main so
+          # CI keeps running even if the pin file is removed during a refresh.
+          REF="main"
+          if [ -f ".skills-upstream-sha" ]; then
+            CANDIDATE=$(grep -v '^#' .skills-upstream-sha | tr -d '[:space:]' | head -c 40)
+            if [ -n "$CANDIDATE" ]; then
+              REF="$CANDIDATE"
+            fi
+          fi
+          echo "Comparing against gbharg/exult-agent@${REF}"
+
+          http_code=$(curl -sSL -w '%{http_code}' \
+            -H "Authorization: token ${UPSTREAM_REPO_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/gbharg/exult-agent/tarball/${REF}" \
+            -o /tmp/upstream.tar.gz)
+
+          if [ "${http_code}" != "200" ]; then
+            echo "::error::Failed to fetch upstream tarball: HTTP ${http_code}. Check UPSTREAM_REPO_PAT scopes (needs repo:read on gbharg/exult-agent) and that ${REF} exists upstream."
+            exit 1
+          fi
+
+          mkdir -p /tmp/upstream
+          if ! tar xzf /tmp/upstream.tar.gz -C /tmp/upstream --strip-components=1; then
+            echo "::error::Failed to extract upstream tarball — unexpected response body. Aborting drift check."
+            exit 1
+          fi
+
+          if [ ! -d /tmp/upstream/.claude/skills ]; then
+            echo "::error::Upstream tarball is missing .claude/skills (path moved?). Update scripts/sync-skills.sh and this workflow."
+            exit 1
+          fi
+
+          # Drift is informational, not a build failure — the vendored copy is
+          # intentional (matches openclaw mcp-config Option A). Compare each
+          # mirrored skill individually so an unrelated diff in autobrowse
+          # doesn't drown out a real drift in advancedmd.
+          drift_found=0
+          while IFS= read -r slug; do
+            # Skip comments + blank lines.
+            case "$slug" in
+              ''|\#*) continue ;;
+            esac
+
+            local_path=".claude/skills/${slug}"
+            upstream_path="/tmp/upstream/.claude/skills/${slug}"
+            if [ ! -e "$upstream_path" ]; then
+              echo "::warning::Skill '${slug}' listed in MIRRORED.txt is missing upstream — update the manifest or fix the path."
+              drift_found=1
+              continue
+            fi
+            # Resolve symlink for autobrowse (.claude/skills/autobrowse → .agents/skills/autobrowse upstream).
+            if [ -L "$upstream_path" ]; then
+              upstream_real="$(cd "$(dirname "$upstream_path")" && cd "$(readlink "$upstream_path")" && pwd)" || upstream_real="$upstream_path"
+              upstream_path="$upstream_real"
+            fi
+            if ! diff -r "$upstream_path" "$local_path" > "/tmp/drift-${slug}.diff" 2>&1; then
+              echo "::warning::Skill '${slug}' has drifted from gbharg/exult-agent@${REF}. Run scripts/sync-skills.sh to refresh."
+              cat "/tmp/drift-${slug}.diff"
+              drift_found=1
+            fi
+          done < "$MANIFEST"
+
+          if [ "$drift_found" -eq 0 ]; then
+            echo "No drift detected vs gbharg/exult-agent@${REF}."
+          fi

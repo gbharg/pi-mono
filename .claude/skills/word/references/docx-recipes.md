@@ -73,7 +73,7 @@ row1[2].text = "Completed"
 
 ## Gotchas
 
-- Save all generated docs to ~/claude-workspace/reports/.
+- Save all generated docs to /Users/agent/pi-mono/.pi/services/reports/.
 - Standard header: always include "Exult Healthcare PLLC, McKinney TX".
 - python-docx cannot read .doc (old format) -- only .docx.
 - For PDF conversion after creating .docx, use: libreoffice --headless --convert-to pdf file.docx

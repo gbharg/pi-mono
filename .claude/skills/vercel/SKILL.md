@@ -1,4 +1,5 @@
 ---
+name: vercel
 description: "Use when editing the Exult website, deploying changes, managing DNS, running visual QA, or working with the exult repo."
 allowed-tools:
   - Bash(git *)

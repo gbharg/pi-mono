@@ -1,4 +1,5 @@
 ---
+name: finance
 description: "Use when analyzing billing data, generating financial reports, reviewing charges/payments, or creating KPI dashboards."
 allowed-tools:
   - Bash(python3 *)
@@ -11,11 +12,13 @@ allowed-tools:
 
 ## Data Paths
 
+See [`INDEX.md`](../INDEX.md) for the canonical pi-mono paths.
+
 | Path                                      | Format  | Contents                            |
 |-------------------------------------------|---------|-------------------------------------|
-| ~/claude-workspace/data/cohort_analysis/  | Parquet | Patient cohort data, visit history  |
-| ~/claude-workspace/data/daily_tracker/    | JSON    | Daily operational metrics           |
-| ~/claude-workspace/reports/               | Various | Generated reports (xlsx, pdf)       |
+| /Users/agent/pi-mono/.pi/services/cohort_analysis/  | Parquet | Patient cohort data, visit history  |
+| /Users/agent/pi-mono/.pi/services/daily_tracker/    | JSON    | Daily operational metrics           |
+| /Users/agent/pi-mono/.pi/services/reports/          | Various | Generated reports (xlsx, pdf)       |
 
 ## Fee Schedule
 
@@ -29,7 +32,7 @@ allowed-tools:
 import pandas as pd
 
 # Read a parquet file
-df = pd.read_parquet("~/claude-workspace/data/cohort_analysis/visits.parquet")
+df = pd.read_parquet("/Users/agent/pi-mono/.pi/services/cohort_analysis/visits.parquet")
 
 # Common operations
 df.groupby("provider")["charge_amount"].sum()

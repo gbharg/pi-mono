@@ -1,4 +1,5 @@
 ---
+name: excel
 description: "Use when reading or editing Excel workbooks stored in OneDrive/SharePoint (cloud), or building local .xlsx files. Covers finding a workbook by name, reading/writing ranges, managing tables, charts, and formatting via the Microsoft 365 MCP tools."
 allowed-tools:
   - Bash(python3 *)

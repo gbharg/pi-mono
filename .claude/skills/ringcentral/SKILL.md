@@ -1,4 +1,5 @@
 ---
+name: ringcentral
 description: "Use when analyzing call logs, checking voicemails, managing call queues, sending SMS/fax, or working with RingCentral."
 allowed-tools:
   - Bash(curl *)
@@ -12,7 +13,8 @@ allowed-tools:
 
 ## Credentials
 
-Load from `~/claude-workspace/config/credentials/ringcentral.json`
+Load from `/Users/agent/pi-mono/.config/exult/ringcentral.json`.
+See [`INDEX.md`](../INDEX.md) for the canonical credential / data paths.
 
 ## Key Numbers & Extensions
 
@@ -61,7 +63,7 @@ curl -s -X PUT "$RC_BASE/restapi/v1.0/account/~/call-queues/$QUEUE_ID/members" \
 
 ## Data Archive
 
-RC call log exports and voicemail archives live at `~/claude-workspace/data/rc_archive/`.
+RC call log exports and voicemail archives live at `/Users/agent/pi-mono/.pi/services/rc/archive/`.
 
 ## Gotchas
 

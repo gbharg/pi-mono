@@ -81,5 +81,5 @@ pandoc input.md -o output.pdf --pdf-engine=weasyprint
 
 - Large PDFs: always specify page ranges (pages="1-20") when reading.
 - Scanned/image PDFs need OCR (tesseract), not pdftotext.
-- PHI in PDFs: process in ~/claude-workspace/data/amd_phi/, don't leave copies elsewhere.
+- PHI in PDFs: process in /Users/agent/pi-mono/.pi/services/amd/, don't leave copies elsewhere.
 - Font embedding: ensure fonts are available when generating with weasyprint/reportlab.

@@ -14,7 +14,8 @@ set -euo pipefail
 : "${SENDBLUE_API_SECRET_KEY:?SENDBLUE_API_SECRET_KEY not set — source your sendblue.env first}"
 
 BASE_URL="https://api.sendblue.co/api"
-ARCHIVE_DIR="$HOME/claude-workspace/data/message_archive"
+# Canonical pi-mono archive path; override with ARCHIVE_DIR env if needed.
+ARCHIVE_DIR="${ARCHIVE_DIR:-$HOME/pi-mono/.pi/messages/archive}"
 
 DATE="${1:-$(date +%Y-%m-%d)}"
 OUTPUT_FILE="$ARCHIVE_DIR/$DATE.json"

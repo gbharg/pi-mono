@@ -1,4 +1,5 @@
 ---
+name: fax
 description: "Use when sending or receiving faxes, checking fax status, or working with fax documents via RingCentral."
 allowed-tools:
   - Bash(python3 *)

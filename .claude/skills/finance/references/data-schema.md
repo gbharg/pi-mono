@@ -2,7 +2,7 @@
 
 ## Cohort Analysis (Parquet Files)
 
-Location: `~/claude-workspace/data/cohort_analysis/`
+Location: `/Users/agent/pi-mono/.pi/services/cohort_analysis/`
 
 ### visits.parquet
 
@@ -35,12 +35,12 @@ Location: `~/claude-workspace/data/cohort_analysis/`
 
 ## Daily Tracker (JSON)
 
-Location: `~/claude-workspace/data/daily_tracker/`
+Location: `/Users/agent/pi-mono/.pi/services/daily_tracker/`
 
 Files named `YYYY-MM-DD.json`. Each file contains a single JSON object with the day's operational metrics. See the parent SKILL.md for the schema.
 
 ## Reports Output
 
-Location: `~/claude-workspace/reports/`
+Location: `/Users/agent/pi-mono/.pi/services/reports/`
 
 Generated reports are stored here in xlsx or pdf format. Naming convention: `{report-type}_{date-range}_{generated-date}.xlsx`

@@ -1,4 +1,5 @@
 ---
+name: word
 description: "Use when creating clinical letters, referral documents, patient summaries, or any .docx files."
 allowed-tools:
   - Bash(python3 *)
@@ -102,7 +103,7 @@ def create_table_document(title, headers, rows, output_path):
 ## Gotchas
 
 - **Always include the Exult Healthcare header.** Every document generated for clinic use needs the standard header.
-- **PHI in documents.** Patient-specific documents should be saved to `~/claude-workspace/data/amd_phi/` or a clearly labeled output directory.
+- **PHI in documents.** Patient-specific documents should be saved to `/Users/agent/pi-mono/.pi/services/amd/` or a clearly labeled output directory (see [`INDEX.md`](../INDEX.md)).
 - **Font availability.** python-docx uses system fonts. Stick to standard fonts (Arial, Times New Roman, Calibri).
 - **Template reuse.** For recurring document types (referral letters, treatment summaries), check if a template already exists before creating from scratch.
 - **Page breaks.** Use `doc.add_page_break()` between sections in multi-page documents.

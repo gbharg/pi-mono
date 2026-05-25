@@ -1,4 +1,5 @@
 ---
+name: verify
 description: "Use after completing significant actions to verify output matches intent, check HIPAA compliance, and validate API responses."
 allowed-tools:
   - Read
@@ -35,7 +36,7 @@ Compare the action result against the original request:
 Check for an audit entry:
 ```bash
 # Check if the action was logged
-grep "$(date +%Y-%m-%d)" ~/claude-workspace/logs/audit.log | tail -20
+grep "$(date +%Y-%m-%d)" /Users/agent/pi-mono/.pi/services/provisioning_audit.md | tail -20
 ```
 
 If no audit log exists yet, note this as a gap (don't create one during verification).
@@ -43,14 +44,16 @@ If no audit log exists yet, note this as a gap (don't create one during verifica
 ### 3. PHI Compliance
 
 Scan for PHI in unintended locations:
-- Check recent file writes outside `~/claude-workspace/data/amd_phi/`
+- Check recent file writes outside `/Users/agent/pi-mono/.pi/services/amd/`
 - Check conversation output for full SSNs, DOBs with names, or insurance IDs
 - Verify no patient data was written to logs or temp files
 
 ```bash
 # Look for recently modified files that might contain PHI
-find ~/claude-workspace/ -name "*.json" -newer /tmp/last-action-marker -not -path "*/amd_phi/*" 2>/dev/null
+find /Users/agent/pi-mono/.pi/ -name "*.json" -newer /tmp/last-action-marker -not -path "*/amd/*" 2>/dev/null
 ```
+
+See [`INDEX.md`](../INDEX.md) for the canonical pi-mono PHI / audit paths.
 
 ### 4. API Response Validation
 

@@ -1,4 +1,5 @@
 ---
+name: rippling
 description: "Use when querying Rippling employees, running payroll sync from AMD, managing pay types, or handling onboarding/offboarding."
 allowed-tools:
   - Bash(curl *)

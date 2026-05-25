@@ -1,13 +1,16 @@
 ---
 name: autobrowse
 description: Self-improving browser automation via the auto-research loop. Iteratively runs a browsing task, reads the trace, and improves the navigation skill (strategy.md) until it reliably passes. Supports parallel runs across multiple tasks using sub-agents. Use when you want to build or improve browser automation skills for specific website tasks.
-license: See LICENSE.txt
+license: See LICENSE.txt (MIT, upstream)
 compatibility: "Requires browse CLI. ANTHROPIC_API_KEY only needed for harness mode (evaluate.mjs). Native mode uses Claude Code's own auth."
 allowed-tools: Bash Read Write Edit Glob Grep Agent
 metadata:
   author: browserbase
   homepage: https://github.com/browserbase/skills
+  upstream: gbharg/exult-agent@d4ae2a6 (.agents/skills/autobrowse, symlinked to .agents/skills/autobrowse upstream)
 ---
+
+<!-- VENDORED FROM browserbase/skills (autobrowse) via gbharg/exult-agent@d4ae2a6. Do not edit in this repo — refresh via scripts/sync-skills.sh. -->
 
 # AutoBrowse — Self-Improving Browser Skill
 

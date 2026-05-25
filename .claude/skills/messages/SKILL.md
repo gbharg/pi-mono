@@ -1,4 +1,5 @@
 ---
+name: messages
 description: "Use when searching past text message conversations, retrieving message history, or cross-referencing messages with session logs."
 allowed-tools:
   - Bash(curl *)
@@ -59,10 +60,11 @@ curl -s "https://api.sendblue.co/api/messages?from_date=2026-04-01&to_date=2026-
 
 Daily message snapshots are stored at:
 ```
-~/claude-workspace/data/message_archive/YYYY-MM-DD.json
+/Users/agent/pi-mono/.pi/messages/archive/YYYY-MM-DD.json
 ```
 
 Use the `scripts/fetch-messages.sh` script to fetch and archive today's messages.
+See [`INDEX.md`](../INDEX.md) for the canonical pi-mono data paths.
 
 ## Gotchas
 

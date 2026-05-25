@@ -39,6 +39,31 @@ Office: 161112. AMD API service account: ARC022825 (api@exulthealthcare.com). RC
 |---|---|---|
 | exult-daily-kpi-report | Read-only (RC call log + AMD aggregates) | Morning KPI report: calls, voicemails, today appointments, new patients, AR, collections, referrals. |
 
+## Parent / context skills (mirrored from exult-agent)
+
+These are the parent skills the operation-level skills above call into. They
+provide the API / credential / archive context for a whole service. Mirrored
+from `gbharg/exult-agent` — see [`MIRRORED.txt`](./MIRRORED.txt) for the slug
+list and `scripts/sync-skills.sh` for the refresh procedure.
+
+| Slug | Service | One-liner |
+|---|---|---|
+| advancedmd | AMD (EHR/PM) | Patient/appointment/visit ops via REST + XMLRPC + UI fallback. |
+| autobrowse | Browser | Self-improving browser automation loop (vendored from browserbase/skills). |
+| curogram | Curogram | HIPAA SMS — REST + GraphQL, cookie-based session. |
+| daily-summary | Cross-system | End-of-day operational report rollup. |
+| excel | M365 | Read/write OneDrive workbooks + build local .xlsx. |
+| fax | RingCentral | Fax send/receive/status. |
+| finance | Local data | Billing/charges/KPI analysis over parquet + daily tracker. |
+| messages | Sendblue | iMessage / SMS history fetch + archive. |
+| outlook | M365 | Mail / calendar / OneDrive via Microsoft Graph. |
+| pdf | Local | Read/extract/generate PDFs (reads, OCR-aware, weasyprint/reportlab). |
+| ringcentral | RingCentral | Calls, voicemail transcripts, queues, SMS. |
+| rippling | Rippling | Employee / payroll sync. |
+| vercel | Vercel | Exult website deploys + DNS + visual QA. |
+| verify | Local | Post-action HIPAA + intent + API-response verification. |
+| word | Local | Clinical letters / referral / .docx generation. |
+
 ## Conventions
 
 - PHI-sensitive skills (add-patient, reschedule, cancel, records, payment, refund, insurance, check-in, upload, messaging) require per-request Gautam approval before any write. See memory `feedback_amd_writes.md`.
@@ -51,5 +76,10 @@ Office: 161112. AMD API service account: ARC022825 (api@exulthealthcare.com). RC
 - AMD XMLRPC client: `/Users/agent/pi-mono/.pi/services/cohort_analysis/amd_xmlrpc_client.py`
 - RC JWT credentials: `/Users/agent/pi-mono/.config/exult/ringcentral.json`
 - AMD service creds: `/Users/agent/.config/exult/admin-credentials.json` (`advancedmd` key)
+- M365 creds: `/Users/agent/.config/exult/microsoft365.json`
+- Curogram creds: `/Users/agent/.config/exult/curogram.json`
+- AMD PHI / visit cache: `/Users/agent/pi-mono/.pi/services/amd/`
+- Messages archive: `/Users/agent/pi-mono/.pi/messages/archive/YYYY-MM-DD.json`
+- RC archive (call logs, voicemails): `/Users/agent/pi-mono/.pi/services/rc/archive/`
 - Audit log: `/Users/agent/pi-mono/.pi/services/provisioning_audit.md`
 - Reports archive: `/Users/agent/pi-mono/.pi/services/reports/`

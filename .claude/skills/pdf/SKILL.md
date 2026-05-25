@@ -1,4 +1,5 @@
 ---
+name: pdf
 description: "Use when reading PDFs, extracting text from faxes or medical documents, or generating PDF letters and reports."
 allowed-tools:
   - Bash(python3 *)
@@ -61,7 +62,7 @@ pandoc input.md -o output.pdf --pdf-engine=weasyprint
 
 - **Large PDFs.** Always specify page ranges when reading PDFs over 10 pages. Reading a full large PDF will fail.
 - **Scanned documents.** pdftotext and Read tool won't extract text from scanned/image PDFs. You'd need OCR (tesseract).
-- **PHI in PDFs.** Fax PDFs and medical documents contain PHI. Process them in `~/claude-workspace/data/amd_phi/` and don't leave copies elsewhere.
+- **PHI in PDFs.** Fax PDFs and medical documents contain PHI. Process them in `/Users/agent/pi-mono/.pi/services/amd/` and don't leave copies elsewhere. See [`INDEX.md`](../INDEX.md) for the canonical pi-mono paths.
 - **Font embedding.** When generating PDFs with WeasyPrint or ReportLab, ensure fonts are available on the system.
 
 ## Reference Docs

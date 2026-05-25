@@ -1,4 +1,5 @@
 ---
+name: daily-summary
 description: "Use at end of day or when asked 'what happened today/yesterday' to generate a daily operations summary."
 disable-model-invocation: true
 allowed-tools:
@@ -20,14 +21,14 @@ Invoke manually at end of day or when asked about daily activity. This skill doe
 
 ### 1. Gather Data Sources
 
-Read from these locations to compile the summary:
+Read from these locations to compile the summary (see [`INDEX.md`](../INDEX.md) for the canonical pi-mono paths):
 
 | Source                              | Contains                              |
 |-------------------------------------|---------------------------------------|
-| ~/claude-workspace/data/daily_tracker/YYYY-MM-DD.json | Call counts, appointment metrics, revenue |
-| ~/claude-workspace/data/rc_archive/ | Call logs, voicemail records           |
-| ~/claude-workspace/data/message_archive/YYYY-MM-DD.json | Sendblue message history |
-| ~/claude-workspace/data/amd_phi/    | Patient visit data (if updated today) |
+| /Users/agent/pi-mono/.pi/services/daily_tracker/YYYY-MM-DD.json | Call counts, appointment metrics, revenue |
+| /Users/agent/pi-mono/.pi/services/rc/archive/ | Call logs, voicemail records |
+| /Users/agent/pi-mono/.pi/messages/archive/YYYY-MM-DD.json | Sendblue message history |
+| /Users/agent/pi-mono/.pi/services/amd/    | Patient visit data (if updated today) |
 
 ### 2. Compile Summary Sections
 
@@ -61,7 +62,7 @@ Structure the report as follows:
 
 Print the summary to the conversation. If asked, also save to:
 ```
-~/claude-workspace/reports/daily-summary-YYYY-MM-DD.md
+/Users/agent/pi-mono/.pi/services/reports/daily-summary-YYYY-MM-DD.md
 ```
 
 ## Gotchas

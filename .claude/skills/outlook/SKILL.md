@@ -1,4 +1,5 @@
 ---
+name: outlook
 description: "Use when reading/sending email, managing calendars, working with OneDrive files, or processing faxes and referrals via Microsoft 365."
 allowed-tools:
   - Bash(curl *)
@@ -12,7 +13,9 @@ allowed-tools:
 
 ## Credentials
 
-Load from `~/claude-workspace/config/credentials/microsoft365.json`
+Load from `/Users/agent/.config/exult/microsoft365.json` (or `~/.config/exult/microsoft365.json`).
+See [`INDEX.md`](../INDEX.md) for the canonical credential paths used across pi-mono.
+
 - Tenant ID: 707a7153
 - Client ID: 6725660a
 - Auth flow: App-only client_credentials (certificate or secret)
