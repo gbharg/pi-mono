@@ -1,0 +1,68 @@
+{
+  "mcpServers": {
+    "advancedmd": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/advancedmd/mcp"
+    },
+    "docstrange": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/docstrange/mcp"
+    },
+    "email-channel": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/email/mcp"
+    },
+    "ringcentral": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral/mcp"
+    },
+    "ringcentral-admin": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral-admin/mcp"
+    },
+    "rippling": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/rippling/mcp"
+    },
+    "sendblue-channel": {
+      "args": [
+        "-c",
+        "cd /Users/Work/openclaw/tools/sendblue-channel && exec /Users/Work/.bun/bin/bun run server.ts"
+      ],
+      "command": "bash",
+      "env": {
+        "SENDBLUE_API_KEY_ID": "<REDACTED_SENDBLUE_API_KEY_ID_MBP_WORK>",
+        "SENDBLUE_API_SECRET_KEY": "<REDACTED_SENDBLUE_API_SECRET_KEY_MBP_WORK>",
+        "SENDBLUE_OWN_NUMBER": "+16452468277",
+        "SENDBLUE_WEBHOOK_PATH": "/webhook/13df5edcb8054a5e",
+        "SENDBLUE_WEBHOOK_PORT": "18803",
+        "SENDBLUE_WEBHOOK_URL": "https://macbook.tail053faf.ts.net"
+      }
+    },
+    "teams-mcp": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/teams-mcp/mcp"
+    }
+  }
+}

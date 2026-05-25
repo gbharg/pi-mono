@@ -1,0 +1,37 @@
+name: mcp-config drift check (warn-only)
+on: [pull_request]
+jobs:
+  drift-warn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compare against gbharg/exult-agent main
+        env:
+          UPSTREAM_REPO_PAT: ${{ secrets.UPSTREAM_REPO_PAT }}
+        run: |
+          # gbharg/exult-agent is private — GITHUB_TOKEN cannot reach it.
+          # A fine-grained PAT with Contents:read on gbharg/exult-agent must be
+          # configured as repo secret UPSTREAM_REPO_PAT for drift to function.
+          if [ -z "${UPSTREAM_REPO_PAT:-}" ]; then
+            echo "::warning::UPSTREAM_REPO_PAT secret not set — skipping drift check. Add a fine-grained PAT with Contents:read on gbharg/exult-agent to enable."
+            exit 0
+          fi
+          set -euo pipefail
+          status=$(curl -sS -o /tmp/upstream.tar.gz -w "%{http_code}" \
+            -H "Authorization: Bearer ${UPSTREAM_REPO_PAT}" \
+            -H "Accept: application/vnd.github+json" \
+            -L "https://api.github.com/repos/gbharg/exult-agent/tarball/main")
+          if [ "${status}" != "200" ]; then
+            echo "::warning::Failed to fetch upstream tarball (HTTP ${status}) — skipping drift check."
+            exit 0
+          fi
+          mkdir -p /tmp/upstream
+          tar xzf /tmp/upstream.tar.gz -C /tmp/upstream --strip-components=1
+          if [ ! -d /tmp/upstream/tools/mcp-config ]; then
+            echo "::warning::Upstream tarball missing tools/mcp-config — upstream may have moved the directory. Skipping drift check."
+            exit 0
+          fi
+          if ! diff -ur /tmp/upstream/tools/mcp-config tools/mcp-config > /tmp/drift.diff 2>&1; then
+            echo "::warning::mcp-config drift detected vs gbharg/exult-agent main"
+            cat /tmp/drift.diff
+          fi

@@ -1,0 +1,102 @@
+{
+  "mcpServers": {
+    "advancedmd": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/advancedmd/mcp"
+    },
+    "docstrange": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/docstrange/mcp"
+    },
+    "email-channel": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/email/mcp"
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@latest",
+        "--browser",
+        "chromium",
+        "--caps",
+        "vision,pdf"
+      ],
+      "command": "npx"
+    },
+    "ringcentral": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral/mcp"
+    },
+    "ringcentral-admin": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/ringcentral-admin/mcp"
+    },
+    "rippling": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/rippling/mcp"
+    },
+    "sendblue-channel": {
+      "args": [
+        "run",
+        "/Users/exult/exult-agent/tools/sendblue-channel/server.ts"
+      ],
+      "command": "/opt/homebrew/bin/bun",
+      "cwd": "/Users/exult/exult-agent/tools/sendblue-channel",
+      "env": {
+        "HOME": "/Users/exult",
+        "SENDBLUE_API_KEY_ID": "<REDACTED_SENDBLUE_API_KEY_ID_IMAC_EXULT>",
+        "SENDBLUE_API_SECRET_KEY": "<REDACTED_SENDBLUE_API_SECRET_KEY_IMAC_EXULT>",
+        "SENDBLUE_OWN_NUMBER": "+13053333940",
+        "SENDBLUE_STATE_DIR": "/Users/exult/.claude/channels/sendblue",
+        "SENDBLUE_WEBHOOK_PATH": "/webhook/13df5edcb8054a5e",
+        "SENDBLUE_WEBHOOK_PORT": "18800",
+        "SENDBLUE_WEBHOOK_URL": "https://gautams-imac.tail053faf.ts.net"
+      }
+    },
+    "teams-channel": {
+      "args": [
+        "run",
+        "/Users/Work/Documents/GitHub/exult-agent/tools/teams-channel/server.ts"
+      ],
+      "command": "/Users/Work/.bun/bin/bun",
+      "cwd": "/Users/Work/Documents/GitHub/exult-agent/tools/teams-channel",
+      "env": {
+        "AMD_APPNAME": "TEMP",
+        "AMD_OFFICE_KEY": "<REDACTED_AMD_OFFICE_KEY>",
+        "AMD_PASSWORD": "<REDACTED_AMD_PASSWORD>",
+        "AMD_USERNAME": "<REDACTED_AMD_USERNAME>",
+        "MSTEAMS_APP_ID": "<REDACTED_MSTEAMS_APP_ID>",
+        "MSTEAMS_APP_PASSWORD": "<REDACTED_MSTEAMS_APP_PASSWORD>",
+        "MSTEAMS_TENANT_ID": "<REDACTED_MSTEAMS_TENANT_ID>",
+        "MSTEAMS_WEBHOOK_PORT": "3978",
+        "RINGCENTRAL_CLIENT_ID": "<REDACTED_RINGCENTRAL_CLIENT_ID>",
+        "RINGCENTRAL_CLIENT_SECRET": "<REDACTED_RINGCENTRAL_CLIENT_SECRET>",
+        "RINGCENTRAL_JWT": "<REDACTED_RINGCENTRAL_JWT>"
+      }
+    },
+    "teams-mcp": {
+      "headers": {
+        "Authorization": "Bearer <REDACTED_MCP_BEARER_TOKEN>"
+      },
+      "type": "streamable-http",
+      "url": "https://claude-cloud.tail053faf.ts.net/teams-mcp/mcp"
+    }
+  }
+}
