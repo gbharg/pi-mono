@@ -1,0 +1,21 @@
+packages/exult-mcp/README.md
+  s_89c6a4a2b3e801::t_dd703ac6e058f4 73-74
+  s_89c6a4a2b3e801::t_44930df1ff64ad 14-15
+  s_89c6a4a2b3e801::t_9b0094ff08f7fc 41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "250bfb525e781a4c2e7c4184ce86da935330e5cb",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
