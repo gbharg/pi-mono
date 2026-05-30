@@ -11,7 +11,8 @@ directory.
 |---|---|---|---|
 | `ringcentral-admin` | RC Platform API: extensions, queues, IVR, detailed call log, voicemail + transcripts, phone numbers | Partial (Keragon has sendSms, basic getCompanyCallRecords, contacts). This MCP adds admin/paginated/voicemail coverage. | No (JWT stored locally, PHI in call logs) |
 | `microsoft365-admin` | Graph app-only (tenant-wide) — directory, any user's mail/calendar, groups, SharePoint | No (claude_ai_Microsoft_365 is Gautam's personal delegated OAuth) | Yes, if wrapped in a Cloudflare Worker with OAuth in front |
-| `advancedmd-xmlrpc` | `getUpdatedPatients`, `getUpdatedVisits`, `getVisitInfoByDate`, `getEhrUpdatedNotes`, `getAppointmentHistory`, raw escape hatch | **Complement** — Keragon covers patient/appointment CRUD but not the service-account-scoped `getUpdated*` family | No (PHI, session-cookie auth) |
+
+> AdvancedMD `getUpdated*` / `getVisitInfoByDate` / `getEhrUpdatedNotes` / `getAppointmentHistory` are now served by the streamable-HTTP MCP at `https://claude-cloud.tail053faf.ts.net/advancedmd/mcp` (code: `gbharg/exult-agent` `tools/advancedmd-mcp/`). The retired local stdio `advancedmd-xmlrpc` server lived here previously.
 
 ## Services NOT in this package (coverage sources)
 
@@ -37,7 +38,7 @@ agents return with working credentials.
 ## Install all servers
 
 ```bash
-for pkg in ringcentral-admin microsoft365-admin advancedmd-xmlrpc; do
+for pkg in ringcentral-admin microsoft365-admin; do
   cd /Users/agent/pi-mono/packages/exult-mcp/$pkg
   uv venv --quiet
   uv pip install --quiet -e .
@@ -69,9 +70,8 @@ For the ONE server that's suitable (`microsoft365-admin`), the hosting recipe:
 4. Register the public URL at claude.ai → Settings → Integrations → Add MCP
    server.
 
-The `ringcentral-admin` and `advancedmd-xmlrpc` servers should **not** be
-hosted on claude.ai — PHI exposure + session-cookie auth + local creds make
-them local-only.
+The `ringcentral-admin` server should **not** be hosted on claude.ai — PHI
+exposure + session-cookie auth + local creds make it local-only.
 
 ## Logs / debugging
 
