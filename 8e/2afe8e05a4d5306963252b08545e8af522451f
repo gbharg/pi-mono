@@ -1,0 +1,21 @@
+packages/ai/test/context-overflow.test.ts
+  s_89c6a4a2b3e801::t_a8194bd1a80df6 300-301
+packages/ai/test/tokens.test.ts
+  s_89c6a4a2b3e801::t_6f6aa38fdb6630 152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "8e2afe8e05a4d5306963252b08545e8af522451f",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
