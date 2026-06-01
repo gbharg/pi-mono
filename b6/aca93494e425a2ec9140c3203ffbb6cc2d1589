@@ -1,0 +1,22 @@
+.claude/skills/rippling/SKILL.md
+  s_89c6a4a2b3e801::t_1b6dea91b70a3e 117,119
+  s_89c6a4a2b3e801::t_1d3c64feb93ffd 149
+  s_89c6a4a2b3e801::t_a069595d3d9aeb 2
+  s_89c6a4a2b3e801::t_8b247f46825c67 134,141
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "b6aca93494e425a2ec9140c3203ffbb6cc2d1589",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
