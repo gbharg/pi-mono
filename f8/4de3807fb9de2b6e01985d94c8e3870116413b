@@ -1,0 +1,22 @@
+.claude/skills/rippling/children/documents/references/editor-fielding.md
+  s_89c6a4a2b3e801::t_e8265d63cae5da 35
+.claude/skills/rippling/SKILL.md
+  s_89c6a4a2b3e801::t_f506263e0f95ba 2
+  s_89c6a4a2b3e801::t_26d69676253b3e 123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "f84de3807fb9de2b6e01985d94c8e3870116413b",
+  "prompts": {},
+  "sessions": {
+    "s_89c6a4a2b3e801": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "007ed950-20b4-4cce-9ee0-9f6e8e4968ce",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
