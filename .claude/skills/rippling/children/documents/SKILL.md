@@ -5,7 +5,6 @@ allowed-tools:
   - Read
   - Grep
   - Glob
-  - Bash(python3 *)
 ---
 
 # /rippling documents

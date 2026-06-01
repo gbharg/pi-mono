@@ -1,4 +1,5 @@
 ---
+name: rippling
 description: "Use when querying Rippling employees, running payroll sync from AMD, managing pay types, or handling onboarding/offboarding."
 allowed-tools:
   - Bash(curl *)
@@ -119,7 +120,7 @@ Until Exult is registered as a Rippling Partner and a Custom App is provisioned,
 
 ## Core Operations
 
-### Documents templates
+### Document templates
 
 Use `children/documents/SKILL.md` for Rippling Documents template setup, DOC/DOCX imports, prefilled variables, employee/contractor recipient fields, signer fields, and publish validation. This child skill covers browser-editor document setup and is separate from payroll/timecard API operations.
 

@@ -32,7 +32,7 @@ Use the Chrome plugin against the user's logged-in tab. The editor is Lexical-ba
 
 ## Current BAA Pattern
 
-The Exult/MDPA BAA import files used this run were generated as clean DOCX files with:
+The Exult/MDPA BAA import files were generated as clean DOCX files with:
 
 - Times New Roman 11 pt body text
 - Centered `BUSINESS ASSOCIATE AGREEMENT` title
