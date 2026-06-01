@@ -120,6 +120,10 @@ Until Exult is registered as a Rippling Partner and a Custom App is provisioned,
 
 ## Core Operations
 
+### Document templates
+
+Use `children/documents/SKILL.md` for Rippling Documents template setup, DOC/DOCX imports, prefilled variables, employee/contractor recipient fields, signer fields, and publish validation. This child skill covers browser-editor document setup and is separate from payroll/timecard API operations.
+
 ### Identify self / discovery
 ```bash
 curl -s "https://api.rippling.com/platform/api/me" \
