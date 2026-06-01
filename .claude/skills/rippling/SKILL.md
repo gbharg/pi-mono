@@ -1,5 +1,4 @@
 ---
-name: rippling
 description: "Use when querying Rippling employees, running payroll sync from AMD, managing pay types, or handling onboarding/offboarding."
 allowed-tools:
   - Bash(curl *)
@@ -119,6 +118,10 @@ Response headers confirm these accept the expected verbs (`allow: GET, POST, HEA
 Until Exult is registered as a Rippling Partner and a Custom App is provisioned, `tools/rippling-mcp/payroll-sync.ts` and `rippling-api.ts` (which call `/employees`, `/companies/current`, etc.) cannot run end-to-end against the Marketplace surface. Use the [browser fallback](./browser-fallback.md) in the meantime.
 
 ## Core Operations
+
+### Documents templates
+
+Use `children/documents/SKILL.md` for Rippling Documents template setup, DOC/DOCX imports, prefilled variables, employee/contractor recipient fields, signer fields, and publish validation. This child skill covers browser-editor document setup and is separate from payroll/timecard API operations.
 
 ### Identify self / discovery
 ```bash
