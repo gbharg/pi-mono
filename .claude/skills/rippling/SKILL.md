@@ -1,4 +1,5 @@
 ---
+name: rippling
 description: "Use when querying Rippling employees, running payroll sync from AMD, managing pay types, or handling onboarding/offboarding."
 allowed-tools:
   - Bash(curl *)
@@ -113,9 +114,9 @@ Today's effective API surface:
 }
 ```
 
-Response headers confirm these accept the expected verbs (`allow: GET, POST, HEAD, OPTIONS` on `/timecards`; `allow: GET, POST, PUT, PATCH, HEAD, OPTIONS` on `/time_tracking`). They're real and ready — gated only by the user-permission layer described above.
+Response headers confirm these accept the expected verbs (`allow: GET, POST, HEAD, OPTIONS` on `/timecards`; `allow: GET, POST, PUT, PATCH, HEAD, OPTIONS` on `/time_tracking`). They are real endpoints, but they live on the **Marketplace surface** — reachable only via a Custom App registered through the Rippling Partner program. Personal API Tokens 403 on all four regardless of scopes or user role. Scope grants and user-role changes will not unblock them; only a Marketplace Custom App will.
 
-Until the user-permission elevation lands, `tools/rippling-mcp/payroll-sync.ts` and `rippling-api.ts` (which call `/employees`, `/companies/current`, etc.) cannot run end-to-end.
+Until Exult is registered as a Rippling Partner and a Custom App is provisioned, `tools/rippling-mcp/payroll-sync.ts` and `rippling-api.ts` (which call `/employees`, `/companies/current`, etc.) cannot run end-to-end against the Marketplace surface. Use the [browser fallback](./browser-fallback.md) in the meantime.
 
 ## Core Operations
 
@@ -130,14 +131,14 @@ curl -s "https://api.rippling.com/platform/api/" \
 # → discovery doc with the four endpoints this token is provisioned for
 ```
 
-### List Employees (currently 403 — pending scope grant)
+### List Employees (Marketplace-only — 403 on Personal Tokens)
 ```bash
 curl -s "https://api.rippling.com/platform/api/employees" \
   -H "Authorization: Bearer $RIPPLING_TOKEN" \
   -H "X-API-Version: 2024-08-01"
 ```
 
-### Time Tracking dimensions / shift inputs (once granted)
+### Time Tracking dimensions / shift inputs (Marketplace-only — requires Custom App)
 ```bash
 # discovery → dimensions URL
 curl -s "https://api.rippling.com/payroll/api/time_tracking" \
@@ -145,7 +146,7 @@ curl -s "https://api.rippling.com/payroll/api/time_tracking" \
   -H "X-API-Version: 2024-08-01"
 ```
 
-### Bulk time-entry upload (once granted)
+### Bulk time-entry upload (Marketplace-only — requires Custom App)
 ```bash
 curl -X POST "https://api.rippling.com/platform/api/time_entries_bulk_upload" \
   -H "Authorization: Bearer $RIPPLING_TOKEN" \
