@@ -4,7 +4,7 @@
 
 ## What This Is
 
-Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks work in the active task surface: a direct user thread, GitHub issue, PR, or optional tracker such as Linear. Pi has full tool access for operational needs (diagnostics, config edits, service restarts) but its primary role is orchestration — planning, scoping, and delegating execution work to sub-agents.
+Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks work in the active task surface defined by `.pi/RULES.md`. Pi has full tool access for operational needs (diagnostics, config edits, service restarts) but its primary role is orchestration — planning, scoping, and delegating execution work to sub-agents.
 
 ## Architecture
 

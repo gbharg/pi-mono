@@ -16,8 +16,9 @@ You are running under the agent wrapper with these environment variables availab
 - `AGENT_BRANCH` - The git branch you should commit to
 - `LINEAR_API_KEY` - Linear API key for reading data, when the Linear-backed wrapper is enabled
 - `LINEAR_APP_TOKEN` - Linear app token, when the Linear-backed wrapper is enabled
+- `LINEAR_API_ENDPOINT` - `https://api.linear.app/graphql`, only when the Linear-backed wrapper is enabled
 
-Linear API endpoint, when enabled: `https://api.linear.app/graphql`
+When `AGENT_ISSUE_ID` is absent, use the PR or branch context for commit-message traceability.
 
 **Note:** The wrapper automatically streams your tool executions, thoughts, and completion to the active task surface. You do not need to manually post activities.
 
