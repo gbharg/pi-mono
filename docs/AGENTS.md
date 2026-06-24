@@ -49,8 +49,7 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
 
 **Flow**: Gautam → iMessage → Pi → Task/User Request → Sub-Agent → Git Branch → PR → Review → Merge → Done
 
-**Key Principle**: Durable task state is required, but Linear is not. Pi may read board state from an optional tracker, GitHub issue state, or direct user context. Agents report progress to the surface that originated the work, and Pi never directly edits code.
-When no tracker is configured, Pi operates from the current user request plus GitHub issue and PR state.
+**Key Principle**: Durable task state is required, but Linear is not. Pi may read board state from an optional tracker, GitHub issue state, or direct user context. When no tracker is configured, Pi operates from the current user request plus GitHub issue and PR state. Agents report progress to the surface that originated the work, and Pi never directly edits code.
 
 ## Agent Roles
 
@@ -195,6 +194,8 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 
 ### Comments
 
+Comment templates are plain text to comply with the repo's no-emoji communication rule.
+
 - **Agent start**: "Agent `<name>` started on task `<id>` (session: `<id>`)"
 - **Agent complete**: "Agent `<name>` completed successfully. Pull request: `<url>`"
 - **Agent error**: "Agent `<name>` failed with exit code `<code>`. See session `<id>` for details."
@@ -222,7 +223,7 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 - `node` (v18+) - Node.js runtime
 - `npm` - Package manager
 - `jq` - JSON parsing in wrapper and GitHub/tracker flows
-- `curl` - HTTP checks and optional tracker adapter calls
+- `curl` - Local HTTP probes and optional tracker adapter calls
 
 ### Optional Environment Variables
 | Variable | Description | Default |
@@ -308,7 +309,7 @@ export REPO_ROOT="/path/to/repo"             # Override repo root detection
 
 # Agent Runtime (set by wrapper, read by agents)
 export AGENT_SESSION_ID="550e8400-..."       # Agent session UUID
-export AGENT_TASK_ID="123"                   # Optional task or issue identifier
+export AGENT_TASK_ID="123"                   # Optional; set only when task or issue ID exists
 export AGENT_BRANCH="feat/descriptive-slug"  # Git branch name
 ```
 
