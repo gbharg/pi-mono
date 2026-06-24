@@ -98,6 +98,9 @@ fi
 
 if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
   log "Linear credentials not fully configured; running without tracker integration"
+  if [[ -n "${LINEAR_API_KEY:-}" || -n "${LINEAR_APP_TOKEN:-}" ]]; then
+    log "WARNING: Partial Linear credentials detected; set both LINEAR_API_KEY and LINEAR_APP_TOKEN to enable tracker integration"
+  fi
 fi
 
 if [[ "$MODE" == "parallel" ]] && [[ -z "$WORKTREE_PATH" || -z "$TASK_BRANCH" ]]; then
@@ -352,10 +355,23 @@ check_existing_prs() {
   return 0
 }
 
+slugify_branch_component() {
+  local input="$1"
+
+  printf '%s' "$input" \
+    | tr '\n\r\t' '---' \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9-]/-/g' \
+    | sed 's/--*/-/g' \
+    | sed 's/^-//' \
+    | sed 's/-$//' \
+    | cut -c1-50
+}
+
 # Generate branch slug from issue title
 generate_branch_slug() {
   local issue_id="$1"
-  
+
   # Fetch issue title from Linear
   local query
   query=$(jq -n \
@@ -378,20 +394,11 @@ generate_branch_slug() {
     title="unnamed"
   fi
   
-  # Convert to slug: lowercase, replace spaces/special chars with hyphens, truncate
-  echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50
+  slugify_branch_component "$title"
 }
 
 generate_local_branch_slug() {
-  local input="$1"
-
-  echo "$input" \
-    | tr '[:upper:]' '[:lower:]' \
-    | sed 's/[^a-z0-9-]/-/g' \
-    | sed 's/--*/-/g' \
-    | sed 's/^-//' \
-    | sed 's/-$//' \
-    | cut -c1-50
+  slugify_branch_component "$1"
 }
 
 # ============================================================================
@@ -458,7 +465,11 @@ phase_setup() {
   fi
 
   local issue_component
-  issue_component=$(generate_local_branch_slug "$ISSUE_ID")
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    issue_component=$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")
+  else
+    issue_component=$(generate_local_branch_slug "$ISSUE_ID")
+  fi
   if [[ -z "$issue_component" ]]; then
     issue_component="task"
   fi
@@ -641,6 +652,7 @@ stream_to_linear() {
   local session_id="$1"
 
   if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    # Passthrough: forward pipe data unchanged when tracker streaming is off.
     cat
     return 0
   fi
@@ -1133,7 +1145,7 @@ $log_content"
 Agent: \`$AGENT_NAME\`
 Session: $AGENT_SESSION_ID"
     else
-      pr_body="Issue: $ISSUE_ID
+      pr_body="Task context: $ISSUE_ID
 
 Agent: \`$AGENT_NAME\`
 Session: $AGENT_SESSION_ID"
