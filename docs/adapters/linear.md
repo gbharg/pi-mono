@@ -6,8 +6,15 @@ Linear was the original tracker adapter for the orchestration system. It is not 
 
 Only configured Linear adapter runs need Linear credentials.
 
-- `LINEAR_API_KEY`: Personal API key for direct Linear API access.
-- `LINEAR_APP_TOKEN`: OAuth app token for app-backed Linear integration.
+- `LINEAR_API_KEY`: Personal API key for direct Linear API access. Create it from Linear Settings > API > Personal API Keys.
+- `LINEAR_APP_TOKEN`: OAuth app token for app-backed Linear integration. Create it from Linear Settings > Integrations > Create OAuth App > App Token.
+
+## Adapter Configuration
+
+These variables are also Linear-adapter-only:
+
+- `LINEAR_TEAM_ID`: Team identifier whose workflow states back the adapter.
+- `LINEAR_STATE_IN_REVIEW`: Linear state name or ID used when the wrapper moves completed agent work to review.
 
 ## State Machine
 
