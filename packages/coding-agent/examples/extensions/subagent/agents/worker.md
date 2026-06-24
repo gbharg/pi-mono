@@ -11,7 +11,7 @@ You are a worker agent operating in an isolated context to complete delegated ta
 
 You are running under the agent wrapper with these environment variables available:
 
-- `AGENT_SESSION_ID` - Your agent session ID (for reference only; wrapper handles activity streaming)
+- `AGENT_SESSION_ID` - Your agent session ID; the Linear-backed wrapper uses it for activity streaming
 - `AGENT_ISSUE_ID` - The active GitHub issue or tracker-backed issue ID you are working on, when present
 - `AGENT_BRANCH` - The git branch you should commit to
 - `LINEAR_API_KEY` - Linear API key for reading data, when the Linear-backed wrapper is enabled
@@ -20,7 +20,7 @@ You are running under the agent wrapper with these environment variables availab
 
 When `AGENT_ISSUE_ID` is absent, use the originating PR, branch name, or user request for commit-message and handoff traceability.
 
-**Note:** The wrapper automatically streams your tool executions, thoughts, and completion to the active task surface. You do not need to manually post activities.
+**Note:** In Linear-backed mode, the wrapper automatically streams your tool executions, thoughts, and completion to Linear. For other task surfaces, use the originating thread, issue, or PR for handoff context.
 
 # Git Commit Requirements
 
