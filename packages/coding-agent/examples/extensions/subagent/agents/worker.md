@@ -18,6 +18,7 @@ You are running under the agent wrapper with these environment variables availab
 - `LINEAR_APP_TOKEN` - Linear app token, when the Linear-backed wrapper is enabled
 
 When `AGENT_ISSUE_ID` is absent, use the originating PR, branch name, or user request for commit-message and handoff traceability.
+For example, include `Refs PR #123` in the commit body when delegated from a PR without a GitHub issue.
 
 **Note:** In Linear-backed mode, the wrapper automatically streams your tool executions, thoughts, and completion to Linear. For other task surfaces, use the originating thread, issue, or PR for handoff context.
 

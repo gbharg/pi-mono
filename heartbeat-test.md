@@ -2,7 +2,9 @@
 
 ## Overview
 
-The agent heartbeat system tracks and monitors worker agent activity during task execution. When the Linear-backed wrapper is enabled, activity streams to the Linear issue. Otherwise, the originating thread, GitHub issue, or PR remains the active task surface for status and handoff context.
+The agent heartbeat system tracks and monitors worker agent activity during task execution.
+When the Linear-backed wrapper is enabled, activity streams to the Linear issue.
+Otherwise, the originating thread, GitHub issue, or PR remains the active task surface for status and handoff context.
 
 ## How It Works
 

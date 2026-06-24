@@ -9,6 +9,7 @@ Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because vio
 Linear references below apply only when the active workflow is Linear-backed.
 Direct user requests and GitHub issue work do not require Linear.
 The active task surface is whichever system originated the work: a direct user thread, GitHub issue, PR, or optional tracker such as Linear.
+For ad-hoc user requests, the default task surface is the originating conversation thread.
 
 ---
 
@@ -28,7 +29,7 @@ The active task surface is whichever system originated the work: a direct user t
 1. **Always branch. No exceptions.** Even one-line fixes. Branch off main, PR to merge.
 2. **No project branches.** Tracker projects are grouping only. Every change goes to main independently.
 3. **Conventional branch naming.** Format: `type/description` (feat/, fix/, chore/, docs/, etc.)
-4. **Conventional commits.** Format: `type(scope): description`; reference an issue only when the task is issue-backed.
+4. **Conventional commits.** Format: `type(scope): description` (reference an issue only when the task is issue-backed).
 5. **Every commit has traceable context.** Trace to the active issue, user request, or PR.
    - Non-issue-backed commits do not need an issue ID in the subject.
    - Use issue-closing keywords only when the merge should close that issue.
