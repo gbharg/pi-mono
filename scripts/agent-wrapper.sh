@@ -27,6 +27,8 @@ LINEAR_STATE_IN_REVIEW="${LINEAR_STATE_IN_REVIEW:-e85f987d-0cc9-45aa-a25e-6733c1
 MAX_LOG_SIZE=$((500 * 1024)) # 500KB
 GH_REPO="${GH_REPO:-gbharg/pi-mono}"
 AGENT_STALL_TIMEOUT_SECONDS="${AGENT_STALL_TIMEOUT_SECONDS:-300}"
+AGENT_STALL_CHECK_INTERVAL_SECONDS="${AGENT_STALL_CHECK_INTERVAL_SECONDS:-60}"
+AGENT_STALL_TERMINATION_GRACE_SECONDS="${AGENT_STALL_TERMINATION_GRACE_SECONDS:-60}"
 LINEAR_TRACKER_ENABLED=0
 if [[ -n "${LINEAR_API_KEY:-}" && -n "${LINEAR_APP_TOKEN:-}" ]]; then
   LINEAR_TRACKER_ENABLED=1
@@ -517,80 +519,111 @@ phase_setup() {
 # Stall Monitor (PI-134)
 # ============================================================================
 
-# Background process that monitors for stalled agents
-stall_monitor() {
-  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
-    return 0
+terminate_wrapper_children() {
+  local wrapper_pid="$1"
+  local grace_seconds="$AGENT_STALL_TERMINATION_GRACE_SECONDS"
+
+  # Kill all children of the wrapper (agent pipeline) with SIGTERM.
+  log "Sending SIGTERM to all children of wrapper PID $wrapper_pid"
+  pkill -TERM -P "$wrapper_pid" 2>/dev/null || true
+
+  # Wait for graceful shutdown.
+  sleep "$grace_seconds"
+
+  # Check if any children still alive and force kill.
+  if pgrep -P "$wrapper_pid" >/dev/null 2>&1; then
+    log "Children did not respond to SIGTERM, sending SIGKILL"
+    pkill -KILL -P "$wrapper_pid" 2>/dev/null || true
+  fi
+}
+
+file_mtime_epoch() {
+  local path="$1"
+
+  if [[ ! -e "$path" ]]; then
+    return 1
   fi
 
+  stat -f%m "$path" 2>/dev/null || stat -c%Y "$path" 2>/dev/null
+}
+
+# Background process that monitors for stalled agents
+stall_monitor() {
   local wrapper_pid="$1"
   local session_id="$2"
+  local progress_file="${3:-}"
   local timeout="$AGENT_STALL_TIMEOUT_SECONDS"
+  local check_interval="$AGENT_STALL_CHECK_INTERVAL_SECONDS"
+  local monitor_start
+  monitor_start=$(date -u +%s)
   
   log "Stall monitor started for wrapper PID $wrapper_pid (timeout: ${timeout}s)"
   
   while true; do
-    sleep 60
+    sleep "$check_interval"
     
     # Check if wrapper process still exists
     if ! kill -0 "$wrapper_pid" 2>/dev/null; then
       log "Stall monitor: wrapper process no longer running"
       break
     fi
-    
-    # Query latest activity from session
-    local query
-    query=$(jq -n \
-      --arg sessionId "$session_id" \
-      '{
-        query: "query GetLatestActivity($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 1) { nodes { createdAt } } } }",
-        variables: {
-          sessionId: $sessionId
-        }
-      }')
-    
-    local result
-    result=$(linear_api_call "$query" "app_token" 2>/dev/null || echo "{}")
-    
-    local last_activity_time
-    last_activity_time=$(echo "$result" | jq -r '.data.agentSession.activities.nodes[0].createdAt // ""' 2>/dev/null || echo "")
-    
-    if [[ -n "$last_activity_time" ]] && [[ "$last_activity_time" != "null" ]]; then
-      # Calculate time since last activity (approximation using date)
+
+    if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+      # Query latest activity from session.
+      local query
+      query=$(jq -n \
+        --arg sessionId "$session_id" \
+        '{
+          query: "query GetLatestActivity($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 1) { nodes { createdAt } } } }",
+          variables: {
+            sessionId: $sessionId
+          }
+        }')
+
+      local result
+      result=$(linear_api_call "$query" "app_token" 2>/dev/null || echo "{}")
+
+      local last_activity_time
+      last_activity_time=$(echo "$result" | jq -r '.data.agentSession.activities.nodes[0].createdAt // ""' 2>/dev/null || echo "")
+
+      if [[ -n "$last_activity_time" ]] && [[ "$last_activity_time" != "null" ]]; then
+        # Calculate time since last activity (approximation using date).
+        local now
+        now=$(date -u +%s)
+
+        # Parse ISO timestamp to epoch (works on macOS and Linux).
+        local activity_epoch
+        if date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s >/dev/null 2>&1; then
+          # macOS date
+          activity_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s)
+        else
+          # GNU date
+          activity_epoch=$(date -d "${last_activity_time:0:19}" +%s 2>/dev/null || echo "$now")
+        fi
+
+        local elapsed=$((now - activity_epoch))
+
+        if [[ $elapsed -gt $timeout ]]; then
+          log "Stall detected: no activity for ${elapsed}s (threshold: ${timeout}s)"
+          terminate_wrapper_children "$wrapper_pid"
+          post_agent_activity "$session_id" "error" "Agent stalled: no activity for ${elapsed} seconds. Process terminated." 2>/dev/null || true
+          break
+        fi
+      fi
+    else
       local now
       now=$(date -u +%s)
-      
-      # Parse ISO timestamp to epoch (works on macOS and Linux)
-      local activity_epoch
-      if date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s >/dev/null 2>&1; then
-        # macOS date
-        activity_epoch=$(date -j -f "%Y-%m-%dT%H:%M:%S" "${last_activity_time:0:19}" +%s)
-      else
-        # GNU date
-        activity_epoch=$(date -d "${last_activity_time:0:19}" +%s 2>/dev/null || echo "$now")
+      local last_progress_epoch="$monitor_start"
+
+      if [[ -n "$progress_file" ]]; then
+        last_progress_epoch=$(file_mtime_epoch "$progress_file" 2>/dev/null || echo "$monitor_start")
       fi
-      
-      local elapsed=$((now - activity_epoch))
-      
+
+      local elapsed=$((now - last_progress_epoch))
+
       if [[ $elapsed -gt $timeout ]]; then
-        log "Stall detected: no activity for ${elapsed}s (threshold: ${timeout}s)"
-        
-        # Kill all children of the wrapper (agent pipeline) with SIGTERM
-        log "Sending SIGTERM to all children of wrapper PID $wrapper_pid"
-        pkill -TERM -P "$wrapper_pid" 2>/dev/null || true
-        
-        # Wait 60s for graceful shutdown
-        sleep 60
-        
-        # Check if any children still alive and force kill
-        if pgrep -P "$wrapper_pid" >/dev/null 2>&1; then
-          log "Children did not respond to SIGTERM, sending SIGKILL"
-          pkill -KILL -P "$wrapper_pid" 2>/dev/null || true
-        fi
-        
-        # Post error activity
-        post_agent_activity "$session_id" "error" "Agent stalled: no activity for ${elapsed} seconds. Process terminated." 2>/dev/null || true
-        
+        log "Stall detected: no local output for ${elapsed}s (threshold: ${timeout}s)"
+        terminate_wrapper_children "$wrapper_pid"
         break
       fi
     fi
@@ -839,25 +872,18 @@ phase_execution() {
 
   # Execute agent pipeline in foreground and capture exit code.
   set +e
-  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
-    # PI-134: Start stall monitor in background BEFORE pipeline.
-    # Main's c3e3707b approach (kept here over the council's FIFO suggestion):
-    # run the pipeline in the foreground and use PIPESTATUS[0] for the agent
-    # exit code; the stall monitor watches the wrapper PID and pkill -P kills
-    # all wrapper children if a stall fires.
-    stall_monitor "$$" "$AGENT_SESSION_ID" &
-    local STALL_MONITOR_PID=$!
+  # PI-134: Start stall monitor in background BEFORE pipeline.
+  # In Linear-backed mode, progress is session activity. Without tracker
+  # credentials, the local log file's mtime is the progress heartbeat.
+  stall_monitor "$$" "$AGENT_SESSION_ID" "$log_file" &
+  local STALL_MONITOR_PID=$!
 
-    "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
-    AGENT_EXIT_CODE=${PIPESTATUS[0]}
+  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
+  AGENT_EXIT_CODE=${PIPESTATUS[0]}
 
-    # Kill stall monitor
-    kill "$STALL_MONITOR_PID" 2>/dev/null || true
-    wait "$STALL_MONITOR_PID" 2>/dev/null || true
-  else
-    "${pi_cmd[@]}" 2>&1 | tee "$log_file"
-    AGENT_EXIT_CODE=${PIPESTATUS[0]}
-  fi
+  # Kill stall monitor
+  kill "$STALL_MONITOR_PID" 2>/dev/null || true
+  wait "$STALL_MONITOR_PID" 2>/dev/null || true
   set -e
 
   log "Agent exited with code: $AGENT_EXIT_CODE"
