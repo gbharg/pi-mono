@@ -21,7 +21,7 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
        │       - Task state management
        │       - Agent session lifecycle
        │       - Activity streaming
-       │       - Board state webhooks
+       │       - Conditional state webhooks
        │
        └─────► Sub-Agents (spawned via scripts/agent-wrapper.sh)
                │
@@ -50,6 +50,7 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
 **Flow**: Gautam → iMessage → Pi → Task/User Request → Sub-Agent → Git Branch → PR → Review → Merge → Done
 
 **Key Principle**: Durable task state is required, but Linear is not. Pi may read board state from an optional tracker, GitHub issue state, or direct user context. Agents report progress to the surface that originated the work, and Pi never directly edits code.
+When no tracker is configured, Pi operates from the current user request plus GitHub issue and PR state.
 
 ## Agent Roles
 
@@ -76,7 +77,7 @@ Sub-agents follow a strict 5-phase lifecycle enforced by `scripts/agent-wrapper.
 - Generate branch name from the task title (conventional format)
 - **Sequential mode**: Create branch off `main`
 - **Parallel mode**: Create branch off task branch, add worktree
-- Export environment variables (`AGENT_SESSION_ID`, `AGENT_TASK_ID`, optional tracker credentials)
+- Export environment variables (`AGENT_SESSION_ID`, optional `AGENT_TASK_ID`, optional tracker credentials)
 
 ### Phase 2: Execution
 - Parse agent definition (`~/.pi/agent/agents/<name>.md`)
@@ -113,7 +114,7 @@ Sub-agents follow a strict 5-phase lifecycle enforced by `scripts/agent-wrapper.
 ### Branch Naming (conventional-branch.github.io)
 - **Sequential**: `feat/descriptive-slug` or `fix/descriptive-slug` (branch off `main`)
 - **Parallel**: `feat/descriptive-slug/agent-<role>` (branch off task branch `feat/descriptive-slug`)
-- **Issue-backed optional**: include the issue key when one exists, e.g. `feat/123-completion-protocol`
+- **Issue-backed optional**: include the issue key when one exists, e.g. `feat/gh-123-completion-protocol`
 - Examples: `feat/completion-protocol`, `feat/review-gate/agent-worker`, `fix/task-tracker-cleanup`
 
 ### Commit Conventions
@@ -154,9 +155,9 @@ Co-Authored-By: agent/worker-full 550e8400-e29b-41d4-a716-446655440000@noreply
 
 Tracker integration is optional. Linear was the original adapter, but it is no longer required for normal branch, commit, PR, or agent workflows.
 
-### State Machine
+### Historical Adapter State Machine
 
-When a tracker adapter is enabled, use that tracker's states. The original Linear adapter used:
+When a tracker adapter is enabled, use that tracker's states. This section is historical adapter reference only. The original Linear adapter used:
 
 **Project States**:
 ```
@@ -186,8 +187,9 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 
 ### Tracker as Orchestration Bus
 
-- **Pi**: Receives webhooks for board state changes when a tracker is configured
-- **Pi cache**: In-memory board state (task ID, status, assignee, delegate, due date)
+- **No tracker configured**: Pi uses current user context plus GitHub issue and PR state; no board-state webhooks or tracker cache are required
+- **Pi**: Receives webhooks for board state changes only when a tracker is configured
+- **Pi cache**: Optional in-memory board state (task ID, status, assignee, delegate, due date)
 - **Sub-agents**: Never read board state, only interact via their assigned task/session
 - **API tokens**: Required only by the configured tracker adapter
 
@@ -219,6 +221,8 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 - `git` - Version control (with `git notes` support)
 - `node` (v18+) - Node.js runtime
 - `npm` - Package manager
+- `jq` - JSON parsing in wrapper and GitHub/tracker flows
+- `curl` - HTTP checks and optional tracker adapter calls
 
 ### Optional Environment Variables
 | Variable | Description | Default |
