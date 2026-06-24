@@ -3,6 +3,8 @@
 This file is the single source of truth for how all agents operate in this repository. Read it in full before every session. Follow it without exception.
 
 Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because violating it has caused real failures.
+Linear references below apply only when the active workflow is Linear-backed.
+Direct user requests and GitHub issue work do not require Linear.
 
 ---
 
@@ -20,10 +22,10 @@ Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because vio
 ## Git Discipline
 
 1. **Always branch. No exceptions.** Even one-line fixes. Branch off main, PR to merge.
-2. **No project branches.** Linear projects are grouping only. Every change goes to main independently.
+2. **No project branches.** Tracker projects are grouping only. Every change goes to main independently.
 3. **Conventional branch naming.** Format: `type/description` (feat/, fix/, chore/, docs/, etc.)
-4. **Conventional commits.** Format: `type(scope): description` referencing Linear issue.
-5. **Every commit links to a Linear issue.** No orphan commits. The commit message is the enforcement.
+4. **Conventional commits.** Format: `type(scope): description`; reference an issue only when the task is issue-backed.
+5. **Every commit has traceable context.** The commit must trace to the active issue, user request, or PR context. Use issue-closing keywords only when the merge should close that issue.
 6. **Keep branches short-lived.** One focused change per branch, merged within 1-2 sessions.
 7. **Do not rebase or force-push shared branches.** Merge main into your branch if needed.
 
@@ -52,7 +54,7 @@ Adapted from OpenClaw post-mortem (PI-13, AI-627). Every rule exists because vio
 
 1. **Compaction threshold: target 30%, soft 50%, priority 60%.** I own the decision — hooks nudge, don't trigger.
 2. **Checkpoint before compaction.** Write state.md + context.md before any context loss event.
-3. **Everything in Linear.** Any commitment goes in Linear immediately. No exceptions.
+3. **Use the active task surface.** Commitments go in the tracker, GitHub issue, PR, or user-visible thread that originated the work. Linear is optional.
 4. **Living documentation.** Update docs in real-time during execution, not after.
 
 ---

@@ -4,7 +4,7 @@
 
 ## What This Is
 
-Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks everything in Linear. Pi has full tool access for operational needs (diagnostics, config edits, service restarts) but its primary role is orchestration — planning, scoping, and delegating execution work to sub-agents.
+Pi is an orchestrator agent running on Gautam's iMac. It plans projects, delegates execution to sub-agents, communicates with Gautam via iMessage, and tracks work in the active task surface: a direct user thread, GitHub issue, PR, or optional tracker such as Linear. Pi has full tool access for operational needs (diagnostics, config edits, service restarts) but its primary role is orchestration — planning, scoping, and delegating execution work to sub-agents.
 
 ## Architecture
 
@@ -27,7 +27,7 @@ SendBlue Cloud ──webhook──▶ Tailscale Funnel :8443
                          Pi Session (this agent)
                             ├── Plans & scopes work
                             ├── Delegates to sub-agents
-                            ├── Syncs state to Linear
+                            ├── Syncs state to the active task surface
                             └── Reports back to Gautam via imessage_reply
 ```
 
@@ -66,7 +66,7 @@ SendBlue Cloud ──webhook──▶ Tailscale Funnel :8443
 | System | Access | Purpose |
 |--------|--------|---------|
 | GitHub | gh CLI as gbharg | Code, branches, PRs |
-| Linear | API key + webhook | Project tracking (PI team) |
+| Linear | API key + webhook | Optional project tracking (PI team) |
 | SendBlue | API + webhook | iMessage send/receive (+16292925296) |
 | Tailscale | Funnel on :8443 | Public webhook endpoint |
 
@@ -95,12 +95,12 @@ Sub-agents are spawned with `--no-extensions` (no memory, no hooks) but sessions
 ## How It All Connects
 
 1. Gautam texts Pi via iMessage → SendBlue webhook → Pi extension → appears in session
-2. Pi plans work, creates specs, creates Linear issues
+2. Pi plans work and creates specs; it creates tracker issues only when that workflow is active
 3. Pi spawns sub-agents with full CONTEXT/TASK/SCOPE/CONSTRAINTS/EXPECTED OUTPUT
 4. Sub-agents return structured output; Pi reviews and synthesizes
-5. Pi updates Linear, commits to GitHub, texts Gautam with results
-6. Linear webhooks notify Pi of external changes (Gautam updates issues, other agents comment)
-7. EOD cron verifies everything is synced and nothing was dropped
+5. Pi updates the originating task surface, commits to GitHub, texts Gautam with results
+6. Tracker webhooks notify Pi of external changes when a tracker is configured
+7. EOD cron verifies active commitments are synced and nothing was dropped
 
 ## Infrastructure references
 

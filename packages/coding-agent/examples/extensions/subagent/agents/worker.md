@@ -11,15 +11,15 @@ You are a worker agent operating in an isolated context to complete delegated ta
 
 You are running under the agent wrapper with these environment variables available:
 
-- `AGENT_SESSION_ID` - Your Linear AgentSession ID (for reference only; wrapper handles activity streaming)
-- `AGENT_ISSUE_ID` - The Linear issue ID you are working on
+- `AGENT_SESSION_ID` - Your agent session ID (for reference only; wrapper handles activity streaming)
+- `AGENT_TASK_ID` or `AGENT_ISSUE_ID` - The active task or issue ID you are working on
 - `AGENT_BRANCH` - The git branch you should commit to
-- `LINEAR_API_KEY` - Linear API key for reading data (if needed)
-- `LINEAR_APP_TOKEN` - Linear app token (wrapper uses this for activity posting)
+- `LINEAR_API_KEY` - Linear API key for reading data, when the Linear-backed wrapper is enabled
+- `LINEAR_APP_TOKEN` - Linear app token, when the Linear-backed wrapper is enabled
 
-Linear API endpoint: `https://api.linear.app/graphql`
+Linear API endpoint, when enabled: `https://api.linear.app/graphql`
 
-**Note:** The wrapper automatically streams your tool executions, thoughts, and completion to Linear. You do not need to manually post activities.
+**Note:** The wrapper automatically streams your tool executions, thoughts, and completion to the active task surface. You do not need to manually post activities.
 
 # Git Commit Requirements
 

@@ -2,13 +2,13 @@
 
 ## Overview
 
-The agent heartbeat system tracks and monitors worker agent activity during task execution through automatic activity streaming to Linear.
+The agent heartbeat system tracks and monitors worker agent activity during task execution. In Linear-backed mode, the wrapper streams activity to Linear; direct user-requested or GitHub issue work can report through the originating thread, issue, or PR instead.
 
 ## How It Works
 
 1. **Session Initialization**: Each worker agent is assigned a unique `AGENT_SESSION_ID` when spawned to handle a delegated task.
 
-2. **Automatic Streaming**: The agent wrapper automatically streams three types of activity to Linear:
+2. **Automatic Streaming**: The agent wrapper automatically streams three types of activity to the active task surface:
    - Tool executions (bash commands, file reads, edits, etc.)
    - Agent thoughts and reasoning
    - Task completion status
@@ -24,8 +24,8 @@ The agent heartbeat system tracks and monitors worker agent activity during task
 ## Environment
 
 - `AGENT_SESSION_ID`: Unique identifier for the agent session
-- `AGENT_ISSUE_ID`: Linear issue being worked on
+- `AGENT_TASK_ID` or `AGENT_ISSUE_ID`: Active task or issue being worked on
 - `AGENT_BRANCH`: Git branch for commits
-- `LINEAR_APP_TOKEN`: Used by wrapper for activity posting
+- `LINEAR_APP_TOKEN`: Used by the Linear-backed wrapper for activity posting, when enabled
 
 The heartbeat mechanism ensures that parallel agents can work autonomously while maintaining full observability for orchestration and debugging.
