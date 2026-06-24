@@ -40,6 +40,14 @@ describe("watch state", () => {
 	it("rejects invalid state shape", () => {
 		const path = tempStatePath();
 		writeFileSync(path, JSON.stringify({ pullRequests: { "42": 42 } }), "utf-8");
-		expect(() => loadWatchState(path)).toThrow(/must be an object with string pullRequests/);
+		expect(() => loadWatchState(path)).toThrow(/pullRequests property mapping PR numbers to string SHAs/);
+	});
+
+	it("rejects invalid state shape before saving", () => {
+		const path = tempStatePath();
+		const invalidState = { pullRequests: { "42": 42 } };
+		expect(() => saveWatchState(invalidState as never, path)).toThrow(
+			/pullRequests property mapping PR numbers to string SHAs/,
+		);
 	});
 });

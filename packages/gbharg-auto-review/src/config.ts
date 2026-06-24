@@ -152,7 +152,9 @@ function assertCommandRecord(value: unknown, name: string): void {
 
 function assertWatchState(value: unknown, path: string): asserts value is WatchState {
 	if (!isRecord(value) || !isStringRecord(value.pullRequests)) {
-		throw new Error(`Auto-review watch state at ${path} must be an object with string pullRequests`);
+		throw new Error(
+			`Auto-review watch state at ${path} must be an object with a pullRequests property mapping PR numbers to string SHAs`,
+		);
 	}
 }
 

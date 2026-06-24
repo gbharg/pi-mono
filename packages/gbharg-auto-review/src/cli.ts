@@ -6,7 +6,7 @@ import { parsePlanContext } from "./plan-context.ts";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.ts";
 import { dispatchCloudReviews, resolveDispatchMode } from "./runner.ts";
 import { evaluateReviewScope } from "./scope.ts";
-import type { PullRequestMetadata } from "./types.ts";
+import type { PullRequestMetadata, WatchState } from "./types.ts";
 
 type Command = "check" | "dispatch" | "watch";
 
@@ -147,7 +147,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 	}
 }
 
-function loadWatchStateForWatchLoop(): ReturnType<typeof loadWatchState> {
+function loadWatchStateForWatchLoop(): WatchState {
 	try {
 		return loadWatchState();
 	} catch (error) {
