@@ -30,6 +30,7 @@ The active task surface is whichever system originated the work: a direct user t
 3. **Conventional branch naming.** Format: `type/description` (feat/, fix/, chore/, docs/, etc.)
 4. **Conventional commits.** Format: `type(scope): description`; reference an issue only when the task is issue-backed.
 5. **Every commit has traceable context.** Trace to the active issue, user request, or PR.
+   - Non-issue-backed commits do not need an issue ID in the subject.
    - Use issue-closing keywords only when the merge should close that issue.
    - For non-issue-backed work, preserve the originating context in the PR body or branch handoff.
 6. **Keep branches short-lived.** One focused change per branch, merged within 1-2 sessions.
