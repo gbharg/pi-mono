@@ -532,20 +532,51 @@ phase_setup() {
 
 terminate_wrapper_children() {
   local wrapper_pid="$1"
+  local monitor_pid="${2:-}"
   local grace_seconds="$AGENT_STALL_TERMINATION_GRACE_SECONDS"
 
-  # Kill all children of the wrapper (agent pipeline) with SIGTERM.
-  log "Sending SIGTERM to all children of wrapper PID $wrapper_pid"
-  pkill -TERM -P "$wrapper_pid" 2>/dev/null || true
+  local child_pids=()
+  local child_pid
+  while IFS= read -r child_pid; do
+    child_pids+=("$child_pid")
+  done < <(collect_descendant_pids "$wrapper_pid" "$monitor_pid")
+
+  if [[ ${#child_pids[@]} -eq 0 ]]; then
+    log "No wrapper children found to terminate"
+    return 0
+  fi
+
+  # Kill all descendants of the wrapper (agent pipeline), excluding this
+  # monitor process so it can run the grace period and SIGKILL fallback.
+  log "Sending SIGTERM to wrapper descendants: ${child_pids[*]}"
+  kill -TERM "${child_pids[@]}" 2>/dev/null || true
 
   # Wait for graceful shutdown.
   sleep "$grace_seconds"
 
-  # Check if any children still alive and force kill.
-  if pgrep -P "$wrapper_pid" >/dev/null 2>&1; then
-    log "Children did not respond to SIGTERM, sending SIGKILL"
-    pkill -KILL -P "$wrapper_pid" 2>/dev/null || true
+  child_pids=()
+  while IFS= read -r child_pid; do
+    child_pids+=("$child_pid")
+  done < <(collect_descendant_pids "$wrapper_pid" "$monitor_pid")
+  if [[ ${#child_pids[@]} -gt 0 ]]; then
+    log "Descendants did not respond to SIGTERM, sending SIGKILL: ${child_pids[*]}"
+    kill -KILL "${child_pids[@]}" 2>/dev/null || true
   fi
+}
+
+collect_descendant_pids() {
+  local parent_pid="$1"
+  local excluded_pid="$2"
+  local child_pid
+
+  while IFS= read -r child_pid; do
+    if [[ -z "$child_pid" || "$child_pid" == "$excluded_pid" ]]; then
+      continue
+    fi
+
+    collect_descendant_pids "$child_pid" "$excluded_pid"
+    echo "$child_pid"
+  done < <(pgrep -P "$parent_pid" 2>/dev/null || true)
 }
 
 file_mtime_epoch() {
@@ -563,6 +594,7 @@ stall_monitor() {
   local wrapper_pid="$1"
   local session_id="$2"
   local progress_file="${3:-}"
+  local monitor_pid_file="${4:-}"
   local timeout="$AGENT_STALL_TIMEOUT_SECONDS"
   local check_interval="$AGENT_STALL_CHECK_INTERVAL_SECONDS"
   local monitor_start
@@ -577,6 +609,11 @@ stall_monitor() {
     if ! kill -0 "$wrapper_pid" 2>/dev/null; then
       log "Stall monitor: wrapper process no longer running"
       break
+    fi
+
+    local monitor_pid=""
+    if [[ -n "$monitor_pid_file" && -f "$monitor_pid_file" ]]; then
+      monitor_pid=$(cat "$monitor_pid_file")
     fi
 
     if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
@@ -616,7 +653,7 @@ stall_monitor() {
 
         if [[ $elapsed -gt $timeout ]]; then
           log "Stall detected: no activity for ${elapsed}s (threshold: ${timeout}s)"
-          terminate_wrapper_children "$wrapper_pid"
+          terminate_wrapper_children "$wrapper_pid" "$monitor_pid"
           post_agent_activity "$session_id" "error" "Agent stalled: no activity for ${elapsed} seconds. Process terminated." 2>/dev/null || true
           break
         fi
@@ -634,7 +671,7 @@ stall_monitor() {
 
       if [[ $elapsed -gt $timeout ]]; then
         log "Stall detected: no local output for ${elapsed}s (threshold: ${timeout}s)"
-        terminate_wrapper_children "$wrapper_pid"
+        terminate_wrapper_children "$wrapper_pid" "$monitor_pid"
         break
       fi
     fi
@@ -887,8 +924,10 @@ phase_execution() {
   # PI-134: Start stall monitor in background BEFORE pipeline.
   # In Linear-backed mode, progress is session activity. Without tracker
   # credentials, the local log file's mtime is the progress heartbeat.
-  stall_monitor "$$" "$AGENT_SESSION_ID" "$log_file" &
+  local stall_monitor_pid_file="/tmp/agent-stall-monitor-${AGENT_SESSION_ID}.pid"
+  stall_monitor "$$" "$AGENT_SESSION_ID" "$log_file" "$stall_monitor_pid_file" &
   local STALL_MONITOR_PID=$!
+  printf '%s\n' "$STALL_MONITOR_PID" > "$stall_monitor_pid_file"
 
   "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
   AGENT_EXIT_CODE=${PIPESTATUS[0]}
@@ -896,6 +935,7 @@ phase_execution() {
   # Kill stall monitor
   kill "$STALL_MONITOR_PID" 2>/dev/null || true
   wait "$STALL_MONITOR_PID" 2>/dev/null || true
+  rm -f "$stall_monitor_pid_file"
   set -e
 
   log "Agent exited with code: $AGENT_EXIT_CODE"

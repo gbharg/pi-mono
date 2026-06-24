@@ -68,8 +68,10 @@ test_no_tracker_stall_timeout() {
 
     cat > "${temp_dir}/node_modules/.bin/tsx" <<'EOF'
 #!/usr/bin/env bash
-trap 'exit 143' TERM
-while true; do
+bash -c 'trap "" TERM; while true; do sleep 1; done' &
+child_pid=$!
+trap 'wait "$child_pid"; exit 143' TERM
+while kill -0 "$child_pid" 2>/dev/null; do
     sleep 1
 done
 EOF
