@@ -8,6 +8,8 @@ import { inferGitHubRepo } from "./repo.ts";
 import { dispatchCloudReviews } from "./runner.ts";
 import { evaluateReviewScope } from "./scope.ts";
 
+type AutoReviewConfig = ReturnType<typeof loadConfig>;
+
 const ArgsSchema = Type.Object({
 	pr: Type.Optional(Type.Number({ description: "Pull request number" })),
 	repo: Type.Optional(Type.String({ description: "Repository in owner/repo format" })),
@@ -24,7 +26,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const pr = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			let config: any;
+			let config: AutoReviewConfig;
 			try {
 				config = loadConfig(ctx.cwd);
 			} catch (error) {
@@ -53,7 +55,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 				return;
 			}
 			const prNumber = parsed.pr ?? (await getCurrentPrNumber(ctx.cwd, repo));
-			let config: any;
+			let config: AutoReviewConfig;
 			try {
 				config = loadConfig(ctx.cwd);
 			} catch (error) {
@@ -120,7 +122,7 @@ export default function registerAutoReviewExtension(pi: ExtensionAPI) {
 
 		const prMatch = event.input.command.match(/\bgh\s+pr\s+merge\s+(\d+)\b/);
 		const pr = prMatch ? Number(prMatch[1]) : await getCurrentPrNumber(ctx.cwd, repo);
-		let config: any;
+		let config: AutoReviewConfig;
 		try {
 			config = loadConfig(ctx.cwd);
 		} catch (error) {

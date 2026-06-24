@@ -6,6 +6,7 @@ import { parsePlanContext } from "./plan-context.ts";
 import { collapseLatestReviews, evaluateMergePolicy } from "./policy.ts";
 import { dispatchCloudReviews, resolveDispatchMode } from "./runner.ts";
 import { evaluateReviewScope } from "./scope.ts";
+import type { PullRequestMetadata } from "./types.ts";
 
 type Command = "check" | "dispatch" | "watch";
 
@@ -109,8 +110,8 @@ async function runDispatch(
 async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd: string): Promise<void> {
 	const intervalMs = config.pollIntervalMs ?? 30_000;
 	for (;;) {
-		const state = loadWatchState();
-		let prs: any;
+		const state = loadWatchStateForWatchLoop();
+		let prs: PullRequestMetadata[];
 		try {
 			prs = await listOpenReviewablePullRequests(repo, cwd);
 		} catch (error) {
@@ -119,7 +120,7 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 			await new Promise((resolve) => setTimeout(resolve, intervalMs));
 			continue;
 		}
-		const activePrNumbers = new Set(prs.map((pr: any) => String(pr.number)));
+		const activePrNumbers = new Set(prs.map((pr) => String(pr.number)));
 		const nextSeenHeads = Object.fromEntries(
 			Object.entries(state.pullRequests).filter(([prNumber]) => activePrNumbers.has(prNumber)),
 		);
@@ -143,6 +144,16 @@ async function runWatch(repo: string, config: ReturnType<typeof loadConfig>, cwd
 		}
 		if (changed) saveWatchState(state);
 		await new Promise((resolve) => setTimeout(resolve, intervalMs));
+	}
+}
+
+function loadWatchStateForWatchLoop(): ReturnType<typeof loadWatchState> {
+	try {
+		return loadWatchState();
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		console.error(`watch: failed to load state; resetting to empty state: ${message}`);
+		return { pullRequests: {} };
 	}
 }
 
