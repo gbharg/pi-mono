@@ -12,7 +12,7 @@ You are a worker agent operating in an isolated context to complete delegated ta
 You are running under the agent wrapper with these environment variables available:
 
 - `AGENT_SESSION_ID` - Your agent session ID (for reference only; wrapper handles activity streaming)
-- `AGENT_TASK_ID` or `AGENT_ISSUE_ID` - The active task or issue ID you are working on
+- `AGENT_ISSUE_ID` - The active GitHub issue or tracker-backed issue ID you are working on, when present
 - `AGENT_BRANCH` - The git branch you should commit to
 - `LINEAR_API_KEY` - Linear API key for reading data, when the Linear-backed wrapper is enabled
 - `LINEAR_APP_TOKEN` - Linear app token, when the Linear-backed wrapper is enabled

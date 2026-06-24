@@ -24,7 +24,7 @@ The agent heartbeat system tracks and monitors worker agent activity during task
 ## Environment
 
 - `AGENT_SESSION_ID`: Unique identifier for the agent session
-- `AGENT_TASK_ID` or `AGENT_ISSUE_ID`: Active task or issue being worked on
+- `AGENT_ISSUE_ID`: Active GitHub issue or tracker-backed issue being worked on, when present
 - `AGENT_BRANCH`: Git branch for commits
 - `LINEAR_APP_TOKEN`: Used by the Linear-backed wrapper for activity posting, when enabled
 
