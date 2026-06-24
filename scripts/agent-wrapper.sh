@@ -4,7 +4,7 @@ umask 077
 
 #
 # agent-wrapper.sh
-# Wraps sub-agent execution with git setup, Linear API session lifecycle,
+# Wraps sub-agent execution with git setup, optional Linear API session lifecycle,
 # completion verification, PR creation, and teardown.
 #
 
@@ -27,6 +27,10 @@ LINEAR_STATE_IN_REVIEW="${LINEAR_STATE_IN_REVIEW:-e85f987d-0cc9-45aa-a25e-6733c1
 MAX_LOG_SIZE=$((500 * 1024)) # 500KB
 GH_REPO="${GH_REPO:-gbharg/pi-mono}"
 AGENT_STALL_TIMEOUT_SECONDS="${AGENT_STALL_TIMEOUT_SECONDS:-300}"
+LINEAR_TRACKER_ENABLED=0
+if [[ -n "${LINEAR_API_KEY:-}" && -n "${LINEAR_APP_TOKEN:-}" ]]; then
+  LINEAR_TRACKER_ENABLED=1
+fi
 
 # ============================================================================
 # Logging
@@ -90,14 +94,8 @@ if [[ -z "$ISSUE_ID" ]] || [[ -z "$AGENT_NAME" ]] || [[ -z "$TASK" ]]; then
   exit 1
 fi
 
-if [[ -z "${LINEAR_API_KEY:-}" ]]; then
-  error "LINEAR_API_KEY environment variable is required"
-  exit 1
-fi
-
-if [[ -z "${LINEAR_APP_TOKEN:-}" ]]; then
-  error "LINEAR_APP_TOKEN environment variable is required"
-  exit 1
+if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+  log "Linear credentials not fully configured; running without tracker integration"
 fi
 
 if [[ "$MODE" == "parallel" ]] && [[ -z "$WORKTREE_PATH" || -z "$TASK_BRANCH" ]]; then
@@ -114,6 +112,11 @@ log "Starting agent wrapper for issue $ISSUE_ID, agent $AGENT_NAME, mode $MODE"
 # Retry Linear API calls with exponential backoff on 429
 # Args: query, auth_type ("api_key" or "app_token")
 linear_api_call() {
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    error "Linear tracker integration is disabled"
+    return 1
+  fi
+
   local query="$1"
   local auth_type="${2:-api_key}"
   local max_retries=5
@@ -201,6 +204,10 @@ create_agent_session() {
 
 # Post agent activity
 post_agent_activity() {
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    return 0
+  fi
+
   local session_id="$1"
   local activity_type="$2"
   local body="$3"
@@ -228,6 +235,10 @@ post_agent_activity() {
 
 # Update issue state
 update_issue_state() {
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    return 0
+  fi
+
   local issue_id="$1"
   local state_id="$2"
   
@@ -250,6 +261,10 @@ update_issue_state() {
 
 # Post comment on issue
 post_issue_comment() {
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    return 0
+  fi
+
   local issue_id="$1"
   local body="$2"
   
@@ -365,6 +380,18 @@ generate_branch_slug() {
   echo "$title" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//' | cut -c1-50
 }
 
+generate_local_branch_slug() {
+  local input="$1"
+
+  echo "$input" \
+    | tr '[:upper:]' '[:lower:]' \
+    | sed 's/[^a-z0-9-]/-/g' \
+    | sed 's/--*/-/g' \
+    | sed 's/^-//' \
+    | sed 's/-$//' \
+    | cut -c1-50
+}
+
 # ============================================================================
 # Agent Definition Parser
 # ============================================================================
@@ -402,22 +429,40 @@ parse_agent_definition() {
 phase_setup() {
   log "=== PHASE 1: SETUP ==="
   
-  # Create Linear AgentSession
-  AGENT_SESSION_ID=$(create_agent_session "$ISSUE_ID")
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    AGENT_SESSION_ID=$(create_agent_session "$ISSUE_ID")
+  else
+    AGENT_SESSION_ID="local-$(date -u +"%Y%m%dT%H%M%SZ")-$$"
+  fi
   export AGENT_SESSION_ID
   export AGENT_ISSUE_ID="$ISSUE_ID"
-  export LINEAR_API_KEY
-  export LINEAR_APP_TOKEN
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    export LINEAR_API_KEY
+    export LINEAR_APP_TOKEN
+  fi
   
   # PI-135: Post initial thought activity
   post_agent_activity "$AGENT_SESSION_ID" "thought" "Setting up workspace for $ISSUE_ID"
   
   # Generate branch name
   local slug
-  slug=$(generate_branch_slug "$ISSUE_ID")
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    slug=$(generate_branch_slug "$ISSUE_ID")
+  else
+    slug=$(generate_local_branch_slug "$TASK")
+    if [[ -z "$slug" ]]; then
+      slug="task"
+    fi
+  fi
+
+  local issue_component
+  issue_component=$(generate_local_branch_slug "$ISSUE_ID")
+  if [[ -z "$issue_component" ]]; then
+    issue_component="task"
+  fi
   
   if [[ "$MODE" == "sequential" ]]; then
-    AGENT_BRANCH="feat/$(echo "$ISSUE_ID" | tr "[:upper:]" "[:lower:]")-${slug}"
+    AGENT_BRANCH="feat/${issue_component}-${slug}"
     log "Creating sequential branch: $AGENT_BRANCH"
     
     # Check for dirty working tree
@@ -474,6 +519,10 @@ phase_setup() {
 
 # Background process that monitors for stalled agents
 stall_monitor() {
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    return 0
+  fi
+
   local wrapper_pid="$1"
   local session_id="$2"
   local timeout="$AGENT_STALL_TIMEOUT_SECONDS"
@@ -557,6 +606,11 @@ stall_monitor() {
 # Stream JSON events from pi to Linear activities in real-time
 stream_to_linear() {
   local session_id="$1"
+
+  if [[ $LINEAR_TRACKER_ENABLED -eq 0 ]]; then
+    cat
+    return 0
+  fi
 
   # Write Python script to temp file so stdin remains free for pipe data.
   # RETURN traps fire when the function returns (normal return + early
@@ -783,27 +837,32 @@ phase_execution() {
   log "Spawning agent: ${pi_cmd[*]}"
   log "Output tee'd to: $log_file"
 
-  # PI-134: Start stall monitor in background BEFORE pipeline.
-  # Main's c3e3707b approach (kept here over the council's FIFO suggestion):
-  # run the pipeline in the foreground and use PIPESTATUS[0] for the agent
-  # exit code; the stall monitor watches the wrapper PID and pkill -P kills
-  # all wrapper children if a stall fires.
-  stall_monitor "$$" "$AGENT_SESSION_ID" &
-  local STALL_MONITOR_PID=$!
-
-  # Execute agent pipeline in foreground and capture exit code
+  # Execute agent pipeline in foreground and capture exit code.
   set +e
-  "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
-  AGENT_EXIT_CODE=${PIPESTATUS[0]}
-  set -e
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    # PI-134: Start stall monitor in background BEFORE pipeline.
+    # Main's c3e3707b approach (kept here over the council's FIFO suggestion):
+    # run the pipeline in the foreground and use PIPESTATUS[0] for the agent
+    # exit code; the stall monitor watches the wrapper PID and pkill -P kills
+    # all wrapper children if a stall fires.
+    stall_monitor "$$" "$AGENT_SESSION_ID" &
+    local STALL_MONITOR_PID=$!
 
-  # Kill stall monitor
-  kill "$STALL_MONITOR_PID" 2>/dev/null || true
-  wait "$STALL_MONITOR_PID" 2>/dev/null || true
+    "${pi_cmd[@]}" 2>&1 | stream_to_linear "$AGENT_SESSION_ID" | tee "$log_file"
+    AGENT_EXIT_CODE=${PIPESTATUS[0]}
+
+    # Kill stall monitor
+    kill "$STALL_MONITOR_PID" 2>/dev/null || true
+    wait "$STALL_MONITOR_PID" 2>/dev/null || true
+  else
+    "${pi_cmd[@]}" 2>&1 | tee "$log_file"
+    AGENT_EXIT_CODE=${PIPESTATUS[0]}
+  fi
+  set -e
 
   log "Agent exited with code: $AGENT_EXIT_CODE"
 
-  return $AGENT_EXIT_CODE
+  return "$AGENT_EXIT_CODE"
 }
 
 # ============================================================================
@@ -860,56 +919,60 @@ $error_log
   
   log "Found $commit_count new commit(s)"
   
-  # PI-132: Verify response activity was posted
-  # NOTE: Warn-only for now until agents reliably follow completion protocol
-  log "Verifying response activity exists"
-  local query
-  query=$(jq -n \
-    --arg sessionId "$AGENT_SESSION_ID" \
-    '{
-      query: "query GetActivities($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 5) { nodes { content { __typename ... on AgentActivityResponseContent { type body } ... on AgentActivityThoughtContent { type body } ... on AgentActivityErrorContent { type body } ... on AgentActivityActionContent { type action } } } } } }",
-      variables: {
-        sessionId: $sessionId
-      }
-    }')
-  
-  local result
-  result=$(linear_api_call "$query" "app_token")
-  
-  local has_response
-  has_response=$(echo "$result" | jq -r '[.data.agentSession.activities.nodes[].content | select(.__typename == "AgentActivityResponseContent")] | length > 0')
-  
-  if [[ "$has_response" != "true" ]]; then
-    local warn_msg="Agent did not post required response activity (READY signal)"
-    log "WARNING: $warn_msg"
-    # TODO: Make this a hard failure once agents reliably follow completion protocol
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    # PI-132: Verify response activity was posted
+    # NOTE: Warn-only for now until agents reliably follow completion protocol
+    log "Verifying response activity exists"
+    local query
+    query=$(jq -n \
+      --arg sessionId "$AGENT_SESSION_ID" \
+      '{
+        query: "query GetActivities($sessionId: String!) { agentSession(id: $sessionId) { activities(last: 5) { nodes { content { __typename ... on AgentActivityResponseContent { type body } ... on AgentActivityThoughtContent { type body } ... on AgentActivityErrorContent { type body } ... on AgentActivityActionContent { type action } } } } } }",
+        variables: {
+          sessionId: $sessionId
+        }
+      }')
+
+    local result
+    result=$(linear_api_call "$query" "app_token")
+
+    local has_response
+    has_response=$(echo "$result" | jq -r '[.data.agentSession.activities.nodes[].content | select(.__typename == "AgentActivityResponseContent")] | length > 0')
+
+    if [[ "$has_response" != "true" ]]; then
+      local warn_msg="Agent did not post required response activity (READY signal)"
+      log "WARNING: $warn_msg"
+      # TODO: Make this a hard failure once agents reliably follow completion protocol
+    else
+      log "Response activity verified"
+    fi
+
+    # PI-133: Verify plan was posted
+    # NOTE: Warn-only for now until agents reliably follow completion protocol
+    log "Verifying plan exists"
+    query=$(jq -n \
+      --arg sessionId "$AGENT_SESSION_ID" \
+      '{
+        query: "query GetPlan($sessionId: String!) { agentSession(id: $sessionId) { plan } }",
+        variables: {
+          sessionId: $sessionId
+        }
+      }')
+
+    result=$(linear_api_call "$query" "app_token")
+
+    local plan
+    plan=$(echo "$result" | jq -r '.data.agentSession.plan // "null"')
+
+    if [[ -z "$plan" ]] || [[ "$plan" == "null" ]]; then
+      local warn_msg="Agent did not post required plan"
+      log "WARNING: $warn_msg"
+      # TODO: Make this a hard failure once agents reliably follow completion protocol
+    else
+      log "Plan verified"
+    fi
   else
-    log "Response activity verified"
-  fi
-  
-  # PI-133: Verify plan was posted
-  # NOTE: Warn-only for now until agents reliably follow completion protocol
-  log "Verifying plan exists"
-  query=$(jq -n \
-    --arg sessionId "$AGENT_SESSION_ID" \
-    '{
-      query: "query GetPlan($sessionId: String!) { agentSession(id: $sessionId) { plan } }",
-      variables: {
-        sessionId: $sessionId
-      }
-    }')
-  
-  result=$(linear_api_call "$query" "app_token")
-  
-  local plan
-  plan=$(echo "$result" | jq -r '.data.agentSession.plan // "null"')
-  
-  if [[ -z "$plan" ]] || [[ "$plan" == "null" ]]; then
-    local warn_msg="Agent did not post required plan"
-    log "WARNING: $warn_msg"
-    # TODO: Make this a hard failure once agents reliably follow completion protocol
-  else
-    log "Plan verified"
+    log "Skipping Linear activity verification; tracker integration is disabled"
   fi
   
   # Verify conventional commit format and Co-Authored-By trailer
@@ -1037,10 +1100,18 @@ $log_content"
     local pr_title
     pr_title=$(git log -1 --format=%s "$last_commit")
     
-    local pr_body="Resolves $ISSUE_ID
+    local pr_body
+    if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+      pr_body="Resolves $ISSUE_ID
 
 Agent: \`$AGENT_NAME\`
 Session: $AGENT_SESSION_ID"
+    else
+      pr_body="Issue: $ISSUE_ID
+
+Agent: \`$AGENT_NAME\`
+Session: $AGENT_SESSION_ID"
+    fi
     
     # If closed PRs exist, add them to the body
     if [[ "$pr_action" == "CLOSED" ]]; then
@@ -1093,9 +1164,12 @@ Changes:
     post_issue_comment "$ISSUE_ID" "✅ Agent \`$AGENT_NAME\` completed successfully. Pull request: $pr_url"
   fi
   
-  # Move issue to In Review
-  log "Moving issue to In Review state"
-  update_issue_state "$ISSUE_ID" "$LINEAR_STATE_IN_REVIEW"
+  if [[ $LINEAR_TRACKER_ENABLED -eq 1 ]]; then
+    log "Moving issue to In Review state"
+    update_issue_state "$ISSUE_ID" "$LINEAR_STATE_IN_REVIEW"
+  else
+    log "Skipping Linear state update; tracker integration is disabled"
+  fi
   
   log "Finalization complete"
 }
