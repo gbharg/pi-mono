@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo implements a multi-agent orchestration system built on pi-mono. Pi (the orchestrator) acts as CTO, communicating with Gautam via iMessage and delegating work to specialized sub-agents. Linear serves as the orchestration bus and single source of truth for task state. All work flows through Linear issues, with sub-agents executing tasks in isolated branches and submitting PRs for review. The system enforces strict lifecycle protocols, conventional commit standards, and comprehensive audit trails via git notes.
+This repo implements a multi-agent orchestration system built on pi-mono. Pi (the orchestrator) acts as CTO, communicating with Gautam via iMessage and delegating work to specialized sub-agents. In the Linear-backed deployment described below, Linear serves as the orchestration bus and source of truth for task state. Direct repository work and other tracker-backed workflows do not require Linear; when no tracker issue is part of the task, use a conventional branch, commit, and GitHub PR without Linear-only lifecycle steps. The system enforces strict lifecycle protocols, conventional commit standards, and comprehensive audit trails via git notes.
 
 ## Architecture
 
@@ -34,7 +34,7 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
                    │
                    ▼
                Git Operations
-               - Branch per issue
+               - Branch per task
                - Conventional commits
                - Co-Authored-By trailers
                - Git notes for session logs
@@ -47,18 +47,18 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
                - Branch protection on main
 ```
 
-**Flow**: Gautam → iMessage → Pi → Linear Issue → Sub-Agent → Git Branch → PR → Review → Merge → Done
+**Linear-backed flow**: Gautam → iMessage → Pi → Linear Issue → Sub-Agent → Git Branch → PR → Review → Merge → Done
 
-**Key Principle**: Linear is the single source of truth. Pi reads board state via webhooks, spawns agents assigned to Linear issues, agents report progress via AgentActivity API, and Pi never directly edits code.
+**Key Principle**: Tracker state is authoritative only for the tracker-backed workflow in use. In Linear-backed mode, Pi reads board state via webhooks, spawns agents assigned to Linear issues, agents report progress via AgentActivity API, and Pi never directly edits code.
 
 ## Agent Roles
 
 | Name | Description | Model | Tools | Persistence |
 |------|-------------|-------|-------|-------------|
-| `worker` | General-purpose implementation | `claude-sonnet-4-5` | read, write, edit, bash | Disposable (killed after In Review) |
+| `worker` | General-purpose implementation | `claude-sonnet-4-5` | read, write, edit, bash | Disposable (killed after final review in tracker-backed mode) |
 | `worker-full` | Full-capability implementation | `claude-sonnet-4-20250514` | read, write, edit, bash | Disposable |
 | `worker-readonly` | Read-only analysis/audit | `claude-sonnet-4-20250514` | read, grep, find, ls, bash | Disposable |
-| `researcher` | Topic investigation | `claude-opus-4-6` | read, grep, find, ls, bash | Persistent (Linear app user) |
+| `researcher` | Topic investigation | `claude-opus-4-6` | read, grep, find, ls, bash | Persistent (tracker app user in Linear-backed mode) |
 | `reviewer` | Code review specialist | `claude-sonnet-4-5` | read, bash | Persistent (learns patterns) |
 | `planner` | Spec/plan creation | `claude-sonnet-4-5` | read | Disposable |
 | `scout` | Fast recon/exploration | `claude-haiku-4-5` | read, bash (compressed context) | Disposable |
@@ -69,10 +69,10 @@ This repo implements a multi-agent orchestration system built on pi-mono. Pi (th
 
 ## Lifecycle
 
-Sub-agents follow a strict 5-phase lifecycle enforced by `scripts/agent-wrapper.sh`:
+When invoked through `scripts/agent-wrapper.sh` in Linear-backed mode, sub-agents follow a strict 5-phase lifecycle:
 
 ### Phase 1: Setup
-- Create Linear AgentSession on issue
+- Create Linear AgentSession on the issue
 - Generate branch name from issue title (conventional format)
 - **Sequential mode**: Create branch off `main`
 - **Parallel mode**: Create branch off task branch, add worktree
@@ -106,7 +106,7 @@ Sub-agents follow a strict 5-phase lifecycle enforced by `scripts/agent-wrapper.
 - **Sequential mode**: No teardown needed
 - **Parallel mode**: Remove worktree, leave branches for orchestrator
 
-**Critical**: Agents are killed after Phase 4. Session state persists in git notes and Linear. New agent spawns reconstruct context from external state.
+**Critical**: Agents are killed after Phase 4. Linear-backed session state persists in git notes and Linear. New agent spawns reconstruct context from external state.
 
 ## Git Model
 
@@ -114,13 +114,14 @@ Sub-agents follow a strict 5-phase lifecycle enforced by `scripts/agent-wrapper.
 - **Sequential**: `feat/PI-XXX-description` (branch off `main`)
 - **Parallel**: `feat/PI-XXX/agent-<role>` (branch off task branch `feat/PI-XXX-description`)
 - Examples: `feat/pi-56-completion-protocol`, `feat/pi-65/agent-worker`, `fix/pi-72-linear-cleanup`
+- **Direct/no-tracker work**: use the same conventional branch style without a tracker ID, for example `docs/optional-tracker-workflow`
 
 ### Commit Conventions
 Format: `type(scope): description`
 
 **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `build`, `ci`
 
-**Required trailer**: `Co-Authored-By: agent/<role> <session-id@noreply>`
+**Required for wrapper-spawned agent commits**: `Co-Authored-By: agent/<role> <session-id@noreply>`
 
 Example:
 ```
@@ -147,9 +148,9 @@ Co-Authored-By: agent/worker-full 550e8400-e29b-41d4-a716-446655440000@noreply
 5. Pi creates final PR: `feat/PI-XXX-description` → `main`
 6. Review gates apply to final PR
 
-**Always**: Every commit links to Linear issue via `fixes #PI-XXX` in commit message.
+**Linear-backed mode**: commits created for a Linear issue link to that issue via `fixes #PI-XXX` or `closes #PI-XXX` in the commit message. Direct/no-tracker commits omit Linear references.
 
-## Linear Integration
+## Linear-backed Integration
 
 ### State Machine
 
@@ -208,16 +209,18 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 
 ## Dependencies
 
-### Required Tools
-- `gh` (GitHub CLI) - PR creation, issue management
-- `jq` - JSON parsing for Linear API responses
-- `curl` - Linear API calls
+### Base Tools
+- `gh` (GitHub CLI) - PR creation and issue management when a GitHub issue is involved
 - `tsx` - TypeScript execution for Pi CLI
 - `git` - Version control (with `git notes` support)
 - `node` (v18+) - Node.js runtime
 - `npm` - Package manager
 
-### Required Environment Variables
+### Linear-backed Tools
+- `jq` - JSON parsing for Linear API responses
+- `curl` - Linear API calls
+
+### Linear-backed Environment Variables
 | Variable | Description | Used By |
 |----------|-------------|---------|
 | `LINEAR_API_KEY` | User API key for Pi board queries | Pi, wrapper setup |
@@ -235,16 +238,16 @@ Backlog → Todo → Plan → In Progress → In Review → Done
 
 ### Hard Rules (All Agents)
 
-1. **Single source of truth**: Linear is authoritative for task state. Never use custom IDs.
-2. **Everything is an issue**: All work that results in action must have a Linear issue.
+1. **Single source of truth**: Use the active tracker or user-provided task as authoritative. Do not invent custom IDs.
+2. **Issue-backed when provided**: If the task starts from a GitHub or Linear issue, preserve that issue link. If no issue is provided, do not create one unless the user asks.
 3. **Branch for everything**: No direct commits to `main`. No exceptions. Even one-line fixes.
 4. **Conventional commits**: All commits use `type(scope): description` format.
-5. **Co-Authored-By required**: All agent commits must include Co-Authored-By trailer.
-6. **Link commits to issues**: Include `fixes #PI-XXX` or `closes #PI-XXX` in commit messages.
-7. **No orphan commits**: Every commit must trace to a Linear issue.
-8. **Kill after In Review**: Sub-agents are terminated after finalization. Never kept alive.
+5. **Co-Authored-By required for wrapper-spawned agents**: Wrapper-spawned agent commits must include a Co-Authored-By trailer.
+6. **Link commits to issues when applicable**: Include issue-closing keywords only when the task should close that issue.
+7. **No orphan commits**: Every commit must trace to the active issue, user request, or PR context.
+8. **Kill after In Review in Linear-backed mode**: Sub-agents are terminated after finalization. Never kept alive.
 9. **No solo scoping**: Always check scope with Gautam before executing.
-10. **Spec gates execution**: Nothing moves to In Progress without a plan/spec.
+10. **Spec gates execution**: In tracker-backed workflows, nothing moves to In Progress without a plan/spec.
 
 ### Git Safety (Parallel Agents)
 
@@ -266,8 +269,8 @@ Multiple agents may work simultaneously. **NEVER**:
 - **Tools**: read, subagent delegation only. NO write, edit, or bash.
 - **Never auto-execute**: Plans must be reviewed by Gautam before execution.
 - **iMessage = synchronous**: Always acknowledge immediately before starting work.
-- **Linear = async**: Process Linear queue when capacity allows.
-- **One topic at a time**: Focus on single issue before moving to next.
+- **Tracker queue = async**: Process the active tracker queue when capacity allows.
+- **One topic at a time**: Focus on a single task before moving to the next.
 
 ### Sub-Agent Constraints
 
@@ -283,18 +286,18 @@ Multiple agents may work simultaneously. **NEVER**:
 1. **First gate**: `reviewer` agent (fast, cheap, learns patterns)
 2. **Second gate**: 4-agent PR review (Gemini, Codex, Claude, Copilot) on PRs to `main`
 3. **Branch protection**: `main` requires all 4 approvals
-4. **Parallel review**: Independent sub-issues reviewed in parallel, connected ones batched
+4. **Parallel review**: Independent subtasks reviewed in parallel, connected ones batched
 
 ### Communication
 
 - **iMessage**: Synchronous, always respond immediately. Gautam's live line to Pi.
-- **Linear comments**: Automated, technical, concise. No emojis.
-- **Linear activities**: Real-time progress streaming via AgentActivity API.
+- **Tracker comments**: Automated, technical, concise. No emojis.
+- **Linear activities**: Real-time progress streaming via AgentActivity API in Linear-backed mode.
 - **Git notes**: Full session logs attached to commits for audit trail.
 
 ## Environment Variables
 
-All environment variables used by the orchestration system:
+Environment variables used by the Linear-backed orchestration system:
 
 ```bash
 # Required - Linear API Access
