@@ -52,10 +52,19 @@ export function loadConfig(cwd: string, explicitPath?: string): ReviewCloudConfi
 
 export function loadWatchState(path = DEFAULT_STATE_PATH): WatchState {
 	if (!existsSync(path)) return { pullRequests: {} };
-	return JSON.parse(readFileSync(path, "utf-8")) as WatchState;
+	let parsed: unknown;
+	try {
+		parsed = JSON.parse(readFileSync(path, "utf-8")) as unknown;
+	} catch (error) {
+		const message = error instanceof Error ? error.message : String(error);
+		throw new Error(`Auto-review watch state at ${path} is not valid JSON: ${message}`);
+	}
+	assertWatchState(parsed, path);
+	return parsed;
 }
 
 export function saveWatchState(state: WatchState, path = DEFAULT_STATE_PATH): void {
+	assertWatchState(state, path);
 	mkdirSync(dirname(path), { recursive: true });
 	writeFileSync(path, `${JSON.stringify(state, null, 2)}\n`, "utf-8");
 }
@@ -138,6 +147,14 @@ function assertCommandRecord(value: unknown, name: string): void {
 		if (template.env !== undefined && !isStringRecord(template.env)) {
 			throw new Error(`${name}.${key}.env must be an object of strings`);
 		}
+	}
+}
+
+function assertWatchState(value: unknown, path: string): asserts value is WatchState {
+	if (!isRecord(value) || !isStringRecord(value.pullRequests)) {
+		throw new Error(
+			`Auto-review watch state at ${path} must be an object with a pullRequests property mapping PR numbers to string SHAs`,
+		);
 	}
 }
 
