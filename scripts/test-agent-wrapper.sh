@@ -47,10 +47,116 @@ warn() {
     echo -e "${YELLOW}⚠ WARN${NC}: $*"
 }
 
+test_no_tracker_stall_timeout() {
+    log "========================================="
+    log "NO-TRACKER STALL TIMEOUT"
+    log "========================================="
+
+    local temp_dir
+    temp_dir=$(mktemp -d)
+    local wrapper_output="${temp_dir}/wrapper.out"
+    local test_failed=0
+
+    mkdir -p \
+        "${temp_dir}/scripts" \
+        "${temp_dir}/node_modules/.bin" \
+        "${temp_dir}/packages/coding-agent/src" \
+        "${temp_dir}/home/.pi/agent/agents"
+
+    cp "$WRAPPER_SCRIPT" "${temp_dir}/scripts/agent-wrapper.sh"
+    chmod +x "${temp_dir}/scripts/agent-wrapper.sh"
+
+    cat > "${temp_dir}/node_modules/.bin/tsx" <<'EOF'
+#!/usr/bin/env bash
+bash -c 'trap "" TERM; while true; do sleep 1; done' &
+child_pid=$!
+trap 'wait "$child_pid"; exit 143' TERM
+while kill -0 "$child_pid" 2>/dev/null; do
+    sleep 1
+done
+EOF
+    chmod +x "${temp_dir}/node_modules/.bin/tsx"
+
+    cat > "${temp_dir}/home/.pi/agent/agents/worker.md" <<'EOF'
+---
+model:
+tools:
+---
+You are a test worker.
+EOF
+
+    (
+        cd "$temp_dir"
+        git init -q -b main 2>/dev/null || {
+            git init -q
+            git checkout -q -b main
+        }
+        git config user.email "agent-wrapper-test@example.com"
+        git config user.name "Agent Wrapper Test"
+        touch README.md
+        git add README.md
+        git commit -q -m "chore: initial"
+    )
+
+    (
+        cd "$temp_dir"
+        env -u LINEAR_API_KEY -u LINEAR_APP_TOKEN \
+            HOME="${temp_dir}/home" \
+            GH_REPO="example/example" \
+            AGENT_STALL_TIMEOUT_SECONDS=2 \
+            AGENT_STALL_CHECK_INTERVAL_SECONDS=1 \
+            AGENT_STALL_TERMINATION_GRACE_SECONDS=1 \
+            "${temp_dir}/scripts/agent-wrapper.sh" \
+            --issue "no-linear" \
+            --agent worker \
+            --task "stall without output" \
+            --mode sequential
+    ) > "$wrapper_output" 2>&1 &
+
+    local wrapper_pid=$!
+    local deadline=$((SECONDS + 15))
+    while kill -0 "$wrapper_pid" 2>/dev/null && [[ $SECONDS -lt $deadline ]]; do
+        sleep 1
+    done
+
+    if kill -0 "$wrapper_pid" 2>/dev/null; then
+        kill "$wrapper_pid" 2>/dev/null || true
+        wait "$wrapper_pid" 2>/dev/null || true
+        cat "$wrapper_output"
+        fail "No-tracker wrapper timed out a stalled agent"
+        test_failed=1
+    else
+        local wrapper_status=0
+        wait "$wrapper_pid" || wrapper_status=$?
+
+        if [[ $wrapper_status -eq 0 ]]; then
+            cat "$wrapper_output"
+            fail "No-tracker wrapper returned success after killing stalled agent"
+            test_failed=1
+        elif grep -q "Linear credentials not fully configured" "$wrapper_output" \
+            && grep -q "Stall detected: no local output" "$wrapper_output"; then
+            pass "No-tracker wrapper timed out a stalled agent"
+        else
+            cat "$wrapper_output"
+            fail "No-tracker stall output did not include expected watchdog messages"
+            test_failed=1
+        fi
+    fi
+
+    rm -rf "$temp_dir"
+    return "$test_failed"
+}
+
+if [[ "${1:-}" == "--no-tracker-stall-only" ]]; then
+    test_no_tracker_stall_timeout
+    exit $?
+fi
+
 # Source credentials
 if [[ -f .pi/.env ]]; then
     log "Sourcing credentials from .pi/.env"
     set -a
+    # shellcheck source=/dev/null
     source .pi/.env
     set +a
 else
