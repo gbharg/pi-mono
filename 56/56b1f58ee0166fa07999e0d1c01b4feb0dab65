@@ -1,0 +1,27 @@
+memory/daily/2026-06-13.md
+  s_91d111e73559d6::t_64db53c8ececc4 3,5
+memory/daily/2026-06-12.md
+  s_91d111e73559d6::t_fe742b88f091ef 3,5
+memory/daily/2026-06-16.md
+  s_91d111e73559d6::t_5e22ca119482ae 3,5
+memory/sessions/403eb422-ec12-4076-b103-2a01e1af0bf6.md
+  s_91d111e73559d6::t_0f3452a31f68a0 9
+memory/sessions/007ed950-20b4-4cce-9ee0-9f6e8e4968ce.md
+  s_91d111e73559d6::t_6954e6d25d2b06 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "5656b1f58ee0166fa07999e0d1c01b4feb0dab65",
+  "prompts": {},
+  "sessions": {
+    "s_91d111e73559d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3a2ed165-b759-43d2-a4d4-75c471a026d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
