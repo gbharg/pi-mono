@@ -63,7 +63,11 @@ describe("AgentSession auto-compaction queue resume", () => {
 		mkdirSync(tempDir, { recursive: true });
 		vi.useFakeTimers();
 
-		const model = getModel("anthropic", "claude-sonnet-4-5")!;
+		// Pin contextWindow: the live catalog value drifts (200k -> 1M for sonnet-4-5)
+		// and the usage fixtures below assume a 200k window.
+		const baseModel = getModel("anthropic", "claude-sonnet-4-5");
+		if (!baseModel) throw new Error("fixture requires claude-sonnet-4-5 in the model catalog");
+		const model = { ...baseModel, contextWindow: 200_000 };
 		const agent = new Agent({
 			initialState: {
 				model,
