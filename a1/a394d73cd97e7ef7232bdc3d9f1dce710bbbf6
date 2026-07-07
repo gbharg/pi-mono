@@ -1,0 +1,20 @@
+scripts/check-pinned-deps.mjs
+  s_91d111e73559d6::t_96803ec7e5112c 8-9,13-16,20
+  s_91d111e73559d6::t_8309f745f11947 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a1a394d73cd97e7ef7232bdc3d9f1dce710bbbf6",
+  "prompts": {},
+  "sessions": {
+    "s_91d111e73559d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3a2ed165-b759-43d2-a4d4-75c471a026d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
