@@ -1,0 +1,19 @@
+packages/coding-agent/test/agent-session-auto-compaction-queue.test.ts
+  s_91d111e73559d6::t_a7e34d04e580e0 68-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e06fddbb4f9f48e0d9f1ebc780fee83b20e4bf22",
+  "prompts": {},
+  "sessions": {
+    "s_91d111e73559d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3a2ed165-b759-43d2-a4d4-75c471a026d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
