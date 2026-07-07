@@ -5,8 +5,6 @@ const dependencySections = ["dependencies", "devDependencies", "optionalDependen
 const exactVersionPattern = /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
 const ignoredDirectories = new Set([".git", "dist", "node_modules"]);
 // Local, npm-managed extension installs for the pi agent; not tracked by git.
-// Entries are cwd-relative POSIX paths; toRelativePosixPath normalizes candidates
-// so absolute or "./"-shaped walk roots and Windows separators still match.
 const ignoredPaths = new Set([".pi/npm"]);
 const packageJsonFiles = [];
 
