@@ -17,8 +17,9 @@ function toRelativePosixPath(path) {
 function collectPackageJsonFiles(directory) {
 	for (const entry of readdirSync(directory, { withFileTypes: true })) {
 		if (entry.isDirectory()) {
-			if (!ignoredDirectories.has(entry.name) && !ignoredPaths.has(toRelativePosixPath(join(directory, entry.name)))) {
-				collectPackageJsonFiles(join(directory, entry.name));
+			const directoryPath = join(directory, entry.name);
+			if (!ignoredDirectories.has(entry.name) && !ignoredPaths.has(toRelativePosixPath(directoryPath))) {
+				collectPackageJsonFiles(directoryPath);
 			}
 			continue;
 		}
