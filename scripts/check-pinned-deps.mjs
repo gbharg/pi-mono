@@ -1,17 +1,23 @@
 import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { join, relative, sep } from "node:path";
 
 const dependencySections = ["dependencies", "devDependencies", "optionalDependencies"];
 const exactVersionPattern = /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
 const ignoredDirectories = new Set([".git", "dist", "node_modules"]);
 // Local, npm-managed extension installs for the pi agent; not tracked by git.
+// Entries are cwd-relative POSIX paths; toRelativePosixPath normalizes candidates
+// so absolute or "./"-shaped walk roots and Windows separators still match.
 const ignoredPaths = new Set([".pi/npm"]);
 const packageJsonFiles = [];
+
+function toRelativePosixPath(path) {
+	return relative(".", path).split(sep).join("/");
+}
 
 function collectPackageJsonFiles(directory) {
 	for (const entry of readdirSync(directory, { withFileTypes: true })) {
 		if (entry.isDirectory()) {
-			if (!ignoredDirectories.has(entry.name) && !ignoredPaths.has(join(directory, entry.name))) {
+			if (!ignoredDirectories.has(entry.name) && !ignoredPaths.has(toRelativePosixPath(join(directory, entry.name)))) {
 				collectPackageJsonFiles(join(directory, entry.name));
 			}
 			continue;
