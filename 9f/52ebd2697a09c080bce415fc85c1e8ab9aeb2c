@@ -1,0 +1,19 @@
+memory/sessions/007ed950-20b4-4cce-9ee0-9f6e8e4968ce.md
+  s_91d111e73559d6::t_ba11647f15abf0 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9f52ebd2697a09c080bce415fc85c1e8ab9aeb2c",
+  "prompts": {},
+  "sessions": {
+    "s_91d111e73559d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3a2ed165-b759-43d2-a4d4-75c471a026d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
