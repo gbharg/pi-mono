@@ -1,0 +1,19 @@
+packages/coding-agent/examples/sdk/12-full-control.ts
+  s_91d111e73559d6::t_f9cee9dd749b7a 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "56ec14c648cc05253d81d89effc8141597569a5b",
+  "prompts": {},
+  "sessions": {
+    "s_91d111e73559d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3a2ed165-b759-43d2-a4d4-75c471a026d0",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Gautam Bhargava <85711146+gbharg@users.noreply.github.com>"
+    }
+  }
+}
